@@ -20,6 +20,11 @@ function toRouteObject(route: route): RouteObject {
 export const router = createBrowserRouter([
     {
         path: "/",
+        element: <MantineProvider withGlobalStyles withNormalizeCSS theme={{
+            colorScheme: "dark",
+        }}>
+            <Kanban/>
+        </MantineProvider>
     },
     {
         path: "/dashboard",
