@@ -1,4 +1,20 @@
-import {createBrowserRouter} from "react-router-dom"
+import {createBrowserRouter, RouteObject} from "react-router-dom"
+import {route, routes} from "./routes"
+import Kanban from "../pages/task/kanban/kanban";
+import {MantineProvider} from "@mantine/core";
+
+
+function makeRoutes() {
+    return routes.map(toRouteObject)
+}
+
+function toRouteObject(route: route): RouteObject {
+    return {
+        path: route.path,
+        element: route.element,
+        children: route.children?.map(toRouteObject)
+    }
+}
 
 
 export const router = createBrowserRouter([
