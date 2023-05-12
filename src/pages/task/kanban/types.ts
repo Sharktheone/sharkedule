@@ -4,22 +4,21 @@
 export type kanbanType = {
     uuid: string
     name: string
-    description: string
-    members: string[]
-    tags: string[]
-    priority: string
-    status: string
-    dueDate: string
-    dates: string[]
+    description: kanbanDescriptionType
+    members: kanbanMemberType[]
+    tags: kanbanTagType[]
+    priority: kanbanPriorityType
+    status: kanbanStatusType
+    dueDate: kanbanDateDueType
+    dates: kanbanDateType[]
     comments: kanbanCommentType[]
-    attachments: string[]
+    attachments: kanbanAttachmentType[]
     checkList: kanbanCheckListType[]
-    images: string[]
-    archived: boolean
+    images: kanbanImageType[]
+    archived: kanbanArchivedType
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
-    column: kanbanColumnType[]
-
+    columns: kanbanColumnType[]
 }
 
 export type kanbanColumnType = {
@@ -32,21 +31,84 @@ export type kanbanTaskType = {
     uuid: string
     name: string
     type: string
-    members: string[]
-    tags: string[]
-    priority: string
-    status: string
-    dueDate: string
-    dates: string[]
-    description: string
+    members: kanbanMemberType[]
+    tags: kanbanTagType[]
+    priority: kanbanPriorityType
+    status: kanbanStatusType
+    dueDate: kanbanDateDueType
+    dates: kanbanDateType[]
+    description: kanbanDescriptionType
     comments: kanbanCommentType[]
-    attachments: string[]
+    attachments: kanbanAttachmentType[]
     checkList: kanbanCheckListType[]
-    images: string[]
-    archived: boolean
+    images: kanbanImageType[]
+    archived: kanbanArchivedType
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
 }
+
+export type kanbanDescriptionType = {
+    description: string
+}
+
+export type kanbanPriorityType = {
+    uuid: string
+    priority: string
+}
+
+export type kanbanStatusType = {
+    uuid: string
+}
+
+export type kanbanDateDueType = {
+    uuid: string
+    date: string
+}
+
+export type kanbanArchivedType = {
+    archived: boolean
+    date: string
+    user: string
+
+}
+
+export type kanbanMemberType = {
+    uuid: string
+
+}
+
+export type kanbanTagType = {
+    uuid: string
+    name: string
+    color: string
+    icon: string
+}
+
+export type kanbanDateType = {
+    uuid: string,
+    name: string,
+    date: string,
+}
+
+export type kanbanAttachmentType = {
+    uuid: string
+    name: string
+    type: string
+    size: string
+    date: string
+    user: string
+}
+
+export type kanbanImageType = {
+    uuid: string
+    name: string
+    type: string
+    size: string
+    date: string
+    user: string
+    url: string
+}
+
 
 export type kanbanCommentType = {
     uuid: string
