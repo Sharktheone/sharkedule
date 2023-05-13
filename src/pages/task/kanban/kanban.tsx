@@ -35,52 +35,5 @@ export default function Kanban() {
             ))}
         </Group>
 )
-
-    // return (
-    //     <DragDropContext
-    //         onDragEnd={({destination, source}) => {
-    //             console.log(destination, source)
-    //
-    //             handlers.reorder({from: source.index, to: destination?.index || source.index})
-    //         }
-    //         }
-    //     >
-    //         <Flex justify={"space-between"} gap={rem(16)}>
-    //             <Droppable droppableId="tasks" direction="vertical">
-    //                 {(provided) => (
-    //                     <div {...provided.droppableProps} ref={provided.innerRef}>
-    //                         {items}
-    //                         {provided.placeholder}
-    //                     </div>
-    //                 )}
-    //             </Droppable>
-    //         </Flex>
-    //     </DragDropContext>
-    // );
 }
 
-
-// const useStyles = createStyles((theme) => ({
-//     item: {
-//         ...theme.fn.focusStyles(),
-//         display: 'flex',
-//         alignItems: 'center',
-//         borderRadius: theme.radius.md,
-//         border: `${rem(1)} solid ${
-//             theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-//         }`,
-//         padding: `${theme.spacing.sm} ${theme.spacing.xl}`,
-//         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
-//         marginBottom: theme.spacing.sm,
-//     },
-//
-//     itemDragging: {
-//         boxShadow: theme.shadows.sm,
-//     },
-//
-//     symbol: {
-//         fontSize: rem(30),
-//         fontWeight: 700,
-//         width: rem(60),
-//     },
-// }));
