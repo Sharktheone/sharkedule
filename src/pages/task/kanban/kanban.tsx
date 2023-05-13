@@ -1,4 +1,4 @@
-import {createStyles, Group, rem} from '@mantine/core';
+import {Group} from '@mantine/core';
 import test_data from "./test_data.json"
 import {DragDropContext, DropResult, ResponderProvided} from "react-beautiful-dnd"
 import Column from "./column/column";
