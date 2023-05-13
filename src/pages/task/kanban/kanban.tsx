@@ -1,10 +1,11 @@
 import {createStyles, Group, rem} from '@mantine/core';
 import test_data from "./test_data.json"
+import {DragDropContext, DropResult, ResponderProvided} from "react-beautiful-dnd"
+import Column from "./column/column";
+import {useState} from "react"
+import {kanbanBoardType} from "./types"
 export default function Kanban() {
     const [board, setBoard] = useState<kanbanBoardType>(test_data as unknown as kanbanBoardType)
-
-    console.log(board)
-
     // const items = state.map((item, index) => (
     //     <Draggable key={item.symbol} index={index} draggableId={item.symbol}>
     //         {(provided, snapshot) => (
@@ -53,52 +54,33 @@ export default function Kanban() {
     //                     </div>
     //                 )}
     //             </Droppable>
-    //             <Droppable droppableId="in-progress" direction="vertical">
-    //                 {(provided) => (
-    //                     <div {...provided.droppableProps} ref={provided.innerRef}>
-    //                         {items}
-    //                         {provided.placeholder}
-    //                     </div>
-    //                 )}
-    //             </Droppable>
-    //             <Droppable droppableId="finished" direction="vertical">
-    //                 {(provided) => (
-    //                     <div {...provided.droppableProps} ref={provided.innerRef}>
-    //                         {items}
-    //                         {provided.placeholder}
-    //                     </div>
-    //                 )}
-    //             </Droppable>
     //         </Flex>
     //     </DragDropContext>
     // );
 }
 
-import Column from "./column/column";
-import {useState} from "react"
-import {kanbanBoardType} from "./types"
 
-const useStyles = createStyles((theme) => ({
-    item: {
-        ...theme.fn.focusStyles(),
-        display: 'flex',
-        alignItems: 'center',
-        borderRadius: theme.radius.md,
-        border: `${rem(1)} solid ${
-            theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-        }`,
-        padding: `${theme.spacing.sm} ${theme.spacing.xl}`,
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
-        marginBottom: theme.spacing.sm,
-    },
-
-    itemDragging: {
-        boxShadow: theme.shadows.sm,
-    },
-
-    symbol: {
-        fontSize: rem(30),
-        fontWeight: 700,
-        width: rem(60),
-    },
-}));
+// const useStyles = createStyles((theme) => ({
+//     item: {
+//         ...theme.fn.focusStyles(),
+//         display: 'flex',
+//         alignItems: 'center',
+//         borderRadius: theme.radius.md,
+//         border: `${rem(1)} solid ${
+//             theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+//         }`,
+//         padding: `${theme.spacing.sm} ${theme.spacing.xl}`,
+//         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
+//         marginBottom: theme.spacing.sm,
+//     },
+//
+//     itemDragging: {
+//         boxShadow: theme.shadows.sm,
+//     },
+//
+//     symbol: {
+//         fontSize: rem(30),
+//         fontWeight: 700,
+//         width: rem(60),
+//     },
+// }));
