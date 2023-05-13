@@ -12,7 +12,6 @@ export default function Kanban() {
         console.log(result)
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
-        console.log("fromColumn:", source.droppableId, "\n", "taskUUID:", draggableId, "\n", "toIndex:", destination.index, "\n", "toColumn:", destination.droppableId)
         reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
     }
 
