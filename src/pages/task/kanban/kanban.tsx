@@ -1,6 +1,82 @@
-import { createStyles, Text, rem } from '@mantine/core';
-import { useListState } from '@mantine/hooks';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {createStyles, Group, rem} from '@mantine/core';
+import test_data from "./test_data.json"
+export default function Kanban() {
+    const [board, setBoard] = useState<kanbanBoardType>(test_data as unknown as kanbanBoardType)
+
+    console.log(board)
+
+    // const items = state.map((item, index) => (
+    //     <Draggable key={item.symbol} index={index} draggableId={item.symbol}>
+    //         {(provided, snapshot) => (
+    //             <div
+    //                 className={cx(classes.item, {[classes.itemDragging]: snapshot.isDragging})}
+    //                 {...provided.draggableProps}
+    //                 {...provided.dragHandleProps}
+    //                 ref={provided.innerRef}
+    //             >
+    //                 <Text className={classes.symbol}>{item.symbol}</Text>
+    //                 <div>
+    //                     <Text>{item.name}</Text>
+    //                     <Text color="dimmed" size="sm">
+    //                         Position: {item.position} • Mass: {item.mass}
+    //                     </Text>
+    //                 </div>
+    //             </div>
+    //         )}
+    //     </Draggable>
+    // ));
+
+
+    return (
+        <Group position="center" noWrap={true}>
+            {board.columns?.map((column) => (
+                <Column key={column.uuid} column={column}/>
+            ))}
+        </Group>
+)
+
+    // return (
+    //     <DragDropContext
+    //         onDragEnd={({destination, source}) => {
+    //             console.log(destination, source)
+    //
+    //             handlers.reorder({from: source.index, to: destination?.index || source.index})
+    //         }
+    //         }
+    //     >
+    //         <Flex justify={"space-between"} gap={rem(16)}>
+    //             <Droppable droppableId="tasks" direction="vertical">
+    //                 {(provided) => (
+    //                     <div {...provided.droppableProps} ref={provided.innerRef}>
+    //                         {items}
+    //                         {provided.placeholder}
+    //                     </div>
+    //                 )}
+    //             </Droppable>
+    //             <Droppable droppableId="in-progress" direction="vertical">
+    //                 {(provided) => (
+    //                     <div {...provided.droppableProps} ref={provided.innerRef}>
+    //                         {items}
+    //                         {provided.placeholder}
+    //                     </div>
+    //                 )}
+    //             </Droppable>
+    //             <Droppable droppableId="finished" direction="vertical">
+    //                 {(provided) => (
+    //                     <div {...provided.droppableProps} ref={provided.innerRef}>
+    //                         {items}
+    //                         {provided.placeholder}
+    //                     </div>
+    //                 )}
+    //             </Droppable>
+    //         </Flex>
+    //     </DragDropContext>
+    // );
+}
+
+import Column from "./column/column";
+import {useState} from "react"
+import {kanbanBoardType} from "./types"
 
 const useStyles = createStyles((theme) => ({
     item: {
@@ -26,65 +102,3 @@ const useStyles = createStyles((theme) => ({
         width: rem(60),
     },
 }));
-
-interface DndListProps {
-    data: {
-        position: number;
-        mass: number;
-        symbol: string;
-        name: string;
-    }[];
-}
-
-export default function Kanban() {
-
-    const data = [
-        { position: 1, mass: 1.0079, symbol: 'H', name: 'Hydrogen' },
-        { position: 2, mass: 4.0026, symbol: 'He', name: 'Helium' },
-        { position: 3, mass: 6.941, symbol: 'Li', name: 'Lithium' },
-        { position: 4, mass: 9.0122, symbol: 'Be', name: 'Beryllium' },
-        { position: 5, mass: 10.811, symbol: 'B', name: 'Boron' },
-        { position: 6, mass: 12.0107, symbol: 'C', name: 'Carbon' },
-        { position: 7, mass: 14.0067, symbol: 'N', name: 'Nitrogen' },
-    ]
-    const { classes, cx } = useStyles();
-    const [state, handlers] = useListState(data);
-
-    const items = state.map((item, index) => (
-        <Draggable key={item.symbol} index={index} draggableId={item.symbol}>
-            {(provided, snapshot) => (
-                <div
-                    className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging })}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    ref={provided.innerRef}
-                >
-                    <Text className={classes.symbol}>{item.symbol}</Text>
-                    <div>
-                        <Text>{item.name}</Text>
-                        <Text color="dimmed" size="sm">
-                            Position: {item.position} • Mass: {item.mass}
-                        </Text>
-                    </div>
-                </div>
-            )}
-        </Draggable>
-    ));
-
-    return (
-        <DragDropContext
-            onDragEnd={({ destination, source }) =>
-                handlers.reorder({ from: source.index, to: destination?.index || 0 })
-            }
-        >
-            <Droppable droppableId="dnd-list" direction="vertical">
-                {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {items}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
-    );
-}

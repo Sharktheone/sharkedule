@@ -1,17 +1,22 @@
-import {Container, createStyles, Text, Title} from "@mantine/core";
+import {Title} from "@mantine/core"
 import {useStyles} from "./styles";
 import Task from "./task/task"
+import {kanbanColumnType} from "../types"
 
-export default function Column() {
+type ColumnProps = {
+    column: kanbanColumnType
+}
+
+export default function Column({column}: ColumnProps) {
     const {classes, cx} = useStyles();
     return (
-        <Container className={cx(classes.column)}>
-            <Title align="left" className={cx(classes.title)} order={3}>Column</Title>
-            <Task/>
-            <Task/>
-            <Task/>
-            <Task/>
-            <Task/>
-        </Container>
+        <div className={cx(classes.column)}>
+            <Title align="left" className={cx(classes.title)} order={3}>{column.name}</Title>
+            <div>
+                {column.tasks?.map((task) => (
+                    <Task key={task.uuid} task={task}/>
+                ))}
+            </div>
+        </div>
     )
 }
