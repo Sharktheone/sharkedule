@@ -6,34 +6,38 @@ import {useState} from "react"
 import {kanbanBoardType} from "./types"
 export default function Kanban() {
     const [board, setBoard] = useState<kanbanBoardType>(test_data as unknown as kanbanBoardType)
-    // const items = state.map((item, index) => (
-    //     <Draggable key={item.symbol} index={index} draggableId={item.symbol}>
-    //         {(provided, snapshot) => (
-    //             <div
-    //                 className={cx(classes.item, {[classes.itemDragging]: snapshot.isDragging})}
-    //                 {...provided.draggableProps}
-    //                 {...provided.dragHandleProps}
-    //                 ref={provided.innerRef}
-    //             >
-    //                 <Text className={classes.symbol}>{item.symbol}</Text>
-    //                 <div>
-    //                     <Text>{item.name}</Text>
-    //                     <Text color="dimmed" size="sm">
-    //                         Position: {item.position} • Mass: {item.mass}
-    //                     </Text>
-    //                 </div>
-    //             </div>
-    //         )}
-    //     </Draggable>
-    // ));
+
+    function dragEndHandler(result: DropResult, provided: ResponderProvided) {
+        let {destination, source, draggableId} = result
+        console.log(result)
+        if (!destination) return
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return
+        console.log("fromColumn:", source.droppableId, "\n", "taskUUID:", draggableId, "\n", "toIndex:", destination.index, "\n", "toColumn:", destination.droppableId)
+        reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
+    }
+
+    function reorderTask(fromColumn: string, uuid: string, to : number, toColumn: string, ) {
+        let newBoard = {...board}
+
+        let fromColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === fromColumn)
+        let toColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === toColumn)
+        let taskIndex = newBoard?.columns[fromColumnIndex]?.tasks?.findIndex((task) => task.uuid === uuid)
+        let [task] = newBoard?.columns[fromColumnIndex]?.tasks?.splice(taskIndex, 1)
+
+
+        newBoard?.columns[toColumnIndex]?.tasks?.splice(to, 0, task)
+        setBoard(newBoard)
+    }
 
 
     return (
-        <Group position="center" noWrap={true}>
-            {board.columns?.map((column) => (
-                <Column key={column.uuid} column={column}/>
-            ))}
-        </Group>
+        <DragDropContext onDragEnd={dragEndHandler}>
+            <Group position="center" align="start" noWrap={true}>
+                {board.columns?.map((column) => (
+                    <Column key={column.uuid} column={column}/>
+                ))}
+            </Group>
+        </DragDropContext>
 )
 }
 
