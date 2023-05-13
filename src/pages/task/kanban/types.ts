@@ -1,7 +1,4 @@
-
-
-
-export type kanbanType = {
+export type kanbanBoardType = {
     uuid: string
     name: string
     description: kanbanDescriptionType
@@ -24,7 +21,8 @@ export type kanbanType = {
 export type kanbanColumnType = {
     uuid: string
     name: string
-    task: kanbanTaskType[]
+    description: kanbanDescriptionType
+    tasks: kanbanTaskType[]
 }
 
 export type kanbanTaskType = {
