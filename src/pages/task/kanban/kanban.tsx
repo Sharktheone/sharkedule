@@ -1,13 +1,13 @@
 import {Group} from '@mantine/core';
 import test_data from "./test_data.json"
-import {DragDropContext, DropResult, ResponderProvided} from "react-beautiful-dnd"
+import {DragDropContext, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column";
 import {useState} from "react"
 import {kanbanBoardType} from "./types"
 export default function Kanban() {
     const [board, setBoard] = useState<kanbanBoardType>(test_data as unknown as kanbanBoardType)
 
-    function dragEndHandler(result: DropResult, provided: ResponderProvided) {
+    function dragEndHandler(result: DropResult) {
         let {destination, source, draggableId} = result
         console.log(result)
         if (!destination) return
@@ -41,12 +41,23 @@ export default function Kanban() {
         setBoard(newBoard)
     }
 
+    function renameColumn(uuid: string, name: string) {
+        let newBoard = {...board}
+        newBoard.columns?.forEach((column) => {
+            if (column.uuid === uuid) {
+                column.name = name
+                return
+            }
+        })
+        setBoard(newBoard)
+    }
+
 
     return (
         <DragDropContext onDragEnd={dragEndHandler}>
             <Group position="center" align="start" noWrap={true}>
                 {board.columns?.map((column) => (
-                    <Column key={column.uuid} column={column} renameTask={renameTask}/>
+                    <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}/>
                 ))}
             </Group>
         </DragDropContext>
