@@ -4,6 +4,7 @@ import Task from "./task/task"
 import {kanbanColumnType} from "../types"
 import {Draggable, Droppable} from "react-beautiful-dnd"
 import {useState} from "react"
+import styles from "./styles.module.scss"
 
 type ColumnProps = {
     column: kanbanColumnType
@@ -35,9 +36,9 @@ export default function Column({column, renameColumn,  renameTask}: ColumnProps)
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                             {column.tasks?.map((task, index) => (
                                 <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
-                                    {(provided) => (
+                                    {(provided, snapshot) => (
                                         <div
-                                            // className={cx(classes.task, {[classes.taskDragging]: snapshot.isDragging})}
+                                            className={snapshot.isDragging ? styles.dragging : ""}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
 
