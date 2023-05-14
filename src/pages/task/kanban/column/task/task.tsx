@@ -5,10 +5,11 @@ import {useRef, useState} from "react"
 
 type TaskProps = {
     task: kanbanTaskType
+    renameTask: (uuid: string, name: string) => void
 }
 
 
-export default function Task({task}: TaskProps) {
+export default function Task({task, renameTask}: TaskProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
 
@@ -18,7 +19,7 @@ export default function Task({task}: TaskProps) {
 
     function handleBlur(e: any) {
         setEditable(false)
-        console.log(e.target.innerText)
+        renameTask(task.uuid, e.target.innerText)
     }
 
     return (

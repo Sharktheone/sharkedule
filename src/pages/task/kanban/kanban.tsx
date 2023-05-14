@@ -28,12 +28,25 @@ export default function Kanban() {
         setBoard(newBoard)
     }
 
+    function renameTask(uuid: string, name: string) {
+        let newBoard = {...board}
+        newBoard.columns?.forEach((column) => {
+            column.tasks?.forEach((task) => {
+                if (task.uuid === uuid) {
+                    task.name = name
+                    return
+                }
+            })
+        })
+        setBoard(newBoard)
+    }
+
 
     return (
         <DragDropContext onDragEnd={dragEndHandler}>
             <Group position="center" align="start" noWrap={true}>
                 {board.columns?.map((column) => (
-                    <Column key={column.uuid} column={column}/>
+                    <Column key={column.uuid} column={column} renameTask={renameTask}/>
                 ))}
             </Group>
         </DragDropContext>

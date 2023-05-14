@@ -6,9 +6,10 @@ import {Draggable, Droppable} from "react-beautiful-dnd"
 
 type ColumnProps = {
     column: kanbanColumnType
+    renameTask: (uuid: string, name: string) => void
 }
 
-export default function Column({column}: ColumnProps) {
+export default function Column({column, renameTask}: ColumnProps) {
     const {classes, cx} = useStyles()
     return (
         <div className={cx(classes.column)}>
@@ -28,7 +29,7 @@ export default function Column({column}: ColumnProps) {
                                         >
 
                                             <div style={{paddingBottom: "0.625rem"}}>
-                                                <Task key={task.uuid} task={task}/>
+                                                <Task key={task.uuid} task={task} renameTask={renameTask}/>
                                             </div>
                                         </div>
                                     )}
