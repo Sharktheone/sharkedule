@@ -10,7 +10,6 @@ export const useStyles = createStyles((theme) => ({
         }`,
         borderRadius: theme.radius.sm,
         padding: theme.spacing.xs,
-        marginBottom: theme.spacing.xs,
         boxShadow: theme.shadows.sm,
     }
 }))

@@ -16,21 +16,24 @@ export default function Column({column}: ColumnProps) {
             <Droppable droppableId={column.uuid} direction="vertical">
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {column.tasks?.map((task, index) => (
-                            <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
-                                {(provided, snapshot) => (
-                                    <div
-                                        // className={cx(classes.task, {[classes.taskDragging]: snapshot.isDragging})}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
+                            {column.tasks?.map((task, index) => (
+                                <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
+                                    {(provided, snapshot) => (
+                                        <div
+                                            // className={cx(classes.task, {[classes.taskDragging]: snapshot.isDragging})}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
 
-                                     ref={provided.innerRef}
-                                    >
-                                        <Task key={task.uuid} task={task}/>
-                                    </div>
-                                )}
-                            </Draggable>
-                        ))}
+                                            ref={provided.innerRef}
+                                        >
+
+                                            <div style={{paddingBottom: "0.625rem"}}>
+                                                <Task key={task.uuid} task={task}/>
+                                            </div>
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
                         {provided.placeholder}
                     </div>
                 )}
