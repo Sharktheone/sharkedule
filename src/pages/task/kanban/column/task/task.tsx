@@ -9,30 +9,21 @@ type TaskProps = {
 
 
 export default function Task({task}: TaskProps) {
-    const {classes, cx} = useStyles();
-    const [name, setName] = useState(task.name)
-    const ref = useRef<HTMLDivElement | null>(null)
-
-    ref?.current?.addEventListener('change', function () {
-        console.log(ref?.current?.innerText)
-    })
+    const {classes, cx} = useStyles()
+    const [editable, setEditable] = useState(false)
 
     function editText() {
-        ref!.current!.contentEditable = "true"
-    }
-
-    function handleChange(e: any) {
-        setName(e.target.innerText)
+        setEditable(true)
     }
 
     function handleBlur(e: any) {
-        ref!.current!.contentEditable = "false"
+        setEditable(false)
         console.log(e.target.innerText)
     }
 
     return (
         <Flex className={cx(classes.task)}>
-            <Text onClick={editText} onInput={handleChange} onBlur={handleBlur} ref={ref} w="100%" h="100%">
+            <Text onClick={editText} onBlur={handleBlur} contentEditable={editable} w="100%" h="100%">
                 {task.name}
             </Text>
         </Flex>
