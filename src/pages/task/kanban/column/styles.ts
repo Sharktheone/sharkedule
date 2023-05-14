@@ -5,7 +5,7 @@ export const useStyles = createStyles((theme) => ({
     column: {
         backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
         padding: "1rem",
-        borderRadius: theme.radius.sm,
+        borderRadius: theme.radius.md,
         border: `1px solid ${
             theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
         }`,

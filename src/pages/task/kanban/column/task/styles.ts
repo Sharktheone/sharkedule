@@ -8,7 +8,7 @@ export const useStyles = createStyles((theme) => ({
         border: `1px solid ${
             theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
         }`,
-        borderRadius: theme.radius.sm,
+        borderRadius: theme.radius.md,
         padding: theme.spacing.xs,
         boxShadow: theme.shadows.sm,
     }
