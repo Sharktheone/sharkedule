@@ -1,0 +1,28 @@
+
+.boards {
+  border-radius: .5rem;
+  & > h1 {
+    margin-bottom: 4rem;
+  }
+  & > ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
+
+    & > li {
+      width: 100%;
+    }
+
+    & > li > a {
+      display: block;
+      padding: .5rem;
+      appearance: none;
+      text-decoration: none;
+      border-radius: .5rem;
+      border-style: solid;
+      border-width: 1px;
+    }
+  }
+}
