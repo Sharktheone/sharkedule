@@ -8,6 +8,8 @@ import (
 func Start() {
 	r := gin.Default()
 
+	r.Use(cors())
+
 	web.Serve(r)
 
 	if err := r.Run(":8080"); err != nil {
