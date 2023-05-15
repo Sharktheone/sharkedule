@@ -29,20 +29,6 @@ func loadTestBoard() {
 	if err := json.NewDecoder(boards).Decode(&kanbanBoard); err != nil {
 		log.Fatalf("Error decoding test_data.json: %v", err)
 	}
-
-}
-
-func GetKanbanBoard(c *gin.Context) {
-
-	uuid := c.Param("uuid")
-
-	if board, err := getBoard(uuid); err != nil || board.UUID == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
-	} else {
-		c.JSON(http.StatusOK, board)
-		return
-	}
 }
 
 func getBoard(uuid string) (kanbanboard.KanbanBoard, error) {
@@ -57,4 +43,45 @@ func getBoard(uuid string) (kanbanboard.KanbanBoard, error) {
 	}
 
 	return kanbanboard.KanbanBoard{}, errors.New("board not found")
+}
+
+func GetKanbanBoard(c *gin.Context) {
+	uuid := c.Param("uuid")
+
+	if board, err := getBoard(uuid); err != nil || board.UUID == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	} else {
+		c.JSON(http.StatusOK, board)
+		return
+	}
+}
+
+func ListKanbanBoards(c *gin.Context) {
+	if kanbanBoard == nil {
+		loadTestBoard()
+	}
+
+	c.JSON(http.StatusOK, kanbanBoard)
+	return
+}
+
+func ListKanbanBoardNames(c *gin.Context) {
+	if kanbanBoard == nil {
+		loadTestBoard()
+	}
+
+	type BoardName struct {
+		UUID string `json:"uuid"`
+		Name string `json:"name"`
+	}
+
+	var boardNames []BoardName
+
+	for _, board := range kanbanBoard {
+		boardNames = append(boardNames, BoardName{UUID: board.UUID, Name: board.Name})
+	}
+
+	c.JSON(http.StatusOK, boardNames)
+	return
 }

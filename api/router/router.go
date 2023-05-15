@@ -16,6 +16,8 @@ func Start() {
 	api := r.Group("/api")
 	{
 		api.GET("/task/:uuid", tasks.GetKanbanBoard)
+		api.GET("/task/list", tasks.ListKanbanBoards)
+		api.GET("/task/list/names", tasks.ListKanbanBoardNames)
 	}
 
 	if err := r.Run(":8080"); err != nil {
