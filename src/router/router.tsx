@@ -2,6 +2,8 @@ import {createBrowserRouter, RouteObject} from "react-router-dom"
 import {route, routes} from "./routes"
 import Kanban from "../pages/task/kanban/kanban"
 import KanbanBoardLoader from "../pages/task/kanban/loader"
+import KanbanBoards from "../pages/task/kanbanboards"
+import boardsLoader from "../pages/task/boardsloader"
 
 
 function makeRoutes() {
@@ -32,6 +34,8 @@ export const router = createBrowserRouter([
     },
     {
         path: "/task",
+        element: <KanbanBoards/>,
+        loader:  boardsLoader,
         children: [
             {
                 path: "assigned"
@@ -39,12 +43,12 @@ export const router = createBrowserRouter([
             {
                 path: "new"
             },
-            {
-                path: ":uuid",
-                loader: KanbanBoardLoader,
-                element: <Kanban/>,
-            }
         ]
+    },
+    {
+        path: "/task/:uuid",
+        loader: KanbanBoardLoader,
+        element: <Kanban/>,
     },
     {
         path: "/calendar",
