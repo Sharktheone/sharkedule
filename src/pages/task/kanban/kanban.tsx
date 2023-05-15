@@ -4,8 +4,10 @@ import {DragDropContext, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column";
 import {useState} from "react"
 import {kanbanBoardType} from "./types"
+import {useLoaderData} from "react-router-dom"
 export default function Kanban() {
-    const [board, setBoard] = useState<kanbanBoardType>(test_data as unknown as kanbanBoardType)
+    const loaderData = useLoaderData()
+    const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
 
     function dragEndHandler(result: DropResult) {
         let {destination, source, draggableId} = result
