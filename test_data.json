@@ -1,0 +1,52 @@
+[{
+  "uuid": "0ad740b4-aec4-4af9-b267-5f5dd194fe5f",
+  "name": "Test Board",
+  "columns": [
+    {
+      "uuid": "306db20e-3090-47dd-be00-e906c07ec4ba",
+      "name": "TODO",
+      "tasks": [
+        {
+          "uuid": "c0ce65b1-7c11-45fb-83ae-1fc5f7dc7eee",
+          "name": "Implement Drag and Drop"
+        },
+        {
+          "uuid": "399aae6c-47ec-43d4-b89f-be1d13aafdfe",
+          "name": "Implement Task Details"
+        },
+        {
+          "uuid": "d9102ad6-2a45-4dbe-90c3-94667997c2c0",
+          "name": "Implement Tags"
+        }
+      ]
+    },
+    {
+      "uuid": "75a1b255-3fee-4846-99a9-0857d8c9552c",
+      "name": "In Progress",
+      "tasks": [
+        {
+          "uuid": "6559ca9a-8180-4af4-8ab3-82a607f42ff2",
+          "name": "Parse Columns and Tasks"
+        },
+        {
+          "uuid": "3afcb794-8189-4699-8dfa-2ece6fc18136",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "uuid": "a5cc4f76-4431-4062-a782-971db111e6be",
+      "name": "Done",
+      "tasks": [
+        {
+          "uuid": "43cf8c0e-74fd-4194-a274-0c61f4ca4eb2",
+          "name": "Basic Design"
+        },
+        {
+          "uuid": "551ffb47-7143-405c-a97d-4a24f21bd446",
+          "name": "Implement Board"
+        }
+      ]
+    }
+  ]
+}]
