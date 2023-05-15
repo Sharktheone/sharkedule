@@ -1,7 +1,6 @@
 import {createBrowserRouter, RouteObject} from "react-router-dom"
 import {route, routes} from "./routes"
-import Kanban from "../pages/task/kanban/kanban";
-import {MantineProvider} from "@mantine/core";
+import Kanban from "../pages/task/kanban/kanban"
 
 
 function makeRoutes() {
@@ -20,11 +19,7 @@ function toRouteObject(route: route): RouteObject {
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <MantineProvider withGlobalStyles withNormalizeCSS theme={{
-            colorScheme: "dark",
-        }}>
-            <Kanban/>
-        </MantineProvider>
+        element: <Kanban/>
     },
     {
         path: "/dashboard",
