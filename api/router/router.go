@@ -20,7 +20,7 @@ func Start() {
 			task.GET("/:uuid", tasks.GetKanbanBoard)
 			task.GET("/list", tasks.ListKanbanBoards)
 			task.GET("/list/names", tasks.ListKanbanBoardNames)
-			task.PUT("/", tasks.CreateKanbanBoard)
+			task.PUT("/new", tasks.CreateKanbanBoard)
 		}
 	}
 
