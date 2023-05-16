@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"log"
 	"net/http"
 	"os"
@@ -83,5 +84,31 @@ func ListKanbanBoardNames(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, boardNames)
+	return
+}
+
+func CreateKanbanBoard(c *gin.Context) {
+
+	type BoardName struct {
+		Name string `json:"name"`
+	}
+
+	var board BoardName
+
+	if err := c.ShouldBindJSON(&board); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	boardUUID := uuid.NewV4().String()
+
+	var kBoard kanbanboard.KanbanBoard
+
+	kBoard.Name = board.Name
+	kBoard.UUID = boardUUID
+
+	kanbanBoard = append(kanbanBoard, kBoard)
+
+	c.JSON(http.StatusOK, gin.H{"uuid": boardUUID})
 	return
 }
