@@ -13,8 +13,6 @@ export const useStyles = createStyles((theme) => ({
         shadow: theme.shadows.md,
     },
     title: {
-        borderRadius: theme.radius.sm,
         marginBottom: rem(20),
-
     }
 }))

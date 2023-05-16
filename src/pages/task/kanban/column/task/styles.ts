@@ -11,5 +11,6 @@ export const useStyles = createStyles((theme) => ({
         borderRadius: theme.radius.md,
         padding: theme.spacing.xs,
         boxShadow: theme.shadows.sm,
+        transition: "height 200ms ease",
     }
 }))
