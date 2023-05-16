@@ -1,10 +1,10 @@
-import {Group} from '@mantine/core';
-import test_data from "./test_data.json"
+import {Group} from '@mantine/core'
 import {DragDropContext, DropResult} from "react-beautiful-dnd"
-import Column from "./column/column";
+import Column from "./column/column"
 import {useState} from "react"
 import {kanbanBoardType} from "./types"
 import {useLoaderData} from "react-router-dom"
+
 export default function Kanban() {
     const loaderData = useLoaderData()
     const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
@@ -17,7 +17,7 @@ export default function Kanban() {
         reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
     }
 
-    function reorderTask(fromColumn: string, uuid: string, to : number, toColumn: string, ) {
+    function reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
         let newBoard = {...board}
 
         let fromColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === fromColumn)
@@ -63,6 +63,6 @@ export default function Kanban() {
                 ))}
             </Group>
         </DragDropContext>
-)
+    )
 }
 

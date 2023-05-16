@@ -1,7 +1,4 @@
-import {
-    IconArrowBigLeft,
-    IconError404, IconReload
-} from "@tabler/icons-react"
+import {IconArrowBigLeft, IconError404, IconReload} from "@tabler/icons-react"
 import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-router-dom"
 import {Button, Stack, Text, Title, useMantineTheme} from "@mantine/core"
 
@@ -15,13 +12,13 @@ export default function BoardsError() {
     function Navigation() {
         return (
             <Stack className={styles.errornav} align="center">
-                <Button gradient={{ from: 'teal', to: 'blue', deg: 60 }} variant="gradient" onClick={() => navigate(-1)}>
+                <Button gradient={{from: 'teal', to: 'blue', deg: 60}} variant="gradient" onClick={() => navigate(-1)}>
                     <IconArrowBigLeft/>
                     <div>
                         Go Back
                     </div>
                 </Button>
-                <Button gradient={{ from: "teal", to: "lime", deg: 105 }} variant="gradient" onClick={() => navigate("")}>
+                <Button gradient={{from: "teal", to: "lime", deg: 105}} variant="gradient" onClick={() => navigate("")}>
                     <IconReload/>
                     <div>
                         Try Again
@@ -58,7 +55,8 @@ export default function BoardsError() {
                 return (
                     <div>
                         <Title color={theme.colors.red[4]}>Server Error</Title>
-                        <Text color={theme.colors.red[4]} size={"lg"}>Looks like our API is down, please try again later</Text>
+                        <Text color={theme.colors.red[4]} size={"lg"}>Looks like our API is down, please try again
+                            later</Text>
                         <Text color={theme.colors.red[4]}> {error.data.sorry} </Text>
                         <Navigation/>
                     </div>

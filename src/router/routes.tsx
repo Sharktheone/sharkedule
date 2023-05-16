@@ -1,4 +1,4 @@
-import {DataRouteObject, RouteObject} from "react-router-dom"
+import {RouteObject} from "react-router-dom"
 
 
 export type route = {
@@ -6,7 +6,7 @@ export type route = {
     authentication_needed: boolean,
     children?: route[],
 
-} &Omit<RouteObject, 'children'>
+} & Omit<RouteObject, 'children'>
 
 
 export let routes: route[] = [

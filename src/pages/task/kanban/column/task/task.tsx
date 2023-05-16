@@ -1,7 +1,7 @@
 import {Flex, Text} from "@mantine/core"
 import {useStyles} from "./styles"
 import {kanbanTaskType} from "../../types"
-import {useRef, useState} from "react"
+import {useState} from "react"
 
 type TaskProps = {
     task: kanbanTaskType

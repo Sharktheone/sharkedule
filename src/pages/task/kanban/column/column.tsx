@@ -12,7 +12,7 @@ type ColumnProps = {
     renameTask: (uuid: string, name: string) => void
 }
 
-export default function Column({column, renameColumn,  renameTask}: ColumnProps) {
+export default function Column({column, renameColumn, renameTask}: ColumnProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
 
@@ -34,24 +34,24 @@ export default function Column({column, renameColumn,  renameTask}: ColumnProps)
             <Droppable droppableId={column.uuid} direction="vertical">
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {column.tasks?.map((task, index) => (
-                                <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            className={snapshot.isDragging ? styles.dragging : ""}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
+                        {column.tasks?.map((task, index) => (
+                            <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
+                                {(provided, snapshot) => (
+                                    <div
+                                        className={snapshot.isDragging ? styles.dragging : ""}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
 
-                                            ref={provided.innerRef}
-                                        >
+                                        ref={provided.innerRef}
+                                    >
 
-                                            <div style={{paddingBottom: "0.625rem"}}>
-                                                <Task key={task.uuid} task={task} renameTask={renameTask}/>
-                                            </div>
+                                        <div style={{paddingBottom: "0.625rem"}}>
+                                            <Task key={task.uuid} task={task} renameTask={renameTask}/>
                                         </div>
-                                    )}
-                                </Draggable>
-                            ))}
+                                    </div>
+                                )}
+                            </Draggable>
+                        ))}
                         {provided.placeholder}
                     </div>
                 )}
