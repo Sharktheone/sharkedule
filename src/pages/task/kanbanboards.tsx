@@ -22,10 +22,11 @@ export default function KanbanBoards() {
 
     return (
         <Container className={`${styles.boards} ${cx(classes.colors)}`}>
-            <Title>Your Boards</Title>
-
-            <Button variant="gradient" gradient={{from: "yellow", to: "red"}} onClick={newBoard}>New Board</Button>
-            <CreateNewModal close={close} opened={newOpened}/>
+            <div>
+                <Title>Your Boards</Title>
+                <Button variant="gradient" gradient={{from: "yellow", to: "red"}} onClick={openNewBoard}>New Board</Button>
+            </div>
+            <CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>
 
             <ul>
                 {boardNames.map((board) => (
