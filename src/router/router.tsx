@@ -4,6 +4,8 @@ import Kanban from "../pages/task/kanban/kanban"
 import KanbanBoardLoader from "../pages/task/kanban/loader"
 import KanbanBoards from "../pages/task/kanbanboards"
 import boardsLoader from "../pages/task/boardsloader"
+import boardsError from "../pages/task/boardserror"
+import BoardsError from "../pages/task/boardserror"
 
 
 function makeRoutes() {
@@ -36,6 +38,7 @@ export const router = createBrowserRouter([
         path: "/task",
         element: <KanbanBoards/>,
         loader:  boardsLoader,
+        errorElement: <BoardsError/>,
         children: [
             {
                 path: "assigned"
