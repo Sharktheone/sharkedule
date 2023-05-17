@@ -23,7 +23,7 @@ function toRouteObject(route: route): RouteObject {
 function Home() {
     return (
         <div>
-            <Link to="/task">Tasks</Link>
+            <Link to="/kanbanboard">Tasks</Link>
         </div>
     )
 }
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
         path: "/register",
     },
     {
-        path: "/task",
+        path: "/kanbanboard",
         element: <KanbanBoards/>,
         loader: boardsLoader,
         errorElement: <BoardsError/>,

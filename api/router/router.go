@@ -13,18 +13,18 @@ func Start() {
 
 	r.Use(cors.New())
 
-	web.Serve(r)
-
-	api := r.Group("/api")
+	api := r.Group("api")
 	{
-		task := api.Group("/task")
+		task := api.Group("kanbanboard")
 		{
-			task.Get("/:uuid", tasks.GetKanbanBoard)
-			task.Get("/list", tasks.ListKanbanBoards)
-			task.Get("/list/names", tasks.ListKanbanBoardNames)
-			task.Get("/new", tasks.CreateKanbanBoard)
+			task.Get("list", tasks.ListKanbanBoards)
+			task.Get("list/names", tasks.ListKanbanBoardNames)
+			task.Put("new", tasks.CreateKanbanBoard)
+			task.Get(":uuid", tasks.GetKanbanBoard)
 		}
 	}
+
+	web.Serve(r)
 
 	if err := r.Listen(":8080"); err != nil {
 		panic(err)

@@ -6,7 +6,7 @@ export default async function KanbanBoardLoader({params}: { params: any }) {
 
     console.log(uuid)
 
-    return api.get(`/task/${uuid}`).then((res) => {
+    return api.get(`/kanbanboard/${uuid}`).then((res) => {
         return res.data
     })
 

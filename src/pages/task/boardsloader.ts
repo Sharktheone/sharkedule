@@ -3,7 +3,7 @@ import {kanbanBoardType} from "./kanban/types"
 
 
 export default function boardsLoader() {
-    return api.get("/task/list/names").then((res) => {
+    return api.get("/kanbanboard/list/names").then((res) => {
         return res.data as kanbanBoardType[]
     })
 
