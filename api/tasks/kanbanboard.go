@@ -1,13 +1,16 @@
 package tasks
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"github.com/gofiber/fiber/v2"
 	uuid "github.com/satori/go.uuid"
 	"log"
 	"net/http"
 	"os"
+	"sharkedule/api"
 	"sharkedule/kanbanboard"
 )
 
@@ -46,28 +49,36 @@ func getBoard(uuid string) (kanbanboard.KanbanBoard, error) {
 	return kanbanboard.KanbanBoard{}, errors.New("board not found")
 }
 
-func GetKanbanBoard(c *gin.Context) {
-	uuid := c.Param("uuid")
+func GetKanbanBoard(c *fiber.Ctx) error {
+	boardUUID := c.Params("uuid")
 
-	if board, err := getBoard(uuid); err != nil || board.UUID == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
+	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {
+		errJson := api.JSON{"error": err.Error()}
+		if sendErr := c.Status(http.StatusNotFound).JSON(errJson); err != nil {
+			log.Printf("Failed sending error (%v): %v", err, sendErr)
+		}
 	} else {
-		c.JSON(http.StatusOK, board)
-		return
+		if err := c.Status(http.StatusOK).JSON(board); err != nil {
+			return fmt.Errorf("failed sending board: %v", err)
+		}
 	}
+
+	return nil
 }
 
-func ListKanbanBoards(c *gin.Context) {
+func ListKanbanBoards(c *fiber.Ctx) error {
 	if kanbanBoard == nil {
 		loadTestBoard()
 	}
 
-	c.JSON(http.StatusOK, kanbanBoard)
-	return
+	if err := c.Status(http.StatusOK).JSON(kanbanBoard); err != nil {
+		return fmt.Errorf("failed sending board: %v", err)
+
+	}
+	return nil
 }
 
-func ListKanbanBoardNames(c *gin.Context) {
+func ListKanbanBoardNames(c *fiber.Ctx) error {
 	if kanbanBoard == nil {
 		loadTestBoard()
 	}
@@ -83,21 +94,24 @@ func ListKanbanBoardNames(c *gin.Context) {
 		boardNames = append(boardNames, BoardName{UUID: board.UUID, Name: board.Name})
 	}
 
-	c.JSON(http.StatusOK, boardNames)
-	return
+	if err := c.Status(http.StatusOK).JSON(boardNames); err != nil {
+		return fmt.Errorf("failed sending board names: %v", err)
+
+	}
+	return nil
 }
 
-func CreateKanbanBoard(c *gin.Context) {
-
+func CreateKanbanBoard(c *fiber.Ctx) error {
 	type BoardName struct {
 		Name string `json:"name"`
 	}
 
 	var board BoardName
 
-	if err := c.ShouldBindJSON(&board); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&board); err != nil {
+		if err := c.Status(http.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending board: %v", err)
+		}
 	}
 
 	boardUUID := uuid.NewV4().String()
@@ -109,6 +123,8 @@ func CreateKanbanBoard(c *gin.Context) {
 
 	kanbanBoard = append(kanbanBoard, kBoard)
 
-	c.JSON(http.StatusOK, gin.H{"uuid": boardUUID})
-	return
+	if err := c.Status(http.StatusOK).JSON(api.JSON{"uuid": boardUUID}); err != nil {
+		return fmt.Errorf("failed sending board: %v", err)
+	}
+	return nil
 }

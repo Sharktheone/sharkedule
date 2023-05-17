@@ -2,8 +2,8 @@ package web
 
 import (
 	"embed"
-	"github.com/gin-contrib/static"
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"io/fs"
 	"log"
 	"net/http"
@@ -26,7 +26,7 @@ func (e embedFileSystem) Exists(prefix string, path string) bool {
 	return true
 }
 
-func Serve(r *gin.Engine) {
+func Serve(r *fiber.App) {
 	subFs, err := fs.Sub(embedFS, "dist")
 	if err != nil {
 		log.Fatalf("Failed to get subFS: %v", err)
@@ -36,5 +36,12 @@ func Serve(r *gin.Engine) {
 		FileSystem: http.FS(subFs),
 	}
 
-	r.Use(static.Serve("/", FS))
+	static := filesystem.New(filesystem.Config{
+		Root:   FS,
+		Index:  "index.html",
+		Browse: true,
+		MaxAge: 3600,
+	})
+
+	r.Use(static)
 }
