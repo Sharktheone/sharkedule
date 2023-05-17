@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -45,6 +46,9 @@ func Serve(r *fiber.App) {
 
 	r.Use(static)
 	r.Get("*", func(c *fiber.Ctx) error {
+		if strings.HasPrefix(c.Path(), "/api") {
+			return c.Next()
+		}
 		return filesystem.SendFile(c, FS, "index.html")
 	})
 }
