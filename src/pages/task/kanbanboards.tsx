@@ -40,7 +40,7 @@ export default function KanbanBoards() {
                 }
 
             }).catch(e => {
-            console.log(e)
+                notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
         })
     }
 
