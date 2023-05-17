@@ -44,4 +44,7 @@ func Serve(r *fiber.App) {
 	})
 
 	r.Use(static)
+	r.Get("*", func(c *fiber.Ctx) error {
+		return filesystem.SendFile(c, FS, "index.html")
+	})
 }
