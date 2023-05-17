@@ -1,4 +1,4 @@
-import {createBrowserRouter, RouteObject} from "react-router-dom"
+import {createBrowserRouter, Link, RouteObject} from "react-router-dom"
 import {route, routes} from "./routes"
 import Kanban from "../pages/task/kanban/kanban"
 import KanbanBoardLoader from "../pages/task/kanban/loader"
@@ -20,9 +20,19 @@ function toRouteObject(route: route): RouteObject {
 }
 
 
+function Home() {
+    return (
+        <div>
+            <Link to="/task">Tasks</Link>
+        </div>
+    )
+}
+
+
 export const router = createBrowserRouter([
     {
         path: "/",
+        element: <Home/>,
     },
     {
         path: "/dashboard",
