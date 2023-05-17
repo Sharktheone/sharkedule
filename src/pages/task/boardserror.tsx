@@ -3,11 +3,29 @@ import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-
 import {Button, Stack, Text, Title, useMantineTheme} from "@mantine/core"
 
 import styles from "./styles.module.scss"
+import {useEffect, useState} from "react";
+import {useInterval, useTimeout} from "@mantine/hooks";
 
 export default function BoardsError() {
     const error = useRouteError()
     const navigate = useNavigate()
     const theme = useMantineTheme()
+    const [retry, setRetry] = useState(false)
+
+    function tryAgain() {
+        setRetry(true)
+        setTimeout(
+            () => {
+                navigate("")
+                setRetry(false)
+            }, 1000)
+    }
+
+    useEffect(() => {
+        setInterval(() => {
+            tryAgain()
+        }, 10000)
+    }, [])
 
     function Navigation() {
         return (
@@ -18,10 +36,10 @@ export default function BoardsError() {
                         Go Back
                     </div>
                 </Button>
-                <Button gradient={{from: "teal", to: "lime", deg: 105}} variant="gradient" onClick={() => navigate("")}>
-                    <IconReload/>
+                <Button gradient={{from: "teal", to: "lime", deg: 105}} variant="gradient" onClick={tryAgain}>
+                    <IconReload className={retry ? styles.rotate : undefined}/>
                     <div>
-                        Try Again
+                        {retry? "Retrying" : "Try Again"}
                     </div>
                 </Button>
             </Stack>
