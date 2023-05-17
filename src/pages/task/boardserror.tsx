@@ -15,7 +15,6 @@ export default function BoardsError() {
 
     function tryAgain() {
         if (document.visibilityState === "visible") {
-            console.log(document.visibilityState)
             setRetry(true)
             setTimeout(
                 () => {
@@ -29,12 +28,11 @@ export default function BoardsError() {
 
     useEffect(() => {
         if (document.visibilityState === "visible") {
-            console.log("adding event listener")
             intervalID = setInterval(() => {
                 tryAgain()
             }, 10000) || intervalID
         } else {
-            console.log("removing event listener")
+            clearInterval(intervalID)
         }
 
     }, [document.visibilityState])
