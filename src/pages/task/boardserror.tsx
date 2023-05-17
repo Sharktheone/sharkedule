@@ -4,7 +4,6 @@ import {Button, Stack, Text, Title, useMantineTheme} from "@mantine/core"
 
 import styles from "./styles.module.scss"
 import {useEffect, useState} from "react";
-import {useInterval, useTimeout} from "@mantine/hooks";
 
 export default function BoardsError() {
     const error = useRouteError()
@@ -12,20 +11,42 @@ export default function BoardsError() {
     const theme = useMantineTheme()
     const [retry, setRetry] = useState(false)
 
+    let intervalID: number;
+
     function tryAgain() {
-        setRetry(true)
-        setTimeout(
-            () => {
-                navigate("")
-                setRetry(false)
-            }, 1000)
+        if (document.visibilityState === "visible") {
+            console.log(document.visibilityState)
+            setRetry(true)
+            setTimeout(
+                () => {
+                    navigate("")
+                    setRetry(false)
+                }, 1000)
+        }
     }
 
+
+
     useEffect(() => {
-        setInterval(() => {
-            tryAgain()
-        }, 10000)
-    }, [])
+        if (document.visibilityState === "visible") {
+            console.log("adding event listener")
+            intervalID = setInterval(() => {
+                tryAgain()
+            }, 10000) || intervalID
+        } else {
+            console.log("removing event listener")
+        }
+
+    }, [document.visibilityState])
+
+    useEffect( () => {
+        return () => {
+            clearInterval(intervalID)
+        }
+    }, []);
+
+
+
 
     function Navigation() {
         return (
