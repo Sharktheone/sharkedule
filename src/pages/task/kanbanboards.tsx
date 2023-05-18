@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {kanbanBoardType} from "./kanban/types"
 import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import {Button, Container, Title} from "@mantine/core"
@@ -8,7 +8,7 @@ import CreateNewModal from "./createNewModal"
 import {useDisclosure} from "@mantine/hooks"
 import {api} from "../../api/api"
 import {notifications} from "@mantine/notifications"
-import {IconX} from "@tabler/icons-react"
+import {IconTrash, IconX} from "@tabler/icons-react"
 
 
 export default function KanbanBoards() {
@@ -18,6 +18,11 @@ export default function KanbanBoards() {
     let {classes, cx} = useColors()
 
     const [boardNames, setBoardNames] = useState(loaderData as kanbanBoardType[])
+
+    useEffect(() => {
+        setBoardNames(loaderData as kanbanBoardType[])
+    }, [loaderData])
+
     const [newOpened, {open, close},] = useDisclosure(false)
 
     function openNewBoard() {
@@ -30,9 +35,7 @@ export default function KanbanBoards() {
             (res) => {
                 if (res.status > 300) {
                     console.log(res)
-                    console.log("hello1")
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
-                    console.log("hello")
                 } else {
                     notifications.show({title: "Success", message: "Board created", color: "green"})
 
@@ -40,7 +43,21 @@ export default function KanbanBoards() {
                 }
 
             }).catch(e => {
-                notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+        })
+    }
+
+    function deleteBoard() {
+        api.delete(`/kanbanboard/${boardNames[0].uuid}/delete`).then(
+            (res) => {
+                if (res.status > 300) {
+                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                } else {
+                    notifications.show({title: "Success", message: "Deleted Board", color: "green"})
+                    navigate("")
+                }
+            }).catch(e => {
+            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
         })
     }
 
@@ -59,12 +76,22 @@ export default function KanbanBoards() {
                         <>
                             {boardNames.map((board) => (
                                 <li>
-                                    <Link to={board.uuid}>{board.name}</Link>
+                                        <Link to={board.uuid}>
+                                            {board.name}
+                                        </Link>
+                                        <div>
+                                            <div>
+                                                <button onClick={deleteBoard}>
+                                                    <IconTrash/>
+                                                </button>
+                                            </div>
+                                        </div>
+
                                 </li>
                             ))
                             }
                         </>
-                        : <li>
+                        : <li className="no-boards">
                             <Title color="dimmed">No Boards</Title>
                         </li>
                 }
