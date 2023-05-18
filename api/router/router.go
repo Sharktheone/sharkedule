@@ -61,10 +61,10 @@ func Start() {
 		}
 	}
 
+	web.Serve(r)
+
 	if err := r.Listen(":8080"); err != nil {
 		panic(err)
 	}
-
-	web.Serve(r)
 
 }
