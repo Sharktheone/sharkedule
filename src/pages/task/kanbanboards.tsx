@@ -54,12 +54,21 @@ export default function KanbanBoards() {
             <CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>
 
             <ul>
-                {boardNames.map((board) => (
-                    <li>
-                        <Link to={board.uuid}>{board.name}</Link>
-                    </li>
-                ))
+                {
+                    boardNames.length > 0 ?
+                        <>
+                            {boardNames.map((board) => (
+                                <li>
+                                    <Link to={board.uuid}>{board.name}</Link>
+                                </li>
+                            ))
+                            }
+                        </>
+                        : <li>
+                            <Title color="dimmed">No Boards</Title>
+                        </li>
                 }
+
             </ul>
         </Container>
     )
