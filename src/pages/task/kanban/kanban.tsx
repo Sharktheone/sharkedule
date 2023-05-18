@@ -96,9 +96,9 @@ export default function Kanban() {
     return (
         <div className={styles.board}>
             <Title order={1} align="center">{board.name}</Title>
-            <Text align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
+            <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
             <DragDropContext onDragEnd={dragEndHandler}>
-                <Group position="center" align="start" noWrap={true}>
+                <Group className={styles.cols} position="center" align="start" noWrap={true}>
                     {board.columns?.map((column) => (
                         <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}
                                 boardUUID={board.uuid}/>

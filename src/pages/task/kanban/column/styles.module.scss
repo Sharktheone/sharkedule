@@ -4,6 +4,7 @@
 }
 
 .column {
+  min-width: 24rem;
   & > h3 > div {
     height: 2.5rem;
     display: flex;
