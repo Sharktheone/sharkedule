@@ -25,6 +25,11 @@ func init() {
 func loadTestBoard() {
 	boards, err := os.Open("test_data.json")
 	if err != nil {
+		if os.IsNotExist(err) {
+			KanbanBoard = []kanbanboardTypes.KanbanBoard{}
+			log.Println("No test_data.json found, skipping loading test data")
+			return
+		}
 		log.Fatalf("Error opening test_data.json: %v", err)
 	}
 
