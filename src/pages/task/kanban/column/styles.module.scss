@@ -2,3 +2,64 @@
 .dragging {
   opacity: 0.8;
 }
+
+.column {
+  & > h3 > div {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > button {
+      background: inherit;
+      padding: 0;
+      border: none;
+      display: none;
+
+      & svg {
+        width: 2rem;
+        height: 2rem;
+        padding: .25rem;
+      }
+
+      & > svg:hover {
+        background: rgba(255, 77, 79, 0.4);
+        border-radius: 25%;
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      & > button {
+        display: inline-block;
+      }
+    }
+  }
+
+  & > .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: .5rem;
+
+    & > button {
+      border: none;
+      background: inherit;
+      padding: .25rem 0;
+      cursor: pointer;
+      width: 100%;
+      border-radius: .5rem;
+      display: flex;
+      gap: .25rem;
+      align-items: center;
+
+      & > svg {
+        padding: 4px;
+      }
+
+      &:hover {
+        background: rgba(172, 255, 77, 0.3);
+      }
+    }
+  }
+}

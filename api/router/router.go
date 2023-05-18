@@ -3,31 +3,68 @@ package router
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"sharkedule/api/tasks"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
+	"sharkedule/api/kanbanboard"
+	"sharkedule/api/kanbanboard/column"
+	"sharkedule/api/kanbanboard/column/task"
 	"sharkedule/web"
 )
 
 func Start() {
-	//r := gin.Default()
 	r := fiber.New()
 
 	r.Use(cors.New())
 
+	r.Use(logger.New())
+	r.Use(recover.New())
+
 	api := r.Group("api")
 	{
-		task := api.Group("kanbanboard")
+		kboard := api.Group("kanbanboard")
 		{
-			task.Get("list", tasks.ListKanbanBoards)
-			task.Get("list/names", tasks.ListKanbanBoardNames)
-			task.Put("new", tasks.CreateKanbanBoard)
-			task.Get(":uuid", tasks.GetKanbanBoard)
+			kboard.Get("list", kanbanboard.ListKanbanBoards)
+			kboard.Get("list/names", kanbanboard.ListKanbanBoardNames)
+			kboard.Put("new", kanbanboard.CreateKanbanBoard)
+
+			singleBoard := kboard.Group(":kanbanboard")
+			{
+
+				singleBoard.Get("", kanbanboard.GetKanbanBoard)
+				singleBoard.Delete("delete", kanbanboard.DeleteKanbanBoard)
+
+				col := singleBoard.Group("column")
+				{
+
+					col.Put("new", column.CreateKanbanBoardColumn)
+
+					singleCol := col.Group(":column")
+					{
+						singleCol.Get("", column.GetKanbanBoardColumn)
+						singleCol.Delete("delete", column.DeleteKanbanBoardColumn)
+
+						tsk := singleCol.Group("task")
+						{
+							tsk.Put("new", task.CreateKanbanBoardColumnTask)
+
+							singleTask := tsk.Group(":task")
+							{
+								singleTask.Get("", task.GetKanbanBoardColumnTask)
+								singleTask.Delete("delete", task.DeleteKanbanBoardColumnTask)
+							}
+						}
+					}
+
+				}
+			}
+
 		}
 	}
-
-	web.Serve(r)
 
 	if err := r.Listen(":8080"); err != nil {
 		panic(err)
 	}
+
+	web.Serve(r)
 
 }

@@ -1,4 +1,4 @@
-package kanbanboard
+package kanbanboardTypes
 
 type KanbanBoard struct {
 	UUID        string                 `json:"uuid" yaml:"uuid" bson:"uuid"`

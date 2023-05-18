@@ -1,4 +1,4 @@
-package tasks
+package kanbanboard
 
 import (
 	"bytes"
@@ -11,12 +11,16 @@ import (
 	"net/http"
 	"os"
 	"sharkedule/api"
-	"sharkedule/kanbanboard"
+	"sharkedule/kanbanboardTypes"
 )
 
 var (
-	kanbanBoard []kanbanboard.KanbanBoard
+	KanbanBoard []kanbanboardTypes.KanbanBoard
 )
+
+func init() {
+	loadTestBoard()
+}
 
 func loadTestBoard() {
 	boards, err := os.Open("test_data.json")
@@ -30,31 +34,31 @@ func loadTestBoard() {
 		log.Fatalf("Error reading test_data.json: %v", err)
 	}
 
-	if err := json.NewDecoder(boards).Decode(&kanbanBoard); err != nil {
+	if err := json.NewDecoder(boards).Decode(&KanbanBoard); err != nil {
 		log.Fatalf("Error decoding test_data.json: %v", err)
 	}
 }
 
-func getBoard(uuid string) (kanbanboard.KanbanBoard, error) {
-	if kanbanBoard == nil {
+func getBoard(uuid string) (kanbanboardTypes.KanbanBoard, error) {
+	if KanbanBoard == nil {
 		loadTestBoard()
 	}
 
-	for _, board := range kanbanBoard {
+	for _, board := range KanbanBoard {
 		if board.UUID == uuid {
 			return board, nil
 		}
 	}
 
-	return kanbanboard.KanbanBoard{}, errors.New("board not found")
+	return kanbanboardTypes.KanbanBoard{}, errors.New("board not found")
 }
 
 func GetKanbanBoard(c *fiber.Ctx) error {
-	boardUUID := c.Params("uuid")
+	boardUUID := c.Params("kanbanboard")
 
 	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {
 		errJson := api.JSON{"error": err.Error()}
-		if sendErr := c.Status(http.StatusNotFound).JSON(errJson); err != nil {
+		if sendErr := c.Status(http.StatusNotFound).JSON(errJson); sendErr != nil {
 			log.Printf("Failed sending error (%v): %v", err, sendErr)
 		}
 	} else {
@@ -67,11 +71,11 @@ func GetKanbanBoard(c *fiber.Ctx) error {
 }
 
 func ListKanbanBoards(c *fiber.Ctx) error {
-	if kanbanBoard == nil {
+	if KanbanBoard == nil {
 		loadTestBoard()
 	}
 
-	if err := c.Status(http.StatusOK).JSON(kanbanBoard); err != nil {
+	if err := c.Status(http.StatusOK).JSON(KanbanBoard); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
 
 	}
@@ -79,7 +83,7 @@ func ListKanbanBoards(c *fiber.Ctx) error {
 }
 
 func ListKanbanBoardNames(c *fiber.Ctx) error {
-	if kanbanBoard == nil {
+	if KanbanBoard == nil {
 		loadTestBoard()
 	}
 
@@ -90,7 +94,7 @@ func ListKanbanBoardNames(c *fiber.Ctx) error {
 
 	var boardNames []BoardName
 
-	for _, board := range kanbanBoard {
+	for _, board := range KanbanBoard {
 		boardNames = append(boardNames, BoardName{UUID: board.UUID, Name: board.Name})
 	}
 
@@ -116,15 +120,35 @@ func CreateKanbanBoard(c *fiber.Ctx) error {
 
 	boardUUID := uuid.NewV4().String()
 
-	var kBoard kanbanboard.KanbanBoard
+	var kBoard kanbanboardTypes.KanbanBoard
 
 	kBoard.Name = board.Name
 	kBoard.UUID = boardUUID
 
-	kanbanBoard = append(kanbanBoard, kBoard)
+	KanbanBoard = append(KanbanBoard, kBoard)
 
 	if err := c.Status(http.StatusOK).JSON(api.JSON{"uuid": boardUUID}); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
 	}
+	return nil
+}
+
+func DeleteKanbanBoard(c *fiber.Ctx) error {
+	boardUUID := c.Params("uuid")
+
+	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {
+		errJson := api.JSON{"error": err.Error()}
+		if sendErr := c.Status(http.StatusNotFound).JSON(errJson); err != nil {
+			log.Printf("Failed sending error (%v): %v", err, sendErr)
+		}
+	} else {
+		for i, board := range KanbanBoard {
+			if board.UUID == boardUUID {
+				KanbanBoard = append(KanbanBoard[:i], KanbanBoard[i+1:]...)
+				break
+			}
+		}
+	}
+
 	return nil
 }

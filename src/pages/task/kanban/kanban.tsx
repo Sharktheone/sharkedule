@@ -1,13 +1,28 @@
-import {Group} from '@mantine/core'
+import {Group, Text, Title} from '@mantine/core'
 import {DragDropContext, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {kanbanBoardType} from "./types"
-import {useLoaderData} from "react-router-dom"
+import {useLoaderData, useNavigate} from "react-router-dom"
+import {IconPlus} from "@tabler/icons-react";
+import styles from "./styles.module.scss"
+import {useStyles} from "./styles";
+import {api} from "../../../api/api";
+import {notifications} from "@mantine/notifications";
+import NewColumnModal from "./column/NewColumnModal";
+import {useDisclosure} from "@mantine/hooks";
 
 export default function Kanban() {
     const loaderData = useLoaderData()
     const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
+    const [newColumnOpened, {open, close}] = useDisclosure(false)
+    const navigate = useNavigate()
+
+    const {classes, cx} = useStyles()
+
+    useEffect(() => {
+        setBoard(loaderData as kanbanBoardType)
+    }, [loaderData])
 
     function dragEndHandler(result: DropResult) {
         let {destination, source, draggableId} = result
@@ -54,15 +69,48 @@ export default function Kanban() {
         setBoard(newBoard)
     }
 
+    function handleNewColumn() {
+        open()
+    }
+
+    function addColumn(name: string) {
+        api.put(`/kanbanboard/${board.uuid}/column/new`, {name: name}).then(
+            (res) => {
+                if (res.status > 300) {
+                    notifications.show({title: "Error", message: res.data, color: "red"})
+                    console.log(res)
+                } else {
+                    notifications.show({title: "Success", message: "Column created", color: "green"})
+                    navigate("")
+                }
+            }).catch(
+            (err) => {
+                notifications.show({title: "Error", message: err.message, color: "red"})
+                console.log(err)
+            }
+        )
+
+    }
+
 
     return (
-        <DragDropContext onDragEnd={dragEndHandler}>
-            <Group position="center" align="start" noWrap={true}>
-                {board.columns?.map((column) => (
-                    <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}/>
-                ))}
-            </Group>
-        </DragDropContext>
+        <div className={styles.board}>
+            <Title order={1} align="center">{board.name}</Title>
+            <Text align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
+            <DragDropContext onDragEnd={dragEndHandler}>
+                <Group position="center" align="start" noWrap={true}>
+                    {board.columns?.map((column) => (
+                        <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}
+                                boardUUID={board.uuid}/>
+                    ))}
+                    <button onClick={handleNewColumn} className={`${cx(classes.addColumn)} ${styles.footer}`}>
+                        <IconPlus size={24}/>
+                        <Text align="center">Add a Column</Text>
+                    </button>
+                </Group>
+            </DragDropContext>
+            <NewColumnModal close={close} opened={newColumnOpened} addColumn={addColumn}/>
+        </div>
     )
 }
 

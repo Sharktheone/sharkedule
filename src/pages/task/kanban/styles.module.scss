@@ -1,0 +1,12 @@
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .5rem 1rem;
+
+  &:hover {
+    background: rgba(77, 160, 255, 0.3);
+  }
+}
+

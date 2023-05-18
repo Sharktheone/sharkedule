@@ -30,7 +30,6 @@ export default function CreateNewModal({opened, close, handleCreate}: props) {
                 <TextInput mb="lg" ref={inputRef} withAsterisk label="Name" placeholder="Board Name" required/>
                 <Button variant="gradient" gradient={{from: "green", to: "lime"}} type="submit">Create</Button>
             </form>
-
         </Modal>
     )
 }

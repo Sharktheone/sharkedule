@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "/task/:uuid",
+        path: "/kanbanboard/:uuid",
         loader: KanbanBoardLoader,
         element: <Kanban/>,
     },
