@@ -14,5 +14,13 @@ export const useStyles = createStyles((theme) => ({
     },
     title: {
         marginBottom: rem(20),
+    },
+    add: {
+        "& > div > textarea": {
+            backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0],
+            borderColor: theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2],
+            shadow: theme.shadows.md,
+        },
+        shadow: theme.shadows.md,
     }
 }))

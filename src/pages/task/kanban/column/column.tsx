@@ -1,16 +1,16 @@
-import {Text, Title} from "@mantine/core"
+import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
 import {useStyles} from "./styles"
 import Task from "./task/task"
 import {kanbanColumnType} from "../types"
 import {Draggable, Droppable} from "react-beautiful-dnd"
-import {useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import styles from "./styles.module.scss"
-import {IconPlus, IconTrash, IconX} from "@tabler/icons-react";
-import {api} from "../../../../api/api";
-import {notifications} from "@mantine/notifications";
-import {useNavigate} from "react-router-dom";
-import NewTaskModal from "./task/NewTaskModal";
-import {useDisclosure} from "@mantine/hooks";
+import {IconPlus, IconTrash, IconX} from "@tabler/icons-react"
+import {api} from "../../../../api/api"
+import {notifications} from "@mantine/notifications"
+import {useNavigate} from "react-router-dom"
+import NewTaskModal from "./task/NewTaskModal"
+import {useDisclosure} from "@mantine/hooks"
 
 type ColumnProps = {
     column: kanbanColumnType
@@ -23,7 +23,9 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const [newTaskOpened, {open, close}] = useDisclosure(false)
+    const [isAdding, setIsAdding] = useState(false)
     const navigate = useNavigate()
+    const nameRef = useRef<HTMLTextAreaElement>(null)
 
     function editText() {
         setEditable(true)
@@ -44,23 +46,43 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
                     navigate("")
 
                 }
-
             }
         )
     }
 
     function handleNewTask() {
-        open()
+        setIsAdding(true)
     }
 
-    function addTask(name: string) {
+    useEffect(() => {
+        if (isAdding) {
+            nameRef.current?.focus()
+        }
+    }, [isAdding])
+
+
+
+
+
+
+    function addTask() {
+
+        let name : string
+
+        if (nameRef.current?.value) {
+            name = nameRef.current?.value
+        } else {
+            notifications.show({title: "Error", message: "Task name cannot be empty", color: "red", icon: <IconX/>})
+            return
+        }
+
         api.put(`/kanbanboard/${boardUUID}/column/${column.uuid}/task/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
                 } else {
                     renameTask(res.data.uuid, name)
-                    close()
+                    setIsAdding(false)
                     navigate("")
                 }
 
@@ -95,22 +117,41 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
                                     >
 
                                         <div style={{paddingBottom: "0.625rem"}}>
-                                            <Task key={task.uuid} task={task} renameTask={renameTask} boardUUID={boardUUID} columnUUID={column.uuid}/>
+                                            <Task key={task.uuid} task={task} renameTask={renameTask}
+                                                  boardUUID={boardUUID} columnUUID={column.uuid}/>
                                         </div>
                                     </div>
                                 )}
                             </Draggable>
                         ))}
+
+                        {isAdding ?
+                            <>
+                                <Textarea ref={nameRef} autosize className={`${cx(classes.add)} ${styles.add}`} placeholder="Task name..."/>
+                            </>
+
+
+                            : null}
+
                         {provided.placeholder}
                     </div>
                 )}
             </Droppable>
 
             <div className={styles.footer}>
-                <button onClick={handleNewTask}>
+                {!isAdding ?
+                    <button onClick={handleNewTask}>
                     <IconPlus/>
                     <Text size="sm"> Add a Task </Text>
-                </button>
+                    </button> :
+
+                    <div>
+                        <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}} onClick={addTask}> Create </Button>
+                        <CloseButton onClick={() => setIsAdding(false)}/>
+                    </div>
+
+                }
+
             </div>
             <NewTaskModal close={close} opened={newTaskOpened} addTask={addTask}/>
         </div>

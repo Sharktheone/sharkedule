@@ -62,5 +62,18 @@
         background: rgba(172, 255, 77, 0.3);
       }
     }
+
+    & > div {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+    }
+  }
+}
+
+.add {
+  & > div > textarea {
+    min-height: 6rem;
+    border-radius: .5rem;
   }
 }
