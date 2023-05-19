@@ -3,7 +3,7 @@ import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-
 import {Button, Stack, Text, Title, useMantineTheme} from "@mantine/core"
 
 import styles from "./styles.module.scss"
-import {useEffect, useState} from "react";
+import {useEffect, useState} from "react"
 
 export default function BoardsError() {
     const error = useRouteError()
@@ -11,7 +11,7 @@ export default function BoardsError() {
     const theme = useMantineTheme()
     const [retry, setRetry] = useState(false)
 
-    let intervalID: number;
+    let intervalID: number
 
     function tryAgain() {
         if (document.visibilityState === "visible") {
@@ -25,7 +25,6 @@ export default function BoardsError() {
     }
 
 
-
     useEffect(() => {
         if (document.visibilityState === "visible") {
             intervalID = setInterval(() => {
@@ -37,13 +36,11 @@ export default function BoardsError() {
 
     }, [document.visibilityState])
 
-    useEffect( () => {
+    useEffect(() => {
         return () => {
             clearInterval(intervalID)
         }
-    }, []);
-
-
+    }, [])
 
 
     function Navigation() {
@@ -58,7 +55,7 @@ export default function BoardsError() {
                 <Button gradient={{from: "teal", to: "lime", deg: 105}} variant="gradient" onClick={tryAgain}>
                     <IconReload className={retry ? styles.rotate : undefined}/>
                     <div>
-                        {retry? "Retrying" : "Try Again"}
+                        {retry ? "Retrying" : "Try Again"}
                     </div>
                 </Button>
             </Stack>

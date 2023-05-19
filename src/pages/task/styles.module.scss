@@ -32,7 +32,7 @@
         appearance: none;
         text-decoration: none;
         height: 3rem;
-        }
+      }
 
       & > div {
         display: none;
@@ -42,6 +42,7 @@
         height: 2rem;
         padding-right: .5rem;
         padding-top: .5rem;
+
         & > div > button {
           height: 2rem;
           width: 2rem;
@@ -50,15 +51,18 @@
           padding: .25rem;
           border-radius: 25%;
           cursor: pointer;
+
           & > svg {
             width: 1rem;
             height: 1rem;
           }
+
           &:hover {
             background: rgba(255, 77, 79, 0.4);
           }
         }
       }
+
       &:hover {
         & > div {
           display: block;

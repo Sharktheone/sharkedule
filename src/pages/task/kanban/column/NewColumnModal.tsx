@@ -1,5 +1,5 @@
-import {Button, Modal, TextInput} from "@mantine/core";
-import {useRef} from "react";
+import {Button, Modal, TextInput} from "@mantine/core"
+import {useRef} from "react"
 
 
 type props = {
@@ -27,7 +27,6 @@ export default function NewColumnModal({close, opened, addColumn}: props) {
                 <TextInput mb="lg" ref={inputRef} withAsterisk label="Name" placeholder="Column name" required/>
                 <Button variant="gradient" gradient={{from: "green", to: "lime"}} type="submit">Create</Button>
             </form>
-
         </Modal>
     )
 }

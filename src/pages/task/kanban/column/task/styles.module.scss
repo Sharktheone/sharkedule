@@ -1,5 +1,4 @@
 
-
 .task {
   padding: 0 .5rem;
   display: flex;
@@ -8,6 +7,7 @@
 
   & > div > div {
     display: none;
+
     & > button {
       border: none;
       background: inherit;
@@ -16,6 +16,7 @@
         width: 1.5rem;
         height: 1.5rem;
         padding: .25rem;
+
         &:hover {
           background: rgba(255, 77, 79, 0.4);
           border-radius: 25%;

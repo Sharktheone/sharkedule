@@ -4,13 +4,13 @@ import Column from "./column/column"
 import {useEffect, useState} from "react"
 import {kanbanBoardType} from "./types"
 import {useLoaderData, useNavigate} from "react-router-dom"
-import {IconPlus} from "@tabler/icons-react";
+import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
-import {useStyles} from "./styles";
-import {api} from "../../../api/api";
-import {notifications} from "@mantine/notifications";
-import NewColumnModal from "./column/NewColumnModal";
-import {useDisclosure} from "@mantine/hooks";
+import {useStyles} from "./styles"
+import {api} from "../../../api/api"
+import {notifications} from "@mantine/notifications"
+import NewColumnModal from "./column/NewColumnModal"
+import {useDisclosure} from "@mantine/hooks"
 
 export default function Kanban() {
     const loaderData = useLoaderData()

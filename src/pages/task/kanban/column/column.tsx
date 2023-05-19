@@ -58,13 +58,9 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
     }, [isAdding])
 
 
-
-
-
-
     function addTask() {
 
-        let name : string
+        let name: string
 
         if (nameRef.current?.value) {
             name = nameRef.current?.value
@@ -124,7 +120,8 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
 
                         {isAdding ?
                             <>
-                                <Textarea ref={nameRef} autosize className={`${cx(classes.add)} ${styles.add}`} placeholder="Task name..."/>
+                                <Textarea ref={nameRef} autosize className={`${cx(classes.add)} ${styles.add}`}
+                                          placeholder="Task name..."/>
                             </>
 
 
@@ -138,12 +135,13 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
             <div className={styles.footer}>
                 {!isAdding ?
                     <button onClick={handleNewTask}>
-                    <IconPlus/>
-                    <Text size="sm"> Add a Task </Text>
+                        <IconPlus/>
+                        <Text size="sm"> Add a Task </Text>
                     </button> :
 
                     <div>
-                        <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}} onClick={addTask}> Create </Button>
+                        <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                onClick={addTask}> Create </Button>
                         <CloseButton onClick={() => setIsAdding(false)}/>
                     </div>
 
