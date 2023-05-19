@@ -9,13 +9,10 @@ import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
 import {api} from "../../../api/api"
 import {notifications} from "@mantine/notifications"
-import NewColumnModal from "./column/NewColumnModal"
-import {useDisclosure} from "@mantine/hooks"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
     const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
-    const [newColumnOpened, {open, close}] = useDisclosure(false)
     const navigate = useNavigate()
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
@@ -126,7 +123,6 @@ export default function Kanban() {
 
                 </Group>
             </DragDropContext>
-            <NewColumnModal close={close} opened={newColumnOpened} addColumn={addColumn}/>
         </div>
     )
 }
