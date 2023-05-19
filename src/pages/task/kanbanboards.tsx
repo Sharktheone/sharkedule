@@ -35,7 +35,7 @@ export default function KanbanBoards() {
             (res) => {
                 if (res.status > 300) {
                     console.log(res)
-                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                    notifications.show({title: "Error", message: res.data.message ?? "Unknown Error", color: "red", icon: <IconX/>})
                 } else {
                     notifications.show({title: "Success", message: "Board created", color: "green"})
 
@@ -51,7 +51,7 @@ export default function KanbanBoards() {
         api.delete(`/kanbanboard/${boardNames[0].uuid}/delete`).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                    notifications.show({title: "Error", message: res.data.message ?? "Unknown Error", color: "red", icon: <IconX/>})
                 } else {
                     notifications.show({title: "Success", message: "Deleted Board", color: "green"})
                     navigate("")
