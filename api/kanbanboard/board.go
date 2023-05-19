@@ -111,7 +111,8 @@ func ListKanbanBoardNames(c *fiber.Ctx) error {
 
 func CreateKanbanBoard(c *fiber.Ctx) error {
 	type BoardName struct {
-		Name string `json:"name"`
+		Name        string `json:"name"`
+		Description string `json:"description"`
 	}
 
 	var board BoardName
@@ -127,6 +128,7 @@ func CreateKanbanBoard(c *fiber.Ctx) error {
 	var kBoard kanbanboardTypes.KanbanBoard
 
 	kBoard.Name = board.Name
+	kBoard.Description.Description = board.Description
 	kBoard.UUID = boardUUID
 
 	KanbanBoard = append(KanbanBoard, kBoard)
