@@ -1,7 +1,7 @@
-import {Group, Text, Title} from '@mantine/core'
+import {Group, Input, Text, Title} from '@mantine/core'
 import {DragDropContext, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column"
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import {kanbanBoardType} from "./types"
 import {useLoaderData, useNavigate} from "react-router-dom"
 import {IconPlus} from "@tabler/icons-react"
@@ -17,6 +17,8 @@ export default function Kanban() {
     const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
     const [newColumnOpened, {open, close}] = useDisclosure(false)
     const navigate = useNavigate()
+    const [isAdding, setIsAdding] = useState(false)
+    const newColRef = useRef<HTMLInputElement>(null)
 
     const {classes, cx} = useStyles()
 
@@ -70,7 +72,7 @@ export default function Kanban() {
     }
 
     function handleNewColumn() {
-        open()
+        setIsAdding(true)
     }
 
     function addColumn(name: string) {
@@ -89,8 +91,13 @@ export default function Kanban() {
                 console.log(err)
             }
         )
-
     }
+
+    useEffect(() => {
+        newColRef?.current?.focus()
+
+    }, [isAdding])
+
 
 
     return (
@@ -103,10 +110,20 @@ export default function Kanban() {
                         <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}
                                 boardUUID={board.uuid}/>
                     ))}
-                    <button onClick={handleNewColumn} className={`${cx(classes.addColumn)} ${styles.footer}`}>
-                        <IconPlus size={24}/>
-                        <Text align="center">Add a Column</Text>
-                    </button>
+
+                    {!isAdding ?
+                        <>
+                            <button onClick={handleNewColumn} className={`${cx(classes.addColumn)} ${styles.footer}`}>
+                                <IconPlus size={24}/>
+                                <Text align="center">Add a Column</Text>
+                            </button>
+                        </> :
+                        <>
+                            <Input ref={newColRef} className={styles.add} onBlur={() => setIsAdding(false)} placeholder="Column name"></Input>
+                        </>
+
+                    }
+
                 </Group>
             </DragDropContext>
             <NewColumnModal close={close} opened={newColumnOpened} addColumn={addColumn}/>

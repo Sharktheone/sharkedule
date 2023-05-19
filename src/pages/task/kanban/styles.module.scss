@@ -1,10 +1,10 @@
-
 .footer {
   display: flex;
   align-items: center;
   gap: .25rem;
-  padding: .5rem 1rem;
   min-width: 24rem;
+  height: 2.5rem;
+  padding: .5rem 1rem;
 
   &:hover {
     background: rgba(77, 160, 255, 0.3);
@@ -15,4 +15,11 @@
   & > div.cols {
     overflow-x: scroll;
   }
+}
+
+.add > input {
+  width: 24rem;
+  min-height: 2.5rem;
+  border-width: 2px;
+  border-radius: .5rem;
 }
