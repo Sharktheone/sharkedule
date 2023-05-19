@@ -9,8 +9,6 @@ import {IconPlus, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "../../../../api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
-import NewTaskModal from "./task/NewTaskModal"
-import {useDisclosure} from "@mantine/hooks"
 
 type ColumnProps = {
     column: kanbanColumnType
@@ -22,7 +20,6 @@ type ColumnProps = {
 export default function Column({column, renameColumn, renameTask, boardUUID}: ColumnProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
-    const [newTaskOpened, {open, close}] = useDisclosure(false)
     const [isAdding, setIsAdding] = useState(false)
     const navigate = useNavigate()
     const nameRef = useRef<HTMLTextAreaElement>(null)
@@ -153,7 +150,6 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
                 }
 
             </div>
-            <NewTaskModal close={close} opened={newTaskOpened} addTask={addTask}/>
         </div>
     )
 }
