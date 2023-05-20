@@ -110,6 +110,12 @@ export default function Kanban() {
         setIsAdding(true)
     }
 
+    function cancelAddColumn() {
+        setTimeout(() => {
+            setIsAdding(false)
+        }, 100)
+    }
+
     function addColumn() {
         const name = newColRef.current?.value
         if (!name) {
@@ -159,10 +165,11 @@ export default function Kanban() {
                             </button>
                         </> :
                         <Stack className={styles.add}>
-                            <Input ref={newColRef} onBlur={() => setIsAdding(false)}
+                            <Input ref={newColRef} onBlur={cancelAddColumn}
                                    placeholder="Column name"></Input>
                             <div className={styles.menu}>
-                                <Button onClick={addColumn} gradient={{from: "#6dd6ed", to: "#586bed"}} variant="gradient">Create</Button>
+                                <Button onClick={addColumn} gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                        variant="gradient">Create</Button>
                                 <CloseButton onClick={() => setIsAdding(false)}/>
                             </div>
 
