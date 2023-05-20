@@ -27,6 +27,7 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
     const nameRef = useRef<HTMLTextAreaElement>(null)
     const tasksRef = useRef<HTMLDivElement>(null)
     const [ghostElement, setGhostElement] = useState<ghostElementType | undefined>()
+    const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
 
     function editText() {
         setEditable(true)
@@ -98,9 +99,9 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
 
 
     function addTask() {
+        if (removeTimeout) clearTimeout(removeTimeout)
 
         let name: string
-
         if (nameRef.current?.value) {
             name = nameRef.current?.value
         } else {
@@ -114,7 +115,10 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
                 } else {
                     renameTask(res.data.uuid, name)
-                    setIsAdding(false)
+                    if (nameRef.current) {
+                        nameRef.current.value = ""
+                        nameRef.current.focus()
+                    }
                     navigate("")
                 }
 
@@ -123,6 +127,13 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
         })
     }
 
+
+    function removeIsAdding() {
+        if (removeTimeout) clearTimeout(removeTimeout)
+        setRemoveTimeout(setTimeout(() => {
+            setIsAdding(false)
+        }, 100))
+    }
 
     return (
         <div className={`${cx(classes.column)} ${styles.column}`}>
@@ -169,10 +180,9 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
 
                         {isAdding ?
                             <>
-                                <Textarea ref={nameRef} autosize className={`${cx(classes.add)} ${styles.add}`}
+                                <Textarea onBlur={removeIsAdding} ref={nameRef} autosize className={`${cx(classes.add)} ${styles.add}`}
                                           placeholder="Task name..."/>
                             </>
-
 
                             : null}
 
