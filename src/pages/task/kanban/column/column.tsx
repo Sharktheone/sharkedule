@@ -9,20 +9,24 @@ import {IconPlus, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "../../../../api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
+import {ghostElementType, ghostType} from "../ghost"
 
 type ColumnProps = {
     column: kanbanColumnType
     renameColumn: (uuid: string, name: string) => void
     renameTask: (uuid: string, name: string) => void
     boardUUID: string
+    ghost?: ghostType
 }
 
-export default function Column({column, renameColumn, renameTask, boardUUID}: ColumnProps) {
+export default function Column({column, renameColumn, renameTask, boardUUID, ghost}: ColumnProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const [isAdding, setIsAdding] = useState(false)
     const navigate = useNavigate()
     const nameRef = useRef<HTMLTextAreaElement>(null)
+    const tasksRef = useRef<HTMLDivElement>(null)
+    const [ghostElement, setGhostElement] = useState<ghostElementType | undefined>()
 
     function editText() {
         setEditable(true)
@@ -46,6 +50,41 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
             }
         )
     }
+
+    useEffect(() => {
+        if (!ghost) {
+            setGhostElement(undefined)
+            return
+        }
+        if (ghost.hoveredColumnID !== column.uuid) {
+            setGhostElement(undefined)
+            return
+        }
+
+        let offset = 0
+
+        let tasks = [].slice.call(tasksRef.current?.children) as HTMLDivElement[]
+
+        console.log(tasks.filter(task => !task.className.includes(styles.ghost)))
+
+        tasks.filter(task => !task.className.includes(styles.ghost)).forEach((task, index) => {
+            if (index < ghost.index) {
+                offset += task.getBoundingClientRect().height
+            }
+        })
+
+        const ghostElement = {
+            height: ghost.height + "px",
+            offsetTop: offset + "px",
+        }
+
+        console.log(ghostElement)
+
+        setGhostElement(ghostElement)
+
+
+    }, [ghost])
+
 
     function handleNewTask() {
         setIsAdding(true)
@@ -98,25 +137,35 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
             <Droppable droppableId={column.uuid} direction="vertical">
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {column.tasks?.map((task, index) => (
-                            <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
-                                {(provided, snapshot) => (
-                                    <div
-                                        className={snapshot.isDragging ? styles.dragging : ""}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
+                        <div ref={tasksRef}>
+                            {column.tasks?.map((task, index) => (
+                                <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
+                                    {(provided, snapshot) => (
+                                        <div
+                                            className={snapshot.isDragging ? styles.dragging : ""}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
 
-                                        ref={provided.innerRef}
-                                    >
+                                            ref={provided.innerRef}
+                                        >
 
-                                        <div style={{paddingBottom: "0.625rem"}}>
-                                            <Task key={task.uuid} task={task} renameTask={renameTask}
-                                                  boardUUID={boardUUID} columnUUID={column.uuid}/>
+                                            <div style={{paddingBottom: "0.625rem"}}>
+                                                <Task key={task.uuid} task={task} renameTask={renameTask}
+                                                      boardUUID={boardUUID} columnUUID={column.uuid}/>
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </Draggable>
-                        ))}
+                                    )}
+                                </Draggable>
+                            ))}
+                            {ghostElement ?
+                                <div className={`${cx(classes.ghost)} ${styles.ghost}`}
+                                     style={{height: ghostElement.height, top: ghostElement.offsetTop}}/>
+                                : null
+                            }
+
+                        </div>
+
+                        {provided.placeholder}
 
                         {isAdding ?
                             <>
@@ -127,7 +176,6 @@ export default function Column({column, renameColumn, renameTask, boardUUID}: Co
 
                             : null}
 
-                        {provided.placeholder}
                     </div>
                 )}
             </Droppable>

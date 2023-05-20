@@ -22,5 +22,10 @@ export const useStyles = createStyles((theme) => ({
             shadow: theme.shadows.md,
         },
         shadow: theme.shadows.md,
+    },
+    ghost: {
+        border: `1px solid ${
+            theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+        }`,
     }
 }))

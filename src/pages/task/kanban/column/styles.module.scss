@@ -38,6 +38,10 @@
     }
   }
 
+  & > div > div {
+    position: relative;
+  }
+
   & > .footer {
     display: flex;
     align-items: center;
@@ -77,4 +81,11 @@
     min-height: 6rem;
     border-radius: .5rem;
   }
+}
+
+.ghost {
+  position: absolute;
+  width: 100%;
+  border-radius: .5rem;
+  background-color: rgba(0, 0, 0, .2);
 }

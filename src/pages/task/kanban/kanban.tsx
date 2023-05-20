@@ -1,5 +1,5 @@
 import {Group, Input, Text, Title} from '@mantine/core'
-import {DragDropContext, DropResult} from "react-beautiful-dnd"
+import {DragDropContext, DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column"
 import {useEffect, useRef, useState} from "react"
 import {kanbanBoardType} from "./types"
@@ -9,6 +9,7 @@ import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
 import {api} from "../../../api/api"
 import {notifications} from "@mantine/notifications"
+import {ghostType} from "./ghost"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -16,6 +17,7 @@ export default function Kanban() {
     const navigate = useNavigate()
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
+    const [ghost, setGhost] = useState<ghostType  | undefined>(undefined)
 
     const {classes, cx} = useStyles()
 
@@ -23,12 +25,48 @@ export default function Kanban() {
         setBoard(loaderData as kanbanBoardType)
     }, [loaderData])
 
+    function getDraggedElement(draggableId: string) {
+        return document.querySelector(`[data-rbd-drag-handle-draggable-id='${draggableId}'] > div > div`)
+    }
+
+    function dragStartHandler(event: DragStart) {
+
+        let draggedElement = getDraggedElement(event.draggableId)
+        if (!draggedElement) return
+        console.log(draggedElement)
+
+        let rect = draggedElement.getBoundingClientRect()
+
+        setGhost({
+            height: rect.height,
+            index: event.source.index,
+            hoveredColumnID: event.source.droppableId,
+        })
+
+        console.log("drag start")
+    }
+
+    function dragUpdateHandler(event: DragUpdate) {
+        let draggedElement = getDraggedElement(event.draggableId)
+        if (!draggedElement) return
+
+        let rect = draggedElement.getBoundingClientRect()
+
+        setGhost({
+            height: rect.height,
+            index: event.destination?.index ?? ghost?.index ?? 0,
+            hoveredColumnID: event.destination?.droppableId ?? ghost?.hoveredColumnID ?? "",
+        })
+
+    }
+
     function dragEndHandler(result: DropResult) {
         let {destination, source, draggableId} = result
         console.log(result)
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
         reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
+        setGhost(undefined)
     }
 
     function reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
@@ -101,11 +139,11 @@ export default function Kanban() {
         <div className={styles.board}>
             <Title order={1} align="center">{board.name}</Title>
             <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
-            <DragDropContext onDragEnd={dragEndHandler}>
+            <DragDropContext onDragStart={dragStartHandler} onDragEnd={dragEndHandler} onDragUpdate={dragUpdateHandler}>
                 <Group className={styles.cols} position="center" align="start" noWrap={true}>
                     {board.columns?.map((column) => (
                         <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}
-                                boardUUID={board.uuid}/>
+                                boardUUID={board.uuid} ghost={ghost}/>
                     ))}
 
                     {!isAdding ?
