@@ -1,5 +1,3 @@
-
-
 export type ghostType = {
     index: number
     height: number

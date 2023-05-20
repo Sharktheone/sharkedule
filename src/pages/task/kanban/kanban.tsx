@@ -17,7 +17,7 @@ export default function Kanban() {
     const navigate = useNavigate()
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
-    const [ghost, setGhost] = useState<ghostType  | undefined>(undefined)
+    const [ghost, setGhost] = useState<ghostType | undefined>(undefined)
 
     const {classes, cx} = useStyles()
 
@@ -134,7 +134,6 @@ export default function Kanban() {
     }, [isAdding])
 
 
-
     return (
         <div className={styles.board}>
             <Title order={1} align="center">{board.name}</Title>
@@ -154,7 +153,8 @@ export default function Kanban() {
                             </button>
                         </> :
                         <>
-                            <Input ref={newColRef} className={styles.add} onBlur={() => setIsAdding(false)} placeholder="Column name"></Input>
+                            <Input ref={newColRef} className={styles.add} onBlur={() => setIsAdding(false)}
+                                   placeholder="Column name"></Input>
                         </>
 
                     }
