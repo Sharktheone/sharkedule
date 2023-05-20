@@ -81,6 +81,22 @@ export default function Kanban() {
 
         newBoard?.columns[toColumnIndex]?.tasks?.splice(to, 0, task)
         setBoard(newBoard)
+
+        api.patch(`/kanbanboard/${board.uuid}/column/${fromColumn}/task/${uuid}/move`, {
+            column: toColumn,
+            index: to
+        }).then((res) => {
+            if (res.status > 300) {
+                notifications.show({title: "Error", message: res.data, color: "red"})
+                console.log(res)
+            }
+            navigate("")
+
+        }).catch((err) => {
+            notifications.show({title: "Error", message: err.message, color: "red"})
+            console.log(err)
+            navigate("")
+        })
     }
 
     function renameTask(uuid: string, name: string) {
