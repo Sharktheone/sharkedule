@@ -17,7 +17,14 @@
   }
 }
 
-.add > input {
+
+.add > div.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add > div > input {
   width: 24rem;
   min-height: 3rem;
   border-width: 2px;

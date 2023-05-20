@@ -1,4 +1,4 @@
-import {Group, Input, Text, Title} from '@mantine/core'
+import {Button, CloseButton, Group, Input, Stack, Text, Title} from '@mantine/core'
 import {DragDropContext, DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column"
 import {useEffect, useRef, useState} from "react"
@@ -110,7 +110,13 @@ export default function Kanban() {
         setIsAdding(true)
     }
 
-    function addColumn(name: string) {
+    function addColumn() {
+        const name = newColRef.current?.value
+        if (!name) {
+            notifications.show({title: "Error", message: "Column name cannot be empty", color: "red"})
+            return
+        }
+
         api.put(`/kanbanboard/${board.uuid}/column/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
@@ -152,10 +158,16 @@ export default function Kanban() {
                                 <Text align="center">Add a Column</Text>
                             </button>
                         </> :
-                        <>
-                            <Input ref={newColRef} className={styles.add} onBlur={() => setIsAdding(false)}
+                        <Stack className={styles.add}>
+                            <Input ref={newColRef} onBlur={() => setIsAdding(false)}
                                    placeholder="Column name"></Input>
-                        </>
+                            <div className={styles.menu}>
+                                <Button onClick={addColumn} gradient={{from: "#6dd6ed", to: "#586bed"}} variant="gradient">Create</Button>
+                                <CloseButton onClick={() => setIsAdding(false)}/>
+                            </div>
+
+
+                        </Stack>
 
                     }
 
