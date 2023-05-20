@@ -18,6 +18,7 @@ export default function Kanban() {
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
     const [ghost, setGhost] = useState<ghostType | undefined>(undefined)
+    const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
 
     const {classes, cx} = useStyles()
 
@@ -111,12 +112,16 @@ export default function Kanban() {
     }
 
     function cancelAddColumn() {
-        setTimeout(() => {
-            setIsAdding(false)
-        }, 100)
+        setRemoveTimeout(
+            setTimeout(() => {
+                setIsAdding(false)
+            }, 100)
+        )
     }
 
     function addColumn() {
+        if (removeTimeout) clearTimeout(removeTimeout)
+
         const name = newColRef.current?.value
         if (!name) {
             notifications.show({title: "Error", message: "Column name cannot be empty", color: "red"})
@@ -130,6 +135,8 @@ export default function Kanban() {
                     console.log(res)
                 } else {
                     notifications.show({title: "Success", message: "Column created", color: "green"})
+                    if (newColRef.current) newColRef.current.value = ""
+
                     navigate("")
                 }
             }).catch(
@@ -142,7 +149,6 @@ export default function Kanban() {
 
     useEffect(() => {
         newColRef?.current?.focus()
-
     }, [isAdding])
 
 
