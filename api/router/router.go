@@ -35,7 +35,6 @@ func Start() {
 
 				col := singleBoard.Group("column")
 				{
-
 					col.Put("new", column.CreateKanbanBoardColumn)
 
 					singleCol := col.Group(":column")
@@ -49,6 +48,7 @@ func Start() {
 
 							singleTask := tsk.Group(":task")
 							{
+								singleTask.Patch("move", task.MoveKanbanBoardColumnTask)
 								singleTask.Get("", task.GetKanbanBoardColumnTask)
 								singleTask.Delete("delete", task.DeleteKanbanBoardColumnTask)
 							}
