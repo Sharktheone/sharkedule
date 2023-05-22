@@ -1,4 +1,4 @@
-import {Button, CloseButton, Group, Input, Stack, Text, Title} from '@mantine/core'
+import {Button, CloseButton, Input, Stack, Text, Title} from '@mantine/core'
 import {DragDropContext, DragStart, DragUpdate, Droppable, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column"
 import {useEffect, useRef, useState} from "react"
@@ -216,7 +216,7 @@ export default function Kanban() {
             <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
             <DragDropContext onDragStart={dragStartHandler} onDragEnd={dragEndHandler} onDragUpdate={dragUpdateHandler}>
                 <Droppable droppableId={board.uuid} type="column" direction="horizontal">
-                    {(provided, snapshot) => (
+                    {(provided) => (
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
