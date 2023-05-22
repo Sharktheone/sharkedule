@@ -48,6 +48,11 @@ export default function Kanban() {
     }
 
     function dragUpdateHandler(event: DragUpdate) {
+        if (event.destination == null) {
+            setGhost(undefined)
+            return
+        }
+
         let draggedElement = getDraggedElement(event.draggableId)
         if (!draggedElement) return
 
