@@ -23,7 +23,7 @@
 
 .cols {
   gap: 0;
-  & > div {
+  & > div > div {
     padding-right: 1rem;
   }
 }
