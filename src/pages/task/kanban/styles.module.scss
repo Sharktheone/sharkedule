@@ -12,8 +12,12 @@
 }
 
 .board {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   & > div.cols {
-    overflow-x: scroll;
+    height: 100%;
   }
 }
 

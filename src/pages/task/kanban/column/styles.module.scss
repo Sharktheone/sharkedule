@@ -3,6 +3,10 @@
   opacity: 0.8;
 }
 
+.colDrop {
+  height: 100%;
+}
+
 .column {
   min-width: 24rem;
 
@@ -38,7 +42,7 @@
     }
   }
 
-  & > div > div {
+  & > div {
     position: relative;
   }
 
@@ -86,6 +90,7 @@
 .ghost {
   position: absolute;
   width: 100%;
+  border: 1px dashed red;
   border-radius: .5rem;
   background-color: rgba(0, 0, 0, .2);
 }

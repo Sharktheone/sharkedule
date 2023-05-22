@@ -136,18 +136,19 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
     }
 
     return (
-        <div className={`${cx(classes.column)} ${styles.column}`}>
-            <Title align="left" className={cx(classes.title)} order={3}>
-                <div>
-                    <span onClick={editText} contentEditable={editable} onBlur={handleBlur}>{column.name}</span>
-                    <button onClick={handleDelete}>
-                        <IconTrash/>
-                    </button>
-                </div>
-            </Title>
-            <Droppable droppableId={column.uuid} direction="vertical">
-                {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+        <Droppable droppableId={column.uuid} direction="vertical">
+            {(provided) => (
+                <div className={styles.colDrop} {...provided.droppableProps} ref={provided.innerRef}>
+                    <div className={`${cx(classes.column)} ${styles.column}`}>
+                        <Title align="left" className={cx(classes.title)} order={3}>
+                            <div>
+                                <span onClick={editText} contentEditable={editable}
+                                      onBlur={handleBlur}>{column.name}</span>
+                                <button onClick={handleDelete}>
+                                    <IconTrash/>
+                                </button>
+                            </div>
+                        </Title>
                         <div ref={tasksRef}>
                             {column.tasks?.map((task, index) => (
                                 <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
@@ -173,39 +174,38 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
                                      style={{height: ghostElement.height, top: ghostElement.offsetTop}}/>
                                 : null
                             }
-
                         </div>
 
                         {provided.placeholder}
 
                         {isAdding ?
                             <>
-                                <Textarea onBlur={removeIsAdding} ref={nameRef} autosize className={`${cx(classes.add)} ${styles.add}`}
+                                <Textarea onBlur={removeIsAdding} ref={nameRef} autosize
+                                          className={`${cx(classes.add)} ${styles.add}`}
                                           placeholder="Task name..."/>
                             </>
 
                             : null}
 
+                        <div className={styles.footer}>
+                            {!isAdding ?
+                                <button onClick={handleNewTask}>
+                                    <IconPlus/>
+                                    <Text size="sm"> Add a Task </Text>
+                                </button> :
+
+                                <div>
+                                    <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                            onClick={addTask}> Create </Button>
+                                    <CloseButton onClick={() => setIsAdding(false)}/>
+                                </div>
+
+                            }
+
+                        </div>
                     </div>
-                )}
-            </Droppable>
-
-            <div className={styles.footer}>
-                {!isAdding ?
-                    <button onClick={handleNewTask}>
-                        <IconPlus/>
-                        <Text size="sm"> Add a Task </Text>
-                    </button> :
-
-                    <div>
-                        <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                onClick={addTask}> Create </Button>
-                        <CloseButton onClick={() => setIsAdding(false)}/>
-                    </div>
-
-                }
-
-            </div>
-        </div>
+                </div>
+            )}
+        </Droppable>
     )
 }
