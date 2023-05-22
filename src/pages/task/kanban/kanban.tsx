@@ -220,7 +220,7 @@ export default function Kanban() {
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
-                            <Group className={styles.cols} position="center" align="start" noWrap={true}>
+                            <div className={styles.cols}>
                                 {board.columns?.map((column) => (
                                     <div key={column.uuid}>
                                         <Column column={column} renameColumn={renameColumn}
@@ -255,7 +255,7 @@ export default function Kanban() {
 
                                 }
 
-                            </Group>
+                            </div>
                         </div>
                     )
 
