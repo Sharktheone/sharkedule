@@ -21,6 +21,12 @@
   }
 }
 
+.cols {
+  gap: 0;
+  & > div {
+    padding-right: 1rem;
+  }
+}
 
 .add > div.menu {
   display: flex;

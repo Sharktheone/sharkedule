@@ -195,10 +195,12 @@ export default function Kanban() {
                             {...provided.droppableProps}>
                             <Group className={styles.cols} position="center" align="start" noWrap={true}>
                                 {board.columns?.map((column) => (
-                                    <Column key={column.uuid} column={column} renameColumn={renameColumn}
-                                            index={board.columns?.indexOf(column) ?? 0}
-                                            renameTask={renameTask}
-                                            boardUUID={board.uuid} ghost={ghost}/>
+                                    <div key={column.uuid}>
+                                        <Column column={column} renameColumn={renameColumn}
+                                                index={board.columns?.indexOf(column) ?? 0}
+                                                renameTask={renameTask}
+                                                boardUUID={board.uuid} ghost={ghost}/>
+                                    </div>
                                 ))}
 
 
@@ -206,7 +208,8 @@ export default function Kanban() {
 
                                 {!isAdding ?
                                     <>
-                                        <button onClick={handleNewColumn} className={`${cx(classes.addColumn)} ${styles.footer}`}>
+                                        <button onClick={handleNewColumn}
+                                                className={`${cx(classes.addColumn)} ${styles.footer}`}>
                                             <IconPlus size={24}/>
                                             <Text align="center">Add a Column</Text>
                                         </button>
