@@ -1,5 +1,5 @@
 import {Button, CloseButton, Group, Input, Stack, Text, Title} from '@mantine/core'
-import {DragDropContext, DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
+import {DragDropContext, DragStart, DragUpdate, Droppable, DropResult} from "react-beautiful-dnd"
 import Column from "./column/column"
 import {useEffect, useRef, useState} from "react"
 import {kanbanBoardType} from "./types"
@@ -31,48 +31,58 @@ export default function Kanban() {
     }
 
     function dragStartHandler(event: DragStart) {
+        if (event.type === "task") {
+            let draggedElement = getDraggedElement(event.draggableId)
+            if (!draggedElement) return
+            console.log(draggedElement)
 
-        let draggedElement = getDraggedElement(event.draggableId)
-        if (!draggedElement) return
-        console.log(draggedElement)
+            let rect = draggedElement.getBoundingClientRect()
 
-        let rect = draggedElement.getBoundingClientRect()
+            setGhost({
+                height: rect.height,
+                index: event.source.index,
+                hoveredColumnID: event.source.droppableId,
+            })
+        } else if (event.type === "column") {
 
-        setGhost({
-            height: rect.height,
-            index: event.source.index,
-            hoveredColumnID: event.source.droppableId,
-        })
+        }
 
         console.log("drag start")
     }
 
     function dragUpdateHandler(event: DragUpdate) {
-        if (event.destination == null) {
-            setGhost(undefined)
-            return
+        if (event.type === "task") {
+            if (event.destination == null) {
+                setGhost(undefined)
+                return
+            }
+
+            let draggedElement = getDraggedElement(event.draggableId)
+            if (!draggedElement) return
+
+            let rect = draggedElement.getBoundingClientRect()
+
+            setGhost({
+                height: rect.height,
+                index: event.destination?.index ?? ghost?.index ?? 0,
+                hoveredColumnID: event.destination?.droppableId ?? ghost?.hoveredColumnID ?? "",
+            })
+        } else if (event.type === "column") {
+
         }
-
-        let draggedElement = getDraggedElement(event.draggableId)
-        if (!draggedElement) return
-
-        let rect = draggedElement.getBoundingClientRect()
-
-        setGhost({
-            height: rect.height,
-            index: event.destination?.index ?? ghost?.index ?? 0,
-            hoveredColumnID: event.destination?.droppableId ?? ghost?.hoveredColumnID ?? "",
-        })
-
     }
 
-    function dragEndHandler(result: DropResult) {
-        let {destination, source, draggableId} = result
-        console.log(result)
-        if (!destination) return
-        if (destination.droppableId === source.droppableId && destination.index === source.index) return
-        reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
-        setGhost(undefined)
+    function dragEndHandler(event: DropResult) {
+        if (event.type === "task") {
+            let {destination, source, draggableId} = event
+            console.log(event)
+            if (!destination) return
+            if (destination.droppableId === source.droppableId && destination.index === source.index) return
+            reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
+            setGhost(undefined)
+        } else if (event.type === "column") {
+
+        }
     }
 
     function reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
@@ -178,34 +188,51 @@ export default function Kanban() {
             <Title order={1} align="center">{board.name}</Title>
             <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
             <DragDropContext onDragStart={dragStartHandler} onDragEnd={dragEndHandler} onDragUpdate={dragUpdateHandler}>
-                <Group className={styles.cols} position="center" align="start" noWrap={true}>
-                    {board.columns?.map((column) => (
-                        <Column key={column.uuid} column={column} renameColumn={renameColumn} renameTask={renameTask}
-                                boardUUID={board.uuid} ghost={ghost}/>
-                    ))}
-
-                    {!isAdding ?
-                        <>
-                            <button onClick={handleNewColumn} className={`${cx(classes.addColumn)} ${styles.footer}`}>
-                                <IconPlus size={24}/>
-                                <Text align="center">Add a Column</Text>
-                            </button>
-                        </> :
-                        <Stack className={styles.add}>
-                            <Input ref={newColRef} onBlur={cancelAddColumn}
-                                   placeholder="Column name"></Input>
-                            <div className={styles.menu}>
-                                <Button onClick={addColumn} gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                        variant="gradient">Create</Button>
-                                <CloseButton onClick={() => setIsAdding(false)}/>
-                            </div>
+                <Droppable droppableId={board.uuid} type="column" direction="horizontal">
+                    {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}>
+                            <Group className={styles.cols} position="center" align="start" noWrap={true}>
+                                {board.columns?.map((column) => (
+                                    <Column key={column.uuid} column={column} renameColumn={renameColumn}
+                                            index={board.columns?.indexOf(column) ?? 0}
+                                            renameTask={renameTask}
+                                            boardUUID={board.uuid} ghost={ghost}/>
+                                ))}
 
 
-                        </Stack>
+                                {provided.placeholder}
+
+                                {!isAdding ?
+                                    <>
+                                        <button onClick={handleNewColumn} className={`${cx(classes.addColumn)} ${styles.footer}`}>
+                                            <IconPlus size={24}/>
+                                            <Text align="center">Add a Column</Text>
+                                        </button>
+                                    </> :
+                                    <Stack className={styles.add}>
+                                        <Input ref={newColRef} onBlur={cancelAddColumn}
+                                               placeholder="Column name"></Input>
+                                        <div className={styles.menu}>
+                                            <Button onClick={addColumn} gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                                    variant="gradient">Create</Button>
+                                            <CloseButton onClick={() => setIsAdding(false)}/>
+                                        </div>
+
+
+                                    </Stack>
+
+                                }
+
+                            </Group>
+                        </div>
+                    )
 
                     }
 
-                </Group>
+                </Droppable>
+
             </DragDropContext>
         </div>
     )

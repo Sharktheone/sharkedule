@@ -16,10 +16,11 @@ type ColumnProps = {
     renameColumn: (uuid: string, name: string) => void
     renameTask: (uuid: string, name: string) => void
     boardUUID: string
+    index: number
     ghost?: ghostType
 }
 
-export default function Column({column, renameColumn, renameTask, boardUUID, ghost}: ColumnProps) {
+export default function Column({column, renameColumn, renameTask, boardUUID, ghost, index}: ColumnProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const [isAdding, setIsAdding] = useState(false)
@@ -136,76 +137,88 @@ export default function Column({column, renameColumn, renameTask, boardUUID, gho
     }
 
     return (
-        <Droppable droppableId={column.uuid} direction="vertical">
-            {(provided) => (
-                <div className={styles.colDrop} {...provided.droppableProps} ref={provided.innerRef}>
-                    <div className={`${cx(classes.column)} ${styles.column}`}>
-                        <Title align="left" className={cx(classes.title)} order={3}>
-                            <div>
+        <Draggable draggableId={column.uuid} index={index}>
+            {(provided, snapshot) => (
+                <div
+                    className={snapshot.isDragging ? styles.dragging : ""}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+
+                    ref={provided.innerRef}
+                >
+                    <Droppable type="task" droppableId={column.uuid} direction="vertical">
+                        {(provided) => (
+                            <div className={styles.colDrop} {...provided.droppableProps} ref={provided.innerRef}>
+                                <div className={`${cx(classes.column)} ${styles.column}`}>
+                                    <Title align="left" className={cx(classes.title)} order={3}>
+                                        <div>
                                 <span onClick={editText} contentEditable={editable}
                                       onBlur={handleBlur}>{column.name}</span>
-                                <button onClick={handleDelete}>
-                                    <IconTrash/>
-                                </button>
-                            </div>
-                        </Title>
-                        <div ref={tasksRef}>
-                            {column.tasks?.map((task, index) => (
-                                <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            className={snapshot.isDragging ? styles.dragging : ""}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-
-                                            ref={provided.innerRef}
-                                        >
-
-                                            <div style={{paddingBottom: "0.625rem"}}>
-                                                <Task key={task.uuid} task={task} renameTask={renameTask}
-                                                      boardUUID={boardUUID} columnUUID={column.uuid}/>
-                                            </div>
+                                            <button onClick={handleDelete}>
+                                                <IconTrash/>
+                                            </button>
                                         </div>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {ghostElement ?
-                                <div className={`${cx(classes.ghost)} ${styles.ghost}`}
-                                     style={{height: ghostElement.height, top: ghostElement.offsetTop}}/>
-                                : null
-                            }
-                        </div>
+                                    </Title>
+                                    <div ref={tasksRef}>
+                                        {column.tasks?.map((task, index) => (
+                                            <Draggable key={task.uuid} draggableId={task.uuid} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        className={snapshot.isDragging ? styles.dragging : ""}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
 
-                        {provided.placeholder}
+                                                        ref={provided.innerRef}
+                                                    >
 
-                        {isAdding ?
-                            <>
-                                <Textarea onBlur={removeIsAdding} ref={nameRef} autosize
-                                          className={`${cx(classes.add)} ${styles.add}`}
-                                          placeholder="Task name..."/>
-                            </>
+                                                        <div style={{paddingBottom: "0.625rem"}}>
+                                                            <Task key={task.uuid} task={task} renameTask={renameTask}
+                                                                  boardUUID={boardUUID} columnUUID={column.uuid}/>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {ghostElement ?
+                                            <div className={`${cx(classes.ghost)} ${styles.ghost}`}
+                                                 style={{height: ghostElement.height, top: ghostElement.offsetTop}}/>
+                                            : null
+                                        }
+                                    </div>
 
-                            : null}
+                                    {provided.placeholder}
 
-                        <div className={styles.footer}>
-                            {!isAdding ?
-                                <button onClick={handleNewTask}>
-                                    <IconPlus/>
-                                    <Text size="sm"> Add a Task </Text>
-                                </button> :
+                                    {isAdding ?
+                                        <>
+                                            <Textarea onBlur={removeIsAdding} ref={nameRef} autosize
+                                                      className={`${cx(classes.add)} ${styles.add}`}
+                                                      placeholder="Task name..."/>
+                                        </>
 
-                                <div>
-                                    <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                            onClick={addTask}> Create </Button>
-                                    <CloseButton onClick={() => setIsAdding(false)}/>
+                                        : null}
+
+                                    <div className={styles.footer}>
+                                        {!isAdding ?
+                                            <button onClick={handleNewTask}>
+                                                <IconPlus/>
+                                                <Text size="sm"> Add a Task </Text>
+                                            </button> :
+
+                                            <div>
+                                                <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                                        onClick={addTask}> Create </Button>
+                                                <CloseButton onClick={() => setIsAdding(false)}/>
+                                            </div>
+
+                                        }
+
+                                    </div>
                                 </div>
-
-                            }
-
-                        </div>
-                    </div>
+                            </div>
+                        )}
+                    </Droppable>
                 </div>
             )}
-        </Droppable>
+        </Draggable>
     )
 }
