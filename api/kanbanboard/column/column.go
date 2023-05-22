@@ -45,6 +45,41 @@ func CreateKanbanBoardColumn(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
 }
 
+func MoveKanbanBoardColumn(c *fiber.Ctx) error {
+	type MoveColumn struct {
+		UUID  string `json:"uuid"`
+		Index int    `json:"index"`
+	}
+
+	var moveColumn MoveColumn
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&moveColumn); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	boardUUID := c.Params("kanbanboard")
+	columnUUID := c.Params("column")
+
+	for bIndex, board := range kanbanboard.KanbanBoard {
+		if board.UUID == boardUUID {
+			for index, column := range board.Columns {
+				if column.UUID == columnUUID {
+					board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
+
+					board.Columns = append(board.Columns[:moveColumn.Index], append([]kanbanboardTypes.KanbanColumnType{column}, board.Columns[moveColumn.Index:]...)...)
+					kanbanboard.KanbanBoard[bIndex] = board
+					return c.SendStatus(fiber.StatusOK)
+				}
+			}
+			return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "column not found"})
+		}
+	}
+
+	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
+}
+
 func GetKanbanBoardColumn(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")

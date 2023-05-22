@@ -41,6 +41,7 @@ func Start() {
 					{
 						singleCol.Get("", column.GetKanbanBoardColumn)
 						singleCol.Delete("delete", column.DeleteKanbanBoardColumn)
+						singleCol.Patch("move", column.MoveKanbanBoardColumn)
 
 						tsk := singleCol.Group("task")
 						{

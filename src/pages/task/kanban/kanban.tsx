@@ -96,20 +96,20 @@ export default function Kanban() {
         let [column] = newBoard?.columns?.splice(columnIndex, 1)
         newBoard?.columns?.splice(to, 0, column)
         setBoard(newBoard)
-    //     api.patch(`/kanbanboard/${board.uuid}/column/${uuid}/move`, {
-    //         index: to
-    //     }).then((res) => {
-    //         if (res.status > 300) {
-    //             notifications.show({title: "Error", message: res.data, color: "red"})
-    //             console.log(res)
-    //         }
-    //         navigate("")
-    //
-    //     }).catch((err) => {
-    //         notifications.show({title: "Error", message: err.message, color: "red"})
-    //         console.log(err)
-    //         navigate("")
-    //     })
+        api.patch(`/kanbanboard/${board.uuid}/column/${uuid}/move`, {
+            index: to
+        }).then((res) => {
+            if (res.status > 300) {
+                notifications.show({title: "Error", message: res.data, color: "red"})
+                console.log(res)
+            }
+            navigate("")
+
+        }).catch((err) => {
+            notifications.show({title: "Error", message: err.message, color: "red"})
+            console.log(err)
+            navigate("")
+        })
     }
 
     function reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
