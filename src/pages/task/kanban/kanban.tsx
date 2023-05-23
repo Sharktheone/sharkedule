@@ -9,7 +9,7 @@ import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
 import {api} from "../../../api/api"
 import {notifications} from "@mantine/notifications"
-import {ghostType} from "./ghost"
+import {dragHandlers} from "./dragHandlers"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -17,129 +17,15 @@ export default function Kanban() {
     const navigate = useNavigate()
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
-    const [ghost, setGhost] = useState<ghostType | undefined>(undefined)
     const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
 
     const {classes, cx} = useStyles()
 
+    const drag = new dragHandlers(board, setBoard)
+
     useEffect(() => {
         setBoard(loaderData as kanbanBoardType)
     }, [loaderData])
-
-    function getDraggedElement(draggableId: string) {
-        return document.querySelector(`[data-rbd-drag-handle-draggable-id='${draggableId}'] > div > div`)
-    }
-
-    function dragStartHandler(event: DragStart) {
-        if (event.type === "task") {
-            let draggedElement = getDraggedElement(event.draggableId)
-            if (!draggedElement) return
-            console.log(draggedElement)
-
-            let rect = draggedElement.getBoundingClientRect()
-
-            setGhost({
-                height: rect.height,
-                index: event.source.index,
-                hoveredColumnID: event.source.droppableId,
-            })
-        } else if (event.type === "column") {
-
-        }
-
-        console.log("drag start")
-    }
-
-    function dragUpdateHandler(event: DragUpdate) {
-        if (event.type === "task") {
-            if (event.destination == null) {
-                setGhost(undefined)
-                return
-            }
-
-            let draggedElement = getDraggedElement(event.draggableId)
-            if (!draggedElement) return
-
-            let rect = draggedElement.getBoundingClientRect()
-
-            setGhost({
-                height: rect.height,
-                index: event.destination?.index ?? ghost?.index ?? 0,
-                hoveredColumnID: event.destination?.droppableId ?? ghost?.hoveredColumnID ?? "",
-            })
-        } else if (event.type === "column") {
-
-        }
-    }
-
-    function dragEndHandler(event: DropResult) {
-        if (event.type === "task") {
-            let {destination, source, draggableId} = event
-            console.log(event)
-            if (!destination) return
-            if (destination.droppableId === source.droppableId && destination.index === source.index) return
-            reorderTask(source.droppableId, draggableId, destination.index, destination.droppableId)
-            setGhost(undefined)
-        } else if (event.type === "column") {
-            let {destination, source, draggableId} = event
-            console.log(event)
-            if (!destination) return
-            if (destination.index === source.index) return
-            reorderColumn(draggableId, destination.index)
-
-        }
-    }
-
-    function reorderColumn(uuid: string, to: number) {
-        let newBoard = {...board}
-        let columnIndex = newBoard?.columns?.findIndex((column) => column.uuid === uuid)
-        let [column] = newBoard?.columns?.splice(columnIndex, 1)
-        newBoard?.columns?.splice(to, 0, column)
-        setBoard(newBoard)
-        api.patch(`/kanbanboard/${board.uuid}/column/${uuid}/move`, {
-            index: to
-        }).then((res) => {
-            if (res.status > 300) {
-                notifications.show({title: "Error", message: res.data, color: "red"})
-                console.log(res)
-            }
-            navigate("")
-
-        }).catch((err) => {
-            notifications.show({title: "Error", message: err.message, color: "red"})
-            console.log(err)
-            navigate("")
-        })
-    }
-
-    function reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
-        let newBoard = {...board}
-
-        let fromColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === fromColumn)
-        let toColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === toColumn)
-        let taskIndex = newBoard?.columns[fromColumnIndex]?.tasks?.findIndex((task) => task.uuid === uuid)
-        let [task] = newBoard?.columns[fromColumnIndex]?.tasks?.splice(taskIndex, 1)
-
-
-        newBoard?.columns[toColumnIndex]?.tasks?.splice(to, 0, task)
-        setBoard(newBoard)
-
-        api.patch(`/kanbanboard/${board.uuid}/column/${fromColumn}/task/${uuid}/move`, {
-            column: toColumn,
-            index: to
-        }).then((res) => {
-            if (res.status > 300) {
-                notifications.show({title: "Error", message: res.data, color: "red"})
-                console.log(res)
-            }
-            navigate("")
-
-        }).catch((err) => {
-            notifications.show({title: "Error", message: err.message, color: "red"})
-            console.log(err)
-            navigate("")
-        })
-    }
 
     function renameTask(uuid: string, name: string) {
         let newBoard = {...board}
@@ -214,7 +100,7 @@ export default function Kanban() {
         <div className={styles.board}>
             <Title order={1} align="center">{board.name}</Title>
             <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
-            <DragDropContext onDragStart={dragStartHandler} onDragEnd={dragEndHandler} onDragUpdate={dragUpdateHandler}>
+            <DragDropContext onDragStart={drag.Start} onDragEnd={drag.End} onDragUpdate={drag.Update}>
                 <Droppable droppableId={board.uuid} type="column" direction="horizontal">
                     {(provided) => (
                         <div
@@ -226,7 +112,7 @@ export default function Kanban() {
                                         <Column column={column} renameColumn={renameColumn}
                                                 index={board.columns?.indexOf(column) ?? 0}
                                                 renameTask={renameTask}
-                                                boardUUID={board.uuid} ghost={ghost}/>
+                                                boardUUID={board.uuid} ghost={drag.ghost}/>
                                     </div>
                                 ))}
 
