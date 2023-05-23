@@ -11,7 +11,7 @@ export class handlers {
     readonly editable: boolean
     readonly tasksRef: RefObject<HTMLDivElement>
     readonly nameRef: RefObject<HTMLTextAreaElement>
-    readonly ghostElem: ghostElementType | undefined
+    readonly ghostElement: ghostElementType | undefined
     readonly isAdding: boolean
     private readonly setEditable: Dispatch<SetStateAction<boolean>>
     private readonly uuid: string
@@ -39,7 +39,7 @@ export class handlers {
         this.setEditable = setEditable
         this.setIsAdding = setIsAdding
         this.editable = editable
-        this.ghostElem = ghostElement
+        this.ghostElement = ghostElement
         this.removeTimeout = removeTimeout
         this.isAdding = isAdding
         this.uuid = uuid
@@ -104,35 +104,39 @@ export class handlers {
     }
 
     checkGhost() {
-        if (!this.ghost) {
-            this.setGhostElement(undefined)
-            return
-        }
-        if (this.ghost.hoveredColumnID !== this.uuid) {
-            this.setGhostElement(undefined)
-            return
-        }
 
-        let offset = 0
-
-        let tasks = [].slice.call(this.tasksRef.current?.children) as HTMLDivElement[]
-
-        console.log(tasks.filter(task => !task.className.includes(styles.ghost)))
-
-        tasks.filter(task => !task.className.includes(styles.ghost)).forEach((task, index) => {
-            if (index < this.ghost!.index) {
-                offset += task.getBoundingClientRect().height
+        useEffect(() => {
+            if (!this.ghost) {
+                this.setGhostElement(undefined)
+                return
             }
-        })
+            if (this.ghost.hoveredColumnID !== this.uuid) {
+                this.setGhostElement(undefined)
+                return
+            }
 
-        const ghostElement = {
-            height: this.ghost.height + "px",
-            offsetTop: offset + "px",
-        }
+            let offset = 0
 
-        console.log(ghostElement)
+            let tasks = [].slice.call(this.tasksRef.current?.children) as HTMLDivElement[]
 
-        this.setGhostElement(ghostElement)
+            console.log(tasks.filter(task => !task.className.includes(styles.ghost)))
+
+            tasks.filter(task => !task.className.includes(styles.ghost)).forEach((task, index) => {
+                if (index < this.ghost!.index) {
+                    offset += task.getBoundingClientRect().height
+                }
+            })
+
+            const ghostElement = {
+                height: this.ghost.height + "px",
+                offsetTop: offset + "px",
+            }
+
+            console.log(ghostElement)
+
+            this.setGhostElement(ghostElement)
+        }, [this.ghost])
+
     }
     handleNewTask() {
         this.setIsAdding(true)
@@ -182,6 +186,11 @@ export class handlers {
         this.setRemoveTimeout(setTimeout(() => {
             this.setIsAdding(false)
         }, 100))
+    }
+
+    closeIsAdding() {
+        if (this.removeTimeout) clearTimeout(this.removeTimeout)
+        this.setIsAdding(false)
     }
 
     private refresh() {

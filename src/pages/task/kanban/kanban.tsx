@@ -43,6 +43,8 @@ export default function Kanban() {
                                 {board.columns?.map((column) => (
                                     <div key={column.uuid}>
                                         <Column column={column}
+                                                setBoard={setBoard}
+                                                board={board}
                                                 index={board.columns?.indexOf(column) ?? 0}
                                                 boardUUID={board.uuid} ghost={drag.ghost}/>
                                     </div>
