@@ -13,14 +13,12 @@ import {ghostElementType, ghostType} from "../ghost"
 
 type ColumnProps = {
     column: kanbanColumnType
-    renameColumn: (uuid: string, name: string) => void
-    renameTask: (uuid: string, name: string) => void
     boardUUID: string
     index: number
     ghost?: ghostType
 }
 
-export default function Column({column, renameColumn, renameTask, boardUUID, ghost, index}: ColumnProps) {
+export default function Column({column, boardUUID, ghost, index}: ColumnProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const [isAdding, setIsAdding] = useState(false)

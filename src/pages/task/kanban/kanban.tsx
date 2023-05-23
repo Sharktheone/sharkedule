@@ -42,9 +42,8 @@ export default function Kanban() {
                             <div className={styles.cols}>
                                 {board.columns?.map((column) => (
                                     <div key={column.uuid}>
-                                        <Column column={column} renameColumn={h.renameColumn}
+                                        <Column column={column}
                                                 index={board.columns?.indexOf(column) ?? 0}
-                                                renameTask={h.renameTask}
                                                 boardUUID={board.uuid} ghost={drag.ghost}/>
                                     </div>
                                 ))}

@@ -25,30 +25,6 @@ export class handlers {
         this.setRemoveTimeout = setRemoveTimeout
     }
 
-    renameTask(uuid: string, name: string) {
-        let newBoard = {...this.board}
-        newBoard.columns?.forEach((column) => {
-            column.tasks?.forEach((task) => {
-                if (task.uuid === uuid) {
-                    task.name = name
-                    return
-                }
-            })
-        })
-        this.setBoard(newBoard)
-    }
-
-    renameColumn(uuid: string, name: string) {
-        let newBoard = {...this.board}
-        newBoard.columns?.forEach((column) => {
-            if (column.uuid === uuid) {
-                column.name = name
-                return
-            }
-        })
-        this.setBoard(newBoard)
-    }
-
     handleNewColumn() {
         this.setIsAdding(true)
     }
