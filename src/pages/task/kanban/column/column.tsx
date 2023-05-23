@@ -23,6 +23,9 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
 
     const h = new handlers(column.uuid, setBoard, board, ghost)
 
+    h.checkGhost()
+    h.checkAdding()
+
 
     return (
         <Draggable draggableId={column.uuid} index={index}>
