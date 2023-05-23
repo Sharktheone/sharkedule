@@ -1,5 +1,5 @@
 import {DragStart, DragUpdate} from "react-beautiful-dnd"
-import {Dispatch, SetStateAction, useState} from "react"
+import {useState} from "react"
 
 export type ghostType = {
     index: number

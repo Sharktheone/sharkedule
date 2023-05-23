@@ -1,22 +1,18 @@
 import {Button, CloseButton, Input, Stack, Text, Title} from '@mantine/core'
-import {DragDropContext, DragStart, DragUpdate, Droppable, DropResult} from "react-beautiful-dnd"
+import {DragDropContext, Droppable} from "react-beautiful-dnd"
 import Column from "./column/column"
 import {useEffect, useRef, useState} from "react"
 import {kanbanBoardType} from "./types"
-import {useLoaderData, useNavigate} from "react-router-dom"
+import {useLoaderData} from "react-router-dom"
 import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
-import {api} from "../../../api/api"
-import {notifications} from "@mantine/notifications"
 import {dragHandlers} from "./dragHandlers"
 import { handlers } from './handlers'
 
 export default function Kanban() {
     const loaderData = useLoaderData()
     const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
-
-    const navigate = useNavigate()
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
     const {classes, cx} = useStyles()
