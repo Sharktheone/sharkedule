@@ -17,9 +17,20 @@
   flex-direction: column;
   flex: 1;
 
-  & > div.cols > div {
+  & > div[data-rbd-droppable-context-id] {
     height: 100%;
+    & > div.cols {
+      height: 100%;
+      & > div {
+        height: 100%;
+        & > div {
+          height: 100%;
+        }
+      }
+    }
   }
+
+
 }
 
 .cols {
