@@ -5,6 +5,11 @@
   align-items: center;
   justify-content: space-between;
 
+  & > div.name {
+    min-height: 1.5rem;
+    width: 100%;
+    display: flex;
+  }
   & > div > div {
     display: none;
 

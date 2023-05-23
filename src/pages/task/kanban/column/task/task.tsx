@@ -52,7 +52,7 @@ export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProp
 
     return (
         <Flex className={`${cx(classes.task)} ${styles.task}`}>
-            <Text onClick={editText} onBlur={handleBlur} contentEditable={editable} h="100%">
+            <Text className={styles.name} onClick={editText} onBlur={handleBlur} contentEditable={editable}>
                 {task.name}
             </Text>
             <div>
