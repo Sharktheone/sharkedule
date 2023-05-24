@@ -39,26 +39,26 @@ func loadTestBoard() {
 	}
 }
 
-func getBoard(uuid string) (kanbanboardTypes.KanbanBoard, error) {
+func getBoard(uuid string) (*kanbanboardTypes.KanbanBoard, error) {
 	if KanbanBoard == nil {
 		loadTestBoard()
 	}
 
 	for _, board := range KanbanBoard {
 		if board.UUID == uuid {
-			return board, nil
+			return &board, nil
 		}
 	}
 
-	return kanbanboardTypes.KanbanBoard{}, errors.New("board not found")
+	return &kanbanboardTypes.KanbanBoard{}, errors.New("board not found")
 }
 
-func extractBoard(c *fiber.Ctx) (kanbanboardTypes.KanbanBoard, error) {
+func extractBoard(c *fiber.Ctx) (*kanbanboardTypes.KanbanBoard, error) {
 	boardUUID := c.Params("kanbanboard")
 
 	board, err := getBoard(boardUUID)
 	if err != nil {
-		return kanbanboardTypes.KanbanBoard{}, err
+		return &kanbanboardTypes.KanbanBoard{}, err
 	}
 
 	return board, nil
