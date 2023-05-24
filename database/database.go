@@ -1,6 +1,13 @@
 package database
 
-import "sharkedule/kanbanboardTypes"
+import (
+	"sharkedule/kanbanboardTypes"
+	"sync"
+)
+
+const (
+	DBRoot = "/var/lib/sharkedule"
+)
 
 type IDatabase interface {
 	Load() error
@@ -10,4 +17,9 @@ type IDatabase interface {
 	GetBoard(boardUUID string) (*kanbanboardTypes.KanbanBoard, error)
 	GetBoards() ([]*kanbanboardTypes.KanbanBoard, error)
 	GetBoardNames() ([]string, error)
+}
+
+type DBStructure struct {
+	Mu           *sync.Mutex
+	Kanbanboards []kanbanboardTypes.KanbanBoard `json:"kanbanboards"`
 }
