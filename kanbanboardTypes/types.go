@@ -1,6 +1,9 @@
 package kanbanboardTypes
 
+import "sync"
+
 type KanbanBoard struct {
+	Mu          sync.Mutex             `json:"-" yaml:"-" bson:"-"`
 	UUID        string                 `json:"uuid" yaml:"uuid" bson:"uuid"`
 	Name        string                 `json:"name" yaml:"name" bson:"name"`
 	Description KanbanDescriptionType  `json:"description,omitempty" yaml:"description" bson:"description"`
