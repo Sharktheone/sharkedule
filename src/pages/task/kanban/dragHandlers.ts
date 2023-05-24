@@ -21,9 +21,9 @@ export class dragHandlers {
          this.navigate = useNavigate()
 
         this.ghost = ghost
-        this.addGhost = addGhost
-        this.removeGhost = removeGhost
-        this.updateGhost = updateGhost
+        this.addGhost = addGhost.bind(this)
+        this.removeGhost = removeGhost.bind(this)
+        this.updateGhost = updateGhost.bind(this)
         this.board = board
         this.setBoard = setBoard
     }
@@ -54,29 +54,29 @@ export class dragHandlers {
     }
 
     private reorderColumn(uuid: string, to: number) {
-        let newBoard = {...this.board}
+        let newBoard = {...this?.board}
         let columnIndex = newBoard?.columns?.findIndex((column) => column.uuid === uuid)
         let [column] = newBoard?.columns?.splice(columnIndex, 1)
         newBoard?.columns?.splice(to, 0, column)
-        this.setBoard(newBoard)
-        api.patch(`/kanbanboard/${this.board.uuid}/column/${uuid}/move`, {
+        this?.setBoard(newBoard)
+        api.patch(`/kanbanboard/${this?.board.uuid}/column/${uuid}/move`, {
             index: to
         }).then((res) => {
             if (res.status > 300) {
                 notifications.show({title: "Error", message: res.data, color: "red"})
                 console.log(res)
             }
-            this.refresh()
+            this?.refresh()
 
         }).catch((err) => {
             notifications.show({title: "Error", message: err.message, color: "red"})
             console.log(err)
-            this.refresh()
+            this?.refresh()
         })
     }
 
     private reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
-        let newBoard = {...this.board}
+        let newBoard = {...this?.board}
 
         let fromColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === fromColumn)
         let toColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === toColumn)
@@ -87,7 +87,7 @@ export class dragHandlers {
         newBoard?.columns[toColumnIndex]?.tasks?.splice(to, 0, task)
         this.setBoard(newBoard)
 
-        api.patch(`/kanbanboard/${this.board.uuid}/column/${fromColumn}/task/${uuid}/move`, {
+        api.patch(`/kanbanboard/${this?.board.uuid}/column/${fromColumn}/task/${uuid}/move`, {
             column: toColumn,
             index: to
         }).then((res) => {
