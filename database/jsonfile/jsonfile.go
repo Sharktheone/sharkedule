@@ -66,3 +66,22 @@ func (J *JSONFile) GetBoards() ([]*kanbanboardTypes.KanbanBoard, error) {
 func (J *JSONFile) GetBoardNames() ([]string, error) {
 	return nil, nil
 }
+
+func (J *JSONFile) boardExists(uuid string) bool {
+	for _, board := range J.db.Kanbanboards {
+		if board.UUID == uuid {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (J *JSONFile) getBoard(uuid string) (*kanbanboardTypes.KanbanBoard, int, error) {
+	for i, board := range J.db.Kanbanboards {
+		if board.UUID == uuid {
+			return &board, i, nil
+		}
+	}
+	return &kanbanboardTypes.KanbanBoard{}, -1, database.ErrBoardNotFound
+}
