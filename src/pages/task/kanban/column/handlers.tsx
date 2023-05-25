@@ -52,7 +52,6 @@ export class handlers {
     }
 
 
-
     renameColumn(uuid: string, name: string) {
         let newBoard = {...this.board}
         newBoard.columns?.forEach((column) => {
@@ -63,7 +62,6 @@ export class handlers {
         })
         this.setBoard(newBoard)
     }
-
 
 
     editText() {
@@ -138,6 +136,7 @@ export class handlers {
         }, [this.ghost])
 
     }
+
     handleNewTask() {
         this.setIsAdding(true)
     }

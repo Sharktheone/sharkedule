@@ -13,6 +13,7 @@ export class handlers {
     private readonly newColRef: RefObject<HTMLInputElement>
     private readonly removeTimeout: number | undefined
     private readonly setRemoveTimeout: Dispatch<SetStateAction<number | undefined>>
+
     constructor(board: kanbanBoardType, setBoard: Dispatch<SetStateAction<kanbanBoardType>>, setIsAdding: Dispatch<SetStateAction<boolean>>, newColRef: RefObject<HTMLInputElement>) {
         const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
 
@@ -64,6 +65,7 @@ export class handlers {
             }
         )
     }
+
     private refresh() {
         this.navigate("")
     }

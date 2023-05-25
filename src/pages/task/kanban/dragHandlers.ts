@@ -18,7 +18,7 @@ export class dragHandlers {
 
     constructor(board: kanbanBoardType, setBoard: Dispatch<SetStateAction<kanbanBoardType>>) {
         const {ghost, addGhost, removeGhost, updateGhost} = useGhost()
-         this.navigate = useNavigate()
+        this.navigate = useNavigate()
 
         this.ghost = ghost
         this.addGhost = addGhost.bind(this)

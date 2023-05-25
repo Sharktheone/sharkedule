@@ -3,7 +3,7 @@ import {useStyles} from "./styles"
 import Task from "./task/task"
 import {kanbanBoardType, kanbanColumnType} from "../types"
 import {Draggable, Droppable} from "react-beautiful-dnd"
-import {Dispatch, SetStateAction, useEffect} from "react"
+import {Dispatch, SetStateAction} from "react"
 import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "../ghost"
@@ -72,7 +72,10 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
                                         ))}
                                         {h.ghostElement ?
                                             <div className={`${cx(classes.ghost)} ${styles.ghost}`}
-                                                 style={{height: h.ghostElement.height, top: h.ghostElement.offsetTop}}/>
+                                                 style={{
+                                                     height: h.ghostElement.height,
+                                                     top: h.ghostElement.offsetTop
+                                                 }}/>
                                             : null
                                         }
                                     </div>

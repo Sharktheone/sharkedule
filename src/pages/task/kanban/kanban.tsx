@@ -8,7 +8,7 @@ import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
 import {dragHandlers} from "./dragHandlers"
-import { handlers } from './handlers'
+import {handlers} from './handlers'
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -33,7 +33,8 @@ export default function Kanban() {
         <div className={styles.board}>
             <Title order={1} align="center">{board.name}</Title>
             <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
-            <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)} onDragUpdate={event => drag.Update(event)}>
+            <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
+                             onDragUpdate={event => drag.Update(event)}>
                 <Droppable droppableId={board.uuid} type="column" direction="horizontal">
                     {(provided) => (
                         <div
