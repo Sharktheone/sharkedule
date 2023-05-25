@@ -8,7 +8,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"sharkedule/api"
 	"sharkedule/api/kanbanboard"
-	"sharkedule/kanbanboardTypes"
+	"sharkedule/kanban"
 )
 
 func CreateKanbanBoardColumnTask(c *fiber.Ctx) error {
@@ -26,7 +26,7 @@ func CreateKanbanBoardColumnTask(c *fiber.Ctx) error {
 
 	taskUUID := uuid.NewV4().String()
 
-	var task kanbanboardTypes.KanbanTaskType
+	var task kanban.KanbanTaskType
 
 	task.Name = taskName.Name
 	task.UUID = taskUUID
@@ -86,7 +86,7 @@ func MoveKanbanBoardColumnTask(c *fiber.Ctx) error {
 							column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
 
 							if moveTask.ToColumn == columnUUID {
-								column.Tasks = append(column.Tasks[:moveTask.ToIndex], append([]kanbanboardTypes.KanbanTaskType{task}, column.Tasks[moveTask.ToIndex:]...)...)
+								column.Tasks = append(column.Tasks[:moveTask.ToIndex], append([]kanban.KanbanTaskType{task}, column.Tasks[moveTask.ToIndex:]...)...)
 								board.Columns[cIndex] = column
 								kanbanboard.KanbanBoard[bIndex] = board
 								return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task moved"})
@@ -97,7 +97,7 @@ func MoveKanbanBoardColumnTask(c *fiber.Ctx) error {
 
 							for toIndex, toColumn := range board.Columns {
 								if toColumn.UUID == moveTask.ToColumn {
-									toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]kanbanboardTypes.KanbanTaskType{task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
+									toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]kanban.KanbanTaskType{task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
 									board.Columns[toIndex] = toColumn
 									kanbanboard.KanbanBoard[bIndex] = board
 									return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task moved"})

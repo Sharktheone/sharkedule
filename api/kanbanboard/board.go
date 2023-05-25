@@ -8,7 +8,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"log"
 	"sharkedule/api"
-	"sharkedule/kanbanboardTypes"
+	"sharkedule/kanban"
 )
 
 func GetKanbanBoard(c *fiber.Ctx) error {
@@ -79,7 +79,7 @@ func CreateKanbanBoard(c *fiber.Ctx) error {
 
 	boardUUID := uuid.NewV4().String()
 
-	var kBoard *kanbanboardTypes.KanbanBoard
+	var kBoard *kanban.Board
 
 	kBoard.Name = board.Name
 	kBoard.Description.Description = board.Description
