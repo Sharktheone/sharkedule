@@ -11,7 +11,7 @@ import (
 	"sharkedule/kanban"
 )
 
-func GetKanbanBoard(c *fiber.Ctx) error {
+func Get(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 
 	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {
@@ -28,7 +28,7 @@ func GetKanbanBoard(c *fiber.Ctx) error {
 	return nil
 }
 
-func ListKanbanBoards(c *fiber.Ctx) error {
+func List(c *fiber.Ctx) error {
 	if KanbanBoard == nil {
 		loadTestBoard()
 	}
@@ -40,7 +40,7 @@ func ListKanbanBoards(c *fiber.Ctx) error {
 	return nil
 }
 
-func ListKanbanBoardNames(c *fiber.Ctx) error {
+func ListNames(c *fiber.Ctx) error {
 	if KanbanBoard == nil {
 		loadTestBoard()
 	}
@@ -63,7 +63,7 @@ func ListKanbanBoardNames(c *fiber.Ctx) error {
 	return nil
 }
 
-func CreateKanbanBoard(c *fiber.Ctx) error {
+func Create(c *fiber.Ctx) error {
 	type BoardName struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
@@ -93,7 +93,7 @@ func CreateKanbanBoard(c *fiber.Ctx) error {
 	return nil
 }
 
-func DeleteKanbanBoard(c *fiber.Ctx) error {
+func Delete(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 
 	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {

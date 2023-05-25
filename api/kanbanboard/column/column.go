@@ -11,7 +11,7 @@ import (
 	"sharkedule/kanban"
 )
 
-func CreateKanbanBoardColumn(c *fiber.Ctx) error {
+func Create(c *fiber.Ctx) error {
 	type CreateColumn struct {
 		Name string `json:"name"`
 	}
@@ -45,7 +45,7 @@ func CreateKanbanBoardColumn(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
 }
 
-func MoveKanbanBoardColumn(c *fiber.Ctx) error {
+func Move(c *fiber.Ctx) error {
 	type MoveColumn struct {
 		UUID  string `json:"uuid"`
 		Index int    `json:"index"`
@@ -80,7 +80,7 @@ func MoveKanbanBoardColumn(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
 }
 
-func GetKanbanBoardColumn(c *fiber.Ctx) error {
+func Get(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
@@ -99,7 +99,7 @@ func GetKanbanBoardColumn(c *fiber.Ctx) error {
 	return nil
 }
 
-func DeleteKanbanBoardColumn(c *fiber.Ctx) error {
+func Delete(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 

@@ -11,7 +11,7 @@ import (
 	"sharkedule/kanban"
 )
 
-func CreateKanbanBoardColumnTask(c *fiber.Ctx) error {
+func Create(c *fiber.Ctx) error {
 	type CreateTask struct {
 		Name string `json:"name"`
 	}
@@ -54,12 +54,12 @@ func CreateKanbanBoardColumnTask(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
 }
 
-func GetKanbanBoardColumnTask(c *fiber.Ctx) error {
+func Get(c *fiber.Ctx) error {
 	// TODO
 	return nil
 }
 
-func MoveKanbanBoardColumnTask(c *fiber.Ctx) error {
+func Move(c *fiber.Ctx) error {
 	type MoveTask struct {
 		ToIndex  int    `json:"index"`
 		ToColumn string `json:"column"`
@@ -116,7 +116,7 @@ func MoveKanbanBoardColumnTask(c *fiber.Ctx) error {
 	return nil
 }
 
-func DeleteKanbanBoardColumnTask(c *fiber.Ctx) error {
+func Delete(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 	taskUUID := c.Params("task")
