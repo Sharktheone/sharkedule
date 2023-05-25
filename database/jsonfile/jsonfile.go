@@ -55,7 +55,7 @@ func (J *JSONFile) SaveBoard(board *kanbanboardTypes.KanbanBoard) error {
 		if err != nil {
 			return err
 		}
-		J.db.Kanbanboards[i] = *board
+		J.db.Kanbanboards[i] = board
 
 		if err := J.Save(); err != nil {
 			return fmt.Errorf("failed saving database file: %v", err)
@@ -70,7 +70,7 @@ func (J *JSONFile) SaveBoard(board *kanbanboardTypes.KanbanBoard) error {
 func (J *JSONFile) CreateBoard(boardName string) error {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
-	board := kanbanboardTypes.KanbanBoard{
+	board := &kanbanboardTypes.KanbanBoard{
 		Name: boardName,
 	}
 	J.db.Kanbanboards = append(J.db.Kanbanboards, board)
@@ -82,9 +82,9 @@ func (J *JSONFile) GetBoard(boardUUID string) (*kanbanboardTypes.KanbanBoard, er
 	return board, err
 }
 
-func (J *JSONFile) GetBoards() (*[]kanbanboardTypes.KanbanBoard, error) {
+func (J *JSONFile) GetBoards() ([]*kanbanboardTypes.KanbanBoard, error) {
 
-	return &J.db.Kanbanboards, nil
+	return J.db.Kanbanboards, nil
 }
 
 func (J *JSONFile) GetBoardNames() ([]string, error) {
@@ -107,7 +107,7 @@ func (J *JSONFile) boardExists(uuid string) bool {
 func (J *JSONFile) getBoard(uuid string) (*kanbanboardTypes.KanbanBoard, int, error) {
 	for i, board := range J.db.Kanbanboards {
 		if board.UUID == uuid {
-			return &board, i, nil
+			return board, i, nil
 		}
 	}
 	return &kanbanboardTypes.KanbanBoard{}, -1, database.ErrBoardNotFound

@@ -21,5 +21,5 @@ type IDatabase interface {
 
 type DBStructure struct {
 	Mu           *sync.Mutex
-	Kanbanboards []kanbanboardTypes.KanbanBoard `json:"kanbanboards"`
+	Kanbanboards []*kanbanboardTypes.KanbanBoard `json:"kanbanboards"`
 }
