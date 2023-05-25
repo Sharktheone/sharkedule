@@ -8,6 +8,7 @@ import (
 	"path"
 	"sharkedule/database"
 	"sharkedule/kanbanboardTypes"
+	"sync"
 )
 
 const (
@@ -17,6 +18,15 @@ const (
 type JSONFile struct {
 	db   *database.DBStructure
 	file *os.File
+}
+
+func NewJSONFile() *JSONFile {
+	return &JSONFile{
+		db: &database.DBStructure{
+			Mu:           &sync.Mutex{},
+			Kanbanboards: []*kanbanboardTypes.KanbanBoard{},
+		},
+	}
 }
 
 func (J *JSONFile) Load() error {
