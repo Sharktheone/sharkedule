@@ -7,7 +7,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	uuid "github.com/satori/go.uuid"
 	"sharkedule/api"
-	"sharkedule/api/kanbanboard"
 	"sharkedule/kanban"
 )
 
@@ -34,13 +33,13 @@ func Create(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
-	for bIndex, board := range kanbanboard.KanbanBoard {
+	for bIndex, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			for index, column := range board.Columns {
 				if column.UUID == columnUUID {
 					column.Tasks = append(column.Tasks, task)
 					board.Columns[index] = column
-					kanbanboard.KanbanBoard[bIndex] = board
+					kanban.KBoard[bIndex] = board
 
 					return c.Status(fiber.StatusOK).JSON(task)
 
@@ -77,7 +76,7 @@ func Move(c *fiber.Ctx) error {
 	columnUUID := c.Params("column")
 	taskUUID := c.Params("task")
 
-	for bIndex, board := range kanbanboard.KanbanBoard {
+	for bIndex, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			for cIndex, column := range board.Columns {
 				if column.UUID == columnUUID {
@@ -88,18 +87,18 @@ func Move(c *fiber.Ctx) error {
 							if moveTask.ToColumn == columnUUID {
 								column.Tasks = append(column.Tasks[:moveTask.ToIndex], append([]kanban.KanbanTaskType{task}, column.Tasks[moveTask.ToIndex:]...)...)
 								board.Columns[cIndex] = column
-								kanbanboard.KanbanBoard[bIndex] = board
+								kanban.KBoard[bIndex] = board
 								return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task moved"})
 							}
 
 							board.Columns[cIndex] = column
-							kanbanboard.KanbanBoard[bIndex] = board
+							kanban.KBoard[bIndex] = board
 
 							for toIndex, toColumn := range board.Columns {
 								if toColumn.UUID == moveTask.ToColumn {
 									toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]kanban.KanbanTaskType{task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
 									board.Columns[toIndex] = toColumn
-									kanbanboard.KanbanBoard[bIndex] = board
+									kanban.KBoard[bIndex] = board
 									return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task moved"})
 								}
 							}
@@ -121,7 +120,7 @@ func Delete(c *fiber.Ctx) error {
 	columnUUID := c.Params("column")
 	taskUUID := c.Params("task")
 
-	for bIndex, board := range kanbanboard.KanbanBoard {
+	for bIndex, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			for cIndex, column := range board.Columns {
 				if column.UUID == columnUUID {
@@ -129,7 +128,7 @@ func Delete(c *fiber.Ctx) error {
 						if task.UUID == taskUUID {
 							column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
 							board.Columns[cIndex] = column
-							kanbanboard.KanbanBoard[bIndex] = board
+							kanban.KBoard[bIndex] = board
 							return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task deleted"})
 						}
 					}

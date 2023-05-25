@@ -7,7 +7,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	uuid "github.com/satori/go.uuid"
 	"sharkedule/api"
-	"sharkedule/api/kanbanboard"
 	"sharkedule/kanban"
 )
 
@@ -33,10 +32,10 @@ func Create(c *fiber.Ctx) error {
 
 	boardUUID := c.Params("kanbanboard")
 
-	for index, board := range kanbanboard.KanbanBoard {
+	for index, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			board.Columns = append(board.Columns, column)
-			kanbanboard.KanbanBoard[index] = board
+			kanban.KBoard[index] = board
 
 			return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": columnUUID})
 		}
@@ -62,14 +61,14 @@ func Move(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
-	for bIndex, board := range kanbanboard.KanbanBoard {
+	for bIndex, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			for index, column := range board.Columns {
 				if column.UUID == columnUUID {
 					board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
 
 					board.Columns = append(board.Columns[:moveColumn.Index], append([]kanban.Column{column}, board.Columns[moveColumn.Index:]...)...)
-					kanbanboard.KanbanBoard[bIndex] = board
+					kanban.KBoard[bIndex] = board
 					return c.SendStatus(fiber.StatusOK)
 				}
 			}
@@ -84,7 +83,7 @@ func Get(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
-	for _, board := range kanbanboard.KanbanBoard {
+	for _, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			for _, column := range board.Columns {
 				if column.UUID == columnUUID {
@@ -103,12 +102,12 @@ func Delete(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
-	for bIndex, board := range kanbanboard.KanbanBoard {
+	for bIndex, board := range kanban.KBoard {
 		if board.UUID == boardUUID {
 			for index, column := range board.Columns {
 				if column.UUID == columnUUID {
 					board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-					kanbanboard.KanbanBoard[bIndex] = board
+					kanban.KBoard[bIndex] = board
 					return c.SendStatus(fiber.StatusOK)
 				}
 			}

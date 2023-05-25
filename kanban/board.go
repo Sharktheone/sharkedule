@@ -1,4 +1,4 @@
-package kanbanboard
+package kanban
 
 import (
 	"encoding/json"
@@ -6,22 +6,21 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"log"
 	"os"
-	"sharkedule/kanban"
 )
 
 var (
-	KanbanBoard []*kanban.Board
+	KBoard []*Board
 )
 
 func init() {
-	loadTestBoard()
+	LoadTestBoard()
 }
 
-func loadTestBoard() {
+func LoadTestBoard() {
 	boards, err := os.Open("test_data.json")
 	if err != nil {
 		if os.IsNotExist(err) {
-			KanbanBoard = []*kanban.Board{}
+			KBoard = []*Board{}
 			log.Println("No test_data.json found, skipping loading test data")
 			return
 		}
@@ -34,31 +33,31 @@ func loadTestBoard() {
 		log.Fatalf("Error reading test_data.json: %v", err)
 	}
 
-	if err := json.NewDecoder(boards).Decode(&KanbanBoard); err != nil {
+	if err := json.NewDecoder(boards).Decode(&KBoard); err != nil {
 		log.Fatalf("Error decoding test_data.json: %v", err)
 	}
 }
 
-func getBoard(uuid string) (*kanban.Board, error) {
-	if KanbanBoard == nil {
-		loadTestBoard()
+func GetBoard(uuid string) (*Board, error) {
+	if KBoard == nil {
+		LoadTestBoard()
 	}
 
-	for _, board := range KanbanBoard {
+	for _, board := range KBoard {
 		if board.UUID == uuid {
 			return board, nil
 		}
 	}
 
-	return &kanban.Board{}, errors.New("board not found")
+	return &Board{}, errors.New("board not found")
 }
 
-func extractBoard(c *fiber.Ctx) (*kanban.Board, error) {
+func ExtractBoard(c *fiber.Ctx) (*Board, error) {
 	boardUUID := c.Params("kanbanboard")
 
-	board, err := getBoard(boardUUID)
+	board, err := GetBoard(boardUUID)
 	if err != nil {
-		return &kanban.Board{}, err
+		return &Board{}, err
 	}
 
 	return board, nil

@@ -14,7 +14,7 @@ import (
 func Get(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 
-	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {
+	if board, err := kanban.GetBoard(boardUUID); err != nil || board.UUID == "" {
 		errJson := api.JSON{"error": err.Error()}
 		if sendErr := c.Status(fiber.StatusNotFound).JSON(errJson); sendErr != nil {
 			log.Printf("Failed sending error (%v): %v", err, sendErr)
@@ -29,11 +29,11 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	if KanbanBoard == nil {
-		loadTestBoard()
+	if kanban.KBoard == nil {
+		kanban.LoadTestBoard()
 	}
 
-	if err := c.Status(fiber.StatusOK).JSON(KanbanBoard); err != nil {
+	if err := c.Status(fiber.StatusOK).JSON(kanban.KBoard); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
 
 	}
@@ -41,8 +41,8 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListNames(c *fiber.Ctx) error {
-	if KanbanBoard == nil {
-		loadTestBoard()
+	if kanban.KBoard == nil {
+		kanban.LoadTestBoard()
 	}
 
 	type BoardName struct {
@@ -52,7 +52,7 @@ func ListNames(c *fiber.Ctx) error {
 
 	var boardNames []BoardName
 
-	for _, board := range KanbanBoard {
+	for _, board := range kanban.KBoard {
 		boardNames = append(boardNames, BoardName{UUID: board.UUID, Name: board.Name})
 	}
 
@@ -85,7 +85,7 @@ func Create(c *fiber.Ctx) error {
 	kBoard.Description.Description = board.Description
 	kBoard.UUID = boardUUID
 
-	KanbanBoard = append(KanbanBoard, kBoard)
+	kanban.KBoard = append(kanban.KBoard, kBoard)
 
 	if err := c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": boardUUID}); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
@@ -96,15 +96,15 @@ func Create(c *fiber.Ctx) error {
 func Delete(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 
-	if board, err := getBoard(boardUUID); err != nil || board.UUID == "" {
+	if board, err := kanban.GetBoard(boardUUID); err != nil || board.UUID == "" {
 		errJson := api.JSON{"error": err.Error()}
 		if sendErr := c.Status(fiber.StatusBadRequest).JSON(errJson); err != nil {
 			log.Printf("Failed sending error (%v): %v", err, sendErr)
 		}
 	} else {
-		for i, board := range KanbanBoard {
+		for i, board := range kanban.KBoard {
 			if board.UUID == boardUUID {
-				KanbanBoard = append(KanbanBoard[:i], KanbanBoard[i+1:]...)
+				kanban.KBoard = append(kanban.KBoard[:i], kanban.KBoard[i+1:]...)
 				break
 			}
 		}
