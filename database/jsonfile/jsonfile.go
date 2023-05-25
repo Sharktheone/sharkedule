@@ -48,6 +48,8 @@ func (J *JSONFile) Save() error {
 }
 
 func (J *JSONFile) SaveBoard(board *kanbanboardTypes.KanbanBoard) error {
+	J.db.Mu.Lock()
+	defer J.db.Mu.Unlock()
 	if J.boardExists(board.UUID) {
 		board, i, err := J.getBoard(board.UUID)
 		if err != nil {
@@ -66,6 +68,7 @@ func (J *JSONFile) SaveBoard(board *kanbanboardTypes.KanbanBoard) error {
 }
 
 func (J *JSONFile) CreateBoard(boardName string) error {
+
 	return nil
 }
 
