@@ -68,20 +68,31 @@ func (J *JSONFile) SaveBoard(board *kanbanboardTypes.KanbanBoard) error {
 }
 
 func (J *JSONFile) CreateBoard(boardName string) error {
-
+	J.db.Mu.Lock()
+	defer J.db.Mu.Unlock()
+	board := kanbanboardTypes.KanbanBoard{
+		Name: boardName,
+	}
+	J.db.Kanbanboards = append(J.db.Kanbanboards, board)
 	return nil
 }
 
 func (J *JSONFile) GetBoard(boardUUID string) (*kanbanboardTypes.KanbanBoard, error) {
-	return nil, nil
+	board, _, err := J.getBoard(boardUUID)
+	return board, err
 }
 
-func (J *JSONFile) GetBoards() ([]*kanbanboardTypes.KanbanBoard, error) {
-	return nil, nil
+func (J *JSONFile) GetBoards() (*[]kanbanboardTypes.KanbanBoard, error) {
+
+	return &J.db.Kanbanboards, nil
 }
 
 func (J *JSONFile) GetBoardNames() ([]string, error) {
-	return nil, nil
+	var boardNames []string
+	for _, board := range J.db.Kanbanboards {
+		boardNames = append(boardNames, board.Name)
+	}
+	return boardNames, nil
 }
 
 func (J *JSONFile) boardExists(uuid string) bool {
@@ -90,7 +101,6 @@ func (J *JSONFile) boardExists(uuid string) bool {
 			return true
 		}
 	}
-
 	return false
 }
 
