@@ -48,6 +48,20 @@ func (J *JSONFile) Save() error {
 }
 
 func (J *JSONFile) SaveBoard(board *kanbanboardTypes.KanbanBoard) error {
+	if J.boardExists(board.UUID) {
+		board, i, err := J.getBoard(board.UUID)
+		if err != nil {
+			return err
+		}
+		J.db.Kanbanboards[i] = *board
+
+		if err := J.Save(); err != nil {
+			return fmt.Errorf("failed saving database file: %v", err)
+		}
+
+	} else {
+		return fmt.Errorf("board with uuid %s does not exist", board.UUID)
+	}
 	return nil
 }
 
@@ -84,4 +98,15 @@ func (J *JSONFile) getBoard(uuid string) (*kanbanboardTypes.KanbanBoard, int, er
 		}
 	}
 	return &kanbanboardTypes.KanbanBoard{}, -1, database.ErrBoardNotFound
+}
+
+func (J *JSONFile) writeToDisk() error {
+	var fileBuffer bytes.Buffer
+	if err := json.NewEncoder(&fileBuffer).Encode(J.db); err != nil {
+		return fmt.Errorf("failed encoding database file: %v", err)
+	}
+	if _, err := J.file.Write(fileBuffer.Bytes()); err != nil {
+		return fmt.Errorf("failed writing database file: %v", err)
+	}
+	return nil
 }
