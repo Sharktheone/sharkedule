@@ -79,7 +79,7 @@ func CreateKanbanBoard(c *fiber.Ctx) error {
 
 	boardUUID := uuid.NewV4().String()
 
-	var kBoard kanbanboardTypes.KanbanBoard
+	var kBoard *kanbanboardTypes.KanbanBoard
 
 	kBoard.Name = board.Name
 	kBoard.Description.Description = board.Description

@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	KanbanBoard []kanbanboardTypes.KanbanBoard
+	KanbanBoard []*kanbanboardTypes.KanbanBoard
 )
 
 func init() {
@@ -21,7 +21,7 @@ func loadTestBoard() {
 	boards, err := os.Open("test_data.json")
 	if err != nil {
 		if os.IsNotExist(err) {
-			KanbanBoard = []kanbanboardTypes.KanbanBoard{}
+			KanbanBoard = []*kanbanboardTypes.KanbanBoard{}
 			log.Println("No test_data.json found, skipping loading test data")
 			return
 		}
@@ -46,7 +46,7 @@ func getBoard(uuid string) (*kanbanboardTypes.KanbanBoard, error) {
 
 	for _, board := range KanbanBoard {
 		if board.UUID == uuid {
-			return &board, nil
+			return board, nil
 		}
 	}
 
