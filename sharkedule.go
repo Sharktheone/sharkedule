@@ -2,10 +2,10 @@ package main
 
 import (
 	"sharkedule/api/router"
-	"sharkedule/database"
+	"sharkedule/database/dbInit"
 )
 
 func main() {
-	database.Init()
+	dbInit.Init()
 	router.Start()
 }

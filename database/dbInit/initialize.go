@@ -1,12 +1,13 @@
-package database
+package dbInit
 
 import (
 	"log"
+	"sharkedule/database"
 	"sharkedule/database/jsonfile"
 )
 
 var (
-	DB IDatabase
+	DB database.IDatabase
 )
 
 func Init() {
