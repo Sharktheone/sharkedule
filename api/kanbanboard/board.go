@@ -8,6 +8,7 @@ import (
 	"github.com/google/uuid"
 	"log"
 	"sharkedule/api"
+	"sharkedule/database/db"
 	"sharkedule/kanban"
 	"sharkedule/kanban/KTypes"
 )
@@ -30,7 +31,11 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	if err := c.Status(fiber.StatusOK).JSON(kanban.KBoard); err != nil {
+	boards, err := db.DB.GetBoards()
+	if err != nil {
+		return fmt.Errorf("failed getting boards: %v", err)
+	}
+	if err := c.Status(fiber.StatusOK).JSON(boards); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
 
 	}
@@ -43,10 +48,9 @@ func ListNames(c *fiber.Ctx) error {
 		Name string `json:"name"`
 	}
 
-	var boardNames []BoardName
-
-	for _, board := range kanban.KBoard {
-		boardNames = append(boardNames, BoardName{UUID: board.UUID, Name: board.Name})
+	boardNames, err := db.DB.GetBoardNames()
+	if err != nil {
+		return fmt.Errorf("failed getting board names: %v", err)
 	}
 
 	if err := c.Status(fiber.StatusOK).JSON(boardNames); err != nil {
@@ -72,13 +76,17 @@ func Create(c *fiber.Ctx) error {
 
 	boardUUID := uuid.New().String()
 
-	var kBoard *KTypes.Board
+	kBoard := &KTypes.Board{
+		Name: board.Name,
+		Description: KTypes.Description{
+			Description: board.Description,
+		},
+		UUID: boardUUID,
+	}
 
-	kBoard.Name = board.Name
-	kBoard.Description.Description = board.Description
-	kBoard.UUID = boardUUID
-
-	kanban.KBoard = append(kanban.KBoard, kBoard)
+	if err := db.DB.CreateBoard(kBoard); err != nil {
+		return fmt.Errorf("failed creating board: %v", err)
+	}
 
 	if err := c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": boardUUID}); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
@@ -89,15 +97,26 @@ func Create(c *fiber.Ctx) error {
 func Delete(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 
+	db.DB.LockMutex()
+	defer db.DB.UnlockMutex()
+
+	boards, err := db.DB.GetBoards()
+	if err != nil {
+		return fmt.Errorf("failed getting boards: %v", err)
+	}
+
 	if board, err := kanban.GetBoard(boardUUID); err != nil || board.UUID == "" {
 		errJson := api.JSON{"error": err.Error()}
 		if sendErr := c.Status(fiber.StatusBadRequest).JSON(errJson); err != nil {
 			log.Printf("Failed sending error (%v): %v", err, sendErr)
 		}
 	} else {
-		for i, board := range kanban.KBoard {
+		for i, board := range boards {
 			if board.UUID == boardUUID {
-				kanban.KBoard = append(kanban.KBoard[:i], kanban.KBoard[i+1:]...)
+				boards = append(boards[:i], boards[i+1:]...)
+				if err := db.DB.SaveBoards(boards); err != nil {
+					return fmt.Errorf("failed setting boards: %v", err)
+				}
 				break
 			}
 		}

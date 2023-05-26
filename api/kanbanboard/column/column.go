@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	"sharkedule/api"
-	"sharkedule/kanban"
+	"sharkedule/database/db"
 	"sharkedule/kanban/KTypes"
+	col "sharkedule/kanban/column"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -24,25 +24,17 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	columnUUID := uuid.New().String()
-
-	var column KTypes.Column
-
-	column.Name = boardName.Name
-	column.UUID = columnUUID
-
-	boardUUID := c.Params("kanbanboard")
-
-	for index, board := range kanban.KBoard {
-		if board.UUID == boardUUID {
-			board.Columns = append(board.Columns, column)
-			kanban.KBoard[index] = board
-
-			return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": columnUUID})
-		}
+	board, column, _, err := col.ExtractColumn(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
+	board.Columns = append(board.Columns, *column)
+	if err := db.DB.SaveBoard(board); err != nil {
+		return fmt.Errorf("failed saving board: %v", err)
+	}
+
+	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "unknown error"})
 }
 
 func Move(c *fiber.Ctx) error {
@@ -59,62 +51,42 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	boardUUID := c.Params("kanbanboard")
-	columnUUID := c.Params("column")
-
-	for bIndex, board := range kanban.KBoard {
-		if board.UUID == boardUUID {
-			for index, column := range board.Columns {
-				if column.UUID == columnUUID {
-					board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-
-					board.Columns = append(board.Columns[:moveColumn.Index], append([]KTypes.Column{column}, board.Columns[moveColumn.Index:]...)...)
-					kanban.KBoard[bIndex] = board
-					return c.SendStatus(fiber.StatusOK)
-				}
-			}
-			return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "column not found"})
-		}
+	board, column, index, err := col.ExtractColumn(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
+	board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
+
+	board.Columns = append(board.Columns[:moveColumn.Index], append([]KTypes.Column{*column}, board.Columns[moveColumn.Index:]...)...)
+	if err := db.DB.SaveBoard(board); err != nil {
+		return fmt.Errorf("failed saving board: %v", err)
+	}
+
+	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "unknown error"})
 }
 
 func Get(c *fiber.Ctx) error {
-	boardUUID := c.Params("kanbanboard")
-	columnUUID := c.Params("column")
-
-	for _, board := range kanban.KBoard {
-		if board.UUID == boardUUID {
-			for _, column := range board.Columns {
-				if column.UUID == columnUUID {
-					if err := c.Status(fiber.StatusOK).JSON(column); err != nil {
-						return fmt.Errorf("failed sending column: %v", err)
-					}
-				}
-			}
-		}
+	_, column, _, err := col.ExtractColumn(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
+	if err := c.Status(fiber.StatusOK).JSON(column); err != nil {
+		return fmt.Errorf("failed sending column: %v", err)
+	}
 	return nil
 }
 
 func Delete(c *fiber.Ctx) error {
-	boardUUID := c.Params("kanbanboard")
-	columnUUID := c.Params("column")
-
-	for bIndex, board := range kanban.KBoard {
-		if board.UUID == boardUUID {
-			for index, column := range board.Columns {
-				if column.UUID == columnUUID {
-					board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-					kanban.KBoard[bIndex] = board
-					return c.SendStatus(fiber.StatusOK)
-				}
-			}
-			return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "column not found"})
-		}
+	board, _, index, err := col.ExtractColumn(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
+	board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
+	if err := db.DB.SaveBoard(board); err != nil {
+		return fmt.Errorf("failed saving board: %v", err)
+	}
+	return c.SendStatus(fiber.StatusNoContent)
 }
