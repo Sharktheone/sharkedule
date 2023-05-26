@@ -6,10 +6,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"log"
 	"os"
+	"sharkedule/kanban/KTypes"
 )
 
 var (
-	KBoard []*Board
+	KBoard []*KTypes.Board
 )
 
 func init() {
@@ -20,7 +21,7 @@ func LoadTestBoard() {
 	boards, err := os.Open("test_data.json")
 	if err != nil {
 		if os.IsNotExist(err) {
-			KBoard = []*Board{}
+			KBoard = []*KTypes.Board{}
 			log.Println("No test_data.json found, skipping loading test data")
 			return
 		}
@@ -38,7 +39,7 @@ func LoadTestBoard() {
 	}
 }
 
-func GetBoard(uuid string) (*Board, error) {
+func GetBoard(uuid string) (*KTypes.Board, error) {
 	if KBoard == nil {
 		LoadTestBoard()
 	}
@@ -49,15 +50,15 @@ func GetBoard(uuid string) (*Board, error) {
 		}
 	}
 
-	return &Board{}, errors.New("board not found")
+	return &KTypes.Board{}, errors.New("board not found")
 }
 
-func ExtractBoard(c *fiber.Ctx) (*Board, error) {
+func ExtractBoard(c *fiber.Ctx) (*KTypes.Board, error) {
 	boardUUID := c.Params("kanbanboard")
 
 	board, err := GetBoard(boardUUID)
 	if err != nil {
-		return &Board{}, err
+		return &KTypes.Board{}, err
 	}
 
 	return board, nil

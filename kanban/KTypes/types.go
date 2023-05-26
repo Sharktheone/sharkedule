@@ -1,4 +1,4 @@
-package kanban
+package KTypes
 
 import "sync"
 

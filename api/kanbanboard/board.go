@@ -9,6 +9,7 @@ import (
 	"log"
 	"sharkedule/api"
 	"sharkedule/kanban"
+	"sharkedule/kanban/KTypes"
 )
 
 func Get(c *fiber.Ctx) error {
@@ -79,7 +80,7 @@ func Create(c *fiber.Ctx) error {
 
 	boardUUID := uuid.NewV4().String()
 
-	var kBoard *kanban.Board
+	var kBoard *KTypes.Board
 
 	kBoard.Name = board.Name
 	kBoard.Description.Description = board.Description

@@ -8,6 +8,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"sharkedule/api"
 	"sharkedule/kanban"
+	"sharkedule/kanban/KTypes"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -25,7 +26,7 @@ func Create(c *fiber.Ctx) error {
 
 	columnUUID := uuid.NewV4().String()
 
-	var column kanban.Column
+	var column KTypes.Column
 
 	column.Name = boardName.Name
 	column.UUID = columnUUID
@@ -67,7 +68,7 @@ func Move(c *fiber.Ctx) error {
 				if column.UUID == columnUUID {
 					board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
 
-					board.Columns = append(board.Columns[:moveColumn.Index], append([]kanban.Column{column}, board.Columns[moveColumn.Index:]...)...)
+					board.Columns = append(board.Columns[:moveColumn.Index], append([]KTypes.Column{column}, board.Columns[moveColumn.Index:]...)...)
 					kanban.KBoard[bIndex] = board
 					return c.SendStatus(fiber.StatusOK)
 				}
