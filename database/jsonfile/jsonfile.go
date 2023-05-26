@@ -38,7 +38,7 @@ func (J *JSONFile) Load() error {
 	J.file = file
 	defer J.file.Close()
 
-	if err := json.NewDecoder(J.file).Decode(&J.db); err != nil {
+	if err := json.NewDecoder(J.file).Decode(&J.db.Kanbanboards); err != nil {
 		return fmt.Errorf("failed decoding database file: %v", err)
 	}
 
