@@ -8,7 +8,7 @@ import (
 	"sharkedule/api"
 	"sharkedule/database/db"
 	"sharkedule/kanban/KTypes"
-	col "sharkedule/kanban/column"
+	col "sharkedule/kanban/col"
 )
 
 func Create(c *fiber.Ctx) error {

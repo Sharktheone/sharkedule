@@ -1,4 +1,4 @@
-package column
+package col
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"sharkedule/kanban/KTypes"
 )
 
-func getColumn(board interface{}, columnUUID string) (*KTypes.Column, int, error) {
+func GetColumn(board interface{}, columnUUID string) (*KTypes.Column, int, error) {
 	var b *KTypes.Board
 	switch board := board.(type) {
 	case *KTypes.Board:
@@ -37,7 +37,7 @@ func ExtractColumn(c *fiber.Ctx) (*KTypes.Board, *KTypes.Column, int, error) {
 
 	columnUUID := c.Params("column")
 
-	column, index, err := getColumn(board, columnUUID)
+	column, index, err := GetColumn(board, columnUUID)
 
 	return board, column, index, nil
 }
