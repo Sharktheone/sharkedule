@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 	"sharkedule/api"
 	"sharkedule/kanban"
 	"sharkedule/kanban/KTypes"
@@ -24,7 +24,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	taskUUID := uuid.NewV4().String()
+	taskUUID := uuid.New().String()
 
 	var task KTypes.KanbanTaskType
 

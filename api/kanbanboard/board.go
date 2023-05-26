@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 	"log"
 	"sharkedule/api"
 	"sharkedule/kanban"
@@ -70,7 +70,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	boardUUID := uuid.NewV4().String()
+	boardUUID := uuid.New().String()
 
 	var kBoard *KTypes.Board
 
