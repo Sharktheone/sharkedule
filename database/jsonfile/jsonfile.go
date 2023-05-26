@@ -117,9 +117,9 @@ func (J *JSONFile) CreateBoard(boardName interface{}) error {
 	return nil
 }
 
-func (J *JSONFile) GetBoard(boardUUID string) (*KTypes.Board, error) {
-	board, _, err := J.getBoard(boardUUID)
-	return board, err
+func (J *JSONFile) GetBoard(boardUUID string) (*KTypes.Board, int, error) {
+	board, index, err := J.getBoard(boardUUID)
+	return board, index, err
 }
 
 func (J *JSONFile) GetBoards() ([]*KTypes.Board, error) {

@@ -15,7 +15,7 @@ type IDatabase interface {
 	SaveBoard(board *KTypes.Board) error
 	SaveBoards(boards []*KTypes.Board) error
 	CreateBoard(boardName interface{}) error
-	GetBoard(boardUUID string) (*KTypes.Board, error)
+	GetBoard(boardUUID string) (*KTypes.Board, int, error)
 	GetBoards() ([]*KTypes.Board, error)
 	GetBoardNames() ([]string, error)
 	LockMutex()

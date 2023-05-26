@@ -24,7 +24,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	board, column, _, err := col.ExtractColumn(c)
+	board, _, column, _, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -51,7 +51,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	board, column, index, err := col.ExtractColumn(c)
+	board, _, column, index, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -67,7 +67,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	_, column, _, err := col.ExtractColumn(c)
+	_, _, column, _, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -79,7 +79,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	board, _, index, err := col.ExtractColumn(c)
+	board, _, _, index, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}

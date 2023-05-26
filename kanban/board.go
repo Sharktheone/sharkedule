@@ -19,11 +19,11 @@ func Load() {
 	}
 }
 
-func GetBoard(uuid string) (*KTypes.Board, error) {
+func GetBoard(uuid string) (*KTypes.Board, int, error) {
 	return db.DB.GetBoard(uuid)
 }
 
-func ExtractBoard(c *fiber.Ctx) (*KTypes.Board, error) {
+func ExtractBoard(c *fiber.Ctx) (*KTypes.Board, int, error) {
 	boardUUID := c.Params("kanbanboard")
 	return GetBoard(boardUUID)
 }
