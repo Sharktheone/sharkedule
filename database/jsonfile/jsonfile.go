@@ -78,6 +78,26 @@ func (J *JSONFile) SaveBoard(board *KTypes.Board) error {
 	return nil
 }
 
+func (J *JSONFile) SaveBoards(boards []*KTypes.Board) error {
+	J.db.Mu.Lock()
+	defer J.db.Mu.Unlock()
+	for _, board := range boards {
+		if J.boardExists(board.UUID) {
+			board, i, err := J.getBoard(board.UUID)
+			if err != nil {
+				return err
+			}
+			J.db.Kanbanboards[i] = board
+		} else {
+			return fmt.Errorf("board with uuid %s does not exist", board.UUID)
+		}
+	}
+	if err := J.Save(); err != nil {
+		return fmt.Errorf("failed saving database file: %v", err)
+	}
+	return nil
+}
+
 func (J *JSONFile) CreateBoard(boardName interface{}) error {
 	var board *KTypes.Board
 	switch b := boardName.(type) {
@@ -142,4 +162,12 @@ func (J *JSONFile) writeToDisk() error {
 		return fmt.Errorf("failed writing database file: %v", err)
 	}
 	return nil
+}
+
+func (J *JSONFile) LockMutex() {
+	J.db.Mu.Lock()
+}
+
+func (J *JSONFile) UnlockMutex() {
+	J.db.Mu.Unlock()
 }
