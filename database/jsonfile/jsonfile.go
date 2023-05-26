@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"os"
 	"path"
 	"sharkedule/database"
@@ -77,12 +78,21 @@ func (J *JSONFile) SaveBoard(board *KTypes.Board) error {
 	return nil
 }
 
-func (J *JSONFile) CreateBoard(boardName string) error {
+func (J *JSONFile) CreateBoard(boardName interface{}) error {
+	var board *KTypes.Board
+	switch b := boardName.(type) {
+	case string:
+		board = &KTypes.Board{
+			Name: b,
+		}
+	case *KTypes.Board:
+		board = b
+	}
+	board.UUID = uuid.New().String()
+
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
-	board := &KTypes.Board{
-		Name: boardName,
-	}
+
 	J.db.Kanbanboards = append(J.db.Kanbanboards, board)
 	return nil
 }
