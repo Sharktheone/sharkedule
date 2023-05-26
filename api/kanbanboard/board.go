@@ -30,10 +30,6 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	if kanban.KBoard == nil {
-		kanban.LoadTestBoard()
-	}
-
 	if err := c.Status(fiber.StatusOK).JSON(kanban.KBoard); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
 
@@ -42,10 +38,6 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListNames(c *fiber.Ctx) error {
-	if kanban.KBoard == nil {
-		kanban.LoadTestBoard()
-	}
-
 	type BoardName struct {
 		UUID string `json:"uuid"`
 		Name string `json:"name"`
