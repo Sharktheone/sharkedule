@@ -1,41 +1,21 @@
 package kanban
 
 import (
-	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"log"
-	"os"
 	"sharkedule/database/db"
 	"sharkedule/kanban/KTypes"
 )
 
 var (
-	KBoard []*KTypes.Board
+	KBoard []*KTypes.Board // TODO: Replace all usages with db.DB.GetBoards()
 )
 
-func init() {
-	LoadTestBoard()
-}
-
-func LoadTestBoard() {
-	boards, err := os.Open("test_data.json")
+func Load() {
+	var err error
+	KBoard, err = db.DB.GetBoards()
 	if err != nil {
-		if os.IsNotExist(err) {
-			KBoard = []*KTypes.Board{}
-			log.Println("No test_data.json found, skipping loading test data")
-			return
-		}
-		log.Fatalf("Error opening test_data.json: %v", err)
-	}
-
-	var boardsData []byte
-	_, err = boards.Read(boardsData)
-	if err != nil {
-		log.Fatalf("Error reading test_data.json: %v", err)
-	}
-
-	if err := json.NewDecoder(boards).Decode(&KBoard); err != nil {
-		log.Fatalf("Error decoding test_data.json: %v", err)
+		log.Fatalf("failed getting boards: %v", err)
 	}
 }
 
