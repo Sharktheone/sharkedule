@@ -1,4 +1,4 @@
-package dbInit
+package db
 
 import (
 	"log"
