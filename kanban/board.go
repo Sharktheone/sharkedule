@@ -2,10 +2,10 @@ package kanban
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/gofiber/fiber/v2"
 	"log"
 	"os"
+	"sharkedule/database/db"
 	"sharkedule/kanban/KTypes"
 )
 
@@ -40,26 +40,10 @@ func LoadTestBoard() {
 }
 
 func GetBoard(uuid string) (*KTypes.Board, error) {
-	if KBoard == nil {
-		LoadTestBoard()
-	}
-
-	for _, board := range KBoard {
-		if board.UUID == uuid {
-			return board, nil
-		}
-	}
-
-	return &KTypes.Board{}, errors.New("board not found")
+	return db.DB.GetBoard(uuid)
 }
 
 func ExtractBoard(c *fiber.Ctx) (*KTypes.Board, error) {
 	boardUUID := c.Params("kanbanboard")
-
-	board, err := GetBoard(boardUUID)
-	if err != nil {
-		return &KTypes.Board{}, err
-	}
-
-	return board, nil
+	return GetBoard(boardUUID)
 }
