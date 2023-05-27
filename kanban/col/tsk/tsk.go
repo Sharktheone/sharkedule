@@ -10,7 +10,7 @@ import (
 	"sharkedule/kanban/col"
 )
 
-func GetTask(board, column interface{}, taskUUID string) (*KTypes.KanbanTaskType, int, error) {
+func GetTask(board, column interface{}, taskUUID string) (*KTypes.Task, int, error) {
 	var c *KTypes.Column
 	switch co := column.(type) {
 	case string:
@@ -33,7 +33,7 @@ type ExtractTaskReturns struct {
 	BoardIndex  int
 	Column      *KTypes.Column
 	ColumnIndex int
-	Task        *KTypes.KanbanTaskType
+	Task        *KTypes.Task
 	TaskIndex   int
 	Err         error
 }
@@ -67,7 +67,7 @@ func ExtractTask(c *fiber.Ctx) ExtractTaskReturns {
 }
 
 // Create Task UUID will be overwritten
-func Create(board, column interface{}, task *KTypes.KanbanTaskType) (string, error) {
+func Create(board, column interface{}, task *KTypes.Task) (string, error) {
 
 	b, _, err := kanban.GetBoard(board)
 	if err != nil {

@@ -25,7 +25,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	var task KTypes.KanbanTaskType
+	var task KTypes.Task
 
 	task.Name = taskName.Name
 
@@ -67,7 +67,7 @@ func Move(c *fiber.Ctx) error {
 	task.Column.Tasks = append(task.Column.Tasks[:task.ColumnIndex], task.Column.Tasks[task.ColumnIndex+1:]...)
 
 	if moveTask.ToColumn == task.Column.UUID {
-		task.Column.Tasks = append(task.Column.Tasks[:moveTask.ToIndex], append([]KTypes.KanbanTaskType{*task.Task}, task.Column.Tasks[moveTask.ToIndex:]...)...)
+		task.Column.Tasks = append(task.Column.Tasks[:moveTask.ToIndex], append([]KTypes.Task{*task.Task}, task.Column.Tasks[moveTask.ToIndex:]...)...)
 		task.Board.Columns[task.ColumnIndex] = *task.Column
 		if err := db.DB.SaveBoard(task.Board); err != nil {
 			return fmt.Errorf("failed saving board: %v", err)
@@ -84,7 +84,7 @@ func Move(c *fiber.Ctx) error {
 	if err != nil {
 		return fmt.Errorf("failed getting column: %v", err)
 	}
-	toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]KTypes.KanbanTaskType{*task.Task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
+	toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]KTypes.Task{*task.Task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
 	task.Board.Columns[toIndex] = *toColumn
 
 	if err := db.DB.SaveBoard(task.Board); err != nil {
