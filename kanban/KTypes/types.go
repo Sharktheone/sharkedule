@@ -144,3 +144,8 @@ type Activity struct {
 	Date    string `json:"date" yaml:"date" bson:"date"`
 	User    string `json:"user" yaml:"user" bson:"user"`
 }
+
+type NameList struct {
+	Name string `json:"name" yaml:"name" bson:"name"`
+	UUID string `json:"uuid" yaml:"uuid" bson:"uuid"`
+}

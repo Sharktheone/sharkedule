@@ -127,10 +127,14 @@ func (J *JSONFile) GetBoards() ([]*KTypes.Board, error) {
 	return J.db.Kanbanboards, nil
 }
 
-func (J *JSONFile) GetBoardNames() ([]string, error) {
-	var boardNames []string
+func (J *JSONFile) GetBoardNames() ([]*KTypes.NameList, error) {
+	var boardNames []*KTypes.NameList
 	for _, board := range J.db.Kanbanboards {
-		boardNames = append(boardNames, board.Name)
+		boardName := &KTypes.NameList{
+			Name: board.Name,
+			UUID: board.UUID,
+		}
+		boardNames = append(boardNames, boardName)
 	}
 	return boardNames, nil
 }
