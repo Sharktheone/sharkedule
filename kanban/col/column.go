@@ -7,7 +7,7 @@ import (
 	"sharkedule/kanban/KTypes"
 )
 
-func GetColumn(board interface{}, columnUUID string) (*KTypes.Column, int, error) {
+func GetColumn(board interface{}, column interface{}) (*KTypes.Column, int, error) {
 	var b *KTypes.Board
 	switch board := board.(type) {
 	case *KTypes.Board:
@@ -18,8 +18,22 @@ func GetColumn(board interface{}, columnUUID string) (*KTypes.Column, int, error
 		if err != nil {
 			return nil, -1, fmt.Errorf("failed getting board: %v", err)
 		}
+	default:
+		return nil, -1, fmt.Errorf("invalid board type")
+	}
+
+	var columnUUID string
+
+	switch column := column.(type) {
+	case string:
+		columnUUID = column
+	case *KTypes.Column:
+		columnUUID = column.UUID
+	default:
+		return nil, -1, fmt.Errorf("invalid column type")
 
 	}
+
 	for i, column := range b.Columns {
 		if column.UUID == columnUUID {
 			return &column, i, nil

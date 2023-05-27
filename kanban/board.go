@@ -19,7 +19,15 @@ func Load() {
 	}
 }
 
-func GetBoard(uuid string) (*KTypes.Board, int, error) {
+func GetBoard(board interface{}) (*KTypes.Board, int, error) {
+	var uuid string
+	switch board := board.(type) {
+	case string:
+		uuid = board
+	case *KTypes.Board:
+		uuid = board.UUID
+	}
+
 	return db.DB.GetBoard(uuid)
 }
 
