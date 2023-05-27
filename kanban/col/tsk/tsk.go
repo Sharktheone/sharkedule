@@ -3,6 +3,9 @@ package tsk
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
+	"sharkedule/database/db"
+	"sharkedule/kanban"
 	"sharkedule/kanban/KTypes"
 	"sharkedule/kanban/col"
 )
@@ -61,4 +64,31 @@ func ExtractTask(c *fiber.Ctx) ExtractTaskReturns {
 		TaskIndex:   taskIndex,
 		Err:         nil,
 	}
+}
+
+// Create Task UUID will be overwritten
+func Create(board, column interface{}, task *KTypes.KanbanTaskType) (string, error) {
+
+	b, _, err := kanban.GetBoard(board)
+	if err != nil {
+		return "", fmt.Errorf("failed getting board: %v", err)
+	}
+	c, colIndex, err := col.GetColumn(b, column)
+	if err != nil {
+		return "", fmt.Errorf("failed getting column: %v", err)
+	}
+
+	taskUUID := uuid.New().String()
+
+	task.UUID = taskUUID
+
+	c.Tasks = append(c.Tasks, *task)
+
+	b.Columns[colIndex] = *c
+
+	if err := db.DB.SaveBoard(b); err != nil {
+		return "", fmt.Errorf("failed saving board: %v", err)
+	}
+
+	return "", nil
 }
