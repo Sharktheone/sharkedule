@@ -5,10 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	"sharkedule/api"
 	"sharkedule/database/db"
-	"sharkedule/kanban"
 	"sharkedule/kanban/KTypes"
 	"sharkedule/kanban/col"
 	"sharkedule/kanban/col/tsk"
@@ -27,34 +25,18 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	taskUUID := uuid.New().String()
-
 	var task KTypes.KanbanTaskType
 
 	task.Name = taskName.Name
-	task.UUID = taskUUID
 
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
-	for bIndex, board := range kanban.KBoard {
-		if board.UUID == boardUUID {
-			for index, column := range board.Columns {
-				if column.UUID == columnUUID {
-					column.Tasks = append(column.Tasks, task)
-					board.Columns[index] = column
-					kanban.KBoard[bIndex] = board
-
-					return c.Status(fiber.StatusOK).JSON(task)
-
-				}
-			}
-
-			return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "column not found"})
-		}
+	if uuid, err := tsk.Create(boardUUID, columnUUID, &task); err != nil {
+		return fmt.Errorf("failed creating task: %v", err)
+	} else {
+		return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": uuid})
 	}
-
-	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "board not found"})
 }
 
 func Get(c *fiber.Ctx) error {
