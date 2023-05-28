@@ -6,9 +6,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
-	"sharkedule/database/db"
 	"sharkedule/kanban/column"
-	"sharkedule/kanban/old/col"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -24,23 +22,14 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	board, _, co, _, err := col.ExtractColumn(c)
-	if err != nil {
-		return fmt.Errorf("failed extracting column: %v", err)
-	}
+	co := column.New(boardName.Name)
 
-	board.Columns = append(board.Columns, co)
-	if err := db.DB.SaveBoard(board); err != nil {
-		return fmt.Errorf("failed saving board: %v", err)
-	}
-
-	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "unknown error"})
+	return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": co.UUID})
 }
 
 func Move(c *fiber.Ctx) error {
 	type MoveColumn struct {
-		UUID  string `json:"uuid"`
-		Index int    `json:"index"`
+		Index int `json:"index"`
 	}
 
 	var moveColumn MoveColumn
@@ -51,23 +40,20 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	board, _, co, index, err := col.ExtractColumn(c)
+	_, co, err := column.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-
-	board.Columns = append(board.Columns[:moveColumn.Index], append([]*column.Column{co}, board.Columns[moveColumn.Index:]...)...)
-	if err := db.DB.SaveBoard(board); err != nil {
-		return fmt.Errorf("failed saving board: %v", err)
+	if err := co.Move(moveColumn.Index); err != nil {
+		return fmt.Errorf("failed moving column: %v", err)
 	}
 
-	return c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": "unknown error"})
+	return c.SendStatus(fiber.StatusNoContent)
 }
 
 func Get(c *fiber.Ctx) error {
-	_, _, co, _, err := col.ExtractColumn(c)
+	_, co, err := column.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -79,14 +65,14 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	board, _, _, index, err := col.ExtractColumn(c)
+	_, co, err := column.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-	if err := db.DB.SaveBoard(board); err != nil {
-		return fmt.Errorf("failed saving board: %v", err)
+	if err := co.Delete(); err != nil {
+		return fmt.Errorf("failed deleting column: %v", err)
 	}
+
 	return c.SendStatus(fiber.StatusNoContent)
 }
