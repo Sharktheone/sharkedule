@@ -5,13 +5,13 @@ import (
 	"sharkedule/kanban/column/task"
 )
 
-func (c *Column) GetTask(uuid string) (*task.Task, int, error) {
-	for index, t := range c.Tasks {
+func (c *Column) GetTask(uuid string) (*task.Task, error) {
+	for _, t := range c.Tasks {
 		if t.UUID == uuid {
-			return t, index, nil
+			return t, nil
 		}
 	}
-	return nil, -1, errors.New("task not found")
+	return nil, errors.New("task not found")
 }
 
 func (c *Column) NewTask(name string) *task.Task {
