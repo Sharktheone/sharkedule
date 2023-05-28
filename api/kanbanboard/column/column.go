@@ -7,8 +7,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
 	"sharkedule/database/db"
-	"sharkedule/kanban/KTypes"
-	col "sharkedule/kanban/col"
+	"sharkedule/kanban/column"
+	"sharkedule/kanban/old/col"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -24,12 +24,12 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	board, _, column, _, err := col.ExtractColumn(c)
+	board, _, co, _, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	board.Columns = append(board.Columns, *column)
+	board.Columns = append(board.Columns, co)
 	if err := db.DB.SaveBoard(board); err != nil {
 		return fmt.Errorf("failed saving board: %v", err)
 	}
@@ -51,14 +51,14 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	board, _, column, index, err := col.ExtractColumn(c)
+	board, _, co, index, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
 	board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
 
-	board.Columns = append(board.Columns[:moveColumn.Index], append([]KTypes.Column{*column}, board.Columns[moveColumn.Index:]...)...)
+	board.Columns = append(board.Columns[:moveColumn.Index], append([]*column.Column{co}, board.Columns[moveColumn.Index:]...)...)
 	if err := db.DB.SaveBoard(board); err != nil {
 		return fmt.Errorf("failed saving board: %v", err)
 	}
@@ -67,12 +67,12 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	_, _, column, _, err := col.ExtractColumn(c)
+	_, _, co, _, err := col.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	if err := c.Status(fiber.StatusOK).JSON(column); err != nil {
+	if err := c.Status(fiber.StatusOK).JSON(co); err != nil {
 		return fmt.Errorf("failed sending column: %v", err)
 	}
 	return nil

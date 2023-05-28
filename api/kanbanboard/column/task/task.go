@@ -7,9 +7,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
 	"sharkedule/database/db"
-	"sharkedule/kanban/KTypes"
-	"sharkedule/kanban/col"
-	"sharkedule/kanban/col/tsk"
+	"sharkedule/kanban/column/task"
+	"sharkedule/kanban/old/col"
+	"sharkedule/kanban/old/col/tsk"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -25,14 +25,14 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	var task KTypes.Task
+	var t task.Task
 
-	task.Name = taskName.Name
+	t.Name = taskName.Name
 
 	boardUUID := c.Params("kanbanboard")
 	columnUUID := c.Params("column")
 
-	if uuid, err := tsk.Create(boardUUID, columnUUID, &task); err != nil {
+	if uuid, err := tsk.Create(boardUUID, columnUUID, &t); err != nil {
 		return fmt.Errorf("failed creating task: %v", err)
 	} else {
 		return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": uuid})
@@ -40,12 +40,12 @@ func Create(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	task := tsk.ExtractTask(c)
-	if task.Err != nil {
-		return fmt.Errorf("failed extracting task: %v", task.Err)
+	t := tsk.ExtractTask(c)
+	if t.Err != nil {
+		return fmt.Errorf("failed extracting task: %v", t.Err)
 	}
 
-	return c.Status(fiber.StatusOK).JSON(task.Task)
+	return c.Status(fiber.StatusOK).JSON(t.Task)
 }
 
 func Move(c *fiber.Ctx) error {
@@ -62,32 +62,32 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	task := tsk.ExtractTask(c)
+	t := tsk.ExtractTask(c)
 
-	task.Column.Tasks = append(task.Column.Tasks[:task.ColumnIndex], task.Column.Tasks[task.ColumnIndex+1:]...)
+	t.Column.Tasks = append(t.Column.Tasks[:t.ColumnIndex], t.Column.Tasks[t.ColumnIndex+1:]...)
 
-	if moveTask.ToColumn == task.Column.UUID {
-		task.Column.Tasks = append(task.Column.Tasks[:moveTask.ToIndex], append([]KTypes.Task{*task.Task}, task.Column.Tasks[moveTask.ToIndex:]...)...)
-		task.Board.Columns[task.ColumnIndex] = *task.Column
-		if err := db.DB.SaveBoard(task.Board); err != nil {
+	if moveTask.ToColumn == t.Column.UUID {
+		t.Column.Tasks = append(t.Column.Tasks[:moveTask.ToIndex], append([]*task.Task{t.Task}, t.Column.Tasks[moveTask.ToIndex:]...)...)
+		t.Board.Columns[t.ColumnIndex] = t.Column
+		if err := db.DB.SaveBoard(t.Board); err != nil {
 			return fmt.Errorf("failed saving board: %v", err)
 		}
 		return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task moved"})
 	}
 
-	task.Board.Columns[task.ColumnIndex] = *task.Column
-	if err := db.DB.SaveBoard(task.Board); err != nil {
+	t.Board.Columns[t.ColumnIndex] = t.Column
+	if err := db.DB.SaveBoard(t.Board); err != nil {
 		return fmt.Errorf("failed saving board: %v", err)
 	}
 
-	toColumn, toIndex, err := col.GetColumn(task.Board, moveTask.ToColumn)
+	toColumn, toIndex, err := col.GetColumn(t.Board, moveTask.ToColumn)
 	if err != nil {
 		return fmt.Errorf("failed getting column: %v", err)
 	}
-	toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]KTypes.Task{*task.Task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
-	task.Board.Columns[toIndex] = *toColumn
+	toColumn.Tasks = append(toColumn.Tasks[:moveTask.ToIndex], append([]*task.Task{t.Task}, toColumn.Tasks[moveTask.ToIndex:]...)...)
+	t.Board.Columns[toIndex] = toColumn
 
-	if err := db.DB.SaveBoard(task.Board); err != nil {
+	if err := db.DB.SaveBoard(t.Board); err != nil {
 		return fmt.Errorf("failed saving board: %v", err)
 	}
 
@@ -96,12 +96,12 @@ func Move(c *fiber.Ctx) error {
 
 func Delete(c *fiber.Ctx) error {
 
-	task := tsk.ExtractTask(c)
+	t := tsk.ExtractTask(c)
 
-	task.Column.Tasks = append(task.Column.Tasks[:task.TaskIndex], task.Column.Tasks[task.TaskIndex+1:]...)
-	task.Board.Columns[task.ColumnIndex] = *task.Column
+	t.Column.Tasks = append(t.Column.Tasks[:t.TaskIndex], t.Column.Tasks[t.TaskIndex+1:]...)
+	t.Board.Columns[t.ColumnIndex] = t.Column
 
-	if err := db.DB.SaveBoard(task.Board); err != nil {
+	if err := db.DB.SaveBoard(t.Board); err != nil {
 		return fmt.Errorf("failed saving board: %v", err)
 	}
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task deleted"})

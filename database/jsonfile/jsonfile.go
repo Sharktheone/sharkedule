@@ -8,7 +8,8 @@ import (
 	"os"
 	"path"
 	"sharkedule/database"
-	"sharkedule/kanban/KTypes"
+	"sharkedule/kanban"
+	"sharkedule/kanban/KTypes/namelist"
 	"sync"
 )
 
@@ -25,7 +26,7 @@ func NewJSONFile() *JSONFile {
 	return &JSONFile{
 		db: &database.DBStructure{
 			Mu:           &sync.Mutex{},
-			Kanbanboards: []*KTypes.Board{},
+			Kanbanboards: []*kanban.Board{},
 		},
 	}
 }
@@ -58,15 +59,15 @@ func (J *JSONFile) Save() error {
 	return nil
 }
 
-func (J *JSONFile) SaveBoard(board *KTypes.Board) error {
+func (J *JSONFile) SaveBoard(board *kanban.Board) error {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	if J.boardExists(board.UUID) {
-		board, i, err := J.getBoard(board.UUID)
+		board, err := J.getBoard(board.UUID)
 		if err != nil {
 			return err
 		}
-		J.db.Kanbanboards[i] = board
+		J.db.Kanbanboards[board.Index] = board
 
 		if err := J.Save(); err != nil {
 			return fmt.Errorf("failed saving database file: %v", err)
@@ -78,16 +79,16 @@ func (J *JSONFile) SaveBoard(board *KTypes.Board) error {
 	return nil
 }
 
-func (J *JSONFile) SaveBoards(boards []*KTypes.Board) error {
+func (J *JSONFile) SaveBoards(boards []*kanban.Board) error {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	for _, board := range boards {
 		if J.boardExists(board.UUID) {
-			board, i, err := J.getBoard(board.UUID)
+			board, err := J.getBoard(board.UUID)
 			if err != nil {
 				return err
 			}
-			J.db.Kanbanboards[i] = board
+			J.db.Kanbanboards[board.Index] = board
 		} else {
 			return fmt.Errorf("board with uuid %s does not exist", board.UUID)
 		}
@@ -99,13 +100,13 @@ func (J *JSONFile) SaveBoards(boards []*KTypes.Board) error {
 }
 
 func (J *JSONFile) CreateBoard(boardName interface{}) error {
-	var board *KTypes.Board
+	var board *kanban.Board
 	switch b := boardName.(type) {
 	case string:
-		board = &KTypes.Board{
+		board = &kanban.Board{
 			Name: b,
 		}
-	case *KTypes.Board:
+	case *kanban.Board:
 		board = b
 	}
 	board.UUID = uuid.New().String()
@@ -117,20 +118,19 @@ func (J *JSONFile) CreateBoard(boardName interface{}) error {
 	return nil
 }
 
-func (J *JSONFile) GetBoard(boardUUID string) (*KTypes.Board, int, error) {
-	board, index, err := J.getBoard(boardUUID)
-	return board, index, err
+func (J *JSONFile) GetBoard(boardUUID string) (*kanban.Board, error) {
+	return J.getBoard(boardUUID)
 }
 
-func (J *JSONFile) GetBoards() ([]*KTypes.Board, error) {
+func (J *JSONFile) GetBoards() ([]*kanban.Board, error) {
 
 	return J.db.Kanbanboards, nil
 }
 
-func (J *JSONFile) GetBoardNames() ([]*KTypes.NameList, error) {
-	var boardNames []*KTypes.NameList
+func (J *JSONFile) GetBoardNames() ([]*namelist.NameList, error) {
+	var boardNames []*namelist.NameList
 	for _, board := range J.db.Kanbanboards {
-		boardName := &KTypes.NameList{
+		boardName := &namelist.NameList{
 			Name: board.Name,
 			UUID: board.UUID,
 		}
@@ -148,13 +148,13 @@ func (J *JSONFile) boardExists(uuid string) bool {
 	return false
 }
 
-func (J *JSONFile) getBoard(uuid string) (*KTypes.Board, int, error) {
-	for i, board := range J.db.Kanbanboards {
+func (J *JSONFile) getBoard(uuid string) (*kanban.Board, error) {
+	for _, board := range J.db.Kanbanboards {
 		if board.UUID == uuid {
-			return board, i, nil
+			return board, nil
 		}
 	}
-	return &KTypes.Board{}, -1, database.ErrBoardNotFound
+	return &kanban.Board{}, database.ErrBoardNotFound
 }
 
 func (J *JSONFile) writeToDisk() error {

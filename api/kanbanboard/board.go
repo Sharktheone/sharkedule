@@ -10,13 +10,14 @@ import (
 	"sharkedule/api"
 	"sharkedule/database/db"
 	"sharkedule/kanban"
-	"sharkedule/kanban/KTypes"
+	"sharkedule/kanban/KTypes/description"
+	"sharkedule/kanban/old"
 )
 
 func Get(c *fiber.Ctx) error {
 	boardUUID := c.Params("kanbanboard")
 
-	if board, _, err := kanban.GetBoard(boardUUID); err != nil || board.UUID == "" {
+	if board, _, err := old.GetBoard(boardUUID); err != nil || board.UUID == "" {
 		errJson := api.JSON{"error": err.Error()}
 		if sendErr := c.Status(fiber.StatusNotFound).JSON(errJson); sendErr != nil {
 			log.Printf("Failed sending error (%v): %v", err, sendErr)
@@ -76,9 +77,9 @@ func Create(c *fiber.Ctx) error {
 
 	boardUUID := uuid.New().String()
 
-	kBoard := &KTypes.Board{
+	kBoard := &kanban.Board{
 		Name: board.Name,
-		Description: KTypes.Description{
+		Description: &description.Description{
 			Description: board.Description,
 		},
 		UUID: boardUUID,
@@ -105,7 +106,7 @@ func Delete(c *fiber.Ctx) error {
 		return fmt.Errorf("failed getting boards: %v", err)
 	}
 
-	if board, _, err := kanban.GetBoard(boardUUID); err != nil || board.UUID == "" {
+	if board, _, err := old.GetBoard(boardUUID); err != nil || board.UUID == "" {
 		errJson := api.JSON{"error": err.Error()}
 		if sendErr := c.Status(fiber.StatusBadRequest).JSON(errJson); err != nil {
 			log.Printf("Failed sending error (%v): %v", err, sendErr)
