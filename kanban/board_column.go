@@ -2,10 +2,9 @@ package kanban
 
 import (
 	"errors"
-	"sharkedule/kanban/column"
 )
 
-func (b *Board) GetColumn(uuid string) (*column.Column, error) {
+func (b *Board) GetColumn(uuid string) (*Column, error) {
 	for _, col := range b.Columns {
 		if col.UUID == uuid {
 			return col, nil
@@ -14,8 +13,8 @@ func (b *Board) GetColumn(uuid string) (*column.Column, error) {
 	return nil, errors.New("column not found")
 }
 
-func (b *Board) NewColumn(name string) *column.Column {
-	col := column.New(name)
+func (b *Board) NewColumn(name string) *Column {
+	col := NewColumn(name)
 	b.Columns = append(b.Columns, col)
 	return col
 }

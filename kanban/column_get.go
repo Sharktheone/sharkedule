@@ -1,13 +1,12 @@
-package column
+package kanban
 
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"sharkedule/kanban"
 )
 
-func ExtractColumn(c *fiber.Ctx) (*kanban.Board, *Column, error) {
-	board, err := kanban.ExtractBoard(c)
+func ExtractColumn(c *fiber.Ctx) (*Board, *Column, error) {
+	board, err := ExtractBoard(c)
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed extracting board: %v", err)
 	}
@@ -20,6 +19,6 @@ func ExtractColumn(c *fiber.Ctx) (*kanban.Board, *Column, error) {
 	return board, column, nil
 }
 
-func (c *Column) GetParentBoard() (*kanban.Board, error) {
-	return kanban.GetBoard(c.Board)
+func (c *Column) GetParentBoard() (*Board, error) {
+	return GetBoard(c.Board)
 }

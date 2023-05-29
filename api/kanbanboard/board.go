@@ -54,7 +54,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b := kanban.New(board.Name)
+	b := kanban.NewBoard(board.Name)
 	b.Description = &description.Description{
 		Description: board.Description,
 	}

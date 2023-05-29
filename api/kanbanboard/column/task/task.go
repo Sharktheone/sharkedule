@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
-	"sharkedule/kanban/column"
-	"sharkedule/kanban/column/task"
+	"sharkedule/kanban"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -23,18 +22,18 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	_, co, err := column.ExtractColumn(c)
+	_, co, err := kanban.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("[CreateTask] failed extracting column: %v", err)
 	}
 
-	t := co.NewTask(taskName.Name)
+	t := co.New(taskName.Name)
 
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": t.UUID})
 }
 
 func Get(c *fiber.Ctx) error {
-	t, err := task.ExtractTask(c)
+	t, err := kanban.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -56,7 +55,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := task.ExtractTask(c)
+	t, err := kanban.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -70,7 +69,7 @@ func Move(c *fiber.Ctx) error {
 
 func Delete(c *fiber.Ctx) error {
 
-	t, err := task.ExtractTask(c)
+	t, err := kanban.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 

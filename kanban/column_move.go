@@ -1,4 +1,4 @@
-package column
+package kanban
 
 func (c *Column) Move(toIndex int) error {
 	board, err := c.GetParentBoard()

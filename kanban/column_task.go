@@ -1,11 +1,10 @@
-package column
+package kanban
 
 import (
 	"errors"
-	"sharkedule/kanban/column/task"
 )
 
-func (c *Column) GetTask(uuid string) (*task.Task, error) {
+func (c *Column) GetTask(uuid string) (*Task, error) {
 	for _, t := range c.Tasks {
 		if t.UUID == uuid {
 			return t, nil
@@ -14,8 +13,8 @@ func (c *Column) GetTask(uuid string) (*task.Task, error) {
 	return nil, errors.New("task not found")
 }
 
-func (c *Column) NewTask(name string) *task.Task {
-	t := task.New(name)
+func (c *Column) New(name string) *Task {
+	t := NewTask(name)
 	c.Mu.Lock()
 	defer c.Mu.Unlock()
 	c.Tasks = append(c.Tasks, t)
