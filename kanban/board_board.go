@@ -15,7 +15,6 @@ import (
 	"sharkedule/kanban/KTypes/priority"
 	"sharkedule/kanban/KTypes/status"
 	"sharkedule/kanban/KTypes/tag"
-	"sharkedule/kanban/column"
 	"sync"
 )
 
@@ -37,6 +36,6 @@ type Board struct {
 	Archived    *archived.Archived       `json:"archived,omitempty" yaml:"archived" bson:"archived"`
 	Activity    []*activity.Activity     `json:"activity,omitempty" yaml:"activity" bson:"activity"`
 	Actions     []*actions.Actions       `json:"actions,omitempty" yaml:"actions" bson:"actions"`
-	Columns     []*column.Column         `json:"columns,omitempty" yaml:"columns" bson:"columns"`
+	Columns     []*Column                `json:"columns,omitempty" yaml:"columns" bson:"columns"`
 	Index       int                      `json:"index,omitempty" yaml:"index" bson:"index"`
 }

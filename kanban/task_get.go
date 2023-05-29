@@ -1,13 +1,11 @@
-package task
+package kanban
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"sharkedule/kanban"
-	"sharkedule/kanban/column"
 )
 
 func ExtractTask(c *fiber.Ctx) (*Task, error) {
-	_, co, err := column.ExtractColumn(c)
+	_, co, err := ExtractColumn(c)
 	if err != nil {
 		return nil, err
 	}
@@ -16,11 +14,11 @@ func ExtractTask(c *fiber.Ctx) (*Task, error) {
 
 }
 
-func (t *Task) GetParentBoard() (*kanban.Board, error) {
-	return kanban.GetBoard(t.Board)
+func (t *Task) GetParentBoard() (*Board, error) {
+	return GetBoard(t.Board)
 }
 
-func (t *Task) GetParentColumn() (*column.Column, error) {
+func (t *Task) GetParentColumn() (*Column, error) {
 	board, err := t.GetParentBoard()
 	if err != nil {
 		return nil, err

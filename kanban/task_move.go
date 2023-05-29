@@ -1,11 +1,11 @@
-package task
+package kanban
 
 func (t *Task) Move(toIndex int, toColumn string) error {
 	col, err := t.GetParentColumn()
 	if err != nil {
 		return err
 	}
-	updateIndexes(col)
+	updateTaskIndexes(col)
 	col.Tasks = append(col.Tasks[:t.Index], col.Tasks[t.Index+1:]...)
 	if toColumn == col.UUID {
 		col.Tasks = append(col.Tasks[:toIndex], append([]*Task{t}, col.Tasks[toIndex:]...)...)
@@ -23,7 +23,7 @@ func (t *Task) Move(toIndex int, toColumn string) error {
 	if err != nil {
 		return err
 	}
-	updateIndexes(toCol)
+	updateTaskIndexes(toCol)
 	toCol.Tasks = append(toCol.Tasks[:toIndex], append([]*Task{t}, toCol.Tasks[toIndex:]...)...)
 
 	return toCol.Save()

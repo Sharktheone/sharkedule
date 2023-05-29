@@ -1,4 +1,4 @@
-package task
+package kanban
 
 import (
 	"sharkedule/kanban/KTypes/actions"
