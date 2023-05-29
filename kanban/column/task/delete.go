@@ -1,4 +1,4 @@
-package kanban
+package task
 
 func (t *Task) Delete() error {
 	column, err := t.GetParentColumn()
