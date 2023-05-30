@@ -6,7 +6,11 @@ import (
 )
 
 func List() ([]*Board, error) {
-	return db.DB.GetBoards()
+	b, err := db.DB.GetBoards()
+	if err != nil {
+		return nil, err
+	}
+	return ConvertBoards(b)
 }
 
 func ListNames() ([]*namelist.NameList, error) {
