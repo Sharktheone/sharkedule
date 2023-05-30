@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
-	"sharkedule/kanban"
+	"sharkedule/kanban/board/column"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -22,7 +22,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	co := kanban.NewColumn(boardName.Name)
+	co := column.NewColumn(boardName.Name)
 
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": co.UUID})
 }
@@ -40,7 +40,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	_, co, err := kanban.ExtractColumn(c)
+	_, co, err := column.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -53,7 +53,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	_, co, err := kanban.ExtractColumn(c)
+	_, co, err := column.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -65,7 +65,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	_, co, err := kanban.ExtractColumn(c)
+	_, co, err := column.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}

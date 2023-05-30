@@ -1,4 +1,6 @@
-package kanban
+package column
+
+import "sharkedule/kanban/board"
 
 func (c *Column) Save() error {
 	board, err := c.GetParentBoard()
@@ -11,7 +13,7 @@ func (c *Column) Save() error {
 	return board.Save()
 }
 
-func updateColumnIndexes(board *Board) {
+func updateColumnIndexes(board *board.Board) {
 	for i, c := range board.Columns {
 		c.Index = i
 	}

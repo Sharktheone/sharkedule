@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
-	"sharkedule/kanban"
 	"sharkedule/kanban/KTypes/description"
+	"sharkedule/kanban/board"
 )
 
 func Get(c *fiber.Ctx) error {
-	board, err := kanban.ExtractBoard(c)
+	board, err := board.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
@@ -19,7 +19,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	boards, err := kanban.List()
+	boards, err := board.List()
 	if err != nil {
 		return fmt.Errorf("failed getting boards: %v", err)
 	}
@@ -32,7 +32,7 @@ func List(c *fiber.Ctx) error {
 
 func ListNames(c *fiber.Ctx) error {
 
-	boardNames, err := kanban.ListNames()
+	boardNames, err := board.ListNames()
 	if err != nil {
 		return fmt.Errorf("failed getting board names: %v", err)
 	}
@@ -54,7 +54,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b := kanban.NewBoard(board.Name)
+	b := board.NewBoard(board.Name)
 	b.Description = &description.Description{
 		Description: board.Description,
 	}
@@ -70,7 +70,7 @@ func Create(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	b, err := kanban.ExtractBoard(c)
+	b, err := board.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}

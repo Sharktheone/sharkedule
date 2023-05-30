@@ -1,4 +1,4 @@
-package kanban
+package column
 
 func (c *Column) Delete() error {
 	board, err := c.GetParentBoard()

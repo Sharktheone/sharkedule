@@ -1,4 +1,4 @@
-package kanban
+package board
 
 import (
 	"sharkedule/database/db"

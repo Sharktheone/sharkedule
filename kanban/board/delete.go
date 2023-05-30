@@ -1,6 +1,8 @@
-package kanban
+package board
 
-import "sharkedule/database/db"
+import (
+	"sharkedule/database/db"
+)
 
 func (b *Board) Delete() error {
 	boards, err := db.DB.GetBoards()

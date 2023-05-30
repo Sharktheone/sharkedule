@@ -1,4 +1,4 @@
-package kanban
+package task
 
 func (t *Task) Move(toIndex int, toColumn string) error {
 	col, err := t.GetParentColumn()

@@ -1,4 +1,4 @@
-package kanban
+package column
 
 import "github.com/google/uuid"
 

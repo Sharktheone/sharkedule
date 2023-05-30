@@ -1,9 +1,9 @@
-package kanban
+package task
 
 import "github.com/google/uuid"
 
-func NewBoard(name string) *Board {
-	return &Board{
+func NewTask(name string) *Task {
+	return &Task{
 		UUID: uuid.New().String(),
 		Name: name,
 	}

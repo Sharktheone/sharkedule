@@ -1,4 +1,4 @@
-package kanban
+package board
 
 import (
 	"github.com/gofiber/fiber/v2"

@@ -1,4 +1,6 @@
-package kanban
+package task
+
+import "sharkedule/kanban/board/column"
 
 func (t *Task) Save() error {
 	col, err := t.GetParentColumn()
@@ -11,7 +13,7 @@ func (t *Task) Save() error {
 	return col.Save()
 }
 
-func updateTaskIndexes(col *Column) {
+func updateTaskIndexes(col *column.Column) {
 	for i, t := range col.Tasks {
 		t.Index = i
 	}
