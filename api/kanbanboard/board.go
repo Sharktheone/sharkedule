@@ -6,12 +6,13 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
+	"sharkedule/api/middlewear"
 	"sharkedule/kanban/KTypes/description"
 	"sharkedule/kanban/board"
 )
 
 func Get(c *fiber.Ctx) error {
-	board, err := board.ExtractBoard(c)
+	board, err := middlewear.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
@@ -70,7 +71,7 @@ func Create(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	b, err := board.ExtractBoard(c)
+	b, err := middlewear.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}

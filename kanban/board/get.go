@@ -1,7 +1,6 @@
 package board
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"sharkedule/database/db"
 )
 
@@ -11,9 +10,4 @@ func GetBoard(uuid string) (*Board, error) {
 
 func GetBoards() ([]*Board, error) {
 	return db.DB.GetBoards()
-}
-
-func ExtractBoard(c *fiber.Ctx) (*Board, error) {
-	boardUUID := c.Params("kanbanboard")
-	return GetBoard(boardUUID)
 }

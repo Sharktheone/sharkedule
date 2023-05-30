@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
+	"sharkedule/api/middlewear"
 	"sharkedule/kanban/board/column"
 )
 
@@ -40,7 +41,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	_, co, err := column.ExtractColumn(c)
+	_, co, err := middlewear.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -53,7 +54,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	_, co, err := column.ExtractColumn(c)
+	_, co, err := middlewear.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -65,7 +66,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	_, co, err := column.ExtractColumn(c)
+	_, co, err := middlewear.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
