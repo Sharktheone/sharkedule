@@ -10,23 +10,3 @@ func NewBoard(name string) *Board {
 		Name: name,
 	}
 }
-
-type A struct {
-	Items []AItem
-}
-
-type AItem struct {
-	Name string
-}
-
-func (a *A) AddItem(name string) {
-	a.Items = append(a.Items, AItem{Name: name})
-}
-
-type B struct {
-	Items []*BItem
-}
-
-type BItem struct {
-	Name string
-}
