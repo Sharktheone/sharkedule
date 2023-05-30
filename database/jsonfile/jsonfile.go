@@ -8,7 +8,7 @@ import (
 	"os"
 	"path"
 	"sharkedule/database"
-	"sharkedule/kanban"
+	"sharkedule/database/types"
 	"sharkedule/kanban/KTypes/namelist"
 	"sync"
 )
@@ -26,7 +26,7 @@ func NewJSONFile() *JSONFile {
 	return &JSONFile{
 		db: &database.DBStructure{
 			Mu:           &sync.Mutex{},
-			Kanbanboards: []*kanban.Board{},
+			Kanbanboards: []*types.Board{},
 		},
 	}
 }
@@ -59,7 +59,7 @@ func (J *JSONFile) Save() error {
 	return nil
 }
 
-func (J *JSONFile) SaveBoard(board *kanban.Board) error {
+func (J *JSONFile) SaveBoard(board *types.Board) error {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	if J.boardExists(board.UUID) {
@@ -79,7 +79,7 @@ func (J *JSONFile) SaveBoard(board *kanban.Board) error {
 	return nil
 }
 
-func (J *JSONFile) SaveBoards(boards []*kanban.Board) error {
+func (J *JSONFile) SaveBoards(boards []*types.Board) error {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	for _, board := range boards {
@@ -100,13 +100,13 @@ func (J *JSONFile) SaveBoards(boards []*kanban.Board) error {
 }
 
 func (J *JSONFile) CreateBoard(boardName interface{}) error {
-	var board *kanban.Board
+	var board *types.Board
 	switch b := boardName.(type) {
 	case string:
-		board = &kanban.Board{
+		board = &types.Board{
 			Name: b,
 		}
-	case *kanban.Board:
+	case *types.Board:
 		board = b
 	}
 	board.UUID = uuid.New().String()
@@ -118,11 +118,11 @@ func (J *JSONFile) CreateBoard(boardName interface{}) error {
 	return nil
 }
 
-func (J *JSONFile) GetBoard(boardUUID string) (*kanban.Board, error) {
+func (J *JSONFile) GetBoard(boardUUID string) (*types.Board, error) {
 	return J.getBoard(boardUUID)
 }
 
-func (J *JSONFile) GetBoards() ([]*kanban.Board, error) {
+func (J *JSONFile) GetBoards() ([]*types.Board, error) {
 
 	return J.db.Kanbanboards, nil
 }
@@ -148,13 +148,13 @@ func (J *JSONFile) boardExists(uuid string) bool {
 	return false
 }
 
-func (J *JSONFile) getBoard(uuid string) (*kanban.Board, error) {
+func (J *JSONFile) getBoard(uuid string) (*types.Board, error) {
 	for _, board := range J.db.Kanbanboards {
 		if board.UUID == uuid {
 			return board, nil
 		}
 	}
-	return &kanban.Board{}, database.ErrBoardNotFound
+	return &types.Board{}, database.ErrBoardNotFound
 }
 
 func (J *JSONFile) writeToDisk() error {
@@ -174,4 +174,93 @@ func (J *JSONFile) LockMutex() {
 
 func (J *JSONFile) UnlockMutex() {
 	J.db.Mu.Unlock()
+}
+
+func (J *JSONFile) SaveColumn(boardUUID string, column *types.Column) error {
+	J.db.Mu.Lock()
+	defer J.db.Mu.Unlock()
+	if !J.boardExists(boardUUID) {
+		return fmt.Errorf("board with uuid %s does not exist", boardUUID)
+	}
+	board, err := J.getBoard(boardUUID)
+	if err != nil {
+		return err
+	}
+	if board.Columns[column.Index].UUID != column.UUID {
+		for index, col := range board.Columns {
+			if col.UUID == column.UUID {
+				column.Index = index
+				break
+			}
+		}
+	}
+	board.Columns[column.Index] = column
+
+	if err := J.Save(); err != nil {
+		return fmt.Errorf("failed saving database file: %v", err)
+	}
+	return nil
+}
+
+func (J *JSONFile) SaveColumns(boardUUID string, columns []*types.Column) error {
+	J.db.Mu.Lock()
+	defer J.db.Mu.Unlock()
+	if !J.boardExists(boardUUID) {
+		return fmt.Errorf("board with uuid %s does not exist", boardUUID)
+	}
+	board, err := J.getBoard(boardUUID)
+	if err != nil {
+		return err
+	}
+	for _, column := range columns {
+		if board.Columns[column.Index].UUID != column.UUID {
+			for index, col := range board.Columns {
+				if col.UUID == column.UUID {
+					column.Index = index
+					break
+				}
+			}
+		}
+		board.Columns[column.Index] = column
+	}
+
+	if err := J.Save(); err != nil {
+		return fmt.Errorf("failed saving database file: %v", err)
+	}
+	return nil
+}
+
+func (J *JSONFile) SaveTask(boardUUID string, column, task *types.Task) error {
+	J.db.Mu.Lock()
+	defer J.db.Mu.Unlock()
+	if !J.boardExists(boardUUID) {
+		return fmt.Errorf("board with uuid %s does not exist", boardUUID)
+	}
+	board, err := J.getBoard(boardUUID)
+	if err != nil {
+		return err
+	}
+	if board.Columns[column.Index].UUID != column.UUID {
+		for index, col := range board.Columns {
+			if col.UUID == column.UUID {
+				column.Index = index
+				break
+			}
+		}
+	}
+	if board.Columns[column.Index].Tasks[task.Index].UUID != task.UUID {
+		for index, tsk := range board.Columns[column.Index].Tasks {
+			if tsk.UUID == task.UUID {
+				task.Index = index
+				break
+			}
+		}
+	}
+
+	board.Columns[column.Index].Tasks[task.Index] = task
+
+	if err := J.Save(); err != nil {
+		return fmt.Errorf("failed saving database file: %v", err)
+	}
+	return nil
 }
