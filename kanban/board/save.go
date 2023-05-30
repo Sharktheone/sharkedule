@@ -5,5 +5,9 @@ import (
 )
 
 func (b *Board) Save() error {
-	return db.DB.SaveBoard(b)
+	board, err := b.Convert()
+	if err != nil {
+		return err
+	}
+	return db.DB.SaveBoard(board)
 }
