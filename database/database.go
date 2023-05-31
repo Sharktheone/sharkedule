@@ -21,8 +21,10 @@ type IDatabase interface {
 	GetBoardNames() ([]*namelist.NameList, error)
 	LockMutex()
 	UnlockMutex()
+	GetColumn(boardUUID, columnUUID string) (*types.Column, error)
 	SaveColumn(boardUUID string, column *types.Column) error
 	SaveColumns(boardUUID string, columns []*types.Column) error
+	GetTask(boardUUID, columnUUID, taskUUID string) (*types.Task, error)
 	SaveTask(boardUUID string, column, task *types.Task) error
 }
 

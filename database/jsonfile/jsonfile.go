@@ -3,6 +3,7 @@ package jsonfile
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/google/uuid"
 	"os"
@@ -176,6 +177,22 @@ func (J *JSONFile) UnlockMutex() {
 	J.db.Mu.Unlock()
 }
 
+func (J *JSONFile) GetColumn(boardUUID string, columnUUID string) (*types.Column, error) {
+	if !J.boardExists(boardUUID) {
+		return &types.Column{}, fmt.Errorf("board with uuid %s does not exist", boardUUID)
+	}
+	board, err := J.getBoard(boardUUID)
+	if err != nil {
+		return &types.Column{}, err
+	}
+	for _, column := range board.Columns {
+		if column.UUID == columnUUID {
+			return column, nil
+		}
+	}
+	return &types.Column{}, errors.New("column not found")
+}
+
 func (J *JSONFile) SaveColumn(boardUUID string, column *types.Column) error {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
@@ -228,6 +245,26 @@ func (J *JSONFile) SaveColumns(boardUUID string, columns []*types.Column) error 
 		return fmt.Errorf("failed saving database file: %v", err)
 	}
 	return nil
+}
+
+func (J *JSONFile) GetTask(boardUUID string, columnUUID string, taskUUID string) (*types.Task, error) {
+	if !J.boardExists(boardUUID) {
+		return &types.Task{}, fmt.Errorf("board with uuid %s does not exist", boardUUID)
+	}
+	board, err := J.getBoard(boardUUID)
+	if err != nil {
+		return &types.Task{}, err
+	}
+	for _, column := range board.Columns {
+		if column.UUID == columnUUID {
+			for _, task := range column.Tasks {
+				if task.UUID == taskUUID {
+					return task, nil
+				}
+			}
+		}
+	}
+	return &types.Task{}, errors.New("task not found")
 }
 
 func (J *JSONFile) SaveTask(boardUUID string, column, task *types.Task) error {
