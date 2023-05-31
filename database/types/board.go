@@ -37,5 +37,5 @@ type Board struct {
 	Activity    []*activity.Activity     `json:"activity,omitempty" yaml:"activity" bson:"activity"`
 	Actions     []*actions.Actions       `json:"actions,omitempty" yaml:"actions" bson:"actions"`
 	Columns     []*Column                `json:"columns,omitempty" yaml:"columns" bson:"columns"`
-	Index       int                      `json:"-" yaml:"-" bson:"-"`
+	Index       int                      `json:"index" yaml:"index" bson:"index"`
 }

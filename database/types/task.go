@@ -37,7 +37,7 @@ type Task struct {
 	Archived    []*archived.Archived       `json:"archived,omitempty" yaml:"archived" bson:"archived"`
 	Activity    []*activity.Activity       `json:"activity,omitempty" yaml:"activity" bson:"activity"`
 	Actions     []*actions.Actions         `json:"actions,omitempty" yaml:"actions" bson:"actions"`
-	Index       int                        `json:"-" yaml:"-" bson:"-"`
-	Board       string                     `json:"-" yaml:"-" bson:"-"`
-	Column      string                     `json:"-" yaml:"-" bson:"-"`
+	Index       int                        `json:"index" yaml:"index" bson:"index"`
+	Board       string                     `json:"board" yaml:"board" bson:"board"`
+	Column      string                     `json:"column" yaml:"column" bson:"column"`
 }

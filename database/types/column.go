@@ -11,6 +11,6 @@ type Column struct {
 	Name        string                   `json:"name" yaml:"name" bson:"name"`
 	Description *description.Description `json:"description,omitempty" yaml:"description" bson:"description"`
 	Tasks       []*Task                  `json:"tasks,omitempty" yaml:"tasks" bson:"tasks"`
-	Index       int                      `json:"-" yaml:"-" bson:"-"`
-	Board       string                   `json:"-" yaml:"-" bson:"-"`
+	Index       int                      `json:"index" yaml:"index" bson:"index"`
+	Board       string                   `json:"board" yaml:"board" bson:"board"`
 }
