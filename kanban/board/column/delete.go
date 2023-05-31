@@ -1,5 +1,7 @@
 package column
 
+import "sharkedule/database/db"
+
 func (c *Column) Delete() error {
 	board, err := c.GetParentBoard()
 	if err != nil {
@@ -8,5 +10,5 @@ func (c *Column) Delete() error {
 
 	board.Columns = append(board.Columns[:c.Index], board.Columns[c.Index+1:]...)
 
-	return board.Save()
+	return db.DB.SaveBoard(board)
 }

@@ -1,5 +1,7 @@
 package task
 
+import "sharkedule/database/db"
+
 func (t *Task) Delete() error {
 	column, err := t.GetParentColumn()
 	if err != nil {
@@ -7,5 +9,5 @@ func (t *Task) Delete() error {
 	}
 	column.Tasks = append(column.Tasks[:t.Index], column.Tasks[t.Index+1:]...)
 
-	return column.Save()
+	return db.DB.SaveColumn(column.Board, column)
 }

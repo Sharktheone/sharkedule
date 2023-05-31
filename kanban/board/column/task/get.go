@@ -1,18 +1,14 @@
 package task
 
 import (
-	"sharkedule/kanban/board"
-	"sharkedule/kanban/board/column"
+	"sharkedule/database/db"
+	"sharkedule/database/types"
 )
 
-func (t *Task) GetParentBoard() (*board.Board, error) {
-	return board.GetBoard(t.Board)
+func (t *Task) GetParentBoard() (*types.Board, error) {
+	return db.DB.GetBoard(t.Board)
 }
 
-func (t *Task) GetParentColumn() (*column.Column, error) {
-	board, err := t.GetParentBoard()
-	if err != nil {
-		return nil, err
-	}
-	return board.GetColumn(t.Column)
+func (t *Task) GetParentColumn() (*types.Column, error) {
+	return db.DB.GetColumn(t.Board, t.Column)
 }

@@ -1,9 +1,14 @@
 package column
 
 import (
-	"sharkedule/kanban/board"
+	"sharkedule/database/db"
+	"sharkedule/database/types"
 )
 
-func (c *Column) GetParentBoard() (*board.Board, error) {
-	return board.GetBoard(c.Board)
+func (c *Column) GetParentBoard() (*types.Board, error) {
+	return db.DB.GetBoard(c.Board)
+}
+
+func GetColumn(board, column string) (*types.Column, error) {
+	return db.DB.GetColumn(board, column)
 }
