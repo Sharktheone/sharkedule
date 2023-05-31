@@ -15,36 +15,14 @@ var (
 	embedFS embed.FS
 )
 
-type embedFileSystem struct {
-	http.FileSystem
-}
-
-func (e embedFileSystem) Exists(prefix string, path string) bool {
-	_, err := e.Open(path)
-	if err != nil {
-		return false
-	}
-	return true
-}
-
 func Serve(r *fiber.App) {
 	subFs, err := fs.Sub(embedFS, "dist")
 	if err != nil {
 		log.Fatalf("Failed to get subFS: %v", err)
 	}
 
-	FS := &embedFileSystem{
-		FileSystem: http.FS(subFs),
-	}
+	FS := http.FS(subFs)
 
-	static := filesystem.New(filesystem.Config{
-		Root:   FS,
-		Index:  "index.html",
-		Browse: true,
-		MaxAge: 3600,
-	})
-
-	r.Use(static)
 	r.Get("*", func(c *fiber.Ctx) error {
 		if strings.HasPrefix(c.Path(), "/api") {
 			return c.Next()
