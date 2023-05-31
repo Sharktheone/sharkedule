@@ -12,11 +12,11 @@ import (
 )
 
 func Get(c *fiber.Ctx) error {
-	board, err := middlewear.ExtractBoard(c)
+	b, err := middlewear.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
-	return c.Status(fiber.StatusOK).JSON(board)
+	return c.Status(fiber.StatusOK).JSON(b)
 }
 
 func List(c *fiber.Ctx) error {
@@ -47,17 +47,17 @@ func Create(c *fiber.Ctx) error {
 		Description string `json:"description"`
 	}
 
-	var board BoardName
+	var props BoardName
 
-	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&board); err != nil {
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&props); err != nil {
 		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
 			return fmt.Errorf("failed sending board: %v", err)
 		}
 	}
 
-	b := board.NewBoard(board.Name)
+	b := board.NewBoard(props.Name)
 	b.Description = &description.Description{
-		Description: board.Description,
+		Description: props.Description,
 	}
 
 	if err := b.Save(); err != nil {
