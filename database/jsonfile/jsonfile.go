@@ -34,12 +34,11 @@ func NewJSONFile() *JSONFile {
 
 func (J *JSONFile) Load() error {
 	dbPath := path.Join(database.DBRoot, DBFileName)
-	file, err := os.Open(dbPath)
+	file, err := os.OpenFile(dbPath, os.O_RDWR|os.O_CREATE, 0755)
 	if err != nil {
 		return fmt.Errorf("failed opening database file: %v", err)
 	}
 	J.file = file
-	defer J.file.Close()
 
 	if err := json.NewDecoder(J.file).Decode(&J.db.Kanbanboards); err != nil {
 		return fmt.Errorf("failed decoding database file: %v", err)
@@ -172,8 +171,15 @@ func attachValues(board *types.Board) {
 	}
 }
 
+func attachMultiple(boards []*types.Board) {
+	for _, board := range boards {
+		attachValues(board)
+	}
+}
+
 func (J *JSONFile) writeToDisk() error {
 	var fileBuffer bytes.Buffer
+	attachMultiple(J.db.Kanbanboards)
 	if err := json.NewEncoder(&fileBuffer).Encode(J.db); err != nil {
 		return fmt.Errorf("failed encoding database file: %v", err)
 	}
