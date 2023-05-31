@@ -152,10 +152,24 @@ func (J *JSONFile) boardExists(uuid string) bool {
 func (J *JSONFile) getBoard(uuid string) (*types.Board, error) {
 	for _, board := range J.db.Kanbanboards {
 		if board.UUID == uuid {
+			attachValues(board)
 			return board, nil
 		}
 	}
 	return &types.Board{}, database.ErrBoardNotFound
+}
+
+func attachValues(board *types.Board) {
+	for colIndex, column := range board.Columns {
+		column.Board = board.UUID
+		column.Index = colIndex
+
+		for taskIndex, task := range column.Tasks {
+			task.Board = board.UUID
+			task.Column = column.UUID
+			task.Index = taskIndex
+		}
+	}
 }
 
 func (J *JSONFile) writeToDisk() error {
