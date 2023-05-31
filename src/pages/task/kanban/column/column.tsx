@@ -43,9 +43,9 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
                                 <div className={`${cx(classes.column)} ${styles.column}`}>
                                     <Title align="left" className={cx(classes.title)} order={3}>
                                         <div>
-                                <span onClick={h.editText} contentEditable={h.editable}
-                                      onBlur={h.handleBlur}>{column.name}</span>
-                                            <button onClick={h.handleDelete}>
+                                <span onClick={() => h.editText()} contentEditable={h.editable}
+                                      onBlur={event => h.handleBlur(event)}>{column.name}</span>
+                                            <button onClick={() => h.handleDelete()}>
                                                 <IconTrash/>
                                             </button>
                                         </div>
@@ -63,7 +63,7 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
                                                     >
 
                                                         <div style={{paddingBottom: "0.625rem"}}>
-                                                            <Task key={task.uuid} task={task} renameTask={h.renameTask}
+                                                            <Task key={task.uuid} task={task} renameTask={(uuid, name) => h.renameTask(uuid, name)}
                                                                   boardUUID={board.uuid} columnUUID={column.uuid}/>
                                                         </div>
                                                     </div>
@@ -84,7 +84,7 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
 
                                     {h.isAdding ?
                                         <>
-                                            <Textarea onBlur={h.removeIsAdding} ref={h.nameRef} autosize
+                                            <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
                                                       className={`${cx(classes.add)} ${styles.add}`}
                                                       placeholder="Task name..."/>
                                         </>
@@ -93,15 +93,15 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
 
                                     <div className={styles.footer}>
                                         {!h.isAdding ?
-                                            <button onClick={h.handleNewTask}>
+                                            <button onClick={() => h.handleNewTask()}>
                                                 <IconPlus/>
                                                 <Text size="sm"> Add a Task </Text>
                                             </button> :
 
                                             <div>
                                                 <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                                        onClick={h.addTask}> Create </Button>
-                                                <CloseButton onClick={h.closeIsAdding}/>
+                                                        onClick={() => h.addTask()}> Create </Button>
+                                                <CloseButton onClick={() => h.closeIsAdding()}/>
                                             </div>
 
                                         }
