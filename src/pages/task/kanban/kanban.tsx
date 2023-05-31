@@ -62,17 +62,19 @@ export default function Kanban() {
                                             <Text align="center">Add a Column</Text>
                                         </button>
                                     </> :
-                                    <Stack className={styles.add}>
-                                        <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
-                                               placeholder="Column name"></Input>
-                                        <div className={styles.menu}>
-                                            <Button onClick={() => h.addColumn()} gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                                    variant="gradient">Create</Button>
-                                            <CloseButton onClick={() => setIsAdding(false)}/>
-                                        </div>
-
-
-                                    </Stack>
+                                    <div>
+                                        <Stack className={styles.add}>
+                                            <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
+                                                   placeholder="Column name"/>
+                                            <div className={styles.menu}>
+                                                <Button onClick={() => h.addColumn()}
+                                                        gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                                        variant="gradient">Create
+                                                </Button>
+                                                <CloseButton onClick={() => setIsAdding(false)}/>
+                                            </div>
+                                        </Stack>
+                                    </div>
 
                                 }
 
