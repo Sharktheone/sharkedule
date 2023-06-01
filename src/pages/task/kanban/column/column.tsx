@@ -63,7 +63,8 @@ export default function Column({column, setBoard, board, ghost, index}: ColumnPr
                                                     >
 
                                                         <div style={{paddingBottom: "0.625rem"}}>
-                                                            <Task key={task.uuid} task={task} renameTask={(uuid, name) => h.renameTask(uuid, name)}
+                                                            <Task key={task.uuid} task={task}
+                                                                  renameTask={(uuid, name) => h.renameTask(uuid, name)}
                                                                   boardUUID={board.uuid} columnUUID={column.uuid}/>
                                                         </div>
                                                     </div>
