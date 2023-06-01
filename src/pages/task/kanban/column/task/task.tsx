@@ -52,9 +52,9 @@ export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProp
 
     return (
         <div className={`${cx(classes.task)} ${styles.task}`}>
-            <div className={styles.taskname}>
+            <div className={styles.name}>
                 <IconCircleCheck/>
-                <Text className={styles.name} onClick={editText} onBlur={handleBlur} contentEditable={editable}>
+                <Text onClick={editText} onBlur={handleBlur} contentEditable={editable}>
                     {task.name}
                 </Text>
             </div>
