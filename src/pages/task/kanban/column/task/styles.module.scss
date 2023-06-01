@@ -29,13 +29,16 @@
     & > div {
       width: calc(100% - 1.5rem - .5rem);
       min-height: 1.5rem;
+      white-space: pre-wrap;
 
     }
   }
 
-  & > div.hover > div {
-    display: inline-block;
-    visibility: hidden;
+  & > div.hover {
+    margin: .75rem 0;
+    align-self: flex-start;
+    & > div {
+    visibility: visible;
 
     & > button {
       border: none;
@@ -60,4 +63,5 @@
       visibility: visible;
     }
   }
+}
 }
