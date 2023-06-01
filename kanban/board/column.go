@@ -14,8 +14,11 @@ func (b *Board) GetColumn(uuid string) (*column.Column, error) {
 	return nil, errors.New("column not found")
 }
 
-func (b *Board) NewColumn(name string) *column.Column {
+func (b *Board) NewColumn(name string) (*column.Column, error) {
 	col := column.NewColumn(name)
 	b.Columns = append(b.Columns, col)
-	return col
+	if err := b.Save(); err != nil {
+		return nil, err
+	}
+	return col, nil
 }

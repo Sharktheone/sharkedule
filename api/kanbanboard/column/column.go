@@ -7,7 +7,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"sharkedule/api"
 	"sharkedule/api/middlewear"
-	"sharkedule/kanban/board/column"
 )
 
 func Create(c *fiber.Ctx) error {
@@ -23,7 +22,14 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	co := column.NewColumn(boardName.Name)
+	b, err := middlewear.ExtractBoard(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting board: %v", err)
+	}
+	co, err := b.NewColumn(boardName.Name)
+	if err != nil {
+		return fmt.Errorf("failed creating column: %v", err)
+	}
 
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": co.UUID})
 }

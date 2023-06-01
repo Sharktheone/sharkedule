@@ -9,7 +9,7 @@ import (
 func (b *Board) Convert() (*types.Board, error) {
 	var board *types.Board
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		Result:  board,
+		Result:  &board,
 		TagName: "json",
 	})
 	if err != nil {
