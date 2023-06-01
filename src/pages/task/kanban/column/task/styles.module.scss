@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 
   & > div.name {
     display: flex;
@@ -36,11 +37,12 @@
 
   & > div.hover {
     margin: .75rem 0;
-    align-self: flex-start;
-    & > div {
+    position: absolute;
+    right: 0;
+    top: 0;
     visibility: hidden;
 
-    & > button {
+    & > div > button {
       border: none;
       background: inherit;
 
@@ -59,9 +61,8 @@
   }
 
   &:hover, &:focus {
-    & > div.hover > div {
+    & > div.hover {
       visibility: visible;
     }
   }
-}
 }
