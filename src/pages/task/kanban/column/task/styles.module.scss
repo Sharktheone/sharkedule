@@ -8,13 +8,22 @@
   & > div.name {
     display: flex;
     align-items: center;
+    justify-content: start;
     gap: .5rem;
     min-height: 1.5rem;
     width: 100%;
+    position: relative;
 
     & > svg {
       width: 1.5rem;
       height: 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        stroke: aquamarine;
+        fill: rgba(aquamarine, 0.2);
+
+      }
     }
 
     & > div {
@@ -25,7 +34,8 @@
   }
 
   & > div.hover > div {
-    display: none;
+    display: inline-block;
+    visibility: hidden;
 
     & > button {
       border: none;
@@ -45,9 +55,9 @@
     }
   }
 
-  &:hover {
+  &:hover, &:focus {
     & > div.hover > div {
-      display: inline-block;
+      visibility: visible;
     }
   }
 }
