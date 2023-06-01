@@ -3,7 +3,7 @@ import {useStyles} from "./styles"
 import {kanbanTaskType} from "../../types"
 import {useState} from "react"
 import styles from "./styles.module.scss"
-import {IconTrash, IconX} from "@tabler/icons-react"
+import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "../../../../../api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
@@ -51,17 +51,20 @@ export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProp
     }
 
     return (
-        <Flex className={`${cx(classes.task)} ${styles.task}`}>
-            <Text className={styles.name} onClick={editText} onBlur={handleBlur} contentEditable={editable}>
-                {task.name}
-            </Text>
-            <div>
+        <div className={`${cx(classes.task)} ${styles.task}`}>
+            <div className={styles.taskname}>
+                <IconCircleCheck/>
+                <Text className={styles.name} onClick={editText} onBlur={handleBlur} contentEditable={editable}>
+                    {task.name}
+                </Text>
+            </div>
+            <div className={styles.hover}>
                 <div>
                     <button onClick={handleDelete}>
                         <IconTrash/>
                     </button>
                 </div>
             </div>
-        </Flex>
+        </div>
     )
 }

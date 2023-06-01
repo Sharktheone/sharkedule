@@ -5,13 +5,19 @@
   align-items: center;
   justify-content: space-between;
 
-  & > div.name {
-    min-height: 1.5rem;
-    width: 100%;
+  & > div.taskname {
     display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    & > div.name {
+      min-height: 1.5rem;
+      width: 100%;
+      display: flex;
+    }
   }
 
-  & > div > div {
+  & > div.hover > div {
     display: none;
 
     & > button {
@@ -30,11 +36,10 @@
         }
       }
     }
-
   }
 
   &:hover {
-    & > div > div {
+    & > div.hover > div {
       display: inline-block;
     }
   }
