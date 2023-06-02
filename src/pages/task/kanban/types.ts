@@ -45,14 +45,14 @@ export type kanbanTaskType = {
     archived: kanbanArchivedType
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
-    subtasks: subtask[]
+    subtasks: kanbanSubtaskType[]
     stage: kanbanTaskStageType
     progress: kanbanTaskProgressType
     customFields: kanbanCustomFieldType[]
 }
 
 //TODO: find better way to nest subtasks - this is very ugly
-type subtask = task & {
+export type kanbanSubtaskType = task & {
     subtasks: subtask2[]
 }
 
