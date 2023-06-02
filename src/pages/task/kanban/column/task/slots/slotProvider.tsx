@@ -74,7 +74,20 @@ function SlotProvider({children, task}: Props) {
             const s: Slot = slots[slotName]
             if (s) upperSlot.push(s)
         }
-        return
+
+        if (config.border) {
+            const b = config.border
+            const s = slots[b]
+            border = getSlotColor(s)
+        }
+
+        if (config.color) {
+            const c = config.color
+            const s = slots[c]
+            color = getSlotColor(s)
+        }
+
+        return {upperSlot, lowerSlot, border, color}
     }
 
     function getSlotColor(slot: Slot): string | null {
@@ -133,7 +146,7 @@ function SlotProvider({children, task}: Props) {
     }
 
     return (
-        <SlotContext.Provider value={{upperSlot: null, lowerSlot: null, border: null, color: null}}>
+        <SlotContext.Provider value={slotify()}>
             {children}
         </SlotContext.Provider>
     )
