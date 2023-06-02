@@ -1,11 +1,15 @@
 import {
-    kanbanCheckListType, kanbanCustomFieldType,
+    kanbanCheckListType,
+    kanbanCustomFieldType,
     kanbanDateDueType,
     kanbanImageType,
     kanbanMemberType,
     kanbanPriorityType,
-    kanbanStatusType, kanbanSubtaskType,
-    kanbanTagType, kanbanProgressType, kanbanStageType
+    kanbanProgressType,
+    kanbanStageType,
+    kanbanStatusType,
+    kanbanSubtaskType,
+    kanbanTagType
 } from "@kanban/types"
 
 
@@ -21,7 +25,6 @@ export type Slot =
     | SubtasksSlot
     | CustomFieldsSlot
     | ChecklistsSlot
-
 
 
 export type IndexedSlot = {
