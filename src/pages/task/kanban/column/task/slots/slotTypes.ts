@@ -35,7 +35,7 @@ export type IndexedSlot = {
     images: ImagesSlot
     subtasks: SubtasksSlot
     custom_fields: CustomFieldsSlot
-    checklist: ChecklistsSlot
+    checklists: ChecklistsSlot
 }
 
 export type Configuration = {
@@ -57,7 +57,7 @@ export enum SlotNames {
     IMAGES = "images",
     SUBTASKS = "subtasks",
     CUSTOM_FIELDS = "custom_fields",
-    CHECKLIST = "checklist"
+    CHECKLIST = "checklists"
 }
 
 export enum SlotColors {
@@ -67,7 +67,7 @@ export enum SlotColors {
     STAGE = "stage",
     PROGRESS = "progress",
     CUSTOM_FIELDS = "custom_fields",
-    CHECKLIST = "checklist"
+    CHECKLIST = "checklists"
 }
 
 export type TagsSlot = {
