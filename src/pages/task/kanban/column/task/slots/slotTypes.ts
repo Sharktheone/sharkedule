@@ -5,10 +5,20 @@ import {
     kanbanPriorityType,
     kanbanStatusType,
     kanbanTagType
-} from "../../../types"
+} from "@kanban/types"
 
 
-export type Slot = TagsSlot | PrioritySlot | StatusSlot | DateDueSlot | StageSlot | MembersSlot | ProgressSlot | ImageSlot | SubtasksSlot | CustomFieldSlot
+export type Slot =
+    TagsSlot
+    | PrioritySlot
+    | StatusSlot
+    | DateDueSlot
+    | StageSlot
+    | MembersSlot
+    | ProgressSlot
+    | ImageSlot
+    | SubtasksSlot
+    | CustomFieldSlot
 
 
 export type TagsSlot = {

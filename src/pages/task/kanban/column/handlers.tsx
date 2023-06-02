@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss"
-import {api} from "../../../../api/api"
+import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconX} from "@tabler/icons-react"
 import {Dispatch, RefObject, SetStateAction, useEffect, useRef, useState} from "react"

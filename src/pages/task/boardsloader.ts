@@ -1,5 +1,5 @@
-import {api} from "../../api/api"
-import {kanbanBoardType} from "./kanban/types"
+import {api} from "@/api/api"
+import {kanbanBoardType} from "@kanban/types"
 
 
 export default function boardsLoader() {

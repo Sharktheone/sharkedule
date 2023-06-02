@@ -2,7 +2,7 @@ import {ghostType, useGhost} from "./ghost"
 import {DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
 import {kanbanBoardType} from "./types"
 import {Dispatch, SetStateAction} from "react"
-import {api} from "../../../api/api"
+import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
 
