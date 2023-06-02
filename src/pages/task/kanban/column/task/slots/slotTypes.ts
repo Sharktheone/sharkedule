@@ -75,52 +75,52 @@ export type TagsSlot = {
     tag: kanbanTagType[]
 }
 
-type PrioritySlot = {
+export type PrioritySlot = {
     type: "priority"
     priority: kanbanPriorityType
 }
 
-type StatusSlot = {
+export type StatusSlot = {
     type: "status"
     status: kanbanStatusType
 }
 
-type DateDueSlot = {
+export type DateDueSlot = {
     type: "date_due"
     due_date: kanbanDateDueType
 }
 
-type StageSlot = {
+export type StageSlot = {
     type: "stage"
     stage: kanbanStageType
 }
 
-type MembersSlot = {
+export type MembersSlot = {
     type: "members"
     members: kanbanMemberType[]
 }
 
-type ProgressSlot = {
+export type ProgressSlot = {
     type: "progress"
     progress: kanbanProgressType
 }
 
-type ImagesSlot = {
+export type ImagesSlot = {
     type: "images"
     images: kanbanImageType[]
 }
 
-type SubtasksSlot = {
+export type SubtasksSlot = {
     type: "subtasks"
     subtasks: kanbanSubtaskType[]
 }
 
-type CustomFieldsSlot = {
+export type CustomFieldsSlot = {
     type: "custom_fields"
     custom_fields: kanbanCustomFieldType[]
 }
 
-type ChecklistsSlot = {
+export type ChecklistsSlot = {
     type: "checklists"
     checklist: kanbanCheckListType[]
 }
