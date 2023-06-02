@@ -1,4 +1,5 @@
 import {
+    kanbanCheckListType,
     kanbanDateDueType,
     kanbanImageType,
     kanbanMemberType,
@@ -16,9 +17,10 @@ export type Slot =
     | StageSlot
     | MembersSlot
     | ProgressSlot
-    | ImageSlot
+    | ImagesSlot
     | SubtasksSlot
-    | CustomFieldSlot
+    | CustomFieldsSlot
+    | ChecklistsSlot
 
 
 
@@ -30,9 +32,10 @@ export type IndexedSlot = {
     stage: StageSlot
     members: MembersSlot
     progress: ProgressSlot
-    image: ImageSlot
+    images: ImagesSlot
     subtasks: SubtasksSlot
-    custom_field: CustomFieldSlot
+    custom_fields: CustomFieldsSlot
+    checklist: ChecklistsSlot
 }
 
 export type TagsSlot = {
@@ -70,9 +73,9 @@ type ProgressSlot = {
     progress: number //TODO: create kanbanProgressType
 }
 
-type ImageSlot = {
-    type: "image"
-    image: kanbanImageType
+type ImagesSlot = {
+    type: "images"
+    images: kanbanImageType[]
 }
 
 type SubtasksSlot = {
@@ -80,7 +83,12 @@ type SubtasksSlot = {
     subtasks: number //TODO: create kanbanSubtasksType
 }
 
-type CustomFieldSlot = {
-    type: "custom_field"
-    custom_field: string //TODO: create kanbanCustomFieldType
+type CustomFieldsSlot = {
+    type: "custom_fields"
+    custom_fields: string //TODO: create kanbanCustomFieldType
+}
+
+type ChecklistsSlot = {
+    type: "checklists"
+    checklist: kanbanCheckListType[]
 }
