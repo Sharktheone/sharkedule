@@ -21,6 +21,20 @@ export type Slot =
     | CustomFieldSlot
 
 
+
+export type IndexedSlot = {
+    tags: TagsSlot
+    priority: PrioritySlot
+    status: StatusSlot
+    date_due: DateDueSlot
+    stage: StageSlot
+    members: MembersSlot
+    progress: ProgressSlot
+    image: ImageSlot
+    subtasks: SubtasksSlot
+    custom_field: CustomFieldSlot
+}
+
 export type TagsSlot = {
     type: "tags"
     tag: kanbanTagType[]
