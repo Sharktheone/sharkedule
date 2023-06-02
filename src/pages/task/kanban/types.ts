@@ -16,6 +16,8 @@ export type kanbanBoardType = {
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
     columns: kanbanColumnType[]
+    progress: kanbanTaskProgressType
+    stage: kanbanTaskStageType
 }
 
 export type kanbanColumnType = {
@@ -44,6 +46,9 @@ export type kanbanTaskType = {
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
     subtasks: subtask[]
+    stage: kanbanTaskStageType
+    progress: kanbanTaskProgressType
+    customFields: kanbanCustomFieldType[]
 }
 
 //TODO: find better way to nest subtasks - this is very ugly
@@ -161,4 +166,22 @@ export type kanbanActivityType = {
     message: string
     date: string
     user: string
+}
+
+export type kanbanTaskStageType = {
+    uuid: string
+    name: string
+    description: kanbanDescriptionType
+}
+
+export type kanbanTaskProgressType = {
+    uuid: string
+    percentage: number
+}
+
+export type kanbanCustomFieldType = {
+    uuid: string
+    name: string
+    type: string
+    value: string
 }
