@@ -1,11 +1,11 @@
 import {
-    kanbanCheckListType,
+    kanbanCheckListType, kanbanCustomFieldType,
     kanbanDateDueType,
     kanbanImageType,
     kanbanMemberType,
     kanbanPriorityType,
-    kanbanStatusType,
-    kanbanTagType
+    kanbanStatusType, kanbanSubtaskType,
+    kanbanTagType, kanbanProgressType, kanbanStageType
 } from "@kanban/types"
 
 
@@ -38,6 +38,38 @@ export type IndexedSlot = {
     checklist: ChecklistsSlot
 }
 
+export type Configuration = {
+    upper: SlotNames[],
+    lower: SlotNames[],
+    border?: SlotColors
+    color?: SlotColors
+
+}
+
+export enum SlotNames {
+    TAGS = "tags",
+    PRIORITY = "priority",
+    STATUS = "status",
+    DATE_DUE = "date_due",
+    STAGE = "stage",
+    MEMBERS = "members",
+    PROGRESS = "progress",
+    IMAGES = "images",
+    SUBTASKS = "subtasks",
+    CUSTOM_FIELDS = "custom_fields",
+    CHECKLIST = "checklist"
+}
+
+export enum SlotColors {
+    PRIORITY = "priority",
+    STATUS = "status",
+    DATE_DUE = "date_due",
+    STAGE = "stage",
+    PROGRESS = "progress",
+    CUSTOM_FIELDS = "custom_fields",
+    CHECKLIST = "checklist"
+}
+
 export type TagsSlot = {
     type: "tags"
     tag: kanbanTagType[]
@@ -60,7 +92,7 @@ type DateDueSlot = {
 
 type StageSlot = {
     type: "stage"
-    stage: string //TODO: create kanbanStageType
+    stage: kanbanStageType
 }
 
 type MembersSlot = {
@@ -70,7 +102,7 @@ type MembersSlot = {
 
 type ProgressSlot = {
     type: "progress"
-    progress: number //TODO: create kanbanProgressType
+    progress: kanbanProgressType
 }
 
 type ImagesSlot = {
@@ -80,12 +112,12 @@ type ImagesSlot = {
 
 type SubtasksSlot = {
     type: "subtasks"
-    subtasks: number //TODO: create kanbanSubtasksType
+    subtasks: kanbanSubtaskType[]
 }
 
 type CustomFieldsSlot = {
     type: "custom_fields"
-    custom_fields: string //TODO: create kanbanCustomFieldType
+    custom_fields: kanbanCustomFieldType[]
 }
 
 type ChecklistsSlot = {
