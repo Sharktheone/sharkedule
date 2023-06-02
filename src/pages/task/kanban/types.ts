@@ -77,6 +77,7 @@ export type kanbanDescriptionType = {
 export type kanbanPriorityType = {
     uuid: string
     priority: string
+    color: string
 }
 
 export type kanbanStatusType = {
