@@ -43,7 +43,27 @@ export type kanbanTaskType = {
     archived: kanbanArchivedType
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
+    subtasks: subtask[]
 }
+
+//TODO: find better way to nest subtasks - this is very ugly
+type subtask = task & {
+    subtasks: subtask2[]
+}
+
+type subtask2 = task & {
+    subtasks: subtask3[]
+}
+
+type subtask3 = task & {
+    subtasks: subtask4[]
+}
+
+type subtask4 = task & {
+    subtasks: task[]
+}
+
+type task = Omit<kanbanTaskType, 'subtasks'>
 
 export type kanbanDescriptionType = {
     description: string
