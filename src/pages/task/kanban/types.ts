@@ -16,8 +16,8 @@ export type kanbanBoardType = {
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
     columns: kanbanColumnType[]
-    progress: kanbanTaskProgressType
-    stage: kanbanTaskStageType
+    progress: kanbanProgressType
+    stage: kanbanStageType
 }
 
 export type kanbanColumnType = {
@@ -46,8 +46,8 @@ export type kanbanTaskType = {
     activity: kanbanActivityType[]
     actions: kanbanActionType[]
     subtasks: kanbanSubtaskType[]
-    stage: kanbanTaskStageType
-    progress: kanbanTaskProgressType
+    stage: kanbanStageType
+    progress: kanbanProgressType
     customFields: kanbanCustomFieldType[]
 }
 
@@ -81,6 +81,8 @@ export type kanbanPriorityType = {
 
 export type kanbanStatusType = {
     uuid: string
+    color: string
+    status: string
 }
 
 export type kanbanDateDueType = {
@@ -168,13 +170,14 @@ export type kanbanActivityType = {
     user: string
 }
 
-export type kanbanTaskStageType = {
+export type kanbanStageType = {
     uuid: string
     name: string
     description: kanbanDescriptionType
+    color: string
 }
 
-export type kanbanTaskProgressType = {
+export type kanbanProgressType = {
     uuid: string
     percentage: number
 }
@@ -184,4 +187,5 @@ export type kanbanCustomFieldType = {
     name: string
     type: string
     value: string
+    color: string
 }
