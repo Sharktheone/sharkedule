@@ -6,7 +6,7 @@ type Props = {
     slot: Slot
 }
 
-function Render({slot}: Props) {
+export default function Render({slot}: Props) {
     switch (slot.type) {
         case SlotNames.TAGS:
             return <RenderTags tagSlot={slot}/>

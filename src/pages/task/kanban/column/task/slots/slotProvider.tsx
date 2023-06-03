@@ -20,7 +20,7 @@ type SlotContextType = {
     color: string | null
 }
 
-const SlotContext = createContext<SlotContextType | undefined>(undefined)
+export const SlotContext = createContext<SlotContextType | undefined>(undefined)
 
 type Props = {
     children: ReactNode
@@ -89,6 +89,7 @@ export function SlotProvider({children, task}: Props) {
         for (let slot in config.upper) {
             const slotName = config.upper[slot]
             const s: Slot = slots[slotName]
+            s.type = slotName
             if (s) upperSlot.push(s)
         }
 
@@ -103,6 +104,8 @@ export function SlotProvider({children, task}: Props) {
             const s = slots[c]
             color = getSlotColor(s)
         }
+
+        console.log("upperSlot", upperSlot[0].type)
 
         return {upperSlot, lowerSlot, border, color}
     }
