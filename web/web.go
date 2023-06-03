@@ -23,6 +23,15 @@ func Serve(r *fiber.App) {
 
 	FS := http.FS(subFs)
 
+	static := filesystem.New(filesystem.Config{
+		Root:   FS,
+		Index:  "index.html",
+		Browse: true,
+		MaxAge: 3600,
+	})
+
+	r.Use(static)
+
 	r.Get("*", func(c *fiber.Ctx) error {
 		if strings.HasPrefix(c.Path(), "/api") {
 			return c.Next()
