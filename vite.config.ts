@@ -5,6 +5,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
     plugins: [react()],
     build: {
-        outDir: 'web/dist'
+        outDir: 'web/dist',
+    },
+    resolve: {
+        alias: {
+            '@/': '/src/',
+            '@kanban/': '/src/pages/task/kanban/'
+        }
     }
 })
