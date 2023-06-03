@@ -46,7 +46,7 @@ const config: Configuration = {
 }
 
 
-function SlotProvider({children, task}: Props) {
+export function SlotProvider({children, task}: Props) {
     function slotify() {
         let upperSlot: Slot[] = []
         let lowerSlot: Slot[] = []
