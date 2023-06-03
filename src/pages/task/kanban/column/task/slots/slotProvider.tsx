@@ -46,13 +46,27 @@ const config: Configuration = {
 }
 
 
+// TODO: This method of rendering tags etc is not very efficient, as it requires a lot of looping over the same data.
+//  I'm a lazy b... , so I'll leave it for now, but maybe in the year 3048 or something I'll fix it - or may not KEKW.
 export function SlotProvider({children, task}: Props) {
     function slotify() {
         let upperSlot: Slot[] = []
         let lowerSlot: Slot[] = []
         let border: string | null = null
         let color: string | null = null
-        let slots: IndexedSlot = {} as IndexedSlot
+        let slots: IndexedSlot = {
+            tags: {},
+            priority: {},
+            status: {},
+            date_due: {},
+            stage: {},
+            members: {},
+            progress: {},
+            images: {},
+            subtasks: {},
+            custom_fields: {},
+            checklists: {},
+        } as IndexedSlot
 
         if (task.tags) slots.tags.tag = task.tags
         if (task.priority) slots.priority.priority = task.priority
