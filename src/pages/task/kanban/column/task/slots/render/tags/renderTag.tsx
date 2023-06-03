@@ -25,7 +25,7 @@ type RenderTagProps = {
 export function RenderTag({tag}: RenderTagProps) {
 
     return (
-        <div className={styles.tag} style={{backgroundColor: tag.color, borderColor: tag.color}}>
+        <div className={styles.tag} style={{backgroundColor: `${tag.color}80`, borderColor: tag.color}}>
             {tag.name}
         </div>
     )
