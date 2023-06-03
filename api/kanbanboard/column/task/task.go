@@ -27,7 +27,10 @@ func Create(c *fiber.Ctx) error {
 		return fmt.Errorf("[CreateTask] failed extracting column: %v", err)
 	}
 
-	t := co.New(taskName.Name)
+	t, err := co.New(taskName.Name)
+	if err != nil {
+		return fmt.Errorf("failed creating task: %v", err)
+	}
 
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": t.UUID})
 }

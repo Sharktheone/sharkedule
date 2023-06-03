@@ -14,10 +14,13 @@ func (c *Column) GetTask(uuid string) (*task.Task, error) {
 	return nil, errors.New("task not found")
 }
 
-func (c *Column) New(name string) *task.Task {
+func (c *Column) New(name string) (*task.Task, error) {
 	t := task.NewTask(name)
 	c.Mu.Lock()
 	defer c.Mu.Unlock()
 	c.Tasks = append(c.Tasks, t)
-	return t
+	if err := c.Save(); err != nil {
+		return nil, err
+	}
+	return t, nil
 }
