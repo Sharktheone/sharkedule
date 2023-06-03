@@ -20,7 +20,7 @@ const (
 
 type JSONFile struct {
 	db   *database.DBStructure
-	file *os.File
+	file string
 }
 
 func NewJSONFile() *JSONFile {
@@ -34,13 +34,15 @@ func NewJSONFile() *JSONFile {
 
 func (J *JSONFile) Load() error {
 	dbPath := path.Join(database.DBRoot, DBFileName)
-	file, err := os.OpenFile(dbPath, os.O_RDWR|os.O_CREATE, 0755)
+	file, err := os.OpenFile(dbPath, os.O_CREATE|os.O_RDWR, 0755)
 	if err != nil {
 		return fmt.Errorf("failed opening database file: %v", err)
 	}
-	J.file = file
+	defer file.Close()
 
-	if err := json.NewDecoder(J.file).Decode(&J.db); err != nil {
+	J.file = dbPath
+
+	if err := json.NewDecoder(file).Decode(&J.db); err != nil {
 		return fmt.Errorf("failed decoding database file: %v", err)
 	}
 
@@ -49,10 +51,14 @@ func (J *JSONFile) Load() error {
 
 func (J *JSONFile) Save() error {
 	var fileBuffer bytes.Buffer
-	if err := json.NewEncoder(&fileBuffer).Encode(J.db); err != nil {
+	var encoder = json.NewEncoder(&fileBuffer)
+	encoder.SetIndent("", "  ")
+	attachMultiple(J.db.Kanbanboards)
+	if err := encoder.Encode(J.db); err != nil {
 		return fmt.Errorf("failed encoding database file: %v", err)
 	}
-	if _, err := J.file.Write(fileBuffer.Bytes()); err != nil {
+
+	if err := os.WriteFile(J.file, fileBuffer.Bytes(), 0755); err != nil {
 		return fmt.Errorf("failed writing database file: %v", err)
 	}
 
@@ -173,17 +179,17 @@ func attachMultiple(boards []*types.Board) {
 	}
 }
 
-func (J *JSONFile) writeToDisk() error {
-	var fileBuffer bytes.Buffer
-	attachMultiple(J.db.Kanbanboards)
-	if err := json.NewEncoder(&fileBuffer).Encode(J.db); err != nil {
-		return fmt.Errorf("failed encoding database file: %v", err)
-	}
-	if _, err := J.file.Write(fileBuffer.Bytes()); err != nil {
-		return fmt.Errorf("failed writing database file: %v", err)
-	}
-	return nil
-}
+//func (J *JSONFile) writeToDisk() error {
+//	var fileBuffer bytes.Buffer
+//	attachMultiple(J.db.Kanbanboards)
+//	if err := json.NewEncoder(&fileBuffer).Encode(J.db); err != nil {
+//		return fmt.Errorf("failed encoding database file: %v", err)
+//	}
+//	if _, err := J.file.Write(fileBuffer.Bytes()); err != nil {
+//		return fmt.Errorf("failed writing database file: %v", err)
+//	}
+//	return nil
+//}
 
 func (J *JSONFile) LockMutex() {
 	J.db.Mu.Lock()
