@@ -29,6 +29,6 @@ type IDatabase interface {
 }
 
 type DBStructure struct {
-	Mu           *sync.Mutex
+	Mu           *sync.Mutex    `json:"-" yaml:"-" bson:"-"`
 	Kanbanboards []*types.Board `json:"kanbanboards"`
 }

@@ -40,7 +40,7 @@ func (J *JSONFile) Load() error {
 	}
 	J.file = file
 
-	if err := json.NewDecoder(J.file).Decode(&J.db.Kanbanboards); err != nil {
+	if err := json.NewDecoder(J.file).Decode(&J.db); err != nil {
 		return fmt.Errorf("failed decoding database file: %v", err)
 	}
 
