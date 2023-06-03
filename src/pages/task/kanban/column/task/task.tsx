@@ -8,6 +8,8 @@ import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
 import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
+import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
+import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 
 type TaskProps = {
     task: kanbanTaskType
@@ -54,19 +56,23 @@ export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProp
     return (
         <SlotProvider task={task}>
             <div className={`${cx(classes.task)} ${styles.task}`}>
-                <div className={styles.name}>
-                    <IconCircleCheck/>
-                    <Text align="start" onClick={editText} onBlur={handleBlur} contentEditable={editable}>
-                        {task.name}
-                    </Text>
-                </div>
-                <div className={styles.hover}>
-                    <div>
-                        <button onClick={handleDelete}>
-                            <IconTrash/>
-                        </button>
+                <UpperSlot/>
+                <div className={styles.taskname}>
+                    <div className={styles.name}>
+                        <IconCircleCheck/>
+                        <Text align="start" onClick={editText} onBlur={handleBlur} contentEditable={editable}>
+                            {task.name}
+                        </Text>
+                    </div>
+                    <div className={styles.hover}>
+                        <div>
+                            <button onClick={handleDelete}>
+                                <IconTrash/>
+                            </button>
+                        </div>
                     </div>
                 </div>
+                <LowerSlot/>
             </div>
         </SlotProvider>
     )

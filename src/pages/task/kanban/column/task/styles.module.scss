@@ -5,64 +5,69 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  flex-direction: column;
 
-  & > div.name {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    gap: .5rem;
-    min-height: 1.5rem;
+
+  & > div.taskname {
     width: 100%;
-    position: relative;
-
-    & > svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      cursor: pointer;
-
-      &:hover {
-        stroke: aquamarine;
-        fill: rgba(aquamarine, 0.2);
-
-      }
-    }
-
-    & > div {
-      width: calc(100% - 1.5rem - .5rem);
+    & > div.name {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: .5rem;
       min-height: 1.5rem;
-      white-space: pre-wrap;
-
-    }
-  }
-
-  & > div.hover {
-    margin: .75rem 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    visibility: hidden;
-
-    & > div > button {
-      border: none;
-      background: inherit;
+      width: 100%;
+      position: relative;
 
       & > svg {
         width: 1.5rem;
         height: 1.5rem;
-        padding: .25rem;
+        cursor: pointer;
 
         &:hover {
-          background: rgba(255, 77, 79, 0.4);
-          border-radius: 25%;
-          cursor: pointer;
+          stroke: aquamarine;
+          fill: rgba(aquamarine, 0.2);
+
+        }
+      }
+
+      & > div {
+        width: calc(100% - 1.5rem - .5rem);
+        min-height: 1.5rem;
+        white-space: pre-wrap;
+
+      }
+    }
+
+    & > div.hover {
+      margin: .75rem 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      visibility: hidden;
+
+      & > div > button {
+        border: none;
+        background: inherit;
+
+        & > svg {
+          width: 1.5rem;
+          height: 1.5rem;
+          padding: .25rem;
+
+          &:hover {
+            background: rgba(255, 77, 79, 0.4);
+            border-radius: 25%;
+            cursor: pointer;
+          }
         }
       }
     }
-  }
 
-  &:hover, &:focus {
-    & > div.hover {
-      visibility: visible;
+    &:hover, &:focus {
+      & > div.hover {
+        visibility: visible;
+      }
     }
   }
 }
