@@ -11,6 +11,8 @@ export default function UpperSlot() {
     let upperSlot = context?.upperSlot
     if (!upperSlot) return null
 
+    if (upperSlot.length === 0) return null
+
 
     return (
         <div className={styles.slot}>
