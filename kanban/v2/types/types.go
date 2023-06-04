@@ -4,17 +4,27 @@ type Task struct {
 	Name         string    `json:"name"`
 	UUID         string    `json:"uuid"`
 	Boards       []string  `json:"boards"`
+	Columns      []string  `json:"columns"`
 	Tags         []string  `json:"tags"`
 	Dependencies []string  `json:"dependencies"`
 	Dependents   []string  `json:"dependents"`
 	Comments     []Comment `json:"comments"`
 	Description  string    `json:"description"`
+	Members      []string  `json:"members"`
+	Priority     string    `json:"priority"`
+	Status       string    `json:"status"`
+	DueDate      string    `json:"due_date"`
+	Dates        []string  `json:"dates"`
+	Attachments  []string  `json:"attachments"`
+	CheckList    []string  `json:"check_list"`
+	Done         bool      `json:"done"`
+	Activity     []string  `json:"activity"`
 }
 
 type Column struct {
 	Name        string   `json:"name"`
 	UUID        string   `json:"uuid"`
-	Board       string   `json:"board"`
+	Boards      []string `json:"boards"`
 	Tasks       []string `json:"tasks"`
 	Tags        []string `json:"tags"`
 	Description string   `json:"description"`
@@ -30,11 +40,22 @@ type Tag struct {
 }
 
 type Board struct {
-	Name        string   `json:"name"`
-	UUID        string   `json:"uuid"`
-	Columns     []string `json:"columns"`
-	Tags        []string `json:"tags"`
-	Description string   `json:"description"`
+	Name        string     `json:"name"`
+	UUID        string     `json:"uuid"`
+	Columns     []string   `json:"columns"`
+	Tags        []string   `json:"tags"`
+	Description string     `json:"description"`
+	Members     []string   `json:"members"`
+	Priority    string     `json:"priority"`
+	Status      string     `json:"status"`
+	DueDate     string     `json:"due_date"`
+	Dates       []string   `json:"dates"`
+	Comments    []Comment  `json:"comments"`
+	Attachments []string   `json:"attachments"`
+	CheckList   []string   `json:"check_list"`
+	Archived    bool       `json:"archived"`
+	Activity    []Activity `json:"activity"`
+	Actions     []string   `json:"actions"`
 }
 
 type Member struct {
@@ -99,4 +120,8 @@ type Date struct {
 	Name        string `json:"name"`
 	Date        int64  `json:"date"`
 	Description string `json:"description"`
+}
+
+type Activity struct {
+	//TODO
 }
