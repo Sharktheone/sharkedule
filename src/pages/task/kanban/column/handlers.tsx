@@ -102,7 +102,6 @@ export class handlers {
     }
 
     checkGhost() {
-
         useEffect(() => {
             if (!this.ghost) {
                 this.setGhostElement(undefined)
@@ -119,7 +118,7 @@ export class handlers {
 
             console.log(tasks.filter(task => !task.className.includes(styles.ghost)))
 
-            tasks.filter(task => !task.className.includes(styles.ghost)).forEach((task, index) => {
+            tasks.filter(task => !task.className.includes(styles.ghost) && task.getAttribute("data-rbd-draggable-id") != this.ghost?.uuid).forEach((task, index) => {
                 if (index < this.ghost!.index) {
                     offset += task.getBoundingClientRect().height
                 }

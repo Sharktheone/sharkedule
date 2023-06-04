@@ -5,7 +5,7 @@ export type ghostType = {
     index: number
     height: number
     hoveredColumnID: string
-
+    uuid: string
 }
 
 export type ghostElementType = {
@@ -32,6 +32,7 @@ export function useGhost() {
             setGhost({
                 height: rect.height,
                 index: event.source.index,
+                uuid: event.draggableId,
                 hoveredColumnID: event.source.droppableId,
             })
         } else if (event.type === "column") {
@@ -57,6 +58,7 @@ export function useGhost() {
                 height: rect.height,
                 index: event.destination?.index ?? ghost?.index ?? 0,
                 hoveredColumnID: event.destination?.droppableId ?? ghost?.hoveredColumnID ?? "",
+                uuid: event.draggableId,
             })
         } else if (event.type === "column") {
 
