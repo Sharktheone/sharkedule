@@ -25,7 +25,6 @@ export function useGhost() {
         if (event.type === "task") {
             let draggedElement = getDraggedElement(event.draggableId)
             if (!draggedElement) return
-            console.log(draggedElement)
 
             let rect = draggedElement.getBoundingClientRect()
 
@@ -35,11 +34,8 @@ export function useGhost() {
                 uuid: event.draggableId,
                 hoveredColumnID: event.source.droppableId,
             })
-        } else if (event.type === "column") {
-
         }
 
-        console.log("drag start")
     }
 
     function updateGhost(event: DragUpdate) {

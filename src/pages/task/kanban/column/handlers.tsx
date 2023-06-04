@@ -116,7 +116,6 @@ export class handlers {
 
             let tasks = [].slice.call(this.tasksRef.current?.children) as HTMLDivElement[]
 
-            console.log(tasks.filter(task => !task.className.includes(styles.ghost)))
 
             tasks.filter(task => !task.className.includes(styles.ghost) && task.getAttribute("data-rbd-draggable-id") != this.ghost?.uuid).forEach((task, index) => {
                 if (index < this.ghost!.index) {
@@ -128,8 +127,6 @@ export class handlers {
                 height: this.ghost.height + "px",
                 offsetTop: offset + "px",
             }
-
-            console.log(ghostElement)
 
             this.setGhostElement(ghostElement)
         }, [this.ghost])

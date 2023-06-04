@@ -30,7 +30,6 @@ export default function KanbanBoards() {
     }
 
     function createBoard(name: string, description: string) {
-        console.log(name)
         api.put("/kanbanboard/new", {name: name, description: description}).then(
             (res) => {
                 if (res.status > 300) {
