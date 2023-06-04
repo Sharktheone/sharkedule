@@ -1,15 +1,21 @@
 import {createContext, ReactNode} from "react"
 import {
+    ChecklistsSlot,
     Configuration,
+    CustomFieldsSlot,
     DateDueSlot,
+    ImagesSlot,
     IndexedSlot,
+    MembersSlot,
     PrioritySlot,
     ProgressSlot,
     Slot,
     SlotColors,
     SlotNames,
     StageSlot,
-    StatusSlot
+    StatusSlot,
+    SubtasksSlot,
+    TagsSlot
 } from "@kanban/column/task/slots/slotTypes"
 import {kanbanTaskType} from "@kanban/types"
 
@@ -54,31 +60,74 @@ export function SlotProvider({children, task}: Props) {
         let lowerSlot: Slot[] = []
         let border: string | null = null
         let color: string | null = null
-        let slots: IndexedSlot = {
-            tags: {},
-            priority: {},
-            status: {},
-            date_due: {},
-            stage: {},
-            members: {},
-            progress: {},
-            images: {},
-            subtasks: {},
-            custom_fields: {},
-            checklists: {},
-        } as IndexedSlot
+        let slots: IndexedSlot = {} as IndexedSlot
 
-        if (task.tags) slots.tags.tag = task.tags
-        if (task.priority) slots.priority.priority = task.priority
-        if (task.status) slots.status.status = task.status
-        if (task.dueDate) slots.date_due.due_date = task.dueDate
-        if (task.stage) slots.stage.stage = task.stage
-        if (task.members) slots.members.members = task.members
-        if (task.progress) slots.progress.progress = task.progress
-        if (task.images) slots.images.images = task.images
-        if (task.subtasks) slots.subtasks.subtasks = task.subtasks
-        if (task.customFields) slots.custom_fields.custom_fields = task.customFields
-        if (task.checkList) slots.checklists.checklist = task.checkList
+        if (task.tags) {
+            slots.tags = {
+                type: SlotNames.TAGS,
+            } as TagsSlot
+            slots.tags.tag = task.tags
+        }
+        if (task.priority) {
+            slots.priority = {
+                type: SlotNames.PRIORITY,
+            } as PrioritySlot
+            slots.priority.priority = task.priority
+        }
+        if (task.status) {
+            slots.status = {
+                type: SlotNames.STATUS,
+            } as StatusSlot
+            slots.status.status = task.status
+        }
+        if (task.dueDate) {
+            slots.date_due = {
+                type: SlotNames.DATE_DUE,
+            } as DateDueSlot
+            slots.date_due.due_date = task.dueDate
+        }
+        if (task.stage) {
+            slots.stage = {
+                type: SlotNames.STAGE,
+            } as StageSlot
+            slots.stage.stage = task.stage
+        }
+        if (task.members) {
+            slots.members = {
+                type: SlotNames.MEMBERS,
+            } as MembersSlot
+            slots.members.members = task.members
+        }
+        if (task.progress) {
+            slots.progress = {
+                type: SlotNames.PROGRESS,
+            } as ProgressSlot
+            slots.progress.progress = task.progress
+        }
+        if (task.images) {
+            slots.images = {
+                type: SlotNames.IMAGES,
+            } as ImagesSlot
+            slots.images.images = task.images
+        }
+        if (task.subtasks) {
+            slots.subtasks = {
+                type: SlotNames.SUBTASKS,
+            } as SubtasksSlot
+            slots.subtasks.subtasks = task.subtasks
+        }
+        if (task.customFields) {
+            slots.custom_fields = {
+                type: SlotNames.CUSTOM_FIELDS,
+            } as CustomFieldsSlot
+            slots.custom_fields.custom_fields = task.customFields
+        }
+        if (task.checkList) {
+            slots.checklists = {
+                type: SlotNames.CHECKLIST,
+            } as ChecklistsSlot
+            slots.checklists.checklist = task.checkList
+        }
 
         for (let slot in config.lower) {
             const slotName = config.lower[slot]
@@ -89,7 +138,6 @@ export function SlotProvider({children, task}: Props) {
         for (let slot in config.upper) {
             const slotName = config.upper[slot]
             const s: Slot = slots[slotName]
-            s.type = slotName
             if (s) upperSlot.push(s)
         }
 
@@ -104,8 +152,6 @@ export function SlotProvider({children, task}: Props) {
             const s = slots[c]
             color = getSlotColor(s)
         }
-
-        console.log("upperSlot", upperSlot[0].type)
 
         return {upperSlot, lowerSlot, border, color}
     }
