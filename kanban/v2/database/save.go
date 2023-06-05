@@ -49,7 +49,7 @@ func SaveTasks(tasks []*types2.Task, tasksToSave []*types2.Task) {
 }
 
 func CreateBoard(boards []*types2.Board, name string) *types2.Board {
-	board := types2.NewBoard(name) // TODO: add func
+	board := types2.NewBoard(name)
 	boards = append(boards, board)
 	return board
 }
