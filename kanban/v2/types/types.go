@@ -64,15 +64,6 @@ type Member struct {
 	ProfilePicture string `json:"profile_picture"`
 }
 
-type User struct {
-	Name           string `json:"name"`
-	UUID           string `json:"uuid"`
-	Username       string `json:"username"`
-	Password       string `json:"password"`
-	Email          string `json:"email"`
-	ProfilePicture string `json:"profile_picture"`
-}
-
 type Checklist struct {
 	Name        string          `json:"name"`
 	UUID        string          `json:"uuid"`
