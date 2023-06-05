@@ -1,5 +1,11 @@
 package kanbandb
 
+import (
+	"fmt"
+	"sharkedule/kanban/KTypes/namelist"
+	types2 "sharkedule/kanban/v2/types"
+)
+
 func GetBoard(boards []*types2.Board, uuid string) (*types2.Board, error) {
 	for _, b := range boards {
 		if b.UUID == uuid {
