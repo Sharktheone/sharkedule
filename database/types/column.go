@@ -1,7 +1,7 @@
 package types
 
 import (
-	"sharkedule/kanban/KTypes/description"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/description"
 	"sync"
 )
 

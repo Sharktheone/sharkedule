@@ -4,11 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"sharkedule/api"
-	"sharkedule/api/middlewear"
-	"sharkedule/kanban/KTypes/description"
-	"sharkedule/kanban/board"
+	"github.com/Sharktheone/sharkedule/api"
+	"github.com/Sharktheone/sharkedule/api/middlewear"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/description"
+	"github.com/Sharktheone/sharkedule/kanban/board"
 )
 
 func Get(c *fiber.Ctx) error {

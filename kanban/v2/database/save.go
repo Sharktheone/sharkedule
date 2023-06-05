@@ -2,7 +2,7 @@ package kanbandb
 
 import (
 	"fmt"
-	types2 "sharkedule/kanban/v2/types"
+	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
 func SaveBoard(boards []*types2.Board, board *types2.Board) error {

@@ -1,14 +1,13 @@
 package router
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/Sharktheone/sharkedule/api/kanbanboard"
+	"github.com/Sharktheone/sharkedule/api/kanbanboard/column"
+	"github.com/Sharktheone/sharkedule/api/kanbanboard/column/task"
+	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"sharkedule/api/kanbanboard"
-	"sharkedule/api/kanbanboard/column"
-	"sharkedule/api/kanbanboard/column/task"
-	"sharkedule/web"
 )
 
 func Start() {

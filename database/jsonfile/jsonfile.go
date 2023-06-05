@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/Sharktheone/sharkedule/database"
+	"github.com/Sharktheone/sharkedule/database/types"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
 	"github.com/google/uuid"
 	"os"
 	"path"
-	"sharkedule/database"
-	"sharkedule/database/types"
-	"sharkedule/kanban/KTypes/namelist"
 	"sync"
 )
 

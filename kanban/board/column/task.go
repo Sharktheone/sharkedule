@@ -2,7 +2,7 @@ package column
 
 import (
 	"errors"
-	"sharkedule/kanban/board/column/task"
+	"github.com/Sharktheone/sharkedule/kanban/board/column/task"
 )
 
 func (c *Column) GetTask(uuid string) (*task.Task, error) {

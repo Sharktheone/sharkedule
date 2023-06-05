@@ -1,9 +1,9 @@
 package db
 
 import (
+	"github.com/Sharktheone/sharkedule/database"
+	"github.com/Sharktheone/sharkedule/database/jsonfile"
 	"log"
-	"sharkedule/database"
-	"sharkedule/database/jsonfile"
 )
 
 var (

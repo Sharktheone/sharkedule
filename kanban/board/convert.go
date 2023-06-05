@@ -2,8 +2,8 @@ package board
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/database/types"
 	"github.com/mitchellh/mapstructure"
-	"sharkedule/database/types"
 )
 
 func (b *Board) Convert() (*types.Board, error) {

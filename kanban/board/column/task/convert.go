@@ -2,8 +2,8 @@ package task
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/database/types"
 	"github.com/mitchellh/mapstructure"
-	"sharkedule/database/types"
 )
 
 func (t *Task) Convert() (*types.Task, error) {

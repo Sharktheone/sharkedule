@@ -2,8 +2,8 @@ package kanbandb
 
 import (
 	"fmt"
-	"sharkedule/kanban/KTypes/namelist"
-	types2 "sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
 func GetBoard(boards []*types2.Board, uuid string) (*types2.Board, error) {

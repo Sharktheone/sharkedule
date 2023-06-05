@@ -2,10 +2,9 @@ package middlewear
 
 import (
 	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"sharkedule/kanban/board"
-	"sharkedule/kanban/board/column"
-	"sharkedule/kanban/board/column/task"
+	"github.com/Sharktheone/sharkedule/kanban/board"
+	"github.com/Sharktheone/sharkedule/kanban/board/column"
+	"github.com/Sharktheone/sharkedule/kanban/board/column/task"
 )
 
 func ExtractTask(c *fiber.Ctx) (*task.Task, error) {

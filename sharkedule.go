@@ -1,8 +1,8 @@
 package main
 
 import (
-	"sharkedule/api/router"
-	"sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/api/router"
+	"github.com/Sharktheone/sharkedule/database/db"
 )
 
 func main() {

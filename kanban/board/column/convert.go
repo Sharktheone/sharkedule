@@ -2,8 +2,8 @@ package column
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/database/types"
 	"github.com/mitchellh/mapstructure"
-	"sharkedule/database/types"
 )
 
 func (c *Column) Convert() (*types.Column, error) {

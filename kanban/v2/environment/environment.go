@@ -1,6 +1,6 @@
 package environment
 
-import types2 "sharkedule/kanban/v2/types"
+import types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 
 func GetBoardEnv(board *types2.Board) {
 

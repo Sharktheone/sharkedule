@@ -1,7 +1,7 @@
 package board
 
 import (
-	"sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/database/db"
 )
 
 func (b *Board) Delete() error {

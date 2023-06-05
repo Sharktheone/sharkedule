@@ -1,6 +1,6 @@
 package task
 
-import "sharkedule/database/db"
+import "github.com/Sharktheone/sharkedule/database/db"
 
 func (t *Task) Delete() error {
 	column, err := t.GetParentColumn()

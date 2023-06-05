@@ -1,4 +1,4 @@
-module sharkedule
+module github.com/Sharktheone/sharkedule
 
 go 1.20
 

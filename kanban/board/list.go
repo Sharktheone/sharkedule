@@ -1,8 +1,8 @@
 package board
 
 import (
-	"sharkedule/database/db"
-	"sharkedule/kanban/KTypes/namelist"
+	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
 )
 
 func List() ([]*Board, error) {

@@ -1,9 +1,9 @@
 package database
 
 import (
-	"sharkedule/database/types"
-	"sharkedule/kanban/KTypes/namelist"
-	types2 "sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/database/types"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"sync"
 )
 

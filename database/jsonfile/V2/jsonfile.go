@@ -4,12 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/Sharktheone/sharkedule/database"
+	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
+	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"os"
 	"path"
-	"sharkedule/database"
-	"sharkedule/kanban/KTypes/namelist"
-	kanbandb "sharkedule/kanban/v2/database"
-	types2 "sharkedule/kanban/v2/types"
 	"sync"
 )
 

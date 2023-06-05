@@ -2,7 +2,7 @@ package board
 
 import (
 	"errors"
-	"sharkedule/kanban/board/column"
+	"github.com/Sharktheone/sharkedule/kanban/board/column"
 )
 
 func (b *Board) GetColumn(uuid string) (*column.Column, error) {

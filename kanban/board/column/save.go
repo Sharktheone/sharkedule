@@ -1,8 +1,8 @@
 package column
 
 import (
-	"sharkedule/database/db"
-	"sharkedule/database/types"
+	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/database/types"
 )
 
 func (c *Column) Save() error {

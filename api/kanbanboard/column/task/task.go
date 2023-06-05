@@ -4,9 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"sharkedule/api"
-	"sharkedule/api/middlewear"
+	"github.com/Sharktheone/sharkedule/api"
+	"github.com/Sharktheone/sharkedule/api/middlewear"
 )
 
 func Create(c *fiber.Ctx) error {

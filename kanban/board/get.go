@@ -1,7 +1,7 @@
 package board
 
 import (
-	"sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/database/db"
 )
 
 func GetBoard(uuid string) (*Board, error) {

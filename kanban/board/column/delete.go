@@ -1,6 +1,6 @@
 package column
 
-import "sharkedule/database/db"
+import "github.com/Sharktheone/sharkedule/database/db"
 
 func (c *Column) Delete() error {
 	board, err := c.GetParentBoard()
