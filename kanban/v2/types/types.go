@@ -125,3 +125,16 @@ type Date struct {
 type Activity struct {
 	//TODO
 }
+
+type BoardEnvironment struct {
+	Tags        []Tag        `json:"tags"`
+	Status      []Status     `json:"status"`
+	Priority    []Priority   `json:"priority"`
+	Columns     []Column     `json:"columns"`
+	Boards      []Board      `json:"boards"`
+	Tasks       []Task       `json:"tasks"`
+	Members     []Member     `json:"members"`
+	Checklist   []Checklist  `json:"checklist"`
+	Attachments []Attachment `json:"attachments"`
+	Dates       []Date       `json:"dates"`
+}
