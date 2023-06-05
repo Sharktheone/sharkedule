@@ -3,6 +3,7 @@ package database
 import (
 	"sharkedule/database/types"
 	"sharkedule/kanban/KTypes/namelist"
+	types2 "sharkedule/kanban/v2/types"
 	"sync"
 )
 
@@ -31,4 +32,26 @@ type IDatabase interface {
 type DBStructure struct {
 	Mu           *sync.Mutex    `json:"-" yaml:"-" bson:"-"`
 	Kanbanboards []*types.Board `json:"kanbanboards"`
+}
+
+type DBStructureV2 struct {
+	Mu *sync.Mutex `json:"-" yaml:"-" bson:"-"`
+	types2.Environment
+}
+
+type IDatabaseV2 interface {
+	Load() error
+	Save() error
+	SaveBoard(board *types2.Board) error
+	SaveBoards(boards []*types2.Board) error
+	SaveColumn(column *types2.Column) error
+	SaveColumns(columns []*types2.Column) error
+	SaveTask(task *types2.Task) error
+	SaveTasks(tasks []*types2.Task) error
+	CreateBoard(name string) (error, *types2.Board)
+	GetBoard(uuid string) (*types2.Board, error)
+	GetBoards() ([]*types2.Board, error)
+	GetBoardNames() ([]*namelist.NameList, error)
+	GetColumn(uuid string) (*types2.Column, error)
+	GetTask(uuid string) (*types2.Task, error)
 }
