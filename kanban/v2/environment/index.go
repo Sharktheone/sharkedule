@@ -47,7 +47,7 @@ func (e *Environment) IndexBoard(board *types2.Board) {
 	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, board.Members...)
 	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, board.Dates...)
 	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, board.Attachments...)
-	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, board.CheckList...)
+	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, board.Checklists...)
 	e.actionUUIDs = AppendSliceIfMissing(e.actionUUIDs, board.Actions...)
 
 	if board.Status != "" {

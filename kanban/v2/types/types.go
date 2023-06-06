@@ -52,7 +52,7 @@ type Board struct {
 	Dates       []string   `json:"dates"`
 	Comments    []Comment  `json:"comments"`
 	Attachments []string   `json:"attachments"`
-	CheckList   []string   `json:"check_list"`
+	Checklists  []string   `json:"checklists"`
 	Archived    bool       `json:"archived"`
 	Activity    []Activity `json:"activity"`
 	Actions     []string   `json:"actions"`
