@@ -118,14 +118,17 @@ type Activity struct {
 }
 
 type Environment struct {
-	Tags        []*Tag        `json:"tags"`
-	Status      []*Status     `json:"status"`
-	Priority    []*Priority   `json:"priority"`
-	Columns     []*Column     `json:"columns"`
-	Boards      []*Board      `json:"boards"`
-	Tasks       []*Task       `json:"tasks"`
-	Members     []*Member     `json:"members"`
-	Checklists  []*Checklist  `json:"checklists"`
-	Attachments []*Attachment `json:"attachments"`
-	Dates       []*Date       `json:"dates"`
+	Tags           []*Tag                         `json:"tags"`
+	Status         []*Status                      `json:"status"`
+	Priority       []*Priority                    `json:"priority"`
+	Columns        []*Column                      `json:"columns"`
+	Boards         []*Board                       `json:"boards"`
+	Tasks          []*Task                        `json:"tasks"`
+	Members        []*Member                      `json:"members"`
+	Checklists     []*Checklist                   `json:"checklists"`
+	Attachments    []*Attachment                  `json:"attachments"`
+	Dates          []*Date                        `json:"dates"`
+	BoardNames     map[string]string              `json:"board_names,omitempty"`     // boardUUID -> name
+	ColumnNames    map[string]map[string]string   `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
+	DependentTasks map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
 }

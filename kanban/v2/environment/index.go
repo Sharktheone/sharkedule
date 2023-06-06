@@ -8,20 +8,17 @@ import (
 )
 
 type Environment struct {
-	types2.Environment
-	tagUUIDs        []*string                      `json:"-"`
-	statusUUIDs     []*string                      `json:"-"`
-	priorityUUIDs   []*string                      `json:"-"`
-	columnUUIDs     []*string                      `json:"-"`
-	taskUUIDs       []*string                      `json:"-"`
-	memberUUIDs     []*string                      `json:"-"`
-	checklistUUIDs  []*string                      `json:"-"`
-	attachmentUUIDs []*string                      `json:"-"`
-	dateUUIDs       []*string                      `json:"-"`
-	actionUUIDs     []*string                      `json:"-"`
-	BoardNames      map[string]string              `json:"board_names,omitempty"`     // boardUUID -> name
-	ColumnNames     map[string]map[string]string   `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
-	DependentTasks  map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
+	*types2.Environment
+	tagUUIDs        []*string `json:"-"`
+	statusUUIDs     []*string `json:"-"`
+	priorityUUIDs   []*string `json:"-"`
+	columnUUIDs     []*string `json:"-"`
+	taskUUIDs       []*string `json:"-"`
+	memberUUIDs     []*string `json:"-"`
+	checklistUUIDs  []*string `json:"-"`
+	attachmentUUIDs []*string `json:"-"`
+	dateUUIDs       []*string `json:"-"`
+	actionUUIDs     []*string `json:"-"`
 }
 
 func (e *Environment) Index() {
