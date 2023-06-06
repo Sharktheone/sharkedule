@@ -8,19 +8,19 @@ import (
 
 type Environment struct {
 	types2.Environment
-	tagUUIDs        []*string                    `json:"-"`
-	statusUUIDs     []*string                    `json:"-"`
-	priorityUUIDs   []*string                    `json:"-"`
-	columnUUIDs     []*string                    `json:"-"`
-	taskUUIDs       []*string                    `json:"-"`
-	memberUUIDs     []*string                    `json:"-"`
-	checklistUUIDs  []*string                    `json:"-"`
-	attachmentUUIDs []*string                    `json:"-"`
-	dateUUIDs       []*string                    `json:"-"`
-	actionUUIDs     []*string                    `json:"-"`
-	BoardNames      map[string]string            `json:"board_names,omitempty"`     // boardUUID -> name
-	ColumnNames     map[string]map[string]string `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
-	DependentTasks  map[string]map[string]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
+	tagUUIDs        []*string                      `json:"-"`
+	statusUUIDs     []*string                      `json:"-"`
+	priorityUUIDs   []*string                      `json:"-"`
+	columnUUIDs     []*string                      `json:"-"`
+	taskUUIDs       []*string                      `json:"-"`
+	memberUUIDs     []*string                      `json:"-"`
+	checklistUUIDs  []*string                      `json:"-"`
+	attachmentUUIDs []*string                      `json:"-"`
+	dateUUIDs       []*string                      `json:"-"`
+	actionUUIDs     []*string                      `json:"-"`
+	BoardNames      map[string]string              `json:"board_names,omitempty"`     // boardUUID -> name
+	ColumnNames     map[string]map[string]string   `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
+	DependentTasks  map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
 }
 
 func (e *Environment) Index() {
@@ -115,7 +115,37 @@ func (e *Environment) IndexTask(task *types2.Task) {
 	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, task.Attachments...)
 	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, task.CheckList...)
 
-	//TODO: implement dependent tasks and dependencies
+	for _, dep := range task.Dependencies {
+		t, err := db.DBV2.GetTask(dep)
+		if err != nil {
+			log.Printf("error getting dependent task: %v", err)
+			continue
+		}
+		var boards map[string][]string
+		for _, b := range t.Boards {
+			br, err := db.DBV2.GetBoard(b)
+			if err != nil {
+				log.Printf("error getting board: %v", err)
+				continue
+			}
+			for _, c := range br.Columns {
+				column, err := db.DBV2.GetColumn(c)
+				if err != nil {
+					log.Printf("error getting column: %v", err)
+					continue
+				}
+				for _, t := range column.Tasks {
+					if t == dep {
+						boards[b] = append(boards[b], c)
+						break
+					}
+				}
+			}
+		}
+		e.DependentTasks[dep] = boards
+	}
+
+	//TODO: implement dependent tasks
 
 	if task.Status != "" {
 		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &task.Status)
