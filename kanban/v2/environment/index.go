@@ -127,3 +127,26 @@ func (e *Environment) IndexTask(task *types2.Task) {
 		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &task.DueDate)
 	}
 }
+
+func AppendIfMissing(slice []*string, s *string) []*string {
+	for _, ele := range slice {
+		if ele == s {
+			return slice
+		}
+	}
+	return append(slice, s)
+}
+
+func AppendMultipleIfMissing(slice []*string, s []*string) []*string {
+	for _, ele := range s {
+		slice = AppendIfMissing(slice, ele)
+	}
+	return slice
+}
+
+func AppendSliceIfMissing(slice []*string, s ...string) []*string {
+	for _, ele := range s {
+		slice = AppendIfMissing(slice, &ele)
+	}
+	return slice
+}
