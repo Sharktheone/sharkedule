@@ -125,7 +125,14 @@ func (e *Environment) IndexTask(t *types2.Task) {
 		e.DependentTasks[dep] = locations
 	}
 
-	//TODO: implement dependent tasks
+	for _, dep := range t.Dependents {
+		locations, err := task.GetLocations(dep)
+		if err != nil {
+			log.Printf("error getting locations: %v", err)
+			continue
+		}
+		e.DependentTasks[dep] = locations
+	}
 
 	if t.Status != "" {
 		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &t.Status)
