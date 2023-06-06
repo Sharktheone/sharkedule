@@ -14,13 +14,27 @@ func GetTaskEnv(task *types2.Task) {
 
 }
 
-func AppendIfMissing(slice []string, s string) []string {
+func AppendIfMissing(slice []*string, s *string) []*string {
 	for _, ele := range slice {
 		if ele == s {
 			return slice
 		}
 	}
 	return append(slice, s)
+}
+
+func AppendMultipleIfMissing(slice []*string, s []*string) []*string {
+	for _, ele := range s {
+		slice = AppendIfMissing(slice, ele)
+	}
+	return slice
+}
+
+func AppendSliceIfMissing(slice []*string, s ...string) []*string {
+	for _, ele := range s {
+		slice = AppendIfMissing(slice, &ele)
+	}
+	return slice
 }
 
 // THOUGHTS about this:
