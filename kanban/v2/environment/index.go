@@ -96,16 +96,16 @@ func (e *Environment) IndexColumn(column *types2.Column) {
 
 func (e *Environment) IndexTasks() {
 	for _, t := range e.taskUUIDs {
-		task, err := db.DBV2.GetTask(*t)
+		tsk, err := db.DBV2.GetTask(*t)
 		if err != nil {
 			log.Printf("error getting task: %v", err)
 			continue
 		}
-		e.Tasks = append(e.Tasks, task)
+		e.Tasks = append(e.Tasks, tsk)
 	}
 
-	for _, task := range e.Tasks {
-		e.IndexTask(task)
+	for _, t := range e.Tasks {
+		e.IndexTask(t)
 	}
 }
 
