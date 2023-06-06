@@ -54,4 +54,12 @@ type IDatabaseV2 interface {
 	GetBoardNames() ([]*namelist.NameList, error)
 	GetColumn(uuid string) (*types2.Column, error)
 	GetTask(uuid string) (*types2.Task, error)
+	GetTags() ([]*types2.Tag, error)
+	GetTag(uuid string) (*types2.Tag, error)
+	GetStatus(uuid string) (*types2.Status, error)
+	GetPriority(uuid string) (*types2.Priority, error)
+	GetMember(uuid string) (*types2.Member, error)
+	GetChecklist(uuid string) (*types2.Checklist, error)
+	GetAttachment(uuid string) (*types2.Attachment, error)
+	GetDate(uuid string) (*types2.Date, error)
 }

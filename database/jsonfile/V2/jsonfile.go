@@ -127,3 +127,35 @@ func (J *JSONFile) GetColumn(uuid string) (*types2.Column, error) {
 func (J *JSONFile) GetTask(uuid string) (*types2.Task, error) {
 	return kanbandb.GetTask(J.db.Tasks, uuid)
 }
+
+func (J *JSONFile) GetTag(uuid string) (*types2.Tag, error) {
+	return kanbandb.GetTag(J.db.Tags, uuid)
+}
+
+func (J *JSONFile) GetTags() ([]*types2.Tag, error) {
+	return kanbandb.GetTags(J.db.Tags), nil
+}
+
+func (J *JSONFile) GetStatus(uuid string) (*types2.Status, error) {
+	return kanbandb.GetStatus(J.db.Status, uuid)
+}
+
+func (J *JSONFile) GetPriority(uuid string) (*types2.Priority, error) {
+	return kanbandb.GetPriority(J.db.Priority, uuid)
+}
+
+func (J *JSONFile) GetMember(uuid string) (*types2.Member, error) {
+	return kanbandb.GetMember(J.db.Members, uuid)
+}
+
+func (J *JSONFile) GetChecklist(uuid string) (*types2.Checklist, error) {
+	return kanbandb.GetChecklist(J.db.Checklists, uuid)
+}
+
+func (J *JSONFile) GetAttachment(uuid string) (*types2.Attachment, error) {
+	return kanbandb.GetAttachment(J.db.Attachments, uuid)
+}
+
+func (J *JSONFile) GetDate(uuid string) (*types2.Date, error) {
+	return kanbandb.GetDate(J.db.Dates, uuid)
+}
