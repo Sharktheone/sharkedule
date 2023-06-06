@@ -36,6 +36,98 @@ func (e *Environment) Index() {
 	// TODO: get tags, members, etc. from db
 }
 
+func (e *Environment) GetIndexed() {
+	for _, tag := range e.tagUUIDs {
+		t, err := db.DBV2.GetTag(*tag) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting tag: %v", err)
+			continue
+		}
+		e.Tags = append(e.Tags, t)
+	}
+
+	for _, status := range e.statusUUIDs {
+		s, err := db.DBV2.GetStatus(*status) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting status: %v", err)
+			continue
+		}
+		e.Status = append(e.Status, s)
+	}
+
+	for _, priority := range e.priorityUUIDs {
+		p, err := db.DBV2.GetPriority(*priority) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting priority: %v", err)
+			continue
+		}
+		e.Priority = append(e.Priority, p)
+	}
+	for _, column := range e.columnUUIDs {
+		c, err := db.DBV2.GetColumn(*column)
+		if err != nil {
+			log.Printf("error getting column: %v", err)
+			continue
+		}
+		e.Columns = append(e.Columns, c)
+	}
+
+	for _, task := range e.taskUUIDs {
+		t, err := db.DBV2.GetTask(*task)
+		if err != nil {
+			log.Printf("error getting task: %v", err)
+			continue
+		}
+		e.Tasks = append(e.Tasks, t)
+
+	}
+	for _, member := range e.memberUUIDs {
+		m, err := db.DBV2.GetMember(*member) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting member: %v", err)
+			continue
+		}
+		e.Members = append(e.Members, m)
+
+	}
+	for _, checklist := range e.checklistUUIDs {
+		c, err := db.DBV2.GetChecklist(*checklist) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting checklist: %v", err)
+			continue
+		}
+		e.Checklists = append(e.Checklists, c)
+	}
+
+	for _, attachment := range e.attachmentUUIDs {
+		a, err := db.DBV2.GetAttachment(*attachment) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting attachment: %v", err)
+			continue
+		}
+		e.Attachments = append(e.Attachments, a)
+
+	}
+	for _, date := range e.dateUUIDs {
+		d, err := db.DBV2.GetDate(*date) // TODO: add db function
+		if err != nil {
+			log.Printf("error getting date: %v", err)
+			continue
+		}
+		e.Dates = append(e.Dates, d)
+
+	}
+	//for _, action := range e.actionUUIDs { // TODO: Think this through, do we need actions in the Environment?
+	//	a, err := db.DBV2.GetAction(*action) // TODO: add db function
+	//	if err != nil {
+	//		log.Printf("error getting action: %v", err)
+	//		continue
+	//	}
+	//	e.Actions = append(e.Actions, a)
+	//
+	//}
+}
+
 func (e *Environment) IndexBoards() {
 	for _, board := range e.Boards {
 		e.IndexBoard(board)

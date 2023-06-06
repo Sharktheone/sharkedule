@@ -125,7 +125,7 @@ type Environment struct {
 	Boards      []*Board      `json:"boards"`
 	Tasks       []*Task       `json:"tasks"`
 	Members     []*Member     `json:"members"`
-	Checklist   []*Checklist  `json:"checklist"`
+	Checklists  []*Checklist  `json:"checklists"`
 	Attachments []*Attachment `json:"attachments"`
 	Dates       []*Date       `json:"dates"`
 }
