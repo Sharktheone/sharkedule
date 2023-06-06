@@ -130,7 +130,7 @@ func (e *Environment) IndexTask(task *types2.Task) {
 
 func AppendIfMissing(slice []*string, s *string) []*string {
 	for _, ele := range slice {
-		if ele == s {
+		if *ele == *s {
 			return slice
 		}
 	}
