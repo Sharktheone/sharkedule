@@ -31,6 +31,8 @@ func (e *Environment) Index() {
 	} else if e.Tasks != nil || e.tagUUIDs != nil {
 		e.IndexTasks()
 	}
+
+	// TODO: get tags, members, etc. from db
 }
 
 func (e *Environment) IndexBoards() {
@@ -61,9 +63,13 @@ func (e *Environment) IndexBoard(board *types2.Board) {
 }
 
 func (e *Environment) IndexColumns() {
-	for _, column := range e.columnUUIDs {
-		// TODO: get column from db and append to e.Columns
-		log.Printf("TODO: get column from db and append to e.Columns, skipping for now: %v", column)
+	for _, c := range e.columnUUIDs {
+		column, err := db.DBV2.GetColumn(*c)
+		if err != nil {
+			log.Printf("error getting column: %v", err)
+			continue
+		}
+		e.Columns = append(e.Columns, column)
 	}
 
 	for _, column := range e.Columns {
@@ -88,9 +94,13 @@ func (e *Environment) IndexColumn(column *types2.Column) {
 }
 
 func (e *Environment) IndexTasks() {
-	for _, task := range e.taskUUIDs {
-		// TODO: get task from db and append to e.Tasks
-		log.Printf("TODO: get task from db and append to e.Tasks, skipping for now: %v", task)
+	for _, t := range e.taskUUIDs {
+		task, err := db.DBV2.GetTask(*t)
+		if err != nil {
+			log.Printf("error getting task: %v", err)
+			continue
+		}
+		e.Tasks = append(e.Tasks, task)
 	}
 
 	for _, task := range e.Tasks {
