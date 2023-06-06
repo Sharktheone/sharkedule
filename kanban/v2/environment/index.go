@@ -33,7 +33,7 @@ func (e *Environment) Index() {
 		e.IndexTasks()
 	}
 
-	// TODO: get tags, members, etc. from db
+	e.GetIndexed()
 }
 
 func (e *Environment) GetIndexed() {
