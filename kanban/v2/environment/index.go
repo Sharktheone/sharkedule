@@ -2,6 +2,7 @@ package environment
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"log"
 )
@@ -108,53 +109,32 @@ func (e *Environment) IndexTasks() {
 	}
 }
 
-func (e *Environment) IndexTask(task *types2.Task) {
-	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, task.Tags...)
-	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, task.Members...)
-	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, task.Dates...)
-	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, task.Attachments...)
-	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, task.CheckList...)
+func (e *Environment) IndexTask(t *types2.Task) {
+	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
+	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, t.Members...)
+	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
+	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, t.Attachments...)
+	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.CheckList...)
 
-	for _, dep := range task.Dependencies {
-		t, err := db.DBV2.GetTask(dep)
+	for _, dep := range t.Dependencies {
+		locations, err := task.GetLocations(dep)
 		if err != nil {
-			log.Printf("error getting dependent task: %v", err)
+			log.Printf("error getting locations: %v", err)
 			continue
 		}
-		var boards map[string][]string
-		for _, b := range t.Boards {
-			br, err := db.DBV2.GetBoard(b)
-			if err != nil {
-				log.Printf("error getting board: %v", err)
-				continue
-			}
-			for _, c := range br.Columns {
-				column, err := db.DBV2.GetColumn(c)
-				if err != nil {
-					log.Printf("error getting column: %v", err)
-					continue
-				}
-				for _, t := range column.Tasks {
-					if t == dep {
-						boards[b] = append(boards[b], c)
-						break
-					}
-				}
-			}
-		}
-		e.DependentTasks[dep] = boards
+		e.DependentTasks[dep] = locations
 	}
 
 	//TODO: implement dependent tasks
 
-	if task.Status != "" {
-		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &task.Status)
+	if t.Status != "" {
+		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &t.Status)
 	}
-	if task.Priority != "" {
-		e.priorityUUIDs = AppendIfMissing(e.priorityUUIDs, &task.Priority)
+	if t.Priority != "" {
+		e.priorityUUIDs = AppendIfMissing(e.priorityUUIDs, &t.Priority)
 	}
-	if task.DueDate != "" {
-		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &task.DueDate)
+	if t.DueDate != "" {
+		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &t.DueDate)
 	}
 }
 
