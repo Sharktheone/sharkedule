@@ -38,7 +38,7 @@ func (e *Environment) Index() {
 
 func (e *Environment) GetIndexed() {
 	for _, tag := range e.tagUUIDs {
-		t, err := db.DBV2.GetTag(*tag) // TODO: add db function
+		t, err := db.DBV2.GetTag(*tag)
 		if err != nil {
 			log.Printf("error getting tag: %v", err)
 			continue
@@ -47,7 +47,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, status := range e.statusUUIDs {
-		s, err := db.DBV2.GetStatus(*status) // TODO: add db function
+		s, err := db.DBV2.GetStatus(*status)
 		if err != nil {
 			log.Printf("error getting status: %v", err)
 			continue
@@ -56,7 +56,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, priority := range e.priorityUUIDs {
-		p, err := db.DBV2.GetPriority(*priority) // TODO: add db function
+		p, err := db.DBV2.GetPriority(*priority)
 		if err != nil {
 			log.Printf("error getting priority: %v", err)
 			continue
@@ -72,8 +72,8 @@ func (e *Environment) GetIndexed() {
 		e.Columns = append(e.Columns, c)
 	}
 
-	for _, task := range e.taskUUIDs {
-		t, err := db.DBV2.GetTask(*task)
+	for _, t := range e.taskUUIDs {
+		t, err := db.DBV2.GetTask(*t)
 		if err != nil {
 			log.Printf("error getting task: %v", err)
 			continue
@@ -82,7 +82,7 @@ func (e *Environment) GetIndexed() {
 
 	}
 	for _, member := range e.memberUUIDs {
-		m, err := db.DBV2.GetMember(*member) // TODO: add db function
+		m, err := db.DBV2.GetMember(*member)
 		if err != nil {
 			log.Printf("error getting member: %v", err)
 			continue
@@ -91,7 +91,7 @@ func (e *Environment) GetIndexed() {
 
 	}
 	for _, checklist := range e.checklistUUIDs {
-		c, err := db.DBV2.GetChecklist(*checklist) // TODO: add db function
+		c, err := db.DBV2.GetChecklist(*checklist)
 		if err != nil {
 			log.Printf("error getting checklist: %v", err)
 			continue
@@ -100,7 +100,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, attachment := range e.attachmentUUIDs {
-		a, err := db.DBV2.GetAttachment(*attachment) // TODO: add db function
+		a, err := db.DBV2.GetAttachment(*attachment)
 		if err != nil {
 			log.Printf("error getting attachment: %v", err)
 			continue
@@ -109,7 +109,7 @@ func (e *Environment) GetIndexed() {
 
 	}
 	for _, date := range e.dateUUIDs {
-		d, err := db.DBV2.GetDate(*date) // TODO: add db function
+		d, err := db.DBV2.GetDate(*date)
 		if err != nil {
 			log.Printf("error getting date: %v", err)
 			continue
