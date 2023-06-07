@@ -161,3 +161,8 @@ func (J *JSONFile) GetAttachment(uuid string) (*types2.Attachment, error) {
 func (J *JSONFile) GetDate(uuid string) (*types2.Date, error) {
 	return kanbandb.GetDate(J.db.Dates, uuid)
 }
+
+func (J *JSONFile) DeleteBoard(uuid string) error {
+	kanbandb.DeleteBoard(J.db.Boards, uuid)
+	return J.Save()
+}
