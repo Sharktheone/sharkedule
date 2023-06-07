@@ -8,6 +8,7 @@ import (
 	"github.com/Sharktheone/sharkedule/api/middlewear"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/description"
 	"github.com/Sharktheone/sharkedule/kanban/board"
+	"github.com/gofiber/fiber/v2"
 )
 
 func Get(c *fiber.Ctx) error {

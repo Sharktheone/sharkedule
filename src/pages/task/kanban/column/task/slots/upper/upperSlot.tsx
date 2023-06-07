@@ -5,7 +5,6 @@ import styles from "@kanban/column/task/slots/styles.module.scss"
 import Render from "@kanban/column/task/slots/render/render"
 
 
-
 export default function UpperSlot() {
     const context = useContext(SlotContext)
     let upperSlot = context?.upperSlot

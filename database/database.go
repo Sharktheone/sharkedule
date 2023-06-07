@@ -3,6 +3,7 @@ package database
 import (
 	"github.com/Sharktheone/sharkedule/database/types"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"sync"
@@ -43,15 +44,15 @@ type DBStructureV2 struct {
 type IDatabaseV2 interface {
 	Load() error
 	Save() error
-	SaveBoard(board *types2.Board) error
-	SaveBoards(boards []*types2.Board) error
+	SaveBoard(board *board.Board) error
+	SaveBoards(boards []*board.Board) error
 	SaveColumn(column *types2.Column) error
 	SaveColumns(columns []*types2.Column) error
 	SaveTask(task *task.Task) error
 	SaveTasks(tasks []*task.Task) error
-	CreateBoard(name string) (error, *types2.Board)
-	GetBoard(uuid string) (*types2.Board, error)
-	GetBoards() ([]*types2.Board, error)
+	CreateBoard(name string) (error, *board.Board)
+	GetBoard(uuid string) (*board.Board, error)
+	GetBoards() ([]*board.Board, error)
 	GetBoardNames() ([]*namelist.NameList, error)
 	GetColumn(uuid string) (*types2.Column, error)
 	GetTask(uuid string) (*task.Task, error)

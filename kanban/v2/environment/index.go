@@ -2,6 +2,7 @@ package environment
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task/locations"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
@@ -127,28 +128,28 @@ func (e *Environment) GetIndexed() {
 }
 
 func (e *Environment) IndexBoards() {
-	for _, board := range e.Boards {
-		e.IndexBoard(board)
+	for _, b := range e.Boards {
+		e.IndexBoard(b)
 	}
 }
 
-func (e *Environment) IndexBoard(board *types2.Board) {
-	e.columnUUIDs = AppendSliceIfMissing(e.columnUUIDs, board.Columns...)
-	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, board.Tags...)
-	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, board.Members...)
-	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, board.Dates...)
-	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, board.Attachments...)
-	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, board.Checklists...)
-	e.actionUUIDs = AppendSliceIfMissing(e.actionUUIDs, board.Actions...)
+func (e *Environment) IndexBoard(b *board.Board) {
+	e.columnUUIDs = AppendSliceIfMissing(e.columnUUIDs, b.Columns...)
+	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, b.Tags...)
+	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, b.Members...)
+	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, b.Dates...)
+	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, b.Attachments...)
+	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, b.Checklists...)
+	e.actionUUIDs = AppendSliceIfMissing(e.actionUUIDs, b.Actions...)
 
-	if board.Status != "" {
-		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &board.Status)
+	if b.Status != "" {
+		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &b.Status)
 	}
-	if board.Priority != "" {
-		e.priorityUUIDs = AppendIfMissing(e.priorityUUIDs, &board.Priority)
+	if b.Priority != "" {
+		e.priorityUUIDs = AppendIfMissing(e.priorityUUIDs, &b.Priority)
 	}
-	if board.DueDate != "" {
-		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &board.DueDate)
+	if b.DueDate != "" {
+		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &b.DueDate)
 	}
 	e.IndexColumns()
 }

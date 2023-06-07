@@ -1,14 +1,15 @@
 package environment
 
 import (
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func GetBoardEnv(board *types2.Board) *types2.Environment {
+func GetBoardEnv(b *board.Board) *types2.Environment {
 	env := Environment{
 		Environment: &types2.Environment{
-			Boards: []*types2.Board{board},
+			Boards: []*board.Board{b},
 		},
 	}
 	env.Index()

@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/v2/comment"
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 )
 
@@ -21,25 +21,6 @@ type Tag struct {
 	Icon        string `json:"icon"`
 	Type        string `json:"type"`
 	Description string `json:"description"`
-}
-
-type Board struct {
-	Name        string            `json:"name"`
-	UUID        string            `json:"uuid"`
-	Columns     []string          `json:"columns"`
-	Tags        []string          `json:"tags"`
-	Description string            `json:"description"`
-	Members     []string          `json:"members"`
-	Priority    string            `json:"priority"`
-	Status      string            `json:"status"`
-	DueDate     string            `json:"due_date"`
-	Dates       []string          `json:"dates"`
-	Comments    []comment.Comment `json:"comments"`
-	Attachments []string          `json:"attachments"`
-	Checklists  []string          `json:"checklists"`
-	Archived    bool              `json:"archived"`
-	Activity    []Activity        `json:"activity"`
-	Actions     []string          `json:"actions"`
 }
 
 type Member struct {
@@ -91,16 +72,12 @@ type Date struct {
 	Description string `json:"description"`
 }
 
-type Activity struct {
-	//TODO
-}
-
 type Environment struct {
 	Tags           []*Tag                         `json:"tags"`
 	Status         []*Status                      `json:"status"`
 	Priority       []*Priority                    `json:"priority"`
 	Columns        []*Column                      `json:"columns"`
-	Boards         []*Board                       `json:"boards"`
+	Boards         []*board.Board                 `json:"boards"`
 	Tasks          []*task.Task                   `json:"tasks"`
 	Members        []*Member                      `json:"members"`
 	Checklists     []*Checklist                   `json:"checklists"`

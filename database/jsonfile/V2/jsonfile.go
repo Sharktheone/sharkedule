@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
@@ -68,14 +69,14 @@ func (J *JSONFile) Save() error {
 	return nil
 }
 
-func (J *JSONFile) SaveBoard(board *types2.Board) error {
-	if err := kanbandb.SaveBoard(J.db.Boards, board); err != nil {
+func (J *JSONFile) SaveBoard(b *board.Board) error {
+	if err := kanbandb.SaveBoard(J.db.Boards, b); err != nil {
 		return fmt.Errorf("failed saving board: %v", err)
 	}
 	return J.Save()
 }
 
-func (J *JSONFile) SaveBoards(boards []*types2.Board) error {
+func (J *JSONFile) SaveBoards(boards []*board.Board) error {
 	kanbandb.SaveBoards(J.db.Boards, boards)
 	return J.Save()
 }
@@ -104,16 +105,16 @@ func (J *JSONFile) SaveTasks(tasks []*task.Task) error {
 	return J.Save()
 }
 
-func (J *JSONFile) CreateBoard(name string) (error, *types2.Board) {
-	board := kanbandb.CreateBoard(J.db.Boards, name)
-	return J.Save(), board
+func (J *JSONFile) CreateBoard(name string) (error, *board.Board) {
+	b := kanbandb.CreateBoard(J.db.Boards, name)
+	return J.Save(), b
 }
 
-func (J *JSONFile) GetBoard(uuid string) (*types2.Board, error) {
+func (J *JSONFile) GetBoard(uuid string) (*board.Board, error) {
 	return kanbandb.GetBoard(J.db.Boards, uuid)
 }
 
-func (J *JSONFile) GetBoards() ([]*types2.Board, error) {
+func (J *JSONFile) GetBoards() ([]*board.Board, error) {
 	return kanbandb.GetBoards(J.db.Boards), nil
 }
 

@@ -5,6 +5,7 @@ import (
 	"github.com/Sharktheone/sharkedule/api/kanbanboard/column"
 	"github.com/Sharktheone/sharkedule/api/kanbanboard/column/task"
 	"github.com/Sharktheone/sharkedule/web"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"

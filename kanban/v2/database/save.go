@@ -2,21 +2,22 @@ package kanbandb
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func SaveBoard(boards []*types2.Board, board *types2.Board) error {
+func SaveBoard(boards []*board.Board, b *board.Board) error {
 	for i, b := range boards {
-		if b.UUID == board.UUID {
-			boards[i] = board
+		if b.UUID == b.UUID {
+			boards[i] = b
 			return nil
 		}
 	}
-	return fmt.Errorf("board with uuid %s does not exist", board.UUID)
+	return fmt.Errorf("board with uuid %s does not exist", b.UUID)
 }
 
-func SaveBoards(boards []*types2.Board, boardsToSave []*types2.Board) {
+func SaveBoards(boards []*board.Board, boardsToSave []*board.Board) {
 	boards = boardsToSave
 }
 

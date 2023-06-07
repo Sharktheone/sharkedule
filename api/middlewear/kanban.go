@@ -5,6 +5,7 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/Sharktheone/sharkedule/kanban/board/column"
 	"github.com/Sharktheone/sharkedule/kanban/board/column/task"
+	"github.com/gofiber/fiber/v2"
 )
 
 func ExtractTask(c *fiber.Ctx) (*task.Task, error) {
