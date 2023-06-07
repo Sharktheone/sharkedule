@@ -3,8 +3,8 @@ package kanbandb
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	types2 "github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
-	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
 func SaveBoard(boards []*board.Board, b *board.Board) error {

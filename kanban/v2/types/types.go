@@ -2,17 +2,9 @@ package types
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 )
-
-type Column struct {
-	Name        string   `json:"name"`
-	UUID        string   `json:"uuid"`
-	Boards      []string `json:"boards"`
-	Tasks       []string `json:"tasks"`
-	Tags        []string `json:"tags"`
-	Description string   `json:"description"`
-}
 
 type Tag struct {
 	Name        string `json:"name"`
@@ -76,7 +68,7 @@ type Environment struct {
 	Tags           []*Tag                         `json:"tags"`
 	Status         []*Status                      `json:"status"`
 	Priority       []*Priority                    `json:"priority"`
-	Columns        []*Column                      `json:"columns"`
+	Columns        []*column.Column               `json:"columns"`
 	Boards         []*board.Board                 `json:"boards"`
 	Tasks          []*task.Task                   `json:"tasks"`
 	Members        []*Member                      `json:"members"`

@@ -3,6 +3,7 @@ package environment
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task/locations"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
@@ -169,7 +170,7 @@ func (e *Environment) IndexColumns() {
 	}
 }
 
-func (e *Environment) IndexColumn(column *types2.Column) {
+func (e *Environment) IndexColumn(column *column.Column) {
 	e.taskUUIDs = AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 

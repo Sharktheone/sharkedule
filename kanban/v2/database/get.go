@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
@@ -32,7 +33,7 @@ func GetBoardNames(boards []*board.Board) []*namelist.NameList {
 	return names
 }
 
-func GetColumn(columns []*types2.Column, uuid string) (*types2.Column, error) {
+func GetColumn(columns []*column.Column, uuid string) (*column.Column, error) {
 	for _, c := range columns {
 		if c.UUID == uuid {
 			return c, nil

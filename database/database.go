@@ -4,6 +4,7 @@ import (
 	"github.com/Sharktheone/sharkedule/database/types"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"sync"
@@ -46,15 +47,15 @@ type IDatabaseV2 interface {
 	Save() error
 	SaveBoard(board *board.Board) error
 	SaveBoards(boards []*board.Board) error
-	SaveColumn(column *types2.Column) error
-	SaveColumns(columns []*types2.Column) error
+	SaveColumn(column *column.Column) error
+	SaveColumns(columns []*column.Column) error
 	SaveTask(task *task.Task) error
 	SaveTasks(tasks []*task.Task) error
 	CreateBoard(name string) (error, *board.Board)
 	GetBoard(uuid string) (*board.Board, error)
 	GetBoards() ([]*board.Board, error)
 	GetBoardNames() ([]*namelist.NameList, error)
-	GetColumn(uuid string) (*types2.Column, error)
+	GetColumn(uuid string) (*column.Column, error)
 	GetTask(uuid string) (*task.Task, error)
 	GetTags() ([]*types2.Tag, error)
 	GetTag(uuid string) (*types2.Tag, error)

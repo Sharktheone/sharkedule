@@ -2,6 +2,7 @@ package environment
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
@@ -17,10 +18,10 @@ func GetBoardEnv(b *board.Board) *types2.Environment {
 	return env.Environment
 }
 
-func GetColumnEnv(column *types2.Column) *types2.Environment {
+func GetColumnEnv(column *column.Column) *types2.Environment {
 	env := Environment{
 		Environment: &types2.Environment{
-			Columns: []*types2.Column{column},
+			Columns: []*column.Column{column},
 		},
 	}
 	env.Index()
