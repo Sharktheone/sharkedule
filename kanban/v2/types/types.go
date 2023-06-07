@@ -1,6 +1,9 @@
 package types
 
-import "github.com/Sharktheone/sharkedule/kanban/v2/task"
+import (
+	"github.com/Sharktheone/sharkedule/kanban/v2/comment"
+	"github.com/Sharktheone/sharkedule/kanban/v2/task"
+)
 
 type Column struct {
 	Name        string   `json:"name"`
@@ -21,22 +24,22 @@ type Tag struct {
 }
 
 type Board struct {
-	Name        string     `json:"name"`
-	UUID        string     `json:"uuid"`
-	Columns     []string   `json:"columns"`
-	Tags        []string   `json:"tags"`
-	Description string     `json:"description"`
-	Members     []string   `json:"members"`
-	Priority    string     `json:"priority"`
-	Status      string     `json:"status"`
-	DueDate     string     `json:"due_date"`
-	Dates       []string   `json:"dates"`
-	Comments    []Comment  `json:"comments"`
-	Attachments []string   `json:"attachments"`
-	Checklists  []string   `json:"checklists"`
-	Archived    bool       `json:"archived"`
-	Activity    []Activity `json:"activity"`
-	Actions     []string   `json:"actions"`
+	Name        string            `json:"name"`
+	UUID        string            `json:"uuid"`
+	Columns     []string          `json:"columns"`
+	Tags        []string          `json:"tags"`
+	Description string            `json:"description"`
+	Members     []string          `json:"members"`
+	Priority    string            `json:"priority"`
+	Status      string            `json:"status"`
+	DueDate     string            `json:"due_date"`
+	Dates       []string          `json:"dates"`
+	Comments    []comment.Comment `json:"comments"`
+	Attachments []string          `json:"attachments"`
+	Checklists  []string          `json:"checklists"`
+	Archived    bool              `json:"archived"`
+	Activity    []Activity        `json:"activity"`
+	Actions     []string          `json:"actions"`
 }
 
 type Member struct {
@@ -56,12 +59,6 @@ type ChecklistItem struct {
 	Name    string `json:"name"`
 	UUID    string `json:"uuid"`
 	Checked bool   `json:"checked"`
-}
-
-type Comment struct {
-	User    string `json:"from"`
-	UUID    string `json:"uuid"`
-	Message string `json:"message"`
 }
 
 type Priority struct {
