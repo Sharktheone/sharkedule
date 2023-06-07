@@ -207,21 +207,21 @@ func (e *Environment) IndexTask(t *task.Task) {
 	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.CheckList...)
 
 	for _, dep := range t.Dependencies {
-		locations, err := locations.GetLocations(dep)
+		loc, err := locations.GetLocations(dep)
 		if err != nil {
 			log.Printf("error getting locations: %v", err)
 			continue
 		}
-		e.DependentTasks[dep] = locations
+		e.DependentTasks[dep] = loc
 	}
 
 	for _, dep := range t.Dependents {
-		locations, err := locations.GetLocations(dep)
+		loc, err := locations.GetLocations(dep)
 		if err != nil {
 			log.Printf("error getting locations: %v", err)
 			continue
 		}
-		e.DependentTasks[dep] = locations
+		e.DependentTasks[dep] = loc
 	}
 
 	if t.Status != "" {
