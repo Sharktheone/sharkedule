@@ -12,3 +12,7 @@ func Get(uuid string) (*board.Board, error) {
 	//}
 	//return environment.GetBoardEnv(board), nil
 }
+
+func GetBoards() ([]*board.Board, error) {
+	return db.DBV2.GetBoards()
+}
