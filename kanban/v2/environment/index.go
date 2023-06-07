@@ -174,12 +174,12 @@ func (e *Environment) IndexColumn(column *types2.Column) {
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
 	for _, b := range column.Boards {
-		board, err := db.DB.GetBoard(b)
+		bor, err := db.DB.GetBoard(b)
 		if err != nil {
 			log.Printf("error getting board: %v", err)
 			continue
 		}
-		e.BoardNames[b] = board.Name
+		e.BoardNames[b] = bor.Name
 	}
 
 	e.IndexTasks()

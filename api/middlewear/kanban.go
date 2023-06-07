@@ -23,12 +23,12 @@ func ExtractColumn(c *fiber.Ctx) (*board.Board, *column.Column, error) {
 		return nil, nil, fmt.Errorf("failed extracting board: %v", err)
 	}
 
-	column, err := b.GetColumn(c.Params("column"))
+	col, err := b.GetColumn(c.Params("column"))
 	if err != nil {
 		return b, nil, fmt.Errorf("failed getting column: %v", err)
 	}
 
-	return b, column, nil
+	return b, col, nil
 }
 
 func ExtractBoard(c *fiber.Ctx) (*board.Board, error) {
