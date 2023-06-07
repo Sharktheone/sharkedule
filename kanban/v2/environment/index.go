@@ -9,16 +9,16 @@ import (
 
 type Environment struct {
 	*types2.Environment
-	tagUUIDs        []*string `json:"-"`
-	statusUUIDs     []*string `json:"-"`
-	priorityUUIDs   []*string `json:"-"`
-	columnUUIDs     []*string `json:"-"`
-	taskUUIDs       []*string `json:"-"`
-	memberUUIDs     []*string `json:"-"`
-	checklistUUIDs  []*string `json:"-"`
-	attachmentUUIDs []*string `json:"-"`
-	dateUUIDs       []*string `json:"-"`
-	actionUUIDs     []*string `json:"-"`
+	tagUUIDs        []*string
+	statusUUIDs     []*string
+	priorityUUIDs   []*string
+	columnUUIDs     []*string
+	taskUUIDs       []*string
+	memberUUIDs     []*string
+	checklistUUIDs  []*string
+	attachmentUUIDs []*string
+	dateUUIDs       []*string
+	actionUUIDs     []*string
 }
 
 func (e *Environment) Index() {
