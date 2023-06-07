@@ -18,10 +18,10 @@ func GetBoardEnv(b *board.Board) *types2.Environment {
 	return env.Environment
 }
 
-func GetColumnEnv(column *column.Column) *types2.Environment {
+func GetColumnEnv(c *column.Column) *types2.Environment {
 	env := Environment{
 		Environment: &types2.Environment{
-			Columns: []*column.Column{column},
+			Columns: []*column.Column{c},
 		},
 	}
 	env.Index()
