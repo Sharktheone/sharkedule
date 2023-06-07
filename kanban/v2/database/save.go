@@ -2,6 +2,7 @@ package kanbandb
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
@@ -33,7 +34,7 @@ func SaveColumns(columns []*types2.Column, columnsToSave []*types2.Column) {
 	columns = columnsToSave
 }
 
-func SaveTask(tasks []*types2.Task, task *types2.Task) error {
+func SaveTask(tasks []*task.Task, task *task.Task) error {
 	for i, t := range tasks {
 		if t.UUID == task.UUID {
 			tasks[i] = task
@@ -43,6 +44,6 @@ func SaveTask(tasks []*types2.Task, task *types2.Task) error {
 	return fmt.Errorf("task with uuid %s does not exist", task.UUID)
 }
 
-func SaveTasks(tasks []*types2.Task, tasksToSave []*types2.Task) {
+func SaveTasks(tasks []*task.Task, tasksToSave []*task.Task) {
 	tasks = tasksToSave
 }

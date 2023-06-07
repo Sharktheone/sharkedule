@@ -3,6 +3,7 @@ package environment
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
+	"github.com/Sharktheone/sharkedule/kanban/v2/task/locations"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"log"
 )
@@ -198,7 +199,7 @@ func (e *Environment) IndexTasks() {
 	}
 }
 
-func (e *Environment) IndexTask(t *types2.Task) {
+func (e *Environment) IndexTask(t *task.Task) {
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
 	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, t.Members...)
 	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
@@ -206,7 +207,7 @@ func (e *Environment) IndexTask(t *types2.Task) {
 	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.CheckList...)
 
 	for _, dep := range t.Dependencies {
-		locations, err := task.GetLocations(dep)
+		locations, err := locations.GetLocations(dep)
 		if err != nil {
 			log.Printf("error getting locations: %v", err)
 			continue
@@ -215,7 +216,7 @@ func (e *Environment) IndexTask(t *types2.Task) {
 	}
 
 	for _, dep := range t.Dependents {
-		locations, err := task.GetLocations(dep)
+		locations, err := locations.GetLocations(dep)
 		if err != nil {
 			log.Printf("error getting locations: %v", err)
 			continue

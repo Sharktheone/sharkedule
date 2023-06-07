@@ -3,6 +3,7 @@ package kanbandb
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
@@ -39,7 +40,7 @@ func GetColumn(columns []*types2.Column, uuid string) (*types2.Column, error) {
 	return nil, fmt.Errorf("column with uuid %s does not exist", uuid)
 }
 
-func GetTask(tasks []*types2.Task, uuid string) (*types2.Task, error) {
+func GetTask(tasks []*task.Task, uuid string) (*task.Task, error) {
 	for _, t := range tasks {
 		if t.UUID == uuid {
 			return t, nil
