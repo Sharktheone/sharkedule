@@ -65,4 +65,5 @@ type IDatabaseV2 interface {
 	GetAttachment(uuid string) (*types2.Attachment, error)
 	GetDate(uuid string) (*types2.Date, error)
 	DeleteBoard(uuid string) error
+	DeleteColumn(uuid string) error
 }
