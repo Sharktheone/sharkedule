@@ -12,26 +12,6 @@ func CreateBoard(boards []*types.Board, name string) *types.Board {
 	return b
 }
 
-func DeleteBoard(boards []*types.Board, uuid string) error {
-	for index, b := range boards {
-		if b.UUID == uuid {
-			boards = append(boards[:index], boards[index+1:]...)
-			return nil
-		}
-	}
-	return fmt.Errorf("error while deleting board %s not found", uuid)
-}
-
-func RemoveColumnFromBoard(board *types.Board, column string) error {
-	for index, c := range board.Columns {
-		if c == column {
-			board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-			return nil
-		}
-	}
-	return fmt.Errorf("error while removing column %s not found on board %s", column, board.UUID)
-}
-
 func GetBoard(boards []*types.Board, uuid string) (*types.Board, error) {
 	for _, b := range boards {
 		if b.UUID == uuid {
@@ -68,4 +48,24 @@ func SaveBoard(boards []*types.Board, b *types.Board) error {
 
 func SaveBoards(boards []*types.Board, boardsToSave []*types.Board) {
 	boards = boardsToSave
+}
+
+func RemoveColumnFromBoard(board *types.Board, column string) error {
+	for index, c := range board.Columns {
+		if c == column {
+			board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("error while removing column %s not found on board %s", column, board.UUID)
+}
+
+func DeleteBoard(boards []*types.Board, uuid string) error {
+	for index, b := range boards {
+		if b.UUID == uuid {
+			boards = append(boards[:index], boards[index+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("error while deleting board %s not found", uuid)
 }

@@ -6,26 +6,6 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func DeleteColumn(columns []*column.Column, uuid string) error {
-	for index, c := range columns {
-		if c.UUID == uuid {
-			columns = append(columns[:index], columns[index+1:]...)
-			return nil
-		}
-	}
-	return fmt.Errorf("error while deleting column %s not found", uuid)
-}
-
-func RemoveTaskFromColumn(column *column.Column, task string) error {
-	for index, t := range column.Tasks {
-		if t == task {
-			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
-			return nil
-		}
-	}
-	return fmt.Errorf("error while removing task %s not found on column %s", task, column.UUID)
-}
-
 func GetColumn(columns []*column.Column, uuid string) (*column.Column, error) {
 	for _, c := range columns {
 		if c.UUID == uuid {
@@ -71,4 +51,24 @@ func MoveColumn(board *types.Board, column string, toIndex int) error {
 		}
 	}
 	return nil
+}
+
+func RemoveTaskFromColumn(column *column.Column, task string) error {
+	for index, t := range column.Tasks {
+		if t == task {
+			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("error while removing task %s not found on column %s", task, column.UUID)
+}
+
+func DeleteColumn(columns []*column.Column, uuid string) error {
+	for index, c := range columns {
+		if c.UUID == uuid {
+			columns = append(columns[:index], columns[index+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("error while deleting column %s not found", uuid)
 }
