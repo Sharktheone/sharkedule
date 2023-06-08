@@ -5,11 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database"
-	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"os"
 	"path"
@@ -70,75 +66,6 @@ func (J *JSONFile) Save() error {
 	return nil
 }
 
-func (J *JSONFile) SaveBoard(b *board.Board) error {
-	if err := kanbandb.SaveBoard(J.db.Boards, b); err != nil {
-		return fmt.Errorf("failed saving board: %v", err)
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) SaveBoards(boards []*board.Board) error {
-	kanbandb.SaveBoards(J.db.Boards, boards)
-	return J.Save()
-}
-
-func (J *JSONFile) SaveColumn(column *column.Column) error {
-	if err := kanbandb.SaveColumn(J.db.Columns, column); err != nil {
-		return fmt.Errorf("failed saving column: %v", err)
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) SaveColumns(columns []*column.Column) error {
-	kanbandb.SaveColumns(J.db.Columns, columns)
-	return J.Save()
-}
-
-func (J *JSONFile) SaveTask(task *task.Task) error {
-	if err := kanbandb.SaveTask(J.db.Tasks, task); err != nil {
-		return fmt.Errorf("failed saving task: %v", err)
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) SaveTasks(tasks []*task.Task) error {
-	kanbandb.SaveTasks(J.db.Tasks, tasks)
-	return J.Save()
-}
-
-func (J *JSONFile) CreateBoard(name string) (error, *board.Board) {
-	b := kanbandb.CreateBoard(J.db.Boards, name)
-	return J.Save(), b
-}
-
-func (J *JSONFile) GetBoard(uuid string) (*board.Board, error) {
-	return kanbandb.GetBoard(J.db.Boards, uuid)
-}
-
-func (J *JSONFile) GetBoards() ([]*board.Board, error) {
-	return kanbandb.GetBoards(J.db.Boards), nil
-}
-
-func (J *JSONFile) GetBoardNames() ([]*namelist.NameList, error) {
-	return kanbandb.GetBoardNames(J.db.Boards), nil
-}
-
-func (J *JSONFile) GetColumn(uuid string) (*column.Column, error) {
-	return kanbandb.GetColumn(J.db.Columns, uuid)
-}
-
-func (J *JSONFile) GetTask(uuid string) (*task.Task, error) {
-	return kanbandb.GetTask(J.db.Tasks, uuid)
-}
-
-func (J *JSONFile) GetTag(uuid string) (*types2.Tag, error) {
-	return kanbandb.GetTag(J.db.Tags, uuid)
-}
-
-func (J *JSONFile) GetTags() ([]*types2.Tag, error) {
-	return kanbandb.GetTags(J.db.Tags), nil
-}
-
 func (J *JSONFile) GetStatus(uuid string) (*types2.Status, error) {
 	return kanbandb.GetStatus(J.db.Status, uuid)
 }
@@ -161,43 +88,4 @@ func (J *JSONFile) GetAttachment(uuid string) (*types2.Attachment, error) {
 
 func (J *JSONFile) GetDate(uuid string) (*types2.Date, error) {
 	return kanbandb.GetDate(J.db.Dates, uuid)
-}
-
-func (J *JSONFile) DeleteBoard(uuid string) error {
-	if err := kanbandb.DeleteBoard(J.db.Boards, uuid); err != nil {
-		return err
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) DeleteColumn(uuid string) error {
-	if err := kanbandb.DeleteColumn(J.db.Columns, uuid); err != nil {
-		return err
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) DeleteTask(uuid string) error {
-	if err := kanbandb.DeleteTask(J.db.Tasks, uuid); err != nil {
-		return fmt.Errorf("")
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) DeleteTag(uuid string) error {
-	if err := kanbandb.DeleteTag(J.db.Tags, uuid); err != nil {
-		return err
-	}
-	return J.Save()
-}
-
-func (J *JSONFile) RemoveColumnFromBoard(boardUUID string, columnUUID string) error {
-	b, err := kanbandb.GetBoard(J.db.Boards, boardUUID)
-	if err != nil {
-		return err
-	}
-	if err := kanbandb.RemoveColumnFromBoard(b, columnUUID); err != nil {
-		return err
-	}
-	return J.Save()
 }
