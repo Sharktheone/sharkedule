@@ -2,16 +2,15 @@ package environment
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task/locations"
-	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"log"
 )
 
 type Environment struct {
-	*types2.Environment
+	*types.Environment
 	boardUUIDs      []*string
 	tagUUIDs        []*string
 	statusUUIDs     []*string
@@ -64,8 +63,8 @@ func (e *Environment) GetIndexed() {
 		}
 		e.Priority = append(e.Priority, p)
 	}
-	for _, column := range e.columnUUIDs {
-		c, err := db.DBV2.GetColumn(*column)
+	for _, col := range e.columnUUIDs {
+		c, err := db.DBV2.GetColumn(*col)
 		if err != nil {
 			log.Printf("error getting column: %v", err)
 			continue
@@ -135,7 +134,7 @@ func (e *Environment) IndexBoards() {
 	}
 }
 
-func (e *Environment) IndexBoard(b *board.Board) {
+func (e *Environment) IndexBoard(b *types.Board) {
 	e.columnUUIDs = AppendSliceIfMissing(e.columnUUIDs, b.Columns...)
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, b.Tags...)
 	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, b.Members...)
@@ -158,16 +157,16 @@ func (e *Environment) IndexBoard(b *board.Board) {
 
 func (e *Environment) IndexColumns() {
 	for _, c := range e.columnUUIDs {
-		column, err := db.DBV2.GetColumn(*c)
+		col, err := db.DBV2.GetColumn(*c)
 		if err != nil {
 			log.Printf("error getting column: %v", err)
 			continue
 		}
-		e.Columns = append(e.Columns, column)
+		e.Columns = append(e.Columns, col)
 	}
 
-	for _, column := range e.Columns {
-		e.IndexColumn(column)
+	for _, col := range e.Columns {
+		e.IndexColumn(col)
 	}
 }
 
