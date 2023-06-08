@@ -21,43 +21,46 @@ func Start() {
 
 	api := r.Group("api") // /api
 	{
-		kboard := api.Group("kanbanboard") // /api/kanbanboard
+		kanban := api.Group("kanban") // /api/kanban
 		{
-			kboard.Get("list", kanbanboard.List)            // GET /api/kanbanboard/list
-			kboard.Get("list/names", kanbanboard.ListNames) // GET /api/kanbanboard/list/names
-			kboard.Put("new", kanbanboard.Create)           // PUT /api/kanbanboard/new
-
-			singleBoard := kboard.Group(":kanbanboard") // /api/kanbanboard/:kanbanboard
+			boards := kanban.Group("board") // /api/kanban/board
 			{
+				boards.Get("list", kanbanboard.List)            // GET /api/kanban/board/list
+				boards.Get("list/names", kanbanboard.ListNames) // GET /api/kanban/board/list/names
+				boards.Put("new", kanbanboard.Create)           // PUT /api/kanban/board/new
 
-				singleBoard.Get("", kanbanboard.Get)             // GET /api/kanbanboard/:kanbanboard
-				singleBoard.Delete("delete", kanbanboard.Delete) // DELETE /api/kanbanboard/:kanbanboard/delete
-
-				col := singleBoard.Group("column") // /api/kanbanboard/:kanbanboard/column
+				boards := boards.Group(":kanbanboard") // /api/kanban/board/:kanbanboard
 				{
-					col.Put("new", column.Create) // PUT /api/kanbanboard/:kanbanboard/column/new
 
-					singleCol := col.Group(":column") // /api/kanbanboard/:kanbanboard/column/:column
-					{
-						singleCol.Get("", column.Get)             // GET /api/kanbanboard/:kanbanboard/column/:column
-						singleCol.Delete("delete", column.Delete) // DELETE /api/kanbanboard/:kanbanboard/column/:column/delete
-						singleCol.Patch("move", column.Move)      // PATCH /api/kanbanboard/:kanbanboard/column/:column/move
+					boards.Get("", kanbanboard.Get)             // GET /api/kanban/board/:kanbanboard
+					boards.Delete("delete", kanbanboard.Delete) // DELETE /api/kanban/board/:kanbanboard/delete
 
-						tsk := singleCol.Group("task") // /api/kanbanboard/:kanbanboard/column/:column/task
-						{
-							tsk.Put("new", task.Create) // PUT /api/kanbanboard/:kanbanboard/column/:column/task/new
+				}
+			}
+			columns := kanban.Group("column") // /api/kanban/column
+			{
+				columns.Put("new", column.Create) // PUT /api/kanban/column/new
 
-							singleTask := tsk.Group(":task") // /api/kanbanboard/:kanbanboard/column/:column/task/:task
-							{
-								singleTask.Patch("move", task.Move)      // PATCH /api/kanbanboard/:kanbanboard/column/:column/task/:task/move
-								singleTask.Get("", task.Get)             // GET /api/kanbanboard/:kanbanboard/column/:column/task/:task
-								singleTask.Delete("delete", task.Delete) // DELETE /api/kanbanboard/:kanbanboard/column/:column/task/:task/delete
-							}
-						}
-					}
+				col := columns.Group(":column") // /api/kanban/column/:column
+				{
+					col.Get("", column.Get)             // GET /api/kanban/column/:column
+					col.Delete("delete", column.Delete) // DELETE /api/kanban/column/:column/delete
+					col.Patch("move", column.Move)      // PATCH /api/kanban/column/:column/move
+				}
+			}
+			tsk := kanban.Group("task") // /api/kanban/task
+			{
+				tsk.Put("new", task.Create) // PUT /api/kanban/task/new
+
+				t := tsk.Group(":task") // /api/kanban/task/:task
+				{
+					t.Patch("move", task.Move)      // PATCH /api/kanban/:task/move
+					t.Get("", task.Get)             // GET /api/kanban/task/:task
+					t.Delete("delete", task.Delete) // DELETE /api/kanban/task/:task/delete
 				}
 			}
 		}
+
 	}
 
 	web.Serve(r)
