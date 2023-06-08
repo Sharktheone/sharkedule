@@ -42,3 +42,14 @@ func (J *JSONFile) DeleteBoard(uuid string) error {
 	}
 	return J.Save()
 }
+
+func (J *JSONFile) MoveColumn(board, uuid string, toIndex int) error {
+	b, err := kanbandb.GetBoard(J.db.Boards, board)
+	if err != nil {
+		return err
+	}
+	if err := kanbandb.MoveColumn(b, uuid, toIndex); err != nil {
+		return err
+	}
+	return J.Save()
+}
