@@ -66,4 +66,5 @@ type IDatabaseV2 interface {
 	GetDate(uuid string) (*types2.Date, error)
 	DeleteBoard(uuid string) error
 	DeleteColumn(uuid string) error
+	MoveColumn(board, uuid string, toIndex int) error
 }
