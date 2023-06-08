@@ -1,5 +1,13 @@
 package column
 
-//func GetColumn(board, column string) (*types.Column, error) {
-//	return db.DB.GetColumn(board, column)
-//}
+import "github.com/Sharktheone/sharkedule/database/db"
+
+func GetColumn(column string) (*Column, error) {
+	c, err := db.DBV2.GetColumn(column)
+	if err != nil {
+		return nil, err
+	}
+	return &Column{
+		Column: c,
+	}, nil
+}
