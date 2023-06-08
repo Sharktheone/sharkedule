@@ -3,8 +3,6 @@ package database
 import (
 	"github.com/Sharktheone/sharkedule/database/types"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 	"sync"
 )
@@ -46,16 +44,16 @@ type IDatabaseV2 interface {
 	Save() error
 	SaveBoard(board *types2.Board) error
 	SaveBoards(boards []*types2.Board) error
-	SaveColumn(column *column.Column) error
-	SaveColumns(columns []*column.Column) error
-	SaveTask(task *task.Task) error
-	SaveTasks(tasks []*task.Task) error
+	SaveColumn(column *types2.Column) error
+	SaveColumns(columns []*types2.Column) error
+	SaveTask(task *types2.Task) error
+	SaveTasks(tasks []*types2.Task) error
 	CreateBoard(name string) (*types2.Board, error)
 	GetBoard(uuid string) (*types2.Board, error)
 	GetBoards() ([]*types2.Board, error)
 	GetBoardNames() ([]*namelist.NameList, error)
-	GetColumn(uuid string) (*column.Column, error)
-	GetTask(uuid string) (*task.Task, error)
+	GetColumn(uuid string) (*types2.Column, error)
+	GetTask(uuid string) (*types2.Task, error)
 	GetTags() ([]*types2.Tag, error)
 	GetTag(uuid string) (*types2.Tag, error)
 	GetStatus(uuid string) (*types2.Status, error)

@@ -2,9 +2,7 @@ package types
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/activity"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/comment"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 )
 
 type Board struct {
@@ -24,6 +22,36 @@ type Board struct {
 	Archived    bool                `json:"archived"`
 	Activity    []activity.Activity `json:"activity"`
 	Actions     []string            `json:"actions"`
+}
+
+type Column struct {
+	Name        string   `json:"name"`
+	UUID        string   `json:"uuid"`
+	Boards      []string `json:"boards"`
+	Tasks       []string `json:"tasks"`
+	Tags        []string `json:"tags"`
+	Description string   `json:"description"`
+}
+
+type Task struct {
+	Name         string            `json:"name"`
+	UUID         string            `json:"uuid"`
+	Boards       []string          `json:"boards"`
+	Columns      []string          `json:"columns"`
+	Tags         []string          `json:"tags"`
+	Dependencies []string          `json:"dependencies"`
+	Dependents   []string          `json:"dependents"`
+	Comments     []comment.Comment `json:"comments"`
+	Description  string            `json:"description"`
+	Members      []string          `json:"members"`
+	Priority     string            `json:"priority"`
+	Status       string            `json:"status"`
+	DueDate      string            `json:"due_date"`
+	Dates        []string          `json:"dates"`
+	Attachments  []string          `json:"attachments"`
+	CheckList    []string          `json:"check_list"`
+	Done         bool              `json:"done"`
+	Activity     []string          `json:"activity"`
 }
 
 type Tag struct {
@@ -88,9 +116,9 @@ type Environment struct {
 	Tags           []*Tag                         `json:"tags"`
 	Status         []*Status                      `json:"status"`
 	Priority       []*Priority                    `json:"priority"`
-	Columns        []*column.Column               `json:"columns"`
+	Columns        []*Column                      `json:"columns"`
 	Boards         []*Board                       `json:"boards"`
-	Tasks          []*task.Task                   `json:"tasks"`
+	Tasks          []*Task                        `json:"tasks"`
 	Members        []*Member                      `json:"members"`
 	Checklists     []*Checklist                   `json:"checklists"`
 	Attachments    []*Attachment                  `json:"attachments"`

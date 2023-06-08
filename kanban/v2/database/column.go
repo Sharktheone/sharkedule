@@ -2,11 +2,10 @@ package kanbandb
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func GetColumn(columns []*column.Column, uuid string) (*column.Column, error) {
+func GetColumn(columns []*types.Column, uuid string) (*types.Column, error) {
 	for _, c := range columns {
 		if c.UUID == uuid {
 			return c, nil
@@ -15,7 +14,7 @@ func GetColumn(columns []*column.Column, uuid string) (*column.Column, error) {
 	return nil, fmt.Errorf("column with uuid %s does not exist", uuid)
 }
 
-func SaveColumn(columns []*column.Column, column *column.Column) error {
+func SaveColumn(columns []*types.Column, column *types.Column) error {
 	for i, c := range columns {
 		if c.UUID == column.UUID {
 			columns[i] = column
@@ -25,7 +24,7 @@ func SaveColumn(columns []*column.Column, column *column.Column) error {
 	return fmt.Errorf("column with uuid %s does not exist", column.UUID)
 }
 
-func SaveColumns(columns []*column.Column, columnsToSave []*column.Column) {
+func SaveColumns(columns []*types.Column, columnsToSave []*types.Column) {
 	columns = columnsToSave
 }
 
@@ -53,7 +52,7 @@ func MoveColumn(board *types.Board, column string, toIndex int) error {
 	return nil
 }
 
-func RemoveTaskFromColumn(column *column.Column, task string) error {
+func RemoveTaskFromColumn(column *types.Column, task string) error {
 	for index, t := range column.Tasks {
 		if t == task {
 			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
@@ -63,7 +62,7 @@ func RemoveTaskFromColumn(column *column.Column, task string) error {
 	return fmt.Errorf("error while removing task %s not found on column %s", task, column.UUID)
 }
 
-func DeleteColumn(columns []*column.Column, uuid string) error {
+func DeleteColumn(columns []*types.Column, uuid string) error {
 	for index, c := range columns {
 		if c.UUID == uuid {
 			columns = append(columns[:index], columns[index+1:]...)

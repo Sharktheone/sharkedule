@@ -2,22 +2,22 @@ package jsonfileV2
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
+	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func (J *JSONFile) GetColumn(uuid string) (*column.Column, error) {
+func (J *JSONFile) GetColumn(uuid string) (*types.Column, error) {
 	return kanbandb.GetColumn(J.db.Columns, uuid)
 }
 
-func (J *JSONFile) SaveColumn(column *column.Column) error {
+func (J *JSONFile) SaveColumn(column *types.Column) error {
 	if err := kanbandb.SaveColumn(J.db.Columns, column); err != nil {
 		return fmt.Errorf("failed saving column: %v", err)
 	}
 	return J.Save()
 }
 
-func (J *JSONFile) SaveColumns(columns []*column.Column) error {
+func (J *JSONFile) SaveColumns(columns []*types.Column) error {
 	kanbandb.SaveColumns(J.db.Columns, columns)
 	return J.Save()
 }
