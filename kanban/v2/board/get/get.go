@@ -7,7 +7,12 @@ import (
 )
 
 func Get(uuid string) (*board.Board, error) {
-	return db.DBV2.GetBoard(uuid)
+	b, err := db.DBV2.GetBoard(uuid)
+	if err != nil {
+		return nil, err
+	}
+
+	return &board.Board{Board: b}, nil
 	//if err != nil {
 	//	return nil, err
 	//}
@@ -15,7 +20,16 @@ func Get(uuid string) (*board.Board, error) {
 }
 
 func GetBoards() ([]*board.Board, error) {
-	return db.DBV2.GetBoards()
+	boards, er := db.DBV2.GetBoards()
+	if er != nil {
+		return nil, er
+	}
+
+	var bds []*board.Board
+	for _, b := range boards {
+		bds = append(bds, &board.Board{Board: b})
+	}
+	return bds, nil
 }
 
 func Names() ([]*namelist.NameList, error) {

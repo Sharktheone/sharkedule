@@ -1,11 +1,11 @@
 package kanbandb
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func CreateBoard(boards []*board.Board, name string) *board.Board {
-	b := board.NewBoard(name)
+func CreateBoard(boards []*types.Board, name string) *types.Board {
+	b := types.NewBoard(name)
 	boards = append(boards, b)
 	return b
 }

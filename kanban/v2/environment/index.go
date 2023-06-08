@@ -12,6 +12,7 @@ import (
 
 type Environment struct {
 	*types2.Environment
+	boardUUIDs      []*string
 	tagUUIDs        []*string
 	statusUUIDs     []*string
 	priorityUUIDs   []*string

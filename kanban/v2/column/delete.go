@@ -10,5 +10,5 @@ func (c *Column) Delete() error {
 
 	board.Columns = append(board.Columns[:c.Index], board.Columns[c.Index+1:]...)
 
-	return db.DB.SaveBoard(board)
+	return db.DBV2.SaveBoard(board)
 }

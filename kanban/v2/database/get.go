@@ -3,13 +3,12 @@ package kanbandb
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func GetBoard(boards []*board.Board, uuid string) (*board.Board, error) {
+func GetBoard(boards []*types2.Board, uuid string) (*types2.Board, error) {
 	for _, b := range boards {
 		if b.UUID == uuid {
 			return b, nil
@@ -18,11 +17,11 @@ func GetBoard(boards []*board.Board, uuid string) (*board.Board, error) {
 	return nil, fmt.Errorf("board with uuid %s does not exist", uuid)
 }
 
-func GetBoards(boards []*board.Board) []*board.Board {
+func GetBoards(boards []*types2.Board) []*types2.Board {
 	return boards
 }
 
-func GetBoardNames(boards []*board.Board) []*namelist.NameList {
+func GetBoardNames(boards []*types2.Board) []*namelist.NameList {
 	var names []*namelist.NameList
 	for _, b := range boards {
 		names = append(names, &namelist.NameList{

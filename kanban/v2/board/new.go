@@ -1,12 +1,14 @@
 package board
 
 import (
-	"github.com/google/uuid"
+	"github.com/Sharktheone/sharkedule/database/db"
 )
 
-func NewBoard(name string) *Board {
-	return &Board{
-		UUID: uuid.New().String(),
-		Name: name,
+func NewBoard(name string) (*Board, error) {
+	b, err := db.DBV2.CreateBoard(name)
+	if err != nil {
+		return nil, err
 	}
+
+	return &Board{Board: b}, nil
 }

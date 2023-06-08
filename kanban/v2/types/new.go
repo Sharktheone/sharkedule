@@ -10,3 +10,10 @@ func NewTag(name string) *Tag {
 		Name: name,
 	}
 }
+
+func NewBoard(name string) *Board {
+	return &Board{
+		UUID: uuid.New().String(),
+		Name: name,
+	}
+}

@@ -2,13 +2,12 @@ package kanbandb
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/Sharktheone/sharkedule/kanban/v2/column"
 	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func DeleteBoard(boards []*board.Board, uuid string) error {
+func DeleteBoard(boards []*types.Board, uuid string) error {
 	for index, b := range boards {
 		if b.UUID == uuid {
 			boards = append(boards[:index], boards[index+1:]...)
@@ -48,7 +47,7 @@ func DeleteTag(tags []*types.Tag, tag string) error {
 	return fmt.Errorf("error while deleting tag %s not found", tag)
 }
 
-func RemoveColumnFromBoard(board *board.Board, column string) error {
+func RemoveColumnFromBoard(board *types.Board, column string) error {
 	for index, c := range board.Columns {
 		if c == column {
 			board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)

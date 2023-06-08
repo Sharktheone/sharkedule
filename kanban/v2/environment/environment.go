@@ -1,39 +1,30 @@
 package environment
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task"
 	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func GetBoardEnv(b *board.Board) *types2.Environment {
+func GetBoardEnv(uuid *string) *types2.Environment {
 	env := Environment{
-		Environment: &types2.Environment{
-			Boards: []*board.Board{b},
-		},
+		boardUUIDs: []*string{uuid},
 	}
 	env.Index()
 
 	return env.Environment
 }
 
-func GetColumnEnv(c *column.Column) *types2.Environment {
+func GetColumnEnv(uuid *string) *types2.Environment {
 	env := Environment{
-		Environment: &types2.Environment{
-			Columns: []*column.Column{c},
-		},
+		columnUUIDs: []*string{uuid},
 	}
 	env.Index()
 
 	return env.Environment
 }
 
-func GetTaskEnv(t *task.Task) *types2.Environment {
+func GetTaskEnv(uuid *string) *types2.Environment {
 	env := Environment{
-		Environment: &types2.Environment{
-			Tasks: []*task.Task{t},
-		},
+		taskUUIDs: []*string{uuid},
 	}
 	env.Index()
 

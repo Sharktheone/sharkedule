@@ -20,5 +20,5 @@ func (c *Column) Move(toIndex int) error {
 
 	board.Columns = append(board.Columns[:toIndex], append([]*types.Column{col}, board.Columns[toIndex:]...)...)
 
-	return db.DB.SaveBoard(board)
+	return db.DBV2.SaveBoard(board)
 }
