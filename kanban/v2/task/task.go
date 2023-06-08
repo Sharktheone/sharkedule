@@ -10,5 +10,12 @@ type Task struct {
 }
 
 func Get(uuid string) (*Task, error) {
-	return db.DBV2.GetTask(uuid)
+	t, err := db.DBV2.GetTask(uuid)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Task{
+		Task: t,
+	}, nil
 }

@@ -1,10 +1,15 @@
 package column
 
-import "github.com/google/uuid"
+import (
+	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/google/uuid"
+)
 
 func NewColumn(name string) *Column {
 	return &Column{
-		UUID: uuid.New().String(),
-		Name: name,
+		Column: &types.Column{
+			UUID: uuid.New().String(),
+			Name: name,
+		},
 	}
 }

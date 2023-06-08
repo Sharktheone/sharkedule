@@ -166,7 +166,10 @@ func (e *Environment) IndexColumns() {
 	}
 
 	for _, col := range e.Columns {
-		e.IndexColumn(col)
+		c := &column.Column{
+			Column: col,
+		}
+		e.IndexColumn(c)
 	}
 }
 
@@ -196,7 +199,10 @@ func (e *Environment) IndexTasks() {
 		e.Tasks = append(e.Tasks, tsk)
 	}
 
-	for _, t := range e.Tasks {
+	for _, tsk := range e.Tasks {
+		t := &task.Task{
+			Task: tsk,
+		}
 		e.IndexTask(t)
 	}
 }
