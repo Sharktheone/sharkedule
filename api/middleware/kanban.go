@@ -1,4 +1,4 @@
-package middlewear
+package middleware
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/board"

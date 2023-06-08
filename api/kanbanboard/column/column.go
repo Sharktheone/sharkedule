@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/api"
-	"github.com/Sharktheone/sharkedule/api/middlewear"
+	"github.com/Sharktheone/sharkedule/api/middleware"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -22,7 +22,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b, err := middlewear.ExtractBoard(c)
+	b, err := middleware.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting board: %v", err)
 	}
@@ -47,7 +47,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	_, co, err := middlewear.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -60,7 +60,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	_, co, err := middlewear.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -72,7 +72,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	_, co, err := middlewear.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}

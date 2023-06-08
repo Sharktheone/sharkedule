@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/api"
-	"github.com/Sharktheone/sharkedule/api/middlewear"
+	"github.com/Sharktheone/sharkedule/api/middleware"
 	"github.com/Sharktheone/sharkedule/kanban/KTypes/description"
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/gofiber/fiber/v2"
 )
 
 func Get(c *fiber.Ctx) error {
-	b, err := middlewear.ExtractBoard(c)
+	b, err := middleware.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
@@ -71,7 +71,7 @@ func Create(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	b, err := middlewear.ExtractBoard(c)
+	b, err := middleware.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
