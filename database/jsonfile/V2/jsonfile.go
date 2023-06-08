@@ -164,6 +164,40 @@ func (J *JSONFile) GetDate(uuid string) (*types2.Date, error) {
 }
 
 func (J *JSONFile) DeleteBoard(uuid string) error {
-	kanbandb.DeleteBoard(J.db.Boards, uuid)
+	if err := kanbandb.DeleteBoard(J.db.Boards, uuid); err != nil {
+		return err
+	}
+	return J.Save()
+}
+
+func (J *JSONFile) DeleteColumn(uuid string) error {
+	if err := kanbandb.DeleteColumn(J.db.Columns, uuid); err != nil {
+		return err
+	}
+	return J.Save()
+}
+
+func (J *JSONFile) DeleteTask(uuid string) error {
+	if err := kanbandb.DeleteTask(J.db.Tasks, uuid); err != nil {
+		return fmt.Errorf("")
+	}
+	return J.Save()
+}
+
+func (J *JSONFile) DeleteTag(uuid string) error {
+	if err := kanbandb.DeleteTag(J.db.Tags, uuid); err != nil {
+		return err
+	}
+	return J.Save()
+}
+
+func (J *JSONFile) RemoveColumnFromBoard(boardUUID string, columnUUID string) error {
+	b, err := kanbandb.GetBoard(J.db.Boards, boardUUID)
+	if err != nil {
+		return err
+	}
+	if err := kanbandb.RemoveColumnFromBoard(b, columnUUID); err != nil {
+		return err
+	}
 	return J.Save()
 }
