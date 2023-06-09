@@ -22,6 +22,13 @@ func (J *JSONFile) SaveTasks(tasks []*types.Task) error {
 	return J.Save()
 }
 
+func (J *JSONFile) MoveTask(column, uuid, toColumn string, toIndex int) error {
+	if err := kanbandb.MoveTask(column, uuid, toColumn, toIndex); err != nil {
+		return err
+	}
+	return J.Save()
+}
+
 func (J *JSONFile) DeleteTask(uuid string) error {
 	if err := kanbandb.DeleteTask(J.db.Tasks, uuid); err != nil {
 		return fmt.Errorf("")

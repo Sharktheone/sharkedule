@@ -65,4 +65,6 @@ type IDatabaseV2 interface {
 	DeleteBoard(uuid string) error
 	DeleteColumn(uuid string) error
 	MoveColumn(board, uuid string, toIndex int) error
+	DeleteTask(uuid string) error
+	MoveTask(column, uuid, toColumn string, toIndex int) error
 }
