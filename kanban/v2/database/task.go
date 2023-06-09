@@ -105,3 +105,13 @@ func AddTagToTask(tasks []*types.Task, task, tag string) error {
 	}
 	return fmt.Errorf("error while adding tag %s to task %s not found", tag, task)
 }
+
+func DeleteTaskOnColumn(column *types.Column, uuid string) error {
+	for index, t := range column.Tasks {
+		if t == uuid {
+			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("failed to delete task on column: task %v not found on column %v", uuid, column.UUID)
+}
