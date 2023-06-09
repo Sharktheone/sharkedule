@@ -64,10 +64,9 @@ func Move(c *fiber.Ctx) error {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
 
-	board := c.Params("kanbanboard")
 	column := c.Params("column")
 
-	if err := t.Move(moveTask.ToIndex, column, moveTask.ToColumn, board); err != nil {
+	if err := t.Move(column, moveTask.ToColumn, moveTask.ToIndex); err != nil {
 		return fmt.Errorf("failed moving task: %v", err)
 	}
 
