@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/api"
 	"github.com/Sharktheone/sharkedule/api/middleware"
+	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -22,12 +23,12 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	_, co, err := middleware.ExtractColumn(c)
+	co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("[CreateTask] failed extracting column: %v", err)
 	}
 
-	t, err := co.New(taskName.Name)
+	t, err := db.DBV2.CreateTask(co.Column.UUID, taskName.Name) // TODO: add handler
 	if err != nil {
 		return fmt.Errorf("failed creating task: %v", err)
 	}
@@ -63,7 +64,10 @@ func Move(c *fiber.Ctx) error {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
 
-	if err := t.Move(moveTask.ToIndex, moveTask.ToColumn); err != nil {
+	board := c.Params("kanbanboard")
+	column := c.Params("column")
+
+	if err := t.Move(moveTask.ToIndex, column, moveTask.ToColumn, board); err != nil {
 		return fmt.Errorf("failed moving task: %v", err)
 	}
 
