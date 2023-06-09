@@ -42,3 +42,10 @@ func (J *JSONFile) AddTagToTask(task, tag string) error {
 	}
 	return J.Save()
 }
+
+func (J *JSONFile) DeleteTaskFromColumn(column, uuid string) error {
+	if err := kanbandb.DeleteTaskFromColumn(J.db.Tasks, column, uuid); err != nil {
+		return err
+	}
+	return J.Save()
+}

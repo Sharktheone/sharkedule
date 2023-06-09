@@ -85,3 +85,17 @@ func Delete(c *fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task deleted"})
 }
+
+func DeleteOnColumn(c *fiber.Ctx) error {
+	t, err := middleware.ExtractTask(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting task: %v", err)
+	}
+	column := c.Params("column")
+
+	if err := t.DeleteOnColumn(column); err != nil {
+		return fmt.Errorf("failed deleting task: %v", err)
+	}
+
+	return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task deleted"})
+}
