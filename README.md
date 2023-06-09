@@ -47,3 +47,7 @@ My goal is to make an open source alternative to Trello, Asana, and other task m
   - [ ] Linux
   - [ ] MacOS
 - [ ] Notifications
+- [ ] Ticketing system
+  - [ ] Automatically add tickets to boards, etc.
+  - [ ] Create tickets
+  - [ ] Assign tickets
