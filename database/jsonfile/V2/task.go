@@ -2,6 +2,7 @@ package jsonfileV2
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/database/db"
 	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
@@ -43,8 +44,12 @@ func (J *JSONFile) AddTagToTask(task, tag string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) DeleteTaskFromColumn(column, uuid string) error {
-	if err := kanbandb.DeleteTaskFromColumn(J.db.Tasks, column, uuid); err != nil {
+func (J *JSONFile) DeleteTaskOnColumn(column, uuid string) error {
+	col, err := db.DBV2.GetColumn(uuid)
+	if err != nil {
+		return err
+	}
+	if err := kanbandb.DeleteTaskOnColumn(col, uuid); err != nil {
 		return err
 	}
 	return J.Save()
