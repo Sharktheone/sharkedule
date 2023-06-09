@@ -95,3 +95,13 @@ func DeleteTask(tasks []*types.Task, uuid string) error {
 	}
 	return fmt.Errorf("error while deleting task %s not found", uuid)
 }
+
+func AddTagToTask(tasks []*types.Task, task, tag string) error {
+	for _, t := range tasks {
+		if t.UUID == task {
+			t.Tags = append(t.Tags, tag)
+			return nil
+		}
+	}
+	return fmt.Errorf("error while adding tag %s to task %s not found", tag, task)
+}

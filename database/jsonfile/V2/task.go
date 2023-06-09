@@ -35,3 +35,10 @@ func (J *JSONFile) DeleteTask(uuid string) error {
 	}
 	return J.Save()
 }
+
+func (J *JSONFile) AddTagToTask(task, tag string) error {
+	if err := kanbandb.AddTagToTask(J.db.Tasks, task, tag); err != nil {
+		return err
+	}
+	return J.Save()
+}
