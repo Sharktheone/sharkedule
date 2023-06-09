@@ -117,7 +117,7 @@ func (e *Environment) GetIndexed() {
 		e.Dates = append(e.Dates, d)
 
 	}
-	//for _, action := range e.actionUUIDs { // TODO: Think this through, do we need actions in the Environment?
+	//for _, action := range e.actionUUIDs { // TODO: Think this through, do we need actions in the Environment? - YES
 	//	a, err := db.DBV2.GetAction(*action) // TODO: add db function
 	//	if err != nil {
 	//		log.Printf("error getting action: %v", err)
