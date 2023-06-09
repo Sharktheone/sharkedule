@@ -19,3 +19,22 @@ func (J *JSONFile) DeleteTag(uuid string) error {
 	}
 	return J.Save()
 }
+
+func (J *JSONFile) SaveTag(tag *types2.Tag) error {
+	if err := kanbandb.SaveTag(J.db.Tags, tag); err != nil {
+		return err
+	}
+	return J.Save()
+}
+
+func (J *JSONFile) SaveTags(tags []*types2.Tag) error {
+	kanbandb.SaveTags(J.db.Tags, tags)
+	return J.Save()
+}
+
+func (J *JSONFile) RenameTag(uuid, name string) error {
+	if err := kanbandb.RenameTag(J.db.Tags, uuid, name); err != nil {
+		return err
+	}
+	return J.Save()
+}
