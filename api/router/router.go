@@ -4,6 +4,7 @@ import (
 	"github.com/Sharktheone/sharkedule/api/kanbanboard"
 	"github.com/Sharktheone/sharkedule/api/kanbanboard/column"
 	"github.com/Sharktheone/sharkedule/api/kanbanboard/column/task"
+	"github.com/Sharktheone/sharkedule/kanban/v2/tag"
 	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -41,9 +42,9 @@ func Start() {
 
 						col := columns.Group(":column") // /api/kanban/board/:kanbanboard/column/:column
 						{
-							col.Get("", column.Get)             // GET /api/kanban/board/:kanbanboard/column/:column
-							col.Delete("delete", column.Delete) // DELETE /api/kanban/board/:kanbanboard/column/:column/delete
-							col.Patch("move", column.Move)      // PATCH /api/kanban/board/:kanbanboard/column/:column/move
+							col.Get("", column.Get)                    // GET /api/kanban/board/:kanbanboard/column/:column
+							col.Delete("delete", column.DeleteOnBoard) // DELETE /api/kanban/board/:kanbanboard/column/:column/delete
+							col.Patch("move", column.Move)             // PATCH /api/kanban/board/:kanbanboard/column/:column/move
 
 							tsk := col.Group("task") // /api/kanban/board/:kanbanboard/column/:column/task
 							{
@@ -51,9 +52,9 @@ func Start() {
 
 								t := tsk.Group(":task") // /api/kanban/board/:kanbanboard/column/:column/task/:task
 								{
-									t.Patch("move", task.Move)      // PATCH /api/kanban/board/:kanbanboard/column/:column/task/:task/move
-									t.Get("", task.Get)             // GET /api/kanban/board/:kanbanboard/column/:column/task/:task
-									t.Delete("delete", task.Delete) // DELETE /api/kanban/board/:kanbanboard/column/:column/task/:task/delete
+									t.Patch("move", task.Move)              // PATCH /api/kanban/board/:kanbanboard/column/:column/task/:task/move
+									t.Get("", task.Get)                     // GET /api/kanban/board/:kanbanboard/column/:column/task/:task
+									t.Delete("delete", task.DeleteOnColumn) // DELETE /api/kanban/board/:kanbanboard/column/:column/task/:task/delete
 								}
 							}
 						}
@@ -82,7 +83,6 @@ func Start() {
 
 			}
 		}
-
 	}
 
 	web.Serve(r)
