@@ -24,3 +24,10 @@ func NewTask(name string) *Task {
 		Name: name,
 	}
 }
+
+func NewColumn(name string) *Column {
+	return &Column{
+		UUID: uuid.New().String(),
+		Name: name,
+	}
+}

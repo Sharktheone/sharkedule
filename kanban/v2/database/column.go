@@ -5,6 +5,12 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
+func NewColumn(board *types.Board, name string) *types.Column {
+	c := types.NewColumn(name)
+	board.Columns = append(board.Columns, c.UUID)
+	return c
+}
+
 func GetColumn(columns []*types.Column, uuid string) (*types.Column, error) {
 	for _, c := range columns {
 		if c.UUID == uuid {

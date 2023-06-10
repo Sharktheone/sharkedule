@@ -6,6 +6,15 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
+func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
+	b, err := J.GetBoard(board)
+	if err != nil {
+		return nil, err
+	}
+	c := kanbandb.NewColumn(b, name)
+	return c, J.Save()
+}
+
 func (J *JSONFile) GetColumn(uuid string) (*types.Column, error) {
 	return kanbandb.GetColumn(J.db.Columns, uuid)
 }
