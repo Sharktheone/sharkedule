@@ -38,12 +38,12 @@ func (J *JSONFile) DeleteColumn(uuid string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) RemoveColumnFromBoard(boardUUID string, columnUUID string) error {
-	b, err := kanbandb2.GetBoard(J.db.Boards, boardUUID)
+func (J *JSONFile) DeleteColumnOnBoard(board, column string) error {
+	b, err := kanbandb2.GetBoard(J.db.Boards, board)
 	if err != nil {
 		return err
 	}
-	if err := kanbandb2.RemoveColumnFromBoard(b, columnUUID); err != nil {
+	if err := kanbandb2.DeleteColumnOnBoard(b, column); err != nil {
 		return err
 	}
 	return J.Save()
@@ -57,5 +57,17 @@ func (J *JSONFile) MoveColumn(board, uuid string, toIndex int) error {
 	if err := kanbandb2.MoveColumn(b, uuid, toIndex); err != nil {
 		return err
 	}
+	return J.Save()
+}
+
+func (J *JSONFile) RenameColumn(column, name string) error {
+	col, err := J.GetColumn(column)
+	if err != nil {
+		return err
+	}
+	if err := kanbandb2.RenameColumn(col, name); err != nil {
+		return err
+	}
+
 	return J.Save()
 }

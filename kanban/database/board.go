@@ -50,7 +50,7 @@ func SaveBoards(boards []*types2.Board, boardsToSave []*types2.Board) {
 	boards = boardsToSave
 }
 
-func RemoveColumnFromBoard(board *types2.Board, column string) error {
+func DeleteColumnOnBoard(board *types2.Board, column string) error {
 	for index, c := range board.Columns {
 		if c == column {
 			board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
