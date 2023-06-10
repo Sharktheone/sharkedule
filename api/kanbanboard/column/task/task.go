@@ -98,3 +98,79 @@ func DeleteOnColumn(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(api.JSON{"success": "task deleted"})
 }
+
+func Rename(c *fiber.Ctx) error {
+	type RenameTask struct {
+		Name string `json:"name"`
+	}
+
+	var renameTask RenameTask
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&renameTask); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	t, err := middleware.ExtractTask(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting task: %v", err)
+	}
+
+	if err := t.Rename(renameTask.Name); err != nil {
+		return fmt.Errorf("failed renaming task: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+}
+
+func AddTag(c *fiber.Ctx) error {
+	type AddTag struct {
+		Tag string `json:"tag"`
+	}
+
+	var addTag AddTag
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&addTag); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	t, err := middleware.ExtractTask(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting task: %v", err)
+	}
+
+	if err := t.AddTag(addTag.Tag); err != nil {
+		return fmt.Errorf("failed adding tags: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+}
+
+func RemoveTag(c *fiber.Ctx) error {
+	type RemoveTag struct {
+		Tag string `json:"tag"`
+	}
+
+	var removeTag RemoveTag
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&removeTag); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	t, err := middleware.ExtractTask(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting task: %v", err)
+	}
+
+	if err := t.RemoveTag(removeTag.Tag); err != nil {
+		return fmt.Errorf("failed removing tags: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+
+}

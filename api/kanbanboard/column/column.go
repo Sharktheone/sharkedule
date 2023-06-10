@@ -85,3 +85,43 @@ func Delete(c *fiber.Ctx) error {
 
 	return c.SendStatus(fiber.StatusNoContent)
 }
+
+func DeleteOnBoard(c *fiber.Ctx) error {
+	co, err := middleware.ExtractColumn(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting column: %v", err)
+	}
+
+	board := c.Params("kanbanboard")
+
+	if err := co.DeleteOnBoard(board); err != nil {
+		return fmt.Errorf("failed deleting column: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+}
+
+func Rename(c *fiber.Ctx) error {
+	type RenameColumn struct {
+		Name string `json:"name"`
+	}
+
+	var renameColumn RenameColumn
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&renameColumn); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	co, err := middleware.ExtractColumn(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting column: %v", err)
+	}
+
+	if err := co.Rename(renameColumn.Name); err != nil {
+		return fmt.Errorf("failed renaming column: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+}

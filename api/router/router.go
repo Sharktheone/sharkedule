@@ -4,7 +4,6 @@ import (
 	"github.com/Sharktheone/sharkedule/api/kanbanboard"
 	"github.com/Sharktheone/sharkedule/api/kanbanboard/column"
 	"github.com/Sharktheone/sharkedule/api/kanbanboard/column/task"
-	"github.com/Sharktheone/sharkedule/kanban/v2/tag"
 	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -68,10 +67,10 @@ func Start() {
 			}
 			tasks := kanban.Group("task") // /api/kanban/task
 			{
-				tasks.Delete("delete", task.Delete)   // DELETE /api/kanban/task/delete
-				tasks.Patch("rename", task.Rename)    // PATCH /api/kanban/task/rename
-				tasks.Put("tags", task.AddTags)       // PUT /api/kanban/task/tags
-				tasks.Delete("tags", task.DeleteTags) // DELETE /api/kanban/task/tags
+				tasks.Delete("delete", task.Delete) // DELETE /api/kanban/task/delete
+				tasks.Patch("rename", task.Rename)  // PATCH /api/kanban/task/rename
+				tasks.Put("tag", task.AddTag)       // PUT /api/kanban/task/tag
+				tasks.Delete("tag", task.RemoveTag) // DELETE /api/kanban/task/tag
 			}
 			tags := kanban.Group("tag") // /api/kanban/tag
 			{
