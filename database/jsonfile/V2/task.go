@@ -7,13 +7,13 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func (J *JSONFile) NewTask(column, name string) error {
+func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {
 	col, err := db.DBV2.GetColumn(column)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	kanbandb.NewTask(col, name)
-	return nil
+	t := kanbandb.NewTask(col, name)
+	return t, nil
 }
 
 func (J *JSONFile) GetTask(uuid string) (*types.Task, error) {
