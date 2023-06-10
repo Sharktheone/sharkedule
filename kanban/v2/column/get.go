@@ -16,6 +16,6 @@ func Get(column string) (*Column, error) {
 	}, nil
 }
 
-func (c *Column) GetEnv() *types.Environment {
+func (c *Column) Env() *types.Environment {
 	return environment.GetColumnEnv(&c.UUID)
 }

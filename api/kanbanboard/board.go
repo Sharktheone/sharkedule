@@ -16,7 +16,7 @@ func Get(c *fiber.Ctx) error {
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
-	return c.Status(fiber.StatusOK).JSON(b)
+	return c.Status(fiber.StatusOK).JSON(b.Env())
 }
 
 func List(c *fiber.Ctx) error {
@@ -32,7 +32,6 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListNames(c *fiber.Ctx) error {
-
 	boardNames, err := board.ListNames()
 	if err != nil {
 		return fmt.Errorf("failed getting board names: %v", err)

@@ -33,6 +33,6 @@ func Names() ([]*namelist.NameList, error) {
 	return db.DBV2.GetBoardNames()
 }
 
-func (b *Board) GetEnv() *types.Environment {
+func (b *Board) Env() *types.Environment {
 	return environment.GetBoardEnv(&b.UUID)
 }

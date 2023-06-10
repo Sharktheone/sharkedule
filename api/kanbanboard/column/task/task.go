@@ -42,7 +42,7 @@ func Get(c *fiber.Ctx) error {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
 
-	return c.Status(fiber.StatusOK).JSON(t)
+	return c.Status(fiber.StatusOK).JSON(t.Env())
 }
 
 func Move(c *fiber.Ctx) error {

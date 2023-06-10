@@ -67,7 +67,7 @@ func Get(c *fiber.Ctx) error {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	if err := c.Status(fiber.StatusOK).JSON(co); err != nil {
+	if err := c.Status(fiber.StatusOK).JSON(co.Env()); err != nil {
 		return fmt.Errorf("failed sending column: %v", err)
 	}
 	return nil

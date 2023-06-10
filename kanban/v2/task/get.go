@@ -17,6 +17,6 @@ func Get(uuid string) (*Task, error) {
 	}, nil
 }
 
-func (t *Task) GetEnv() *types.Environment {
+func (t *Task) Env() *types.Environment {
 	return environment.GetTaskEnv(&t.UUID)
 }
