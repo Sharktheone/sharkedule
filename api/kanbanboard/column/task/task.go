@@ -74,7 +74,6 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-
 	t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
