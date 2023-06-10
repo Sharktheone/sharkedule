@@ -2,7 +2,7 @@ package jsonfileV2
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )

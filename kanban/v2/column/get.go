@@ -7,7 +7,7 @@ import (
 )
 
 func Get(column string) (*Column, error) {
-	c, err := db.DBV2.GetColumn(column)
+	c, err := db.DB.GetColumn(column)
 	if err != nil {
 		return nil, err
 	}

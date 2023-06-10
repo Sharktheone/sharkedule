@@ -6,7 +6,7 @@ import (
 )
 
 func NewBoard(name string) (*Board, error) {
-	b, err := db.DBV2.CreateBoard(name)
+	b, err := db.DB.CreateBoard(name)
 	if err != nil {
 		return nil, err
 	}
@@ -15,7 +15,7 @@ func NewBoard(name string) (*Board, error) {
 }
 
 func (b *Board) NewColumn(name string) (*column.Column, error) {
-	c, err := db.DBV2.NewColumn(b.UUID, name)
+	c, err := db.DB.NewColumn(b.UUID, name)
 	if err != nil {
 		return nil, err
 	}

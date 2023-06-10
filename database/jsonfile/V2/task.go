@@ -8,7 +8,7 @@ import (
 )
 
 func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {
-	col, err := db.DBV2.GetColumn(column)
+	col, err := db.DB.GetColumn(column)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (J *JSONFile) AddTagToTask(task, tag string) error {
 }
 
 func (J *JSONFile) DeleteTaskOnColumn(column, uuid string) error {
-	col, err := db.DBV2.GetColumn(uuid)
+	col, err := db.DB.GetColumn(column)
 	if err != nil {
 		return err
 	}

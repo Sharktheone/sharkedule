@@ -6,7 +6,7 @@ import (
 )
 
 func GetLocations(uuid string) (map[string][]string, error) {
-	t, err := db.DBV2.GetTask(uuid)
+	t, err := db.DB.GetTask(uuid)
 	if err != nil {
 		return nil, err
 	}
@@ -14,13 +14,13 @@ func GetLocations(uuid string) (map[string][]string, error) {
 		locations map[string][]string
 	)
 	for _, b := range t.Boards {
-		br, err := db.DBV2.GetBoard(b)
+		br, err := db.DB.GetBoard(b)
 		if err != nil {
 			log.Printf("error getting board: %v", err)
 			continue
 		}
 		for _, c := range br.Columns {
-			column, err := db.DBV2.GetColumn(c)
+			column, err := db.DB.GetColumn(c)
 			if err != nil {
 				log.Printf("error getting column: %v", err)
 				continue

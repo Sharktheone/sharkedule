@@ -2,13 +2,13 @@ package board
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
-	"github.com/Sharktheone/sharkedule/kanban/KTypes/namelist"
+	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/v2/environment"
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
 func Get(uuid string) (*Board, error) {
-	b, err := db.DBV2.GetBoard(uuid)
+	b, err := db.DB.GetBoard(uuid)
 	if err != nil {
 		return nil, err
 	}
@@ -17,7 +17,7 @@ func Get(uuid string) (*Board, error) {
 }
 
 func GetBoards() ([]*Board, error) {
-	boards, er := db.DBV2.GetBoards()
+	boards, er := db.DB.GetBoards()
 	if er != nil {
 		return nil, er
 	}
@@ -30,7 +30,7 @@ func GetBoards() ([]*Board, error) {
 }
 
 func Names() ([]*namelist.NameList, error) {
-	return db.DBV2.GetBoardNames()
+	return db.DB.GetBoardNames()
 }
 
 func (b *Board) Env() *types.Environment {

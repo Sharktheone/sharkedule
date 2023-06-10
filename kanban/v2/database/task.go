@@ -42,7 +42,7 @@ func MoveTask(column, uuid, toColumn string, toIndex int) error {
 		err   error
 	)
 
-	col, err = db.DBV2.GetColumn(column)
+	col, err = db.DB.GetColumn(column)
 	if err != nil {
 		return err
 	}
@@ -50,7 +50,7 @@ func MoveTask(column, uuid, toColumn string, toIndex int) error {
 	if column == toColumn {
 		toCol = col
 	} else {
-		toCol, err = db.DBV2.GetColumn(toColumn)
+		toCol, err = db.DB.GetColumn(toColumn)
 		if err != nil {
 			return err
 		}

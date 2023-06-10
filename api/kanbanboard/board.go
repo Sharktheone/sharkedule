@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/api"
 	"github.com/Sharktheone/sharkedule/api/middleware"
-	"github.com/Sharktheone/sharkedule/kanban/KTypes/description"
-	"github.com/Sharktheone/sharkedule/kanban/board"
+	"github.com/Sharktheone/sharkedule/kanban/v2/board"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -20,7 +19,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	boards, err := board.List()
+	boards, err := board.GetBoards()
 	if err != nil {
 		return fmt.Errorf("failed getting boards: %v", err)
 	}
@@ -32,7 +31,7 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListNames(c *fiber.Ctx) error {
-	boardNames, err := board.ListNames()
+	boardNames, err := board.Names()
 	if err != nil {
 		return fmt.Errorf("failed getting board names: %v", err)
 	}
@@ -54,14 +53,15 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b := board.NewBoard(props.Name)
-	b.Description = &description.Description{
-		Description: props.Description,
+	b, err := board.NewBoard(props.Name)
+	if err != nil {
+		return fmt.Errorf("failed creating board: %v", err)
 	}
+	b.Description = props.Description
 
 	if err := b.Save(); err != nil {
 		return err
-	}
+	} // TODO: add save func on board, etc.
 
 	if err := c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": b.UUID}); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)

@@ -7,7 +7,7 @@ import (
 )
 
 func Get(uuid string) (*Task, error) {
-	t, err := db.DBV2.GetTask(uuid)
+	t, err := db.DB.GetTask(uuid)
 	if err != nil {
 		return nil, err
 	}
