@@ -1,6 +1,10 @@
 package task
 
-import "github.com/Sharktheone/sharkedule/database/db"
+import (
+	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/v2/environment"
+	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+)
 
 func Get(uuid string) (*Task, error) {
 	t, err := db.DBV2.GetTask(uuid)
@@ -11,4 +15,8 @@ func Get(uuid string) (*Task, error) {
 	return &Task{
 		Task: t,
 	}, nil
+}
+
+func (t *Task) GetEnv() *types.Environment {
+	return environment.GetTaskEnv(&t.UUID)
 }
