@@ -47,12 +47,14 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	_, co, err := middleware.ExtractColumn(c)
+	co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	if err := co.Move(moveColumn.Index); err != nil {
+	board := c.Params("kanbanboard")
+
+	if err := co.Move(board, moveColumn.Index); err != nil {
 		return fmt.Errorf("failed moving column: %v", err)
 	}
 
@@ -60,7 +62,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	_, co, err := middleware.ExtractColumn(c)
+	co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -72,7 +74,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	_, co, err := middleware.ExtractColumn(c)
+	co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
