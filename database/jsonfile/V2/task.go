@@ -7,6 +7,11 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
+func (J *JSONFile) NewTask(task *types.Task) error {
+	kanbandb.NewTask(J.db.Tasks, task)
+	return nil
+}
+
 func (J *JSONFile) GetTask(uuid string) (*types.Task, error) {
 	return kanbandb.GetTask(J.db.Tasks, uuid)
 }

@@ -28,7 +28,7 @@ func Create(c *fiber.Ctx) error {
 		return fmt.Errorf("[CreateTask] failed extracting column: %v", err)
 	}
 
-	t, err := db.DBV2.CreateTask(co.Column.UUID, taskName.Name) // TODO: add handler
+	t, err := db.DBV2.NewTask(co.Column.UUID, taskName.Name) // TODO: add handler
 	if err != nil {
 		return fmt.Errorf("failed creating task: %v", err)
 	}

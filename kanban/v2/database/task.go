@@ -6,6 +6,10 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
+func NewTask(tasks []*types.Task, task *types.Task) {
+	tasks = append(tasks, task)
+}
+
 func GetTask(tasks []*types.Task, uuid string) (*types.Task, error) {
 	for _, t := range tasks {
 		if t.UUID == uuid {
