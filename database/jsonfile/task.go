@@ -2,13 +2,12 @@ package jsonfile
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/database"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {
-	col, err := db.DB.GetColumn(column)
+	col, err := J.GetColumn(column)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +53,7 @@ func (J *JSONFile) AddTagToTask(task, tag string) error {
 }
 
 func (J *JSONFile) DeleteTaskOnColumn(column, uuid string) error {
-	col, err := db.DB.GetColumn(column)
+	col, err := J.GetColumn(column)
 	if err != nil {
 		return err
 	}
