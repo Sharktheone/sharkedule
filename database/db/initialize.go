@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	DB database.IDatabaseV2
+	DB database.IDatabase
 )
 
 func Init() {

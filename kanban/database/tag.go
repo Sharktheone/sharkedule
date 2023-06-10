@@ -2,7 +2,7 @@ package kanbandb
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func GetTags(tags []*types.Tag) []*types.Tag {

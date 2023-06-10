@@ -2,10 +2,10 @@ package environment
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task/locations"
-	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/column"
+	"github.com/Sharktheone/sharkedule/kanban/task"
+	"github.com/Sharktheone/sharkedule/kanban/task/locations"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 	"log"
 )
 

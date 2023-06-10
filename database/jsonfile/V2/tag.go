@@ -1,8 +1,8 @@
-package jsonfileV2
+package jsonfile
 
 import (
-	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
-	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/database"
+	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func (J *JSONFile) GetTag(uuid string) (*types2.Tag, error) {

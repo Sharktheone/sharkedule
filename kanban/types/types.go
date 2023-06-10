@@ -1,8 +1,8 @@
 package types
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/v2/activity"
-	"github.com/Sharktheone/sharkedule/kanban/v2/comment"
+	"github.com/Sharktheone/sharkedule/kanban/activity"
+	"github.com/Sharktheone/sharkedule/kanban/comment"
 )
 
 type Board struct {

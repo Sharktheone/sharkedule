@@ -2,7 +2,7 @@ package kanbandb
 
 import (
 	"fmt"
-	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
+	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func GetStatus(status []*types2.Status, uuid string) (*types2.Status, error) {

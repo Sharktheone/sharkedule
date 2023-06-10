@@ -2,16 +2,16 @@ package kanbandb
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func NewColumn(board *types.Board, name string) *types.Column {
-	c := types.NewColumn(name)
+func NewColumn(board *types2.Board, name string) *types2.Column {
+	c := types2.NewColumn(name)
 	board.Columns = append(board.Columns, c.UUID)
 	return c
 }
 
-func GetColumn(columns []*types.Column, uuid string) (*types.Column, error) {
+func GetColumn(columns []*types2.Column, uuid string) (*types2.Column, error) {
 	for _, c := range columns {
 		if c.UUID == uuid {
 			return c, nil
@@ -20,7 +20,7 @@ func GetColumn(columns []*types.Column, uuid string) (*types.Column, error) {
 	return nil, fmt.Errorf("column with uuid %s does not exist", uuid)
 }
 
-func SaveColumn(columns []*types.Column, column *types.Column) error {
+func SaveColumn(columns []*types2.Column, column *types2.Column) error {
 	for i, c := range columns {
 		if c.UUID == column.UUID {
 			columns[i] = column
@@ -30,11 +30,11 @@ func SaveColumn(columns []*types.Column, column *types.Column) error {
 	return fmt.Errorf("column with uuid %s does not exist", column.UUID)
 }
 
-func SaveColumns(columns []*types.Column, columnsToSave []*types.Column) {
+func SaveColumns(columns []*types2.Column, columnsToSave []*types2.Column) {
 	columns = columnsToSave
 }
 
-func MoveColumn(board *types.Board, column string, toIndex int) error {
+func MoveColumn(board *types2.Board, column string, toIndex int) error {
 	var (
 		deleted  = false
 		inserted = false
@@ -58,7 +58,7 @@ func MoveColumn(board *types.Board, column string, toIndex int) error {
 	return nil
 }
 
-func RemoveTaskFromColumn(column *types.Column, task string) error {
+func RemoveTaskFromColumn(column *types2.Column, task string) error {
 	for index, t := range column.Tasks {
 		if t == task {
 			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
@@ -68,7 +68,7 @@ func RemoveTaskFromColumn(column *types.Column, task string) error {
 	return fmt.Errorf("error while removing task %s not found on column %s", task, column.UUID)
 }
 
-func DeleteColumn(columns []*types.Column, uuid string) error {
+func DeleteColumn(columns []*types2.Column, uuid string) error {
 	for index, c := range columns {
 		if c.UUID == uuid {
 			columns = append(columns[:index], columns[index+1:]...)

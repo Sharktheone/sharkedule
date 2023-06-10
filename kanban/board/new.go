@@ -2,7 +2,7 @@ package board
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
+	"github.com/Sharktheone/sharkedule/kanban/column"
 )
 
 func NewBoard(name string) (*Board, error) {

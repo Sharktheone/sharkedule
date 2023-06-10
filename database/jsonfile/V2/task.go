@@ -1,10 +1,10 @@
-package jsonfileV2
+package jsonfile
 
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database/db"
-	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
-	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/database"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {

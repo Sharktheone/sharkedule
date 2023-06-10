@@ -2,9 +2,9 @@ package board
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/environment"
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
-	"github.com/Sharktheone/sharkedule/kanban/v2/environment"
-	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func Get(uuid string) (*Board, error) {

@@ -1,9 +1,9 @@
-package jsonfileV2
+package jsonfile
 
 import (
 	"fmt"
-	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
-	"github.com/Sharktheone/sharkedule/kanban/v2/types"
+	kanbandb2 "github.com/Sharktheone/sharkedule/kanban/database"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
@@ -11,50 +11,50 @@ func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
 	if err != nil {
 		return nil, err
 	}
-	c := kanbandb.NewColumn(b, name)
+	c := kanbandb2.NewColumn(b, name)
 	return c, J.Save()
 }
 
 func (J *JSONFile) GetColumn(uuid string) (*types.Column, error) {
-	return kanbandb.GetColumn(J.db.Columns, uuid)
+	return kanbandb2.GetColumn(J.db.Columns, uuid)
 }
 
 func (J *JSONFile) SaveColumn(column *types.Column) error {
-	if err := kanbandb.SaveColumn(J.db.Columns, column); err != nil {
+	if err := kanbandb2.SaveColumn(J.db.Columns, column); err != nil {
 		return fmt.Errorf("failed saving column: %v", err)
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) SaveColumns(columns []*types.Column) error {
-	kanbandb.SaveColumns(J.db.Columns, columns)
+	kanbandb2.SaveColumns(J.db.Columns, columns)
 	return J.Save()
 }
 
 func (J *JSONFile) DeleteColumn(uuid string) error {
-	if err := kanbandb.DeleteColumn(J.db.Columns, uuid); err != nil {
+	if err := kanbandb2.DeleteColumn(J.db.Columns, uuid); err != nil {
 		return err
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) RemoveColumnFromBoard(boardUUID string, columnUUID string) error {
-	b, err := kanbandb.GetBoard(J.db.Boards, boardUUID)
+	b, err := kanbandb2.GetBoard(J.db.Boards, boardUUID)
 	if err != nil {
 		return err
 	}
-	if err := kanbandb.RemoveColumnFromBoard(b, columnUUID); err != nil {
+	if err := kanbandb2.RemoveColumnFromBoard(b, columnUUID); err != nil {
 		return err
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) MoveColumn(board, uuid string, toIndex int) error {
-	b, err := kanbandb.GetBoard(J.db.Boards, board)
+	b, err := kanbandb2.GetBoard(J.db.Boards, board)
 	if err != nil {
 		return err
 	}
-	if err := kanbandb.MoveColumn(b, uuid, toIndex); err != nil {
+	if err := kanbandb2.MoveColumn(b, uuid, toIndex); err != nil {
 		return err
 	}
 	return J.Save()

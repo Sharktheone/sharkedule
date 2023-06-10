@@ -1,12 +1,12 @@
-package jsonfileV2
+package jsonfile
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database"
-	kanbandb "github.com/Sharktheone/sharkedule/kanban/v2/database"
-	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
+	"github.com/Sharktheone/sharkedule/kanban/database"
+	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 	"os"
 	"path"
 	"sync"
@@ -17,13 +17,13 @@ const (
 )
 
 type JSONFile struct {
-	db   *database.DBStructureV2
+	db   *database.DBStructure
 	path string
 }
 
 func NewJSONFile() *JSONFile {
 	return &JSONFile{
-		db: &database.DBStructureV2{
+		db: &database.DBStructure{
 			Mu: &sync.Mutex{},
 		},
 	}

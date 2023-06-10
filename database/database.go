@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
-	types2 "github.com/Sharktheone/sharkedule/kanban/v2/types"
+	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 	"sync"
 )
 
@@ -10,12 +10,12 @@ const (
 	DBRoot = "/var/lib/sharkedule"
 )
 
-type DBStructureV2 struct {
+type DBStructure struct {
 	Mu *sync.Mutex `json:"-" yaml:"-" bson:"-"`
 	types2.Environment
 }
 
-type IDatabaseV2 interface {
+type IDatabase interface {
 	Load() error
 	Save() error
 	SaveBoard(board *types2.Board) error

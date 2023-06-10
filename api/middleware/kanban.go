@@ -1,23 +1,23 @@
 package middleware
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
-	"github.com/Sharktheone/sharkedule/kanban/v2/column"
-	"github.com/Sharktheone/sharkedule/kanban/v2/task"
+	board2 "github.com/Sharktheone/sharkedule/kanban/board"
+	column2 "github.com/Sharktheone/sharkedule/kanban/column"
+	task2 "github.com/Sharktheone/sharkedule/kanban/task"
 	"github.com/gofiber/fiber/v2"
 )
 
-func ExtractTask(c *fiber.Ctx) (*task.Task, error) {
+func ExtractTask(c *fiber.Ctx) (*task2.Task, error) {
 	uuid := c.Params("task")
-	return task.Get(uuid)
+	return task2.Get(uuid)
 }
 
-func ExtractColumn(c *fiber.Ctx) (*column.Column, error) {
+func ExtractColumn(c *fiber.Ctx) (*column2.Column, error) {
 	uuid := c.Params("column")
-	return column.Get(uuid)
+	return column2.Get(uuid)
 }
 
-func ExtractBoard(c *fiber.Ctx) (*board.Board, error) {
+func ExtractBoard(c *fiber.Ctx) (*board2.Board, error) {
 	boardUUID := c.Params("kanbanboard")
-	return board.Get(boardUUID)
+	return board2.Get(boardUUID)
 }

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/api"
 	"github.com/Sharktheone/sharkedule/api/middleware"
-	"github.com/Sharktheone/sharkedule/kanban/v2/board"
+	board2 "github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -19,7 +19,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	boards, err := board.GetBoards()
+	boards, err := board2.GetBoards()
 	if err != nil {
 		return fmt.Errorf("failed getting boards: %v", err)
 	}
@@ -31,7 +31,7 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListNames(c *fiber.Ctx) error {
-	boardNames, err := board.Names()
+	boardNames, err := board2.Names()
 	if err != nil {
 		return fmt.Errorf("failed getting board names: %v", err)
 	}
@@ -53,7 +53,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b, err := board.NewBoard(props.Name)
+	b, err := board2.NewBoard(props.Name)
 	if err != nil {
 		return fmt.Errorf("failed creating board: %v", err)
 	}
