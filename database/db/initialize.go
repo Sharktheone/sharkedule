@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/Sharktheone/sharkedule/database"
-	jsonfileV2 "github.com/Sharktheone/sharkedule/database/jsonfile/V2"
+	jsonfileV2 "github.com/Sharktheone/sharkedule/database/jsonfile"
 	"log"
 )
 
