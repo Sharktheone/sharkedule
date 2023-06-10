@@ -6,8 +6,10 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/v2/types"
 )
 
-func NewTask(tasks []*types.Task, task *types.Task) {
-	tasks = append(tasks, task)
+func NewTask(column *types.Column, name string) *types.Task {
+	task := types.NewTask(name)
+	column.Tasks = append(column.Tasks, task.UUID)
+	return task
 }
 
 func GetTask(tasks []*types.Task, uuid string) (*types.Task, error) {

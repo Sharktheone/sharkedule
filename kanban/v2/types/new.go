@@ -17,3 +17,10 @@ func NewBoard(name string) *Board {
 		Name: name,
 	}
 }
+
+func NewTask(name string) *Task {
+	return &Task{
+		UUID: uuid.New().String(),
+		Name: name,
+	}
+}
