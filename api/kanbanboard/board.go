@@ -60,8 +60,8 @@ func Create(c *fiber.Ctx) error {
 	b.Description = props.Description
 
 	if err := b.Save(); err != nil {
-		return err
-	} // TODO: add save func on board, etc.
+		return fmt.Errorf("failed saving board: %v", err)
+	}
 
 	if err := c.Status(fiber.StatusOK).JSON(api.JSON{"uuid": b.UUID}); err != nil {
 		return fmt.Errorf("failed sending board: %v", err)
