@@ -6,9 +6,9 @@ import (
 	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func CreateBoard(boards []*types2.Board, name string) *types2.Board {
+func CreateBoard(boards *[]*types2.Board, name string) *types2.Board {
 	b := types2.NewBoard(name)
-	boards = append(boards, b)
+	*boards = append(*boards, b)
 	return b
 }
 

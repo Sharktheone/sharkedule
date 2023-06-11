@@ -8,7 +8,7 @@ import (
 )
 
 func (J *JSONFile) CreateBoard(name string) (*types.Board, error) {
-	b := kanbandb.CreateBoard(J.db.Boards, name)
+	b := kanbandb.CreateBoard(&J.db.Boards, name)
 	return b, J.Save()
 }
 
