@@ -127,6 +127,15 @@ func (e *Environment) GetIndexed() {
 }
 
 func (e *Environment) IndexBoards() {
+	for _, b := range e.boardUUIDs {
+		board, err := db.DB.GetBoard(*b)
+		if err != nil {
+			log.Printf("error getting board: %v", err)
+			continue
+		}
+		e.Boards = append(e.Boards, board)
+	}
+
 	for _, b := range e.Boards {
 		e.IndexBoard(b)
 	}
