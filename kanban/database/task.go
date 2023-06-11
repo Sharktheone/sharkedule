@@ -2,7 +2,6 @@ package kanbandb
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/database/db"
 	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
@@ -35,32 +34,12 @@ func SaveTasks(tasks []*types2.Task, tasksToSave []*types2.Task) {
 	tasks = tasksToSave
 }
 
-func MoveTask(column, uuid, toColumn string, toIndex int) error {
-	var (
-		col   *types2.Column
-		toCol *types2.Column
-		err   error
-	)
-
-	col, err = db.DB.GetColumn(column)
-	if err != nil {
-		return err
-	}
-
-	if column == toColumn {
-		toCol = col
-	} else {
-		toCol, err = db.DB.GetColumn(toColumn)
-		if err != nil {
-			return err
-		}
-	}
-
+func MoveTask(column, toColumn *types2.Column, uuid string, toIndex int) error {
 	var colFound bool
 
-	for index, t := range col.Tasks {
+	for index, t := range column.Tasks {
 		if t == uuid {
-			col.Tasks = append(col.Tasks[:index], col.Tasks[index+1:]...)
+			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
 			colFound = true
 			break
 		}
@@ -70,14 +49,14 @@ func MoveTask(column, uuid, toColumn string, toIndex int) error {
 		return fmt.Errorf("task %s not found in column %s", uuid, column)
 	}
 
-	if toIndex > len(toCol.Tasks) {
-		for i := range toCol.Tasks {
+	if toIndex > len(toColumn.Tasks) {
+		for i := range toColumn.Tasks {
 			if i == toIndex {
-				toCol.Tasks = append(toCol.Tasks[:i], append([]string{uuid}, toCol.Tasks[i+1:]...)...)
+				toColumn.Tasks = append(toColumn.Tasks[:i], append([]string{uuid}, toColumn.Tasks[i+1:]...)...)
 			}
 		}
 	} else {
-		toCol.Tasks = append(toCol.Tasks, uuid)
+		toColumn.Tasks = append(toColumn.Tasks, uuid)
 	}
 	return nil
 }

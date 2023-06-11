@@ -32,7 +32,26 @@ func (J *JSONFile) SaveTasks(tasks []*types.Task) error {
 }
 
 func (J *JSONFile) MoveTask(column, uuid, toColumn string, toIndex int) error {
-	if err := kanbandb.MoveTask(column, uuid, toColumn, toIndex); err != nil {
+	var (
+		col   *types.Column
+		toCol *types.Column
+		err   error
+	)
+
+	col, err = J.GetColumn(column)
+	if err != nil {
+		return err
+	}
+
+	if column == toColumn {
+		toCol = col
+	} else {
+		toCol, err = J.GetColumn(toColumn)
+		if err != nil {
+			return err
+		}
+	}
+	if err := kanbandb.MoveTask(col, toCol, toColumn, toIndex); err != nil {
 		return err
 	}
 	return J.Save()
