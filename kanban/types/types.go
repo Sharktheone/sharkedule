@@ -30,7 +30,7 @@ type Column struct {
 	Boards      []string `json:"boards,omitempty"`
 	Tasks       []string `json:"tasks,omitempty"`
 	Tags        []string `json:"tags,omitempty"`
-	Description string   `json:"descriptio,omitemptyn"`
+	Description string   `json:"description,omitempty"`
 }
 
 type Task struct {
