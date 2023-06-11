@@ -6,7 +6,8 @@ import (
 
 func GetBoardEnv(uuid *string) *types2.Environment {
 	env := Environment{
-		boardUUIDs: []*string{uuid},
+		Environment: &types2.Environment{},
+		boardUUIDs:  []*string{uuid},
 	}
 	env.Index()
 
@@ -15,6 +16,7 @@ func GetBoardEnv(uuid *string) *types2.Environment {
 
 func GetColumnEnv(uuid *string) *types2.Environment {
 	env := Environment{
+		Environment: &types2.Environment{},
 		columnUUIDs: []*string{uuid},
 	}
 	env.Index()
@@ -24,7 +26,8 @@ func GetColumnEnv(uuid *string) *types2.Environment {
 
 func GetTaskEnv(uuid *string) *types2.Environment {
 	env := Environment{
-		taskUUIDs: []*string{uuid},
+		Environment: &types2.Environment{},
+		taskUUIDs:   []*string{uuid},
 	}
 	env.Index()
 

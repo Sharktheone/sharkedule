@@ -23,7 +23,7 @@ type Environment struct {
 }
 
 func (e *Environment) Index() {
-	if e.Boards != nil {
+	if e.Boards != nil || e.boardUUIDs != nil {
 		e.IndexBoards()
 	} else if e.Columns != nil || e.columnUUIDs != nil {
 		e.IndexColumns()
