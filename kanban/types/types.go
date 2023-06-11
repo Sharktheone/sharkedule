@@ -113,16 +113,16 @@ type Date struct {
 }
 
 type Environment struct {
-	Tags           []*Tag                         `json:"tags"`
-	Status         []*Status                      `json:"status"`
-	Priority       []*Priority                    `json:"priority"`
-	Columns        []*Column                      `json:"columns"`
-	Boards         []*Board                       `json:"boards"`
-	Tasks          []*Task                        `json:"tasks"`
-	Members        []*Member                      `json:"members"`
-	Checklists     []*Checklist                   `json:"checklists"`
-	Attachments    []*Attachment                  `json:"attachments"`
-	Dates          []*Date                        `json:"dates"`
+	Tags           []*Tag                         `json:"tags,omitempty"`
+	Status         []*Status                      `json:"status,omitempty"`
+	Priority       []*Priority                    `json:"priority,omitempty"`
+	Columns        []*Column                      `json:"columns,omitempty"`
+	Boards         []*Board                       `json:"boards,omitempty"`
+	Tasks          []*Task                        `json:"tasks,omitempty"`
+	Members        []*Member                      `json:"members,omitempty"`
+	Checklists     []*Checklist                   `json:"checklists,omitempty"`
+	Attachments    []*Attachment                  `json:"attachments,omitempty"`
+	Dates          []*Date                        `json:"dates,omitempty"`
 	BoardNames     map[string]string              `json:"board_names,omitempty"`     // boardUUID -> name
 	ColumnNames    map[string]map[string]string   `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
 	DependentTasks map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
