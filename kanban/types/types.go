@@ -8,72 +8,72 @@ import (
 type Board struct {
 	Name        string              `json:"name"`
 	UUID        string              `json:"uuid"`
-	Columns     []string            `json:"columns"`
-	Tags        []string            `json:"tags"`
-	Description string              `json:"description"`
-	Members     []string            `json:"members"`
-	Priority    string              `json:"priority"`
-	Status      string              `json:"status"`
-	DueDate     string              `json:"due_date"`
-	Dates       []string            `json:"dates"`
-	Comments    []comment.Comment   `json:"comments"`
-	Attachments []string            `json:"attachments"`
-	Checklists  []string            `json:"checklists"`
-	Archived    bool                `json:"archived"`
-	Activity    []activity.Activity `json:"activity"`
-	Actions     []string            `json:"actions"`
+	Columns     []string            `json:"columns,omitempty"`
+	Tags        []string            `json:"tags,omitempty"`
+	Description string              `json:"description,omitempty"`
+	Members     []string            `json:"members,omitempty"`
+	Priority    string              `json:"priority,omitempty"`
+	Status      string              `json:"status,omitempty"`
+	DueDate     string              `json:"due_date,omitempty"`
+	Dates       []string            `json:"dates,omitempty"`
+	Comments    []comment.Comment   `json:"comments,omitempty"`
+	Attachments []string            `json:"attachments,omitempty"`
+	Checklists  []string            `json:"checklists,omitempty"`
+	Archived    bool                `json:"archived,omitempty"`
+	Activity    []activity.Activity `json:"activity,omitempty"`
+	Actions     []string            `json:"actions,omitempty"`
 }
 
 type Column struct {
 	Name        string   `json:"name"`
 	UUID        string   `json:"uuid"`
-	Boards      []string `json:"boards"`
-	Tasks       []string `json:"tasks"`
-	Tags        []string `json:"tags"`
-	Description string   `json:"description"`
+	Boards      []string `json:"boards,omitempty"`
+	Tasks       []string `json:"tasks,omitempty"`
+	Tags        []string `json:"tags,omitempty"`
+	Description string   `json:"descriptio,omitemptyn"`
 }
 
 type Task struct {
 	Name         string            `json:"name"`
 	UUID         string            `json:"uuid"`
-	Boards       []string          `json:"boards"`
-	Columns      []string          `json:"columns"`
-	Tags         []string          `json:"tags"`
-	Dependencies []string          `json:"dependencies"`
-	Dependents   []string          `json:"dependents"`
-	Comments     []comment.Comment `json:"comments"`
-	Description  string            `json:"description"`
-	Members      []string          `json:"members"`
-	Priority     string            `json:"priority"`
-	Status       string            `json:"status"`
-	DueDate      string            `json:"due_date"`
-	Dates        []string          `json:"dates"`
-	Attachments  []string          `json:"attachments"`
-	CheckList    []string          `json:"check_list"`
-	Done         bool              `json:"done"`
-	Activity     []string          `json:"activity"`
+	Boards       []string          `json:"boards,omitempty"`
+	Columns      []string          `json:"columns,omitempty"`
+	Tags         []string          `json:"tags,omitempty"`
+	Dependencies []string          `json:"dependencies,omitempty"`
+	Dependents   []string          `json:"dependents,omitempty"`
+	Comments     []comment.Comment `json:"comments,omitempty"`
+	Description  string            `json:"description,omitempty"`
+	Members      []string          `json:"members,omitempty"`
+	Priority     string            `json:"priority,omitempty"`
+	Status       string            `json:"status,omitempty"`
+	DueDate      string            `json:"due_date,omitempty"`
+	Dates        []string          `json:"dates,omitempty"`
+	Attachments  []string          `json:"attachments,omitempty"`
+	CheckList    []string          `json:"check_list,omitempty"`
+	Done         bool              `json:"done,omitempty"`
+	Activity     []string          `json:"activity,omitempty"`
 }
 
 type Tag struct {
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
-	Color       string `json:"color"`
-	Icon        string `json:"icon"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
+	Color       string `json:"color,omitempty"`
+	Icon        string `json:"icon,omitempty"`
+	Type        string `json:"type,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type Member struct {
 	Username       string `json:"username"`
 	UUID           string `json:"uuid"`
-	ProfilePicture string `json:"profile_picture"`
+	ProfilePicture string `json:"profile_picture,omitempty"`
 }
 
 type Checklist struct {
 	Name        string          `json:"name"`
 	UUID        string          `json:"uuid"`
 	Items       []ChecklistItem `json:"items"`
-	Description string          `json:"description"`
+	Description string          `json:"description,omitempty"`
 }
 
 type ChecklistItem struct {
@@ -85,15 +85,15 @@ type ChecklistItem struct {
 type Priority struct {
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
-	Color       string `json:"color"`
-	Description string `json:"description"`
+	Color       string `json:"color,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type Status struct {
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
-	Color       string `json:"color"`
-	Description string `json:"description"`
+	Color       string `json:"color,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type Attachment struct {
@@ -102,14 +102,14 @@ type Attachment struct {
 	Size        int64  `json:"size"`
 	Type        string `json:"type"`
 	Date        string `json:"date"`
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 }
 
 type Date struct {
 	UUID        string `json:"uuid"`
 	Name        string `json:"name"`
 	Date        int64  `json:"date"`
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 }
 
 type Environment struct {
