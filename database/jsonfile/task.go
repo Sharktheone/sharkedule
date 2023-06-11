@@ -51,7 +51,7 @@ func (J *JSONFile) MoveTask(column, uuid, toColumn string, toIndex int) error {
 			return err
 		}
 	}
-	if err := kanbandb.MoveTask(col, toCol, toColumn, toIndex); err != nil {
+	if err := kanbandb.MoveTask(col, toCol, uuid, toIndex); err != nil {
 		return err
 	}
 	return J.Save()
