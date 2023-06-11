@@ -57,7 +57,7 @@ func (J *JSONFile) RemoveTagOnTask(task, tag string) error {
 	if err != nil {
 		return err
 	}
-	if err := kanbandb.DeleteTagOnTask(t, tag); err != nil {
+	if err := kanbandb.RemoveTagOnTask(t, tag); err != nil {
 		return err
 	}
 	return J.Save()

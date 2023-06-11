@@ -82,16 +82,6 @@ func MoveTask(column, uuid, toColumn string, toIndex int) error {
 	return nil
 }
 
-func RemoveTagFromTask(task *types2.Task, tag string) error {
-	for index, t := range task.Tags {
-		if t == tag {
-			task.Tags = append(task.Tags[:index], task.Tags[index+1:]...)
-			return nil
-		}
-	}
-	return fmt.Errorf("error while removing tag %s not found on task %s", tag, task.UUID)
-}
-
 func DeleteTask(tasks []*types2.Task, uuid string) error {
 	for index, t := range tasks {
 		if t.UUID == uuid {
@@ -112,7 +102,7 @@ func AddTagToTask(tasks []*types2.Task, task, tag string) error { // TODO: This 
 	return fmt.Errorf("error while adding tag %s to task %s not found", tag, task)
 }
 
-func DeleteTagOnTask(task *types2.Task, tag string) error {
+func RemoveTagOnTask(task *types2.Task, tag string) error {
 	for index, t := range task.Tags {
 		if t == tag {
 			task.Tags = append(task.Tags[:index], task.Tags[index+1:]...)

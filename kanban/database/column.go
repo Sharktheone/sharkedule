@@ -58,7 +58,7 @@ func MoveColumn(board *types2.Board, column string, toIndex int) error {
 	return nil
 }
 
-func RemoveTaskFromColumn(column *types2.Column, task string) error {
+func RemoveTaskOnColumn(column *types2.Column, task string) error {
 	for index, t := range column.Tasks {
 		if t == task {
 			column.Tasks = append(column.Tasks[:index], column.Tasks[index+1:]...)
