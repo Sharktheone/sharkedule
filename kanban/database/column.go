@@ -77,3 +77,6 @@ func DeleteColumn(columns []*types2.Column, uuid string) error {
 	}
 	return fmt.Errorf("error while deleting column %s not found", uuid)
 }
+func RenameColumn(column *types2.Column, name string) {
+	column.Name = name
+}

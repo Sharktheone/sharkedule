@@ -53,7 +53,11 @@ func (J *JSONFile) AddTagToTask(task, tag string) error {
 }
 
 func (J *JSONFile) RemoveTagOnTask(task, tag string) error {
-	if err := kanbandb.DeleteTagFromTask(J.db.Tasks, task, tag); err != nil {
+	t, err := J.GetTask(task)
+	if err != nil {
+		return err
+	}
+	if err := kanbandb.DeleteTagOnTask(t, tag); err != nil {
 		return err
 	}
 	return J.Save()
@@ -75,9 +79,7 @@ func (J *JSONFile) RenameTask(task, name string) error {
 	if err != nil {
 		return err
 	}
-	if err := kanbandb.RenameTask(t, name); err != nil {
-		return err
-	}
+	kanbandb.RenameTask(t, name)
 
 	return J.Save()
 }

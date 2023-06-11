@@ -102,7 +102,7 @@ func DeleteTask(tasks []*types2.Task, uuid string) error {
 	return fmt.Errorf("error while deleting task %s not found", uuid)
 }
 
-func AddTagToTask(tasks []*types2.Task, task, tag string) error {
+func AddTagToTask(tasks []*types2.Task, task, tag string) error { // TODO: This should not be an task array
 	for _, t := range tasks {
 		if t.UUID == task {
 			t.Tags = append(t.Tags, tag)
@@ -110,6 +110,16 @@ func AddTagToTask(tasks []*types2.Task, task, tag string) error {
 		}
 	}
 	return fmt.Errorf("error while adding tag %s to task %s not found", tag, task)
+}
+
+func DeleteTagOnTask(task *types2.Task, tag string) error {
+	for index, t := range task.Tags {
+		if t == tag {
+			task.Tags = append(task.Tags[:index], task.Tags[index+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("error while deleting tag %s not found on task %s", tag, task.UUID)
 }
 
 func DeleteTaskOnColumn(column *types2.Column, uuid string) error {
@@ -120,4 +130,8 @@ func DeleteTaskOnColumn(column *types2.Column, uuid string) error {
 		}
 	}
 	return fmt.Errorf("failed to delete task on column: task %v not found on column %v", uuid, column.UUID)
+}
+
+func RenameTask(task *types2.Task, name string) {
+	task.Name = name
 }

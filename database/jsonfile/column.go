@@ -65,9 +65,7 @@ func (J *JSONFile) RenameColumn(column, name string) error {
 	if err != nil {
 		return err
 	}
-	if err := kanbandb2.RenameColumn(col, name); err != nil {
-		return err
-	}
+	kanbandb2.RenameColumn(col, name)
 
 	return J.Save()
 }
