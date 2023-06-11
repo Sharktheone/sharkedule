@@ -213,7 +213,7 @@ func (e *Environment) IndexTask(t *types.Task) {
 	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, t.Members...)
 	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
 	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, t.Attachments...)
-	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.CheckList...)
+	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.Checklists...)
 
 	for _, dep := range t.Dependencies {
 		loc, err := locations.GetLocations(dep)

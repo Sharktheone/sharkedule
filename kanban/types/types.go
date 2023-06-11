@@ -49,7 +49,7 @@ type Task struct {
 	DueDate      string            `json:"due_date,omitempty"`
 	Dates        []string          `json:"dates,omitempty"`
 	Attachments  []string          `json:"attachments,omitempty"`
-	CheckList    []string          `json:"check_list,omitempty"`
+	Checklists   []string          `json:"checklists,omitempty"`
 	Done         bool              `json:"done,omitempty"`
 	Activity     []string          `json:"activity,omitempty"`
 }
@@ -103,12 +103,20 @@ type Attachment struct {
 	Type        string `json:"type"`
 	Date        string `json:"date"`
 	Description string `json:"description,omitempty"`
+	Name        string `json:"name"`
 }
 
 type Date struct {
 	UUID        string `json:"uuid"`
 	Name        string `json:"name"`
 	Date        int64  `json:"date"`
+	Description string `json:"description,omitempty"`
+}
+
+type Stage struct {
+	Name        string `json:"name"`
+	UUID        string `json:"uuid"`
+	Color       string `json:"color,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
