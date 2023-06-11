@@ -47,7 +47,7 @@ export class handlers {
             return
         }
 
-        api.put(`/kanbanboard/${this.board.uuid}/column/new`, {name: name}).then(
+        api.put(`/kanban/board/${this.board.uuid}/column/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: res.data, color: "red"})
