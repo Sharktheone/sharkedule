@@ -30,7 +30,7 @@ export default function KanbanBoards() {
     }
 
     function createBoard(name: string, description: string) {
-        api.put("/kanbanboard/new", {name: name, description: description}).then(
+        api.put("/kanban/board/new", {name: name, description: description}).then(
             (res) => {
                 if (res.status > 300) {
                     console.log(res)
@@ -52,7 +52,7 @@ export default function KanbanBoards() {
     }
 
     function deleteBoard() {
-        api.delete(`/kanbanboard/${boardNames[0].uuid}/delete`).then(
+        api.delete(`/kanban/board/${boardNames[0].uuid}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({
