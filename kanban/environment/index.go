@@ -2,8 +2,6 @@ package environment
 
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
-	"github.com/Sharktheone/sharkedule/kanban/column"
-	"github.com/Sharktheone/sharkedule/kanban/task"
 	"github.com/Sharktheone/sharkedule/kanban/task/locations"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 	"log"
@@ -166,14 +164,11 @@ func (e *Environment) IndexColumns() {
 	}
 
 	for _, col := range e.Columns {
-		c := &column.Column{
-			Column: col,
-		}
-		e.IndexColumn(c)
+		e.IndexColumn(col)
 	}
 }
 
-func (e *Environment) IndexColumn(column *column.Column) {
+func (e *Environment) IndexColumn(column *types.Column) {
 	e.taskUUIDs = AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
@@ -199,15 +194,12 @@ func (e *Environment) IndexTasks() {
 		e.Tasks = append(e.Tasks, tsk)
 	}
 
-	for _, tsk := range e.Tasks {
-		t := &task.Task{
-			Task: tsk,
-		}
+	for _, t := range e.Tasks {
 		e.IndexTask(t)
 	}
 }
 
-func (e *Environment) IndexTask(t *task.Task) {
+func (e *Environment) IndexTask(t *types.Task) {
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
 	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, t.Members...)
 	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
