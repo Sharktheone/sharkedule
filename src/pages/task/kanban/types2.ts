@@ -10,9 +10,9 @@ export type environment = {
     checklists: Checklist[]
     attachments: Attachment[]
     dates: Date[]
-    //board_names     go: map[string]string
-    //column_names    go: map[string]map[string]string
-    //dependent_tasks go: map[string]map[string][]string
+    board_names: BoardNames
+    column_names: ColumnNames
+    dependent_tasks: DependentTasks[]
 }
 
 export type Board = {
@@ -132,4 +132,20 @@ export type Stage = {
 
 export type Activity = {
     //TODO
+}
+
+export type BoardNames = {
+    [key: string]: string
+}
+
+export type ColumnNames = {
+    [key: string]: {
+        [key: string]: string
+    }
+}
+
+export type DependentTasks = {
+    [key: string]: {
+        [key: string]: string[]
+    }
 }
