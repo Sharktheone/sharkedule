@@ -1,8 +1,8 @@
 import {Button, CloseButton, Input, Stack, Text, Title} from '@mantine/core'
 import {DragDropContext, Droppable} from "react-beautiful-dnd"
 import Column from "./column/column"
-import {useEffect, useRef, useState} from "react"
-import {useLoaderData, useParams} from "react-router-dom"
+import {useEffect, useMemo, useRef, useState} from "react"
+import {useLoaderData, useNavigate, useParams} from "react-router-dom"
 import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
@@ -13,42 +13,54 @@ import {environment} from "@kanban/types2"
 export default function Kanban() {
     const loaderData = useLoaderData()
     const uuid = useParams().uuid
-    const [board, setBoard] = useState<environment>(loaderData as environment)
+    const [environment, setEnvironment] = useState<environment>(loaderData as environment)
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
     const {classes, cx} = useStyles()
 
-    const drag = new dragHandlers(board, setBoard, uuid)
-    const h = new handlers(board, setBoard, setIsAdding, newColRef)
+    const navigate = useNavigate()
+
+    if (uuid === undefined) {
+        navigate("../")
+        return
+    }
+
+    const drag = new dragHandlers(environment, setEnvironment, uuid)
+    const h = new handlers(setIsAdding, newColRef, uuid)
 
     useEffect(() => {
-        setBoard(loaderData as environment)
+        setEnvironment(loaderData as environment)
     }, [loaderData])
 
     useEffect(() => {
         newColRef?.current?.focus()
     }, [isAdding])
 
+    function getBoard() {
+        return useMemo(() => {
+            return environment.boards?.find(b => b.uuid === uuid)
+
+        }, [environment]);
+    }
 
     return (
         <div className={styles.board}>
-            <Title order={1} align="center">{board.name}</Title>
+            <Title order={1} align="center">{getBoard()?.name}</Title>
             <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
             <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
                              onDragUpdate={event => drag.Update(event)}>
-                <Droppable droppableId={board.uuid} type="column" direction="horizontal">
+                <Droppable droppableId={uuid} type="column" direction="horizontal">
                     {(provided) => (
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
                             <div className={styles.cols}>
-                                {board.columns?.map((column) => (
-                                    <div key={column.uuid}>
+                                {getBoard()?.columns?.map((column) => (
+                                    <div key={column}>
                                         <Column column={column}
-                                                setBoard={setBoard}
-                                                board={board}
-                                                index={board.columns?.indexOf(column) ?? 0}
-                                                boardUUID={board.uuid} ghost={drag.ghost}/>
+                                                setBoard={setEnvironment}
+                                                environment={environment}
+                                                boardUUID={uuid} ghost={drag.ghost}/>
                                     </div>
                                 ))}
 
