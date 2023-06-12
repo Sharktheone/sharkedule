@@ -1,4 +1,3 @@
-import {kanbanBoardType} from "./types"
 import {Dispatch, RefObject, SetStateAction, useState} from "react"
 import {notifications} from "@mantine/notifications"
 import {api} from "@/api/api"
@@ -6,24 +5,22 @@ import {useNavigate} from "react-router-dom"
 
 
 export class handlers {
-    private readonly board: kanbanBoardType
-    private readonly setBoard: Dispatch<SetStateAction<kanbanBoardType>>
     private readonly navigate: ReturnType<typeof useNavigate>
     private readonly setIsAdding: Dispatch<SetStateAction<boolean>>
     private readonly newColRef: RefObject<HTMLInputElement>
     private readonly removeTimeout: number | undefined
     private readonly setRemoveTimeout: Dispatch<SetStateAction<number | undefined>>
+    private readonly uuid: string
 
-    constructor(board: kanbanBoardType, setBoard: Dispatch<SetStateAction<kanbanBoardType>>, setIsAdding: Dispatch<SetStateAction<boolean>>, newColRef: RefObject<HTMLInputElement>) {
+    constructor(setIsAdding: Dispatch<SetStateAction<boolean>>, newColRef: RefObject<HTMLInputElement>, uuid: string) {
         const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
 
-        this.board = board
-        this.setBoard = setBoard
         this.navigate = useNavigate()
         this.setIsAdding = setIsAdding
         this.newColRef = newColRef
         this.removeTimeout = removeTimeout
         this.setRemoveTimeout = setRemoveTimeout
+        this.uuid = uuid
     }
 
     handleNewColumn() {
@@ -47,7 +44,7 @@ export class handlers {
             return
         }
 
-        api.put(`/kanban/board/${this.board.uuid}/column/new`, {name: name}).then(
+        api.put(`/kanban/board/${this.uuid}/column/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: res.data, color: "red"})
