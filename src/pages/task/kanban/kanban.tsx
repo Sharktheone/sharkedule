@@ -9,10 +9,11 @@ import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
 import {dragHandlers} from "./dragHandlers"
 import {handlers} from './handlers'
+import {environment} from "@kanban/types2"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
-    const [board, setBoard] = useState<kanbanBoardType>(loaderData as kanbanBoardType)
+    const [board, setBoard] = useState<environment>(loaderData as environment)
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
     const {classes, cx} = useStyles()
@@ -21,7 +22,7 @@ export default function Kanban() {
     const h = new handlers(board, setBoard, setIsAdding, newColRef)
 
     useEffect(() => {
-        setBoard(loaderData as kanbanBoardType)
+        setBoard(loaderData as environment)
     }, [loaderData])
 
     useEffect(() => {
