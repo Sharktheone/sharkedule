@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react"
-import {kanbanBoardType} from "@kanban/types"
 import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import {Button, Container, Title} from "@mantine/core"
 import {useColors} from "./styles"
@@ -9,6 +8,7 @@ import {useDisclosure} from "@mantine/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"
+import {NameList} from "@kanban/types2"
 
 
 export default function KanbanBoards() {
@@ -17,10 +17,10 @@ export default function KanbanBoards() {
 
     let {classes, cx} = useColors()
 
-    const [boardNames, setBoardNames] = useState(loaderData as kanbanBoardType[])
+    const [nameList, setNameList] = useState(loaderData as NameList[])
 
     useEffect(() => {
-        setBoardNames(loaderData as kanbanBoardType[])
+        setNameList(loaderData as NameList[])
     }, [loaderData])
 
     const [newOpened, {open, close},] = useDisclosure(false)
@@ -52,7 +52,7 @@ export default function KanbanBoards() {
     }
 
     function deleteBoard() {
-        api.delete(`/kanban/board/${boardNames[0].uuid}/delete`).then(
+        api.delete(`/kanban/board/${nameList[0].uuid}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({
@@ -81,9 +81,9 @@ export default function KanbanBoards() {
 
             <ul>
                 {
-                    boardNames.length > 0 ?
+                    nameList.length > 0 ?
                         <>
-                            {boardNames.map((board) => (
+                            {nameList.map((board) => (
                                 <li>
                                     <Link to={board.uuid}>
                                         {board.name}

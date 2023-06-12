@@ -1,13 +1,13 @@
 import {api} from "@/api/api"
-import {kanbanBoardType} from "@kanban/types"
+import {NameList} from "@kanban/types2"
 
 
 export default function boardsLoader() {
     return api.get("/kanban/board/list/names").then((res) => {
         if (res.data == null) {
-            return [] as kanbanBoardType[]
+            return [] as NameList[]
         }
-        return res.data as kanbanBoardType[]
+        return res.data as NameList[]
     })
 
 }

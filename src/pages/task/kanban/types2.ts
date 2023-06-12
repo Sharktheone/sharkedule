@@ -149,3 +149,8 @@ export type DependentTasks = {
         [key: string]: string[]
     }
 }
+
+export type NameList = {
+    name: string
+    uuid: string
+}
