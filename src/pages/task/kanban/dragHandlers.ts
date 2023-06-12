@@ -1,10 +1,10 @@
 import {ghostType, useGhost} from "./ghost"
 import {DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
-import {kanbanBoardType} from "./types"
 import {Dispatch, SetStateAction} from "react"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
+import {Board, environment} from "@kanban/types2"
 
 
 export class dragHandlers {
@@ -12,11 +12,12 @@ export class dragHandlers {
     private readonly addGhost: (event: DragStart) => void
     private readonly removeGhost: () => void
     private readonly updateGhost: (event: DragUpdate) => void
-    private readonly board: kanbanBoardType
-    private readonly setBoard: Dispatch<SetStateAction<kanbanBoardType>>
+    private readonly environment: environment
+    private readonly setEnvironment: Dispatch<SetStateAction<environment>>
     private readonly navigate: ReturnType<typeof useNavigate>
+    private readonly uuid: string
 
-    constructor(board: kanbanBoardType, setBoard: Dispatch<SetStateAction<kanbanBoardType>>) {
+    constructor(environment: environment, setEnvironment: Dispatch<SetStateAction<environment>>, uuid: string) {
         const {ghost, addGhost, removeGhost, updateGhost} = useGhost()
         this.navigate = useNavigate()
 
@@ -24,8 +25,9 @@ export class dragHandlers {
         this.addGhost = addGhost.bind(this)
         this.removeGhost = removeGhost.bind(this)
         this.updateGhost = updateGhost.bind(this)
-        this.board = board
-        this.setBoard = setBoard
+        this.environment = environment
+        this.setEnvironment = setEnvironment
+        this.uuid = uuid
     }
 
     Start(event: DragStart) {
@@ -54,12 +56,15 @@ export class dragHandlers {
     }
 
     private reorderColumn(uuid: string, to: number) {
-        let newBoard = {...this?.board}
-        let columnIndex = newBoard?.columns?.findIndex((column) => column.uuid === uuid)
-        let [column] = newBoard?.columns?.splice(columnIndex, 1)
+        let newBoard = {...this?.environment.boards?.find((board) => board.uuid === this?.uuid)}
+
+
+        let columnIndex = newBoard?.columns?.findIndex((column) => column === uuid)
+        if (columnIndex === undefined) return
+        let [column] = newBoard?.columns?.splice(columnIndex, 1) ?? []
         newBoard?.columns?.splice(to, 0, column)
-        this?.setBoard(newBoard)
-        api.patch(`/kanbanboard/${this?.board.uuid}/column/${uuid}/move`, {
+        this?.setEnvironment({...this?.environment, boards: [newBoard] as Board[]})
+        api.patch(`/kanbanboard/${this?.uuid}/column/${uuid}/move`, {
             index: to
         }).then((res) => {
             if (res.status > 300) {
