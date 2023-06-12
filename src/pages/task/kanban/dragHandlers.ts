@@ -58,7 +58,6 @@ export class dragHandlers {
     private reorderColumn(uuid: string, to: number) {
         let newBoard = {...this?.environment.boards?.find((board) => board.uuid === this?.uuid)}
 
-
         let columnIndex = newBoard?.columns?.findIndex((column) => column === uuid)
         if (columnIndex === undefined) return
         let [column] = newBoard?.columns?.splice(columnIndex, 1) ?? []
