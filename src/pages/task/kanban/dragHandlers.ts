@@ -80,18 +80,31 @@ export class dragHandlers {
     }
 
     private reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
-        let newBoard = {...this?.board}
+        let newBoard = {...this?.environment.boards?.find((board) => board.uuid === this?.uuid)}
+        if (!newBoard) return
 
-        let fromColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === fromColumn)
-        let toColumnIndex = newBoard?.columns?.findIndex((column) => column.uuid === toColumn)
-        let taskIndex = newBoard?.columns[fromColumnIndex]?.tasks?.findIndex((task) => task.uuid === uuid)
-        let [task] = newBoard?.columns[fromColumnIndex]?.tasks?.splice(taskIndex, 1)
+        let fromTasks = this.environment.columns?.find((column) => column.uuid === fromColumn)?.tasks
+        if (!fromTasks) return
+
+        let taskIndex = fromTasks?.findIndex((task) => task === uuid)
+        let [task] = fromTasks?.splice(taskIndex, 1)
 
 
-        newBoard?.columns[toColumnIndex]?.tasks?.splice(to, 0, task)
-        this.setBoard(newBoard)
+        let toTasks = this.environment.columns?.find((column) => column.uuid === toColumn)?.tasks
 
-        api.patch(`/kanbanboard/${this?.board.uuid}/column/${fromColumn}/task/${uuid}/move`, {
+        toTasks?.splice(to, 0, task)
+        this.setEnvironment(
+            {
+                ...this.environment,
+                columns: {
+                    ...this.environment.columns,
+                }
+            }
+        )
+
+        console.log(this.environment)
+
+        api.patch(`/kanbanboard/${this?.uuid}/column/${fromColumn}/task/${uuid}/move`, {
             column: toColumn,
             index: to
         }).then((res) => {
