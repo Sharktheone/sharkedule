@@ -1,7 +1,6 @@
 import {Text} from "@mantine/core"
 import {useStyles} from "./styles"
-import {kanbanTaskType} from "../../types"
-import {useState} from "react"
+import {Dispatch, SetStateAction, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -10,16 +9,19 @@ import {useNavigate} from "react-router-dom"
 import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
 import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
+import {environment} from "@kanban/types2"
 
 type TaskProps = {
-    task: kanbanTaskType
+    board: string
+    column: string
+    task: string
+    environment: environment
+    setEnvironment: Dispatch<SetStateAction<environment>>
     renameTask: (uuid: string, name: string) => void
-    boardUUID: string
-    columnUUID: string
 }
 
 
-export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProps) {
+export default function Task({task, renameTask, board, column, environment, setEnvironment}: TaskProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const navigate = useNavigate()
@@ -30,11 +32,11 @@ export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProp
 
     function handleBlur(e: any) {
         setEditable(false)
-        renameTask(task.uuid, e.target.innerText)
+        renameTask(task, e.target.innerText)
     }
 
     function handleDelete() {
-        api.delete(`/kanbanboard/${boardUUID}/column/${columnUUID}/task/${task.uuid}/delete`).then(
+        api.delete(`/kanban/board/${board}/column/${column}/task/${task}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
@@ -54,7 +56,7 @@ export default function Task({task, renameTask, boardUUID, columnUUID}: TaskProp
     }
 
     return (
-        <SlotProvider task={task}>
+        <SlotProvider task={task} environment={environment} setEnvironment{setEnvironment}>
             <div className={`${cx(classes.task)} ${styles.task}`}>
                 <UpperSlot/>
                 <div className={styles.taskname}>
