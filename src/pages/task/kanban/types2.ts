@@ -79,34 +79,34 @@ export type Member = {
     profile_picture: string
 }
 
-type Checklist = {
+export type Checklist = {
     name: string
     uuid: string
     items: ChecklistItem[]
     description: string
 }
 
-type ChecklistItem = {
+export type ChecklistItem = {
     name: string
     uuid: string
     checked: boolean
 }
 
-type Priority = {
+export type Priority = {
     name: string
     uuid: string
     color: string
     description: string
 }
 
-type Status = {
+export type Status = {
     name: string
     uuid: string
     color: string
     description: string
 }
 
-type Attachment = {
+export type Attachment = {
     uuid: string
     user: string
     size: number
