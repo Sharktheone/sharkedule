@@ -1,7 +1,6 @@
 import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
 import {useStyles} from "./styles"
 import Task from "./task/task"
-import {kanbanBoardType, kanbanColumnType} from "../types"
 import {Draggable, Droppable} from "react-beautiful-dnd"
 import {Dispatch, SetStateAction, useMemo} from "react"
 import styles from "./styles.module.scss"
@@ -21,7 +20,7 @@ type ColumnProps = {
 export default function Column({column, setEnvironment, environment, ghost, boardUUID}: ColumnProps) {
     const {classes, cx} = useStyles()
 
-    const h = new handlers(column, setBoard, board, ghost)
+    const h = new handlers(column, boardUUID, setEnvironment, environment, ghost)
 
     h.checkGhost()
     h.checkAdding()

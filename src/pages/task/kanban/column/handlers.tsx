@@ -6,6 +6,7 @@ import {Dispatch, RefObject, SetStateAction, useEffect, useRef, useState} from "
 import {kanbanBoardType} from "../types"
 import {useNavigate} from "react-router-dom"
 import {ghostElementType, ghostType} from "../ghost"
+import {environment, Task} from "@kanban/types2"
 
 export class handlers {
     readonly editable: boolean
@@ -14,9 +15,10 @@ export class handlers {
     readonly ghostElement: ghostElementType | undefined
     readonly isAdding: boolean
     private readonly setEditable: Dispatch<SetStateAction<boolean>>
-    private readonly uuid: string
-    private readonly board: kanbanBoardType
-    private readonly setBoard: Dispatch<SetStateAction<kanbanBoardType>>
+    private readonly column: string
+    private readonly board: string
+    private readonly environment: environment
+    private readonly setEnvironment: Dispatch<SetStateAction<environment>>
     private readonly navigate: ReturnType<typeof useNavigate>
     private readonly setGhostElement: Dispatch<SetStateAction<ghostElementType | undefined>>
     private readonly setIsAdding: Dispatch<SetStateAction<boolean>>
@@ -25,7 +27,7 @@ export class handlers {
     private readonly ghost: ghostType | undefined
 
 
-    constructor(uuid: string, setBoard: Dispatch<SetStateAction<kanbanBoardType>>, board: kanbanBoardType, ghost: ghostType | undefined) {
+    constructor(column: string, board: string, setEnvironment: Dispatch<SetStateAction<environment>>, environment: environment, ghost: ghostType | undefined) {
         const [ghostElement, setGhostElement] = useState<ghostElementType | undefined>()
         const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
         const [editable, setEditable] = useState(false)
@@ -42,9 +44,10 @@ export class handlers {
         this.ghostElement = ghostElement
         this.removeTimeout = removeTimeout
         this.isAdding = isAdding
-        this.uuid = uuid
+        this.column = column
         this.board = board
-        this.setBoard = setBoard
+        this.environment = environment
+        this.setEnvironment = setEnvironment
         this.navigate = useNavigate()
         this.tasksRef = tasksRef
         this.nameRef = nameRef
@@ -53,14 +56,14 @@ export class handlers {
 
 
     renameColumn(uuid: string, name: string) {
-        let newBoard = {...this.board}
+        let newBoard = {...this.environment}
         newBoard.columns?.forEach((column) => {
             if (column.uuid === uuid) {
                 column.name = name
                 return
             }
         })
-        this.setBoard(newBoard)
+        this.setEnvironment(newBoard)
     }
 
 
@@ -70,25 +73,28 @@ export class handlers {
 
     handleBlur(e: any) {
         this.setEditable(false)
-        this.renameColumn(this.uuid, e.target.innerText)
+        this.renameColumn(this.column, e.target.innerText)
     }
 
+    private getTask(uuid: string) {
+        return this.environment.tasks?.find((t) => t.uuid === uuid) ?? {} as Task
+    }
 
     renameTask(uuid: string, name: string) {
-        let newBoard = {...this.board}
+        let newBoard = {...this.environment}
         newBoard.columns?.forEach((column) => {
             column.tasks?.forEach((task) => {
-                if (task.uuid === uuid) {
-                    task.name = name
+                if (task === uuid) {
+                    this.getTask(uuid).name = name
                     return
                 }
             })
         })
-        this.setBoard(newBoard)
+        this.setEnvironment(newBoard)
     }
 
     handleDelete() {
-        api.delete(`/kanbanboard/${this.board.uuid}/column/${this.uuid}/delete`).then(
+        api.delete(`/kanban/board/${this.board}/column/${this.column}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
@@ -107,7 +113,7 @@ export class handlers {
                 this.setGhostElement(undefined)
                 return
             }
-            if (this.ghost.hoveredColumnID !== this.uuid) {
+            if (this.ghost.hoveredColumnID !== this.column) {
                 this.setGhostElement(undefined)
                 return
             }
@@ -157,7 +163,7 @@ export class handlers {
             return
         }
 
-        api.put(`/kanbanboard/${this.board.uuid}/column/${this.uuid}/task/new`, {name: name}).then(
+        api.put(`/kanban/board/${this.board}/column/${this.column}/task/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
