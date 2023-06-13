@@ -53,8 +53,9 @@ export default function Column({column, setEnvironment, environment, ghost, boar
                                 <div className={`${cx(classes.column)} ${styles.column}`}>
                                     <Title align="left" className={cx(classes.title)} order={3}>
                                         <div>
-                                <span onClick={() => h.editText()} contentEditable={h.editable}
-                                      onBlur={event => h.handleBlur(event)}>{getColumn().name}</span>
+                                            <span onClick={() => h.editText()} contentEditable={h.editable}
+                                                  onBlur={event => h.handleBlur(event)}>{getColumn().name}
+                                            </span>
                                             <button onClick={() => h.handleDelete()}>
                                                 <IconTrash/>
                                             </button>
@@ -76,7 +77,9 @@ export default function Column({column, setEnvironment, environment, ghost, boar
                                                             <Task key={task} task={task}
                                                                   renameTask={(uuid, name) => h.renameTask(uuid, name)}
                                                                   environment={environment}
-                                                                  boardUUID={boardUUID} columnUUID={column}/>
+                                                                  board={boardUUID} column={column}
+                                                                  setEnvironment={setEnvironment}
+                                                            />
                                                         </div>
                                                     </div>
                                                 )}
