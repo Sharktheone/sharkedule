@@ -154,3 +154,11 @@ export type NameList = {
     name: string
     uuid: string
 }
+
+export type CustomField = {
+    uuid: string
+    name: string
+    type: string
+    value: string
+    color: string
+}
