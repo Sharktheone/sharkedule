@@ -162,3 +162,7 @@ export type CustomField = {
     value: string
     color: string
 }
+
+export type Progress = {
+    //TODO multiple options => similar like stage etc or a percentage?
+}
