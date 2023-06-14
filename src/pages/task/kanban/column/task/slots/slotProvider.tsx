@@ -1,11 +1,8 @@
 import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useMemo, useState} from "react"
 import {
-    ChecklistsSlot,
     Configuration,
-    CustomFieldsSlot,
     DateDueSlot,
     IndexedSlot,
-    MembersSlot,
     PrioritySlot,
     ProgressSlot,
     Slot,
@@ -13,11 +10,10 @@ import {
     SlotNames,
     StageSlot,
     StatusSlot,
-    SubtasksSlot,
-    TagsSlot
 } from "@kanban/column/task/slots/slotTypes"
 import {Task} from "@kanban/types2"
 import {EnvironmentContext} from "@kanban/environment"
+import {getTask} from "@/pages/task/utils/task"
 
 type SlotContextType = {
     upperSlot: Slot[] | null
@@ -54,15 +50,10 @@ const config: Configuration = {
 // TODO: This method of rendering tags etc is not very efficient, as it requires a lot of looping over the same data.
 //  I'm a lazy b... , so I'll leave it for now, but maybe in the year 3048 or something I'll fix it - or may not KEKW.
 export function SlotProvider({children, task}: Props) {
-    const [t, setT] = useState<Task>(() => getTask())
-
     const {environment, setEnvironment} = useContext(EnvironmentContext)
 
-    function getTask() {
-        return useMemo(() => {
-            return environment.tasks.find((t) => t.uuid === task) ?? {} as Task
-        }, [environment, task]);
-    }
+    const [t, setT] = useState<Task | undefined>(() => getTask(task))
+
     function slotify() {
         let upperSlot: Slot[] = []
         let lowerSlot: Slot[] = []
@@ -71,34 +62,34 @@ export function SlotProvider({children, task}: Props) {
         let slots: IndexedSlot = {} as IndexedSlot
 
         if (t.tags) {
-            slots.tags = t.tags
+            slots.tags = t?.tags
         }
         if (t.priority) {
-            slots.priority = t.priority
+            slots.priority = t?.priority
         }
         if (t.status) {
-            slots.status = getTask().status
+            slots.status = t?.status
         }
         if (t.dueDate) {
-            slots.date_due = getTask().due_date
+            slots.date_due = t?.due_date
         }
         if (t.stage) {
-            slots.stage = getTask().stage
+            slots.stage = t?.stage
         }
         if (t.members) {
-            slots.members = t.members
-        }
+            slots.members = t?.members
+        }?
         if (t.progress) {
-            slots.progress = t.progress
+            slots.progress = t?.progress
         }
         if (t.subtasks) {
-            slots.subtasks = t.subtasks
+            slots.subtasks = t?.subtasks
         }
         if (t.customFields) {
-            slots.custom_fields = t.custom_fields
+            slots.custom_fields = t?.custom_fields
         }
         if (t.checkList) {
-            slots.checklists = t.checklists
+            slots.checklists = t?.checklists
         }
 
         for (let slot in config.lower) {
