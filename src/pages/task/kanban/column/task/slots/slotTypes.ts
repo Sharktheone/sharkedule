@@ -61,19 +61,19 @@ export enum SlotColors {
     CHECKLIST = "checklists"
 }
 
-export type TagsSlot = Tag[]
+export type TagsSlot = string[]
 
-export type PrioritySlot = Priority[]
+export type PrioritySlot = string
 
-export type StatusSlot = Status[]
+export type StatusSlot = string
 
-export type DateDueSlot = Date[]
+export type DateDueSlot = string
 
-export type StageSlot = Stage[]
+export type StageSlot = string
 
-export type MembersSlot = Member[]
+export type MembersSlot = string[]
 
-export type ProgressSlot = Progress[]
+export type ProgressSlot = string[]
 
 
 export type SubtasksSlot = {
@@ -81,6 +81,6 @@ export type SubtasksSlot = {
     subtasks: kanbanSubtaskType[]
 }
 
-export type CustomFieldsSlot = CustomField[]
+export type CustomFieldsSlot = string[]
 
-export type ChecklistsSlot = Checklist[]
+export type ChecklistsSlot = string[]

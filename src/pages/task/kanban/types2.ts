@@ -44,6 +44,7 @@ export type Column = {
 }
 
 export type Task = {
+    progress: Progress | string // TODO idk what of tose - i need to think about that (uuid or a inline progress)
     name: string
     uuid: string
     boards: string[]

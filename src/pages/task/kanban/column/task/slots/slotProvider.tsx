@@ -61,34 +61,34 @@ export function SlotProvider({children, task}: Props) {
         let color: string | null = null
         let slots: IndexedSlot = {} as IndexedSlot
 
-        if (t.tags) {
+        if (t?.tags) {
             slots.tags = t?.tags
         }
-        if (t.priority) {
+        if (t?.priority) {
             slots.priority = t?.priority
         }
-        if (t.status) {
+        if (t?.status) {
             slots.status = t?.status
         }
-        if (t.dueDate) {
+        if (t?.due_date) {
             slots.date_due = t?.due_date
         }
-        if (t.stage) {
+        if (t?.stage) {
             slots.stage = t?.stage
         }
-        if (t.members) {
+        if (t?.members) {
             slots.members = t?.members
         }
-        if (t.progress) {
+        if (t?.progress) {
             slots.progress = t?.progress
         }
-        if (t.subtasks) {
+        if (t?.subtasks) {
             slots.subtasks = t?.subtasks
         }
-        if (t.customFields) {
+        if (t?.custom_fields) {
             slots.custom_fields = t?.custom_fields
         }
-        if (t.checkList) {
+        if (t?.checklists) {
             slots.checklists = t?.checklists
         }
 
