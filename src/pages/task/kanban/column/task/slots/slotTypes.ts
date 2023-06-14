@@ -1,16 +1,7 @@
 import {
-    kanbanCheckListType,
-    kanbanCustomFieldType,
-    kanbanDateDueType,
-    kanbanImageType,
-    kanbanMemberType,
-    kanbanPriorityType,
-    kanbanProgressType,
-    kanbanStageType,
-    kanbanStatusType,
     kanbanSubtaskType,
-    kanbanTagType
 } from "@kanban/types"
+import {Tag, Priority, Checklist, CustomField, Progress, Member, Stage, Status} from "@kanban/types2"
 
 
 export type Slot =
@@ -21,7 +12,6 @@ export type Slot =
     | StageSlot
     | MembersSlot
     | ProgressSlot
-    | ImagesSlot
     | SubtasksSlot
     | CustomFieldsSlot
     | ChecklistsSlot
@@ -35,7 +25,6 @@ export type IndexedSlot = {
     stage: StageSlot
     members: MembersSlot
     progress: ProgressSlot
-    images: ImagesSlot
     subtasks: SubtasksSlot
     custom_fields: CustomFieldsSlot
     checklists: ChecklistsSlot
@@ -57,7 +46,6 @@ export enum SlotNames {
     STAGE = "stage",
     MEMBERS = "members",
     PROGRESS = "progress",
-    IMAGES = "images",
     SUBTASKS = "subtasks",
     CUSTOM_FIELDS = "custom_fields",
     CHECKLIST = "checklists"
@@ -73,57 +61,26 @@ export enum SlotColors {
     CHECKLIST = "checklists"
 }
 
-export type TagsSlot = {
-    type: "tags"
-    tag: kanbanTagType[]
-}
+export type TagsSlot = Tag[]
 
-export type PrioritySlot = {
-    type: "priority"
-    priority: kanbanPriorityType
-}
+export type PrioritySlot = Priority[]
 
-export type StatusSlot = {
-    type: "status"
-    status: kanbanStatusType
-}
+export type StatusSlot = Status[]
 
-export type DateDueSlot = {
-    type: "date_due"
-    due_date: kanbanDateDueType
-}
+export type DateDueSlot = Date[]
 
-export type StageSlot = {
-    type: "stage"
-    stage: kanbanStageType
-}
+export type StageSlot = Stage[]
 
-export type MembersSlot = {
-    type: "members"
-    members: kanbanMemberType[]
-}
+export type MembersSlot = Member[]
 
-export type ProgressSlot = {
-    type: "progress"
-    progress: kanbanProgressType
-}
+export type ProgressSlot = Progress[]
 
-export type ImagesSlot = {
-    type: "images"
-    images: kanbanImageType[]
-}
 
 export type SubtasksSlot = {
     type: "subtasks"
     subtasks: kanbanSubtaskType[]
 }
 
-export type CustomFieldsSlot = {
-    type: "custom_fields"
-    custom_fields: kanbanCustomFieldType[]
-}
+export type CustomFieldsSlot = CustomField[]
 
-export type ChecklistsSlot = {
-    type: "checklists"
-    checklist: kanbanCheckListType[]
-}
+export type ChecklistsSlot = Checklist[]
