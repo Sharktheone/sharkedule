@@ -11,7 +11,7 @@ func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {
 	if err != nil {
 		return nil, err
 	}
-	t := kanbandb.NewTask(col, name)
+	t := kanbandb.NewTask(J.db.Tasks, col, name)
 	return t, nil
 }
 
