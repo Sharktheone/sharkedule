@@ -1,10 +1,9 @@
-import {createContext, ReactNode} from "react"
+import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useMemo, useState} from "react"
 import {
     ChecklistsSlot,
     Configuration,
     CustomFieldsSlot,
     DateDueSlot,
-    ImagesSlot,
     IndexedSlot,
     MembersSlot,
     PrioritySlot,
@@ -17,7 +16,8 @@ import {
     SubtasksSlot,
     TagsSlot
 } from "@kanban/column/task/slots/slotTypes"
-import {kanbanTaskType} from "@kanban/types"
+import {Task} from "@kanban/types2"
+import {EnvironmentContext} from "@kanban/environment"
 
 type SlotContextType = {
     upperSlot: Slot[] | null
@@ -30,7 +30,7 @@ export const SlotContext = createContext<SlotContextType | undefined>(undefined)
 
 type Props = {
     children: ReactNode
-    task: kanbanTaskType
+    task: string
 }
 
 const config: Configuration = {
@@ -44,7 +44,6 @@ const config: Configuration = {
     lower: [
         SlotNames.DATE_DUE,
         SlotNames.MEMBERS,
-        SlotNames.IMAGES,
         SlotNames.SUBTASKS,
         SlotNames.CUSTOM_FIELDS,
         SlotNames.CHECKLIST,
@@ -55,6 +54,15 @@ const config: Configuration = {
 // TODO: This method of rendering tags etc is not very efficient, as it requires a lot of looping over the same data.
 //  I'm a lazy b... , so I'll leave it for now, but maybe in the year 3048 or something I'll fix it - or may not KEKW.
 export function SlotProvider({children, task}: Props) {
+    const [t, setT] = useState<Task>(() => getTask())
+
+    const {environment, setEnvironment} = useContext(EnvironmentContext)
+
+    function getTask() {
+        return useMemo(() => {
+            return environment.tasks.find((t) => t.uuid === task) ?? {} as Task
+        }, [environment, task]);
+    }
     function slotify() {
         let upperSlot: Slot[] = []
         let lowerSlot: Slot[] = []
@@ -62,71 +70,35 @@ export function SlotProvider({children, task}: Props) {
         let color: string | null = null
         let slots: IndexedSlot = {} as IndexedSlot
 
-        if (task.tags) {
-            slots.tags = {
-                type: SlotNames.TAGS,
-            } as TagsSlot
-            slots.tags.tag = task.tags
+        if (t.tags) {
+            slots.tags = t.tags
         }
-        if (task.priority) {
-            slots.priority = {
-                type: SlotNames.PRIORITY,
-            } as PrioritySlot
-            slots.priority.priority = task.priority
+        if (t.priority) {
+            slots.priority = t.priority
         }
-        if (task.status) {
-            slots.status = {
-                type: SlotNames.STATUS,
-            } as StatusSlot
-            slots.status.status = task.status
+        if (t.status) {
+            slots.status = getTask().status
         }
-        if (task.dueDate) {
-            slots.date_due = {
-                type: SlotNames.DATE_DUE,
-            } as DateDueSlot
-            slots.date_due.due_date = task.dueDate
+        if (t.dueDate) {
+            slots.date_due = getTask().due_date
         }
-        if (task.stage) {
-            slots.stage = {
-                type: SlotNames.STAGE,
-            } as StageSlot
-            slots.stage.stage = task.stage
+        if (t.stage) {
+            slots.stage = getTask().stage
         }
-        if (task.members) {
-            slots.members = {
-                type: SlotNames.MEMBERS,
-            } as MembersSlot
-            slots.members.members = task.members
+        if (t.members) {
+            slots.members = t.members
         }
-        if (task.progress) {
-            slots.progress = {
-                type: SlotNames.PROGRESS,
-            } as ProgressSlot
-            slots.progress.progress = task.progress
+        if (t.progress) {
+            slots.progress = t.progress
         }
-        if (task.images) {
-            slots.images = {
-                type: SlotNames.IMAGES,
-            } as ImagesSlot
-            slots.images.images = task.images
+        if (t.subtasks) {
+            slots.subtasks = t.subtasks
         }
-        if (task.subtasks) {
-            slots.subtasks = {
-                type: SlotNames.SUBTASKS,
-            } as SubtasksSlot
-            slots.subtasks.subtasks = task.subtasks
+        if (t.customFields) {
+            slots.custom_fields = t.custom_fields
         }
-        if (task.customFields) {
-            slots.custom_fields = {
-                type: SlotNames.CUSTOM_FIELDS,
-            } as CustomFieldsSlot
-            slots.custom_fields.custom_fields = task.customFields
-        }
-        if (task.checkList) {
-            slots.checklists = {
-                type: SlotNames.CHECKLIST,
-            } as ChecklistsSlot
-            slots.checklists.checklist = task.checkList
+        if (t.checkList) {
+            slots.checklists = t.checklists
         }
 
         for (let slot in config.lower) {

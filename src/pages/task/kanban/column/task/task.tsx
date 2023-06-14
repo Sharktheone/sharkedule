@@ -56,14 +56,14 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     }
 
     return (
-        <SlotProvider task={task} environment={environment} setEnvironment={setEnvironment}>
+        <SlotProvider task={task}>
             <div className={`${cx(classes.task)} ${styles.task}`}>
                 <UpperSlot/>
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
                         <Text align="start" onClick={editText} onBlur={handleBlur} contentEditable={editable}>
-                            {task.name}
+                            {task} - TODO: This is the uuid, replace with name
                         </Text>
                     </div>
                     <div className={styles.hover}>
