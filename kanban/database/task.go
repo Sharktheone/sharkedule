@@ -5,10 +5,10 @@ import (
 	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func NewTask(tasks []*types2.Task, column *types2.Column, name string) *types2.Task {
+func NewTask(tasks *[]*types2.Task, column *types2.Column, name string) *types2.Task {
 	task := types2.NewTask(name)
 	column.Tasks = append(column.Tasks, task.UUID)
-	tasks = append(tasks, task)
+	*tasks = append(*tasks, task)
 	return task
 }
 
