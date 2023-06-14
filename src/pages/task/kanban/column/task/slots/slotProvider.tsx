@@ -1,4 +1,4 @@
-import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useMemo, useState} from "react"
+import {createContext, ReactNode, useState} from "react"
 import {
     Configuration,
     DateDueSlot,
@@ -12,7 +12,6 @@ import {
     StatusSlot,
 } from "@kanban/column/task/slots/slotTypes"
 import {Task} from "@kanban/types2"
-import {EnvironmentContext} from "@kanban/environment"
 import {getTask} from "@/pages/task/utils/task"
 
 type SlotContextType = {
@@ -50,7 +49,7 @@ const config: Configuration = {
 // TODO: This method of rendering tags etc is not very efficient, as it requires a lot of looping over the same data.
 //  I'm a lazy b... , so I'll leave it for now, but maybe in the year 3048 or something I'll fix it - or may not KEKW.
 export function SlotProvider({children, task}: Props) {
-    const {environment, setEnvironment} = useContext(EnvironmentContext)
+    // const {environment, setEnvironment} = useContext(EnvironmentContext)
 
     const [t, setT] = useState<Task | undefined>(() => getTask(task))
 

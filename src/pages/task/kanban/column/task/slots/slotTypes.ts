@@ -1,7 +1,6 @@
 import {
     kanbanSubtaskType,
 } from "@kanban/types"
-import {Tag, Priority, Checklist, CustomField, Progress, Member, Stage, Status} from "@kanban/types2"
 
 
 export type Slot =
