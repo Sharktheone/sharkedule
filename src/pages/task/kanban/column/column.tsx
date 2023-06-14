@@ -2,23 +2,24 @@ import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
 import {useStyles} from "./styles"
 import Task from "./task/task"
 import {Draggable, Droppable} from "react-beautiful-dnd"
-import {Dispatch, SetStateAction, useMemo} from "react"
+import {Dispatch, SetStateAction, useContext, useMemo} from "react"
 import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "../ghost"
 import {handlers} from "./handlers"
 import {Column, environment} from "@kanban/types2"
+import {EnvironmentContext} from "@kanban/environment"
 
 type ColumnProps = {
     column: string
     boardUUID: string
-    environment: environment
     ghost?: ghostType
-    setEnvironment: Dispatch<SetStateAction<environment>>
 }
 
-export default function Column({column, setEnvironment, environment, ghost, boardUUID}: ColumnProps) {
+export default function Column({column, ghost, boardUUID}: ColumnProps) {
     const {classes, cx} = useStyles()
+
+    const {environment, setEnvironment} = useContext(EnvironmentContext)
 
     const h = new handlers(column, boardUUID, setEnvironment, environment, ghost)
 
@@ -76,9 +77,7 @@ export default function Column({column, setEnvironment, environment, ghost, boar
                                                         <div style={{paddingBottom: "0.625rem"}}>
                                                             <Task key={task} task={task}
                                                                   renameTask={(uuid, name) => h.renameTask(uuid, name)}
-                                                                  environment={environment}
                                                                   board={boardUUID} column={column}
-                                                                  setEnvironment={setEnvironment}
                                                             />
                                                         </div>
                                                     </div>

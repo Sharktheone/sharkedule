@@ -60,8 +60,6 @@ export default function Kanban() {
                                     {getBoard()?.columns?.map((column) => (
                                         <div key={column}>
                                             <Column column={column}
-                                                    setEnvironment={setEnvironment}
-                                                    environment={environment}
                                                     boardUUID={uuid} ghost={drag.ghost}/>
                                         </div>
                                     ))}

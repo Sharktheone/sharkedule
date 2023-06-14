@@ -1,6 +1,6 @@
 import {Text} from "@mantine/core"
 import {useStyles} from "./styles"
-import {Dispatch, SetStateAction, useState} from "react"
+import {useContext, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -9,22 +9,22 @@ import {useNavigate} from "react-router-dom"
 import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
 import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
-import {environment} from "@kanban/types2"
+import {EnvironmentContext} from "@kanban/environment"
 
 type TaskProps = {
     board: string
     column: string
     task: string
-    environment: environment
-    setEnvironment: Dispatch<SetStateAction<environment>>
     renameTask: (uuid: string, name: string) => void
 }
 
 
-export default function Task({task, renameTask, board, column, environment, setEnvironment}: TaskProps) {
+export default function Task({task, renameTask, board, column}: TaskProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const navigate = useNavigate()
+
+    const {environment, setEnvironment} = useContext(EnvironmentContext)
 
     function editText() {
         setEditable(true)
@@ -56,7 +56,7 @@ export default function Task({task, renameTask, board, column, environment, setE
     }
 
     return (
-        <SlotProvider task={task} environment={environment} setEnvironment{setEnvironment}>
+        <SlotProvider task={task} environment={environment} setEnvironment={setEnvironment}>
             <div className={`${cx(classes.task)} ${styles.task}`}>
                 <UpperSlot/>
                 <div className={styles.taskname}>
