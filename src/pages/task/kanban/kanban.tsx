@@ -9,6 +9,7 @@ import {useStyles} from "./styles"
 import {dragHandlers} from "./dragHandlers"
 import {handlers} from './handlers'
 import {environment} from "@kanban/types2"
+import {EnvironmentProvider} from "@kanban/environment"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -40,67 +41,69 @@ export default function Kanban() {
         return useMemo(() => {
             return environment.boards?.find(b => b.uuid === uuid)
 
-        }, [environment]);
+        }, [environment])
     }
 
     return (
-        <div className={styles.board}>
-            <Title order={1} align="center">{getBoard()?.name}</Title>
-            <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
-            <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
-                             onDragUpdate={event => drag.Update(event)}>
-                <Droppable droppableId={uuid} type="column" direction="horizontal">
-                    {(provided) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}>
-                            <div className={styles.cols}>
-                                {getBoard()?.columns?.map((column) => (
-                                    <div key={column}>
-                                        <Column column={column}
-                                                setEnvironment={setEnvironment}
-                                                environment={environment}
-                                                boardUUID={uuid} ghost={drag.ghost}/>
-                                    </div>
-                                ))}
+        <EnvironmentProvider environment={environment} setEnvironment={setEnvironment}>
+            <div className={styles.board}>
+                <Title order={1} align="center">{getBoard()?.name}</Title>
+                <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
+                <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
+                                 onDragUpdate={event => drag.Update(event)}>
+                    <Droppable droppableId={uuid} type="column" direction="horizontal">
+                        {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}>
+                                <div className={styles.cols}>
+                                    {getBoard()?.columns?.map((column) => (
+                                        <div key={column}>
+                                            <Column column={column}
+                                                    setEnvironment={setEnvironment}
+                                                    environment={environment}
+                                                    boardUUID={uuid} ghost={drag.ghost}/>
+                                        </div>
+                                    ))}
 
 
-                                {provided.placeholder}
+                                    {provided.placeholder}
 
-                                {!isAdding ?
-                                    <>
-                                        <button onClick={() => h.handleNewColumn()}
-                                                className={`${cx(classes.addColumn)} ${styles.footer}`}>
-                                            <IconPlus size={24}/>
-                                            <Text align="center">Add a Column</Text>
-                                        </button>
-                                    </> :
-                                    <div>
-                                        <Stack className={styles.add}>
-                                            <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
-                                                   placeholder="Column name"/>
-                                            <div className={styles.menu}>
-                                                <Button onClick={() => h.addColumn()}
-                                                        gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                                        variant="gradient">Create
-                                                </Button>
-                                                <CloseButton onClick={() => setIsAdding(false)}/>
-                                            </div>
-                                        </Stack>
-                                    </div>
+                                    {!isAdding ?
+                                        <>
+                                            <button onClick={() => h.handleNewColumn()}
+                                                    className={`${cx(classes.addColumn)} ${styles.footer}`}>
+                                                <IconPlus size={24}/>
+                                                <Text align="center">Add a Column</Text>
+                                            </button>
+                                        </> :
+                                        <div>
+                                            <Stack className={styles.add}>
+                                                <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
+                                                       placeholder="Column name"/>
+                                                <div className={styles.menu}>
+                                                    <Button onClick={() => h.addColumn()}
+                                                            gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                                            variant="gradient">Create
+                                                    </Button>
+                                                    <CloseButton onClick={() => setIsAdding(false)}/>
+                                                </div>
+                                            </Stack>
+                                        </div>
 
-                                }
+                                    }
 
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
 
-                    }
+                        }
 
-                </Droppable>
+                    </Droppable>
 
-            </DragDropContext>
-        </div>
+                </DragDropContext>
+            </div>
+        </EnvironmentProvider>
     )
 }
 
