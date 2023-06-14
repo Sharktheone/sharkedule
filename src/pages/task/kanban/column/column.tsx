@@ -7,7 +7,7 @@ import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "../ghost"
 import {handlers} from "./handlers"
-import {Column, environment} from "@kanban/types2"
+import {Column as Col} from "@kanban/types2"
 import {EnvironmentContext} from "@kanban/environment"
 
 type ColumnProps = {
@@ -33,7 +33,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
 
     function getColumn() {
         return useMemo(() => {
-            return environment.columns?.find(c => c.uuid === column) ?? {} as Column
+            return environment.columns?.find(c => c.uuid === column) ?? {} as Col
         }, [environment, column])
 
     }
