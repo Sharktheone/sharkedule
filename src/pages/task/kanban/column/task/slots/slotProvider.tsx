@@ -78,7 +78,7 @@ export function SlotProvider({children, task}: Props) {
         }
         if (t.members) {
             slots.members = t?.members
-        }?
+        }
         if (t.progress) {
             slots.progress = t?.progress
         }
