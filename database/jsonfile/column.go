@@ -11,7 +11,7 @@ func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
 	if err != nil {
 		return nil, err
 	}
-	c := kanbandb2.NewColumn(b, name)
+	c := kanbandb2.NewColumn(J.db.Columns, b, name)
 	return c, J.Save()
 }
 

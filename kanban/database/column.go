@@ -5,9 +5,10 @@ import (
 	types2 "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func NewColumn(board *types2.Board, name string) *types2.Column {
+func NewColumn(columns []*types2.Column, board *types2.Board, name string) *types2.Column {
 	c := types2.NewColumn(name)
 	board.Columns = append(board.Columns, c.UUID)
+	columns = append(columns, c)
 	return c
 }
 
