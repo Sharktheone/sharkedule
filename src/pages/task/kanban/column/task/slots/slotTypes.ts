@@ -1,6 +1,4 @@
-import {
-    kanbanSubtaskType,
-} from "@kanban/types"
+import {kanbanSubtaskType,} from "@kanban/types"
 
 
 export type Slot =

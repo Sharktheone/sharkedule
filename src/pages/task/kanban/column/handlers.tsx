@@ -75,10 +75,6 @@ export class handlers {
         this.renameColumn(this.column, e.target.innerText)
     }
 
-    private getTask(uuid: string) {
-        return this.environment.tasks?.find((t) => t.uuid === uuid) ?? {} as Task
-    }
-
     renameTask(uuid: string, name: string) {
         let newBoard = {...this.environment}
         newBoard.columns?.forEach((column) => {
@@ -150,7 +146,6 @@ export class handlers {
         }, [this.isAdding])
     }
 
-
     addTask() {
         if (this.removeTimeout) clearTimeout(this.removeTimeout)
 
@@ -180,7 +175,6 @@ export class handlers {
         })
     }
 
-
     removeIsAdding() {
         if (this.removeTimeout) clearTimeout(this.removeTimeout)
         this.setRemoveTimeout(setTimeout(() => {
@@ -191,6 +185,10 @@ export class handlers {
     closeIsAdding() {
         if (this.removeTimeout) clearTimeout(this.removeTimeout)
         this.setIsAdding(false)
+    }
+
+    private getTask(uuid: string) {
+        return this.environment.tasks?.find((t) => t.uuid === uuid) ?? {} as Task
     }
 
     private refresh() {

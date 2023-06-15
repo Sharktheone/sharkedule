@@ -2,7 +2,7 @@ import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
 import {useStyles} from "./styles"
 import Task from "./task/task"
 import {Draggable, Droppable} from "react-beautiful-dnd"
-import {Dispatch, SetStateAction, useContext, useMemo} from "react"
+import {useContext, useMemo} from "react"
 import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "../ghost"
@@ -98,7 +98,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
 
                                     {h.isAdding ?
                                         <>
-                                        {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
+                                            {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
                                             <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
                                                       className={`${cx(classes.add)} ${styles.add}`}
                                                       placeholder="Task name..."/>

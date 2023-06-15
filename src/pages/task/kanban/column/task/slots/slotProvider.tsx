@@ -1,16 +1,5 @@
 import {createContext, ReactNode, useState} from "react"
-import {
-    Configuration,
-    DateDueSlot,
-    IndexedSlot,
-    PrioritySlot,
-    ProgressSlot,
-    Slot,
-    SlotColors,
-    SlotNames,
-    StageSlot,
-    StatusSlot,
-} from "@kanban/column/task/slots/slotTypes"
+import {Configuration, IndexedSlot, Slot, SlotNames,} from "@kanban/column/task/slots/slotTypes"
 import {Task} from "@kanban/types2"
 import {getTask} from "@/pages/task/utils/task"
 
