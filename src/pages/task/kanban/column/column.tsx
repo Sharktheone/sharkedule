@@ -42,7 +42,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
         <Draggable draggableId={column} index={getIndex()}>
             {(provided, snapshot) => (
                 <div
-                    className={snapshot.isDragging ? styles.dragging : ""}
+                    className={snapshot.isDragging ? styles.dragging : undefined}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
 
@@ -67,14 +67,14 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                             <Draggable key={task} draggableId={task} index={index}>
                                                 {(provided, snapshot) => (
                                                     <div
-                                                        className={snapshot.isDragging ? styles.dragging : ""}
+                                                        className={`${styles.taskwrapper} ${snapshot.isDragging ? styles.dragging : undefined}`}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
 
                                                         ref={provided.innerRef}
                                                     >
 
-                                                        <div style={{paddingBottom: "0.625rem"}}>
+                                                        <div>
                                                             <Task key={task} task={task}
                                                                   renameTask={(uuid, name) => h.renameTask(uuid, name)}
                                                                   board={boardUUID} column={column}
