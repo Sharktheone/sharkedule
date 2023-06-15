@@ -185,7 +185,7 @@ export class handlers {
         if (this.removeTimeout) clearTimeout(this.removeTimeout)
         this.setRemoveTimeout(setTimeout(() => {
             this.setIsAdding(false)
-        }, 100))
+        }, 500))
     }
 
     closeIsAdding() {

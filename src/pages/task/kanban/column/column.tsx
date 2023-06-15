@@ -98,6 +98,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
 
                                     {h.isAdding ?
                                         <>
+                                        {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
                                             <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
                                                       className={`${cx(classes.add)} ${styles.add}`}
                                                       placeholder="Task name..."/>
