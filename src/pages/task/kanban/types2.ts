@@ -63,6 +63,9 @@ export type Task = {
     checklists: string[]
     done: boolean
     activity: Activity[]
+    stage: string
+    subtasks: undefined //TODO
+    custom_fields: undefined[] //TODO
 }
 
 export type Tag = {
