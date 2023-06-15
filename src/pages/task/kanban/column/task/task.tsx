@@ -10,6 +10,7 @@ import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
 import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
+import {getTask} from "@/pages/task/utils/task"
 
 type TaskProps = {
     board: string
@@ -23,6 +24,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const navigate = useNavigate()
+    const [t, setT] = useState(getTask(task))
 
     const {environment, setEnvironment} = useContext(EnvironmentContext)
 
@@ -43,9 +45,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 } else {
                     notifications.show({title: "Success", message: "Deleted Task", color: "green"})
                     navigate("#")
-
                 }
-
             }
         ).catch(
             (err) => {
@@ -63,7 +63,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                     <div className={styles.name}>
                         <IconCircleCheck/>
                         <Text align="start" onClick={editText} onBlur={handleBlur} contentEditable={editable}>
-                            {task} - TODO: This is the uuid, replace with name
+                            {t?.name}
                         </Text>
                     </div>
                     <div className={styles.hover}>
