@@ -1,6 +1,5 @@
 import {createBrowserRouter, Link, RouteObject} from "react-router-dom"
 import {route, routes} from "@/router/routes"
-import Kanban from "@/pages/task/kanban/kanban"
 import KanbanBoardLoader from "@/pages/task/kanban/loader"
 import boardsLoader from "@/pages/task/boardsloader"
 import {lazy} from "react"
@@ -30,6 +29,7 @@ function Home() {
 
 const KanbanBoards = lazy(() => import("@/pages/task/kanbanboards"))
 const BoardsError = lazy(() => import("@/pages/task/boardserror"))
+const Kanban = lazy(() => import("@/pages/task/kanban/kanban"))
 export const router = createBrowserRouter([
     {
         path: "/",
