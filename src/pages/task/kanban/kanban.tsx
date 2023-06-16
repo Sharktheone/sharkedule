@@ -1,13 +1,13 @@
 import {Button, CloseButton, Input, Stack, Text, Title} from '@mantine/core'
 import {DragDropContext, Droppable} from "react-beautiful-dnd"
-import Column from "./column/column"
+import Column from "@/pages/task/kanban/column/column"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {useLoaderData, useNavigate, useParams} from "react-router-dom"
 import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
-import {dragHandlers} from "./dragHandlers"
-import {handlers} from './handlers'
+import {dragHandlers} from "@/pages/task/kanban/dragHandlers"
+import {handlers} from '@/pages/task/kanban/handlers'
 import {environment} from "@kanban/types2"
 import {EnvironmentProvider} from "@kanban/environment"
 

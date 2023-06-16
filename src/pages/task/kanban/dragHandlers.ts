@@ -1,4 +1,4 @@
-import {ghostType, useGhost} from "./ghost"
+import {ghostType, useGhost} from "@/pages/task/kanban/ghost"
 import {DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
 import {Dispatch, SetStateAction} from "react"
 import {api} from "@/api/api"

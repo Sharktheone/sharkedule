@@ -4,7 +4,7 @@ import {notifications} from "@mantine/notifications"
 import {IconX} from "@tabler/icons-react"
 import {Dispatch, RefObject, SetStateAction, useEffect, useRef, useState} from "react"
 import {useNavigate} from "react-router-dom"
-import {ghostElementType, ghostType} from "../ghost"
+import {ghostElementType, ghostType} from "@/pages/task/kanban/ghost"
 import {environment, Task} from "@kanban/types2"
 
 export class handlers {

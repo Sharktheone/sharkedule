@@ -1,8 +1,8 @@
 import {createBrowserRouter, Link, RouteObject} from "react-router-dom"
-import {route, routes} from "./routes"
-import Kanban from "../pages/task/kanban/kanban"
-import KanbanBoardLoader from "../pages/task/kanban/loader"
-import boardsLoader from "../pages/task/boardsloader"
+import {route, routes} from "@/router/routes"
+import Kanban from "@/pages/task/kanban/kanban"
+import KanbanBoardLoader from "@/pages/task/kanban/loader"
+import boardsLoader from "@/pages/task/boardsloader"
 import {lazy} from "react"
 
 
