@@ -23,7 +23,7 @@ export default function Kanban() {
 
     if (uuid === undefined) {
         navigate("../")
-        return
+        return null
     }
 
     const drag = new dragHandlers(environment, setEnvironment, uuid)
