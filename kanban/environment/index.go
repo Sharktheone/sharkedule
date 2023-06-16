@@ -128,6 +128,16 @@ func (e *Environment) GetIndexed() {
 
 func (e *Environment) IndexBoards() {
 	for _, b := range e.boardUUIDs {
+		var found = false
+		for _, bor := range e.Boards {
+			if bor.UUID == *b {
+				found = true
+				break
+			}
+		}
+		if found {
+			break
+		}
 		board, err := db.DB.GetBoard(*b)
 		if err != nil {
 			log.Printf("error getting board: %v", err)
@@ -164,6 +174,16 @@ func (e *Environment) IndexBoard(b *types.Board) {
 
 func (e *Environment) IndexColumns() {
 	for _, c := range e.columnUUIDs {
+		var found = false
+		for _, col := range e.Columns {
+			if col.UUID == *c {
+				found = true
+				break
+			}
+		}
+		if found {
+			break
+		}
 		col, err := db.DB.GetColumn(*c)
 		if err != nil {
 			log.Printf("error getting column: %v", err)
@@ -195,6 +215,16 @@ func (e *Environment) IndexColumn(column *types.Column) {
 
 func (e *Environment) IndexTasks() {
 	for _, t := range e.taskUUIDs {
+		var found = false
+		for _, tsk := range e.Tasks {
+			if tsk.UUID == *t {
+				found = true
+				break
+			}
+		}
+		if found {
+			break
+		}
 		tsk, err := db.DB.GetTask(*t)
 		if err != nil {
 			log.Printf("error getting task: %v", err)
