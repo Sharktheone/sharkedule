@@ -1,6 +1,6 @@
 import {Text} from "@mantine/core"
 import {useStyles} from "./styles"
-import {useContext, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -10,7 +10,6 @@ import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
 import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
-import {getTask} from "@/pages/task/utils/task"
 
 type TaskProps = {
     board: string
@@ -28,7 +27,6 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
     const [t, setT] = useState(getTask(task))
 
-    const {environment, setEnvironment} = useContext(EnvironmentContext)
 
     function getTask(uuid: string) {
         return environment.tasks.find((task) => task.uuid === uuid)
