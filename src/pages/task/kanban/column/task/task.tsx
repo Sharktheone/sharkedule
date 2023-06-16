@@ -24,10 +24,15 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     const {classes, cx} = useStyles()
     const [editable, setEditable] = useState(false)
     const navigate = useNavigate()
+    const {environment, setEnvironment} = useContext(EnvironmentContext)
+
     const [t, setT] = useState(getTask(task))
 
     const {environment, setEnvironment} = useContext(EnvironmentContext)
 
+    function getTask(uuid: string) {
+        return environment.tasks.find((task) => task.uuid === uuid)
+    }
     function editText() {
         setEditable(true)
     }
