@@ -274,7 +274,7 @@ func (e *Environment) IndexTask(t *types.Task) {
 	}
 }
 
-func AppendIfMissing(slice []*string, s *string) []*string {
+func AppendIfMissing[T comparable](slice []*T, s *T) []*T {
 	for _, ele := range slice {
 		if *ele == *s {
 			return slice
@@ -290,9 +290,18 @@ func AppendIfMissing(slice []*string, s *string) []*string {
 //	return slice
 //}
 
-func AppendSliceIfMissing(slice []*string, s ...string) []*string {
+func AppendSliceIfMissing[T comparable](slice []*T, s ...T) []*T {
 	for _, ele := range s {
-		slice = AppendIfMissing(slice, &ele)
+		slice = AppendIfMissingPtr(slice, ele)
 	}
 	return slice
+}
+
+func AppendIfMissingPtr[T comparable](slice []*T, s T) []*T {
+	for _, ele := range slice {
+		if *ele == s {
+			return slice
+		}
+	}
+	return append(slice, &s)
 }
