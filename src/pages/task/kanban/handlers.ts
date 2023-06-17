@@ -61,6 +61,8 @@ export class handlers {
                 console.log(err)
             }
         )
+        this.newColRef.current?.focus()
+
     }
 
     private refresh() {
