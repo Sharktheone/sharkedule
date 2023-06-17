@@ -31,7 +31,7 @@ export class handlers {
         this.setRemoveTimeout(
             setTimeout(() => {
                 this.setIsAdding(false)
-            }, 100)
+            }, 500)
         )
     }
 
