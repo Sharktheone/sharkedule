@@ -77,6 +77,12 @@ export default function Kanban() {
                                         <div>
                                             <Stack className={styles.add}>
                                                 <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
+                                                       onKeyDown={(e) => {
+                                                           if (e.key === "Enter") {
+                                                               h.addColumn()
+                                                           }
+                                                       }}
+                                                       onSubmit={() => h.addColumn()}
                                                        placeholder="Column name"/>
                                                 <div className={styles.menu}>
                                                     <Button onClick={() => h.addColumn()}
