@@ -52,6 +52,13 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  & > button {
+    transition: transform cubic-bezier(.68,-0.55,.27,1.55) 200ms;
+    &:hover,
+    :focus {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .add > div > input {
