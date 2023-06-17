@@ -36,27 +36,35 @@ func SaveColumns(columns []*types2.Column, columnsToSave []*types2.Column) {
 }
 
 func MoveColumn(board *types2.Board, column string, toIndex int) error {
-	var (
-		deleted  = false
-		inserted = false
-	)
-	for index, c := range board.Columns {
+	if toIndex < 0 {
+		return fmt.Errorf("cannot move column to negative index")
+	}
+
+	var l = len(board.Columns) - 1
+
+	for i, c := range board.Columns {
 		if c == column {
-			board.Columns = append(board.Columns[:index], board.Columns[index+1:]...)
-			if inserted {
-				return nil
-			}
-			deleted = true
-		}
-		if index == toIndex {
-			board.Columns = append(board.Columns, c)
-			if deleted {
-				return nil
-			}
-			inserted = true
+			board.Columns = append(board.Columns[:i], board.Columns[i+1:]...)
+			break
 		}
 	}
-	return nil
+
+	if toIndex == l {
+		board.Columns = append(board.Columns, column)
+		return nil
+	} else if toIndex > l {
+		board.Columns = append(board.Columns, column)
+		return fmt.Errorf("%v to index %v: index out of range. Moving to last index", column, toIndex)
+	}
+
+	for i, _ := range board.Columns {
+		if i == toIndex {
+			board.Columns = append(board.Columns[:i], append([]string{column}, board.Columns[i:]...)...)
+			return nil
+		}
+	} //TODO: Merge into one for loop
+
+	return fmt.Errorf("%v to index %v: index out of range", column, toIndex)
 }
 
 func RemoveTaskOnColumn(column *types2.Column, task string) error {
