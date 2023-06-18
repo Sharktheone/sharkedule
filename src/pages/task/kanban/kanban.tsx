@@ -10,6 +10,8 @@ import {dragHandlers} from "@/pages/task/kanban/dragHandlers"
 import {handlers} from '@/pages/task/kanban/handlers'
 import {environment} from "@kanban/types2"
 import {EnvironmentProvider} from "@kanban/environment"
+import Tstyles from "@kanban/column/task/styles.module.scss"
+import ContextMenu, {types} from "@kanban/contextmenu/contextmenu"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -17,6 +19,7 @@ export default function Kanban() {
     const [environment, setEnvironment] = useState<environment>(loaderData as environment)
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
+    const boardRef = useRef<HTMLDivElement>(null)
     const {classes, cx} = useStyles()
 
     const navigate = useNavigate()
@@ -26,8 +29,32 @@ export default function Kanban() {
         return null
     }
 
+    useEffect(() => {
+        boardRef?.current?.addEventListener("contextmenu", (e) => {
+            e.preventDefault()
+            if (e.target == null) return
+            if (!("parentElement" in e.target)) return
+            let element: HTMLElement = e.target.parentElement as HTMLElement
+
+            for (let i = 0; i < 99; i++) {
+                if (element.classList.contains(Tstyles.task)) {
+                    console.warn("found task!!!")
+                    break
+                }
+                const e = element.parentElement
+                if (e == null) break
+                element = e
+            }
+
+
+
+        })
+    }, [])
+
+
     const drag = new dragHandlers(environment, setEnvironment, uuid)
     const h = new handlers(setIsAdding, newColRef, uuid)
+    const [pointer, setPointer] = useState({x: 0, y:0 })
 
     useEffect(() => {
         setEnvironment(loaderData as environment)
@@ -43,9 +70,14 @@ export default function Kanban() {
         }, [environment])
     }
 
+    window.addEventListener("pointermove", (e) => {
+        setPointer({x: e.pageX, y: e.pageY})
+    })
+
+
     return (
         <EnvironmentProvider environment={environment} setEnvironment={setEnvironment}>
-            <div className={styles.board}>
+            <div className={styles.board} ref={boardRef}>
                 <Title order={1} align="center">{getBoard()?.name}</Title>
                 <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
                 <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
@@ -106,6 +138,7 @@ export default function Kanban() {
 
                 </DragDropContext>
             </div>
+            <ContextMenu x={pointer.x} y={pointer.y} open={true} type={types.TASK}/>
         </EnvironmentProvider>
     )
 }
