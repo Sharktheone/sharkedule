@@ -100,6 +100,11 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                         <>
                                             {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
                                             <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
+                                                      onKeyDown={(e) => {
+                                                          if (e.key === "Enter" && !e.shiftKey) {
+                                                              h.addTask()
+                                                          }
+                                                      }}
                                                       className={`${cx(classes.add)} ${styles.add}`}
                                                       placeholder="Task name..."/>
                                         </>
@@ -118,9 +123,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                                         onClick={() => h.addTask()}> Create </Button>
                                                 <CloseButton onClick={() => h.closeIsAdding()}/>
                                             </div>
-
                                         }
-
                                     </div>
                                 </div>
                             </div>
