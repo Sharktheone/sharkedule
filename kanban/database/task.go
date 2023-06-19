@@ -50,10 +50,10 @@ func MoveTask(column, toColumn *types2.Column, uuid string, toIndex int) error {
 		return fmt.Errorf("task %s not found in column %s", uuid, column)
 	}
 
-	if toIndex > len(toColumn.Tasks) {
+	if toIndex < len(toColumn.Tasks) {
 		for i := range toColumn.Tasks {
 			if i == toIndex {
-				toColumn.Tasks = append(toColumn.Tasks[:i], append([]string{uuid}, toColumn.Tasks[i+1:]...)...)
+				toColumn.Tasks = append(toColumn.Tasks[:i], append([]string{uuid}, toColumn.Tasks[i:]...)...)
 			}
 		}
 	} else {
