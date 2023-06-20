@@ -2,6 +2,7 @@
 import styles from "./styles.module.scss"
 import {CSSProperties} from "react"
 import {useColors} from "./styles"
+import {Entries} from "@kanban/contextmenu/entries"
 
 type Props = {
     x: number
@@ -29,7 +30,19 @@ export default function ContextMenu({x, y, open}: Props)  {
 
     return  (
         <div className={`${styles.contextmenu} ${cx(classes.contextMenu)}`} style={position()}>
-            ContextMenu
+            {
+                Entries.map((entry, i) => (
+                    <div className={styles.entry} key={i}>
+                        <div className={styles.icon}>
+                            {entry.icon}
+                        </div>
+                        <div className={styles.name}>
+                            {entry.name}
+                        </div>
+                    </div>
+
+                ))
+            }
         </div>
     )
 }
