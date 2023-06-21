@@ -1,8 +1,23 @@
 
 
+//TODO: This whole thing looks terrible, but it works for now. I'll come back to it later.
 .contextmenu {
   position: absolute;
   width: fit-content;
   border: solid 1px;
   border-radius: .5rem;
+}
+
+.entry {
+  display: flex;
+  align-items: start;
+  padding: .5rem 1rem;
+  margin: .5rem;
+  gap: .5rem;
+    cursor: pointer;
+  border-radius: .5rem;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }

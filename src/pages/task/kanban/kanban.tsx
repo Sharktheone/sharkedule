@@ -20,6 +20,7 @@ export default function Kanban() {
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
     const boardRef = useRef<HTMLDivElement>(null)
+    const [contextMenu, setContextMenu] = useState({open: false, x: 0, y: 0})
     const {classes, cx} = useStyles()
 
     const navigate = useNavigate()
@@ -31,7 +32,17 @@ export default function Kanban() {
 
     useEffect(() => {
         boardRef?.current?.addEventListener("contextmenu", (e) => {
+            if (contextMenu.open) return
             e.preventDefault()
+            setContextMenu({
+                open: true,
+                x: e.pageX,
+                y: e.pageY
+            })
+
+
+            console.log(e)
+
             if (e.target == null) return
             if (!("parentElement" in e.target)) return
             let element: HTMLElement = e.target.parentElement as HTMLElement
@@ -45,9 +56,6 @@ export default function Kanban() {
                 if (e == null) break
                 element = e
             }
-
-
-
         })
     }, [])
 
@@ -138,7 +146,7 @@ export default function Kanban() {
 
                 </DragDropContext>
             </div>
-            <ContextMenu x={pointer.x} y={pointer.y} open={true} type={types.TASK}/>
+            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open} type={types.TASK}/>
         </EnvironmentProvider>
     )
 }
