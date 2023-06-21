@@ -40,9 +40,6 @@ export default function Kanban() {
                 y: e.pageY
             })
 
-
-            console.log(e)
-
             if (e.target == null) return
             if (!("parentElement" in e.target)) return
             let element: HTMLElement = e.target.parentElement as HTMLElement
@@ -76,6 +73,10 @@ export default function Kanban() {
         return useMemo(() => {
             return environment.boards?.find(b => b.uuid === uuid)
         }, [environment])
+    }
+
+    function closeContextMenu() {
+        setContextMenu({...contextMenu, open: false})
     }
 
     window.addEventListener("pointermove", (e) => {
@@ -146,7 +147,7 @@ export default function Kanban() {
 
                 </DragDropContext>
             </div>
-            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open} type={types.TASK}/>
+            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open} type={types.TASK} close={closeContextMenu}/>
         </EnvironmentProvider>
     )
 }
