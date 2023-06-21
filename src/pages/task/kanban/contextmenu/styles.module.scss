@@ -1,5 +1,3 @@
-
-
 //TODO: This whole thing looks terrible, but it works for now. I'll come back to it later.
 .contextmenu {
   position: absolute;
@@ -14,10 +12,29 @@
   padding: .5rem 1rem;
   margin: .5rem;
   gap: .5rem;
-    cursor: pointer;
+  cursor: pointer;
   border-radius: .5rem;
+  overflow: hidden;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.opened {
+  animation: slide 5000ms ease-in-out;
+}
+
+.closed {
+  animation: slide 500ms ease-in-out reverse;
+}
+
+@keyframes slide {
+  0% {
+    background-color: red; // placeholder
+  }
+  100% {
+    background-color: green;
+
   }
 }
