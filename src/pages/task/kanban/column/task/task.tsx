@@ -1,6 +1,6 @@
 import {Text} from "@mantine/core"
 import {useStyles} from "./styles"
-import {useContext, useEffect, useState} from "react"
+import {useContext, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -31,6 +31,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     function getTask(uuid: string) {
         return environment.tasks.find((task) => task.uuid === uuid)
     }
+
     function editText() {
         setEditable(true)
     }

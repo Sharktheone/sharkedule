@@ -1,4 +1,3 @@
-
 import styles from "./styles.module.scss"
 import {CSSProperties, useEffect, useRef, useState} from "react"
 import {useColors} from "./styles"
@@ -17,7 +16,7 @@ export enum types {
     COLUMN
 }
 
-export default function ContextMenu({x, y, open, close}: Props)  {
+export default function ContextMenu({x, y, open, close}: Props) {
     const {classes, cx} = useColors()
     const [freshlyOpened, setFreshlyOpened] = useState(false)
     const [freshlyClosed, setFreshlyClosed] = useState(false)
@@ -25,8 +24,7 @@ export default function ContextMenu({x, y, open, close}: Props)  {
     const contextMenuRef = useRef<HTMLDivElement>(null)
 
 
-
-    function position():CSSProperties {
+    function position(): CSSProperties {
         return {
             top: `${y}px`,
             left: `${x}px`,
@@ -55,9 +53,10 @@ export default function ContextMenu({x, y, open, close}: Props)  {
     if (hidden) return null
 
 
-    return  (
+    return (
         <div ref={contextMenuRef}
-            className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${freshlyOpened ? styles.opened : ""} ${freshlyClosed ? styles.closed : ""}`} style={position()}>
+             className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${freshlyOpened ? styles.opened : ""} ${freshlyClosed ? styles.closed : ""}`}
+             style={position()}>
             <button onClick={close}/>
             {
                 Entries.map((entry, i) => (

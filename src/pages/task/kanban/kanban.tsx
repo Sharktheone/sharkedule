@@ -59,7 +59,6 @@ export default function Kanban() {
 
     const drag = new dragHandlers(environment, setEnvironment, uuid)
     const h = new handlers(setIsAdding, newColRef, uuid)
-    const [pointer, setPointer] = useState({x: 0, y:0 })
 
     useEffect(() => {
         setEnvironment(loaderData as environment)
@@ -78,10 +77,6 @@ export default function Kanban() {
     function closeContextMenu() {
         setContextMenu({...contextMenu, open: false})
     }
-
-    window.addEventListener("pointermove", (e) => {
-        setPointer({x: e.pageX, y: e.pageY})
-    })
 
 
     return (
@@ -147,7 +142,8 @@ export default function Kanban() {
 
                 </DragDropContext>
             </div>
-            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open} type={types.TASK} close={closeContextMenu}/>
+            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open} type={types.TASK}
+                         close={closeContextMenu}/>
         </EnvironmentProvider>
     )
 }

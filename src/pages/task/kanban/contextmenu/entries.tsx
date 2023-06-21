@@ -1,4 +1,3 @@
-import {types} from "@kanban/contextmenu/contextmenu"
 import {ReactNode} from "react"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 
