@@ -34,13 +34,15 @@ export default function ContextMenu({x, y, open, close}: Props) {
     useEffect(() => {
         if (open) {
             setHidden(false)
-            setFreshlyOpened(true)
-            contextMenuRef?.current?.focus()
             setTimeout(() => {
-                setFreshlyOpened(false)
+                setFreshlyOpened(true)
             }, 500)
+            console.log("freshly opened")
+            contextMenuRef?.current?.focus()
         } else {
             setFreshlyClosed(true)
+
+            setFreshlyOpened(false)
             setTimeout(() => {
                 setFreshlyClosed(false)
                 setHidden(true)
@@ -57,6 +59,7 @@ export default function ContextMenu({x, y, open, close}: Props) {
         <div ref={contextMenuRef}
              className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${freshlyOpened ? styles.opened : ""} ${freshlyClosed ? styles.closed : ""}`}
              style={position()}>
+            <div>
             <button onClick={close}/>
             {
                 Entries.map((entry, i) => (
@@ -71,6 +74,7 @@ export default function ContextMenu({x, y, open, close}: Props) {
 
                 ))
             }
+            </div>
         </div>
     )
 }

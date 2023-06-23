@@ -1,10 +1,15 @@
 //TODO: This whole thing looks terrible, but it works for now. I'll come back to it later.
 .contextmenu {
   position: absolute;
+  display: grid;
   width: fit-content;
   border: solid 1px;
   border-radius: .5rem;
   overflow: hidden;
+
+  grid-template-columns: 0;
+
+  transition: grid-template-columns 500ms ease-in-out;
 }
 
 .entry {
@@ -19,10 +24,15 @@
   &:hover {
     background: rgba(0, 0, 0, 0.1);
   }
+
+  & > div {
+    overflow: hidden;
+  }
 }
 
 .opened {
-  animation: slide 500ms ease-in-out;
+  background-color: aquamarine;
+  grid-template-rows: 1fr;
 }
 
 .closed {
@@ -31,9 +41,9 @@
 
 @keyframes slide {
   0% {
-    height: 0;
+    max-height: 0;
   }
   100% {
-    height: 100px;
+    max-height: calc(fit-content + 1px);
   }
 }
