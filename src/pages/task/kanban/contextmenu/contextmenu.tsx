@@ -18,7 +18,7 @@ export enum types {
 
 export default function ContextMenu({x, y, open, close}: Props) {
     const {classes, cx} = useColors()
-    const [freshlyOpened, setFreshlyOpened] = useState(false)
+    const [opened, setOpened] = useState(false)
     const [freshlyClosed, setFreshlyClosed] = useState(false)
     const [hidden, setHidden] = useState(true)
     const contextMenuRef = useRef<HTMLDivElement>(null)
@@ -35,20 +35,20 @@ export default function ContextMenu({x, y, open, close}: Props) {
         if (open) {
             setHidden(false)
             setTimeout(() => {
-                setFreshlyOpened(true)
+                setOpened(true)
             }, 500)
             console.log("freshly opened")
             contextMenuRef?.current?.focus()
         } else {
             setFreshlyClosed(true)
 
-            setFreshlyOpened(false)
+            setOpened(false)
             setTimeout(() => {
                 setFreshlyClosed(false)
                 setHidden(true)
             }, 500)
         }
-        console.log("open", open, "hidden", hidden, "freshlyOpened", freshlyOpened, "freshlyClosed", freshlyClosed)
+        console.log("open", open, "hidden", hidden, "freshlyOpened", opened, "freshlyClosed", freshlyClosed)
     }, [open])
 
 
@@ -57,7 +57,7 @@ export default function ContextMenu({x, y, open, close}: Props) {
 
     return (
         <div ref={contextMenuRef}
-             className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${freshlyOpened ? styles.opened : ""} ${freshlyClosed ? styles.closed : ""}`}
+             className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${opened ? styles.opened : ""} ${freshlyClosed ? styles.closed : ""}`}
              style={position()}>
             <div>
             <button onClick={close}/>
