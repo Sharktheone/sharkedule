@@ -7,9 +7,13 @@
   border-radius: .5rem;
   overflow: hidden;
 
-  grid-template-columns: 0;
 
-  transition: grid-template-columns 500ms ease-in-out;
+  transform-origin: top;
+
+  transition: transform 500ms;
+
+
+  animation: scale 500ms cubic-bezier(.68,-0.55,.27,1.55);
 }
 
 .entry {
@@ -30,20 +34,14 @@
   }
 }
 
-.opened {
-  background-color: aquamarine;
-  grid-template-rows: 1fr;
-}
-
-.closed {
-  animation: slide 500ms ease-in-out reverse;
-}
-
-@keyframes slide {
+@keyframes scale {
   0% {
-    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0);
   }
   100% {
-    max-height: calc(fit-content + 1px);
+    opacity: 100%;
+    transform: scaleY(1);
   }
+
 }
