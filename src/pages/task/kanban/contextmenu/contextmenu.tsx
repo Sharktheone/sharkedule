@@ -50,14 +50,14 @@ export default function ContextMenu({x, y, open, close}: Props) {
             <button onClick={close} style={{height: "2rem", width: "3rem"}}/>
             {
                 Entries.map((entry, i) => (
-                    <div className={styles.entry} key={i}>
+                    <button className={styles.entry} key={i} onClick={() => entry.handler}>
                         <div className={styles.icon}>
                             {entry.icon}
                         </div>
                         <div className={styles.name}>
                             {entry.name}
                         </div>
-                    </div>
+                    </button>
 
                 ))
             }
