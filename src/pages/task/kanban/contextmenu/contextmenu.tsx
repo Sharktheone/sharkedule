@@ -8,20 +8,16 @@ type Props = {
     y: number
     open: boolean
     close: () => void
-    type: types
+    // type: types
 }
 
-export enum types {
-    TASK,
-    COLUMN
-}
+
 
 export default function ContextMenu({x, y, open, close}: Props) {
     const {classes, cx} = useColors()
-    const [opened, setOpened] = useState(false)
-    const [freshlyClosed, setFreshlyClosed] = useState(false)
-    const [hidden, setHidden] = useState(true)
     const contextMenuRef = useRef<HTMLDivElement>(null)
+    const [visible, setVisible] = useState(open)
+    const [slide, setSlide] = useState(open)
 
 
     function position(): CSSProperties {
@@ -33,34 +29,25 @@ export default function ContextMenu({x, y, open, close}: Props) {
 
     useEffect(() => {
         if (open) {
-            setHidden(false)
-            setTimeout(() => {
-                setOpened(true)
-            }, 500)
-            console.log("freshly opened")
-            contextMenuRef?.current?.focus()
-        } else {
-            setFreshlyClosed(true)
-
-            setOpened(false)
-            setTimeout(() => {
-                setFreshlyClosed(false)
-                setHidden(true)
-            }, 500)
+            setVisible(true)
+            setSlide(true)
+            setTimeout(() => setSlide(false), 500)
         }
-        console.log("open", open, "hidden", hidden, "freshlyOpened", opened, "freshlyClosed", freshlyClosed)
+        else {
+            setTimeout(() => setVisible(false), 490)
+        }
     }, [open])
 
 
-    if (hidden) return null
+    if (!visible) return null
 
 
     return (
         <div ref={contextMenuRef}
-             className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${opened ? styles.opened : ""} ${freshlyClosed ? styles.closed : ""}`}
+             className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${slide ? styles.open : ""} ${!open && visible ? styles.close : ""}`}
              style={position()}>
             <div>
-            <button onClick={close}/>
+            <button onClick={close} style={{height: "2rem", width: "3rem"}}/>
             {
                 Entries.map((entry, i) => (
                     <div className={styles.entry} key={i}>
