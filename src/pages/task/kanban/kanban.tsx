@@ -11,7 +11,7 @@ import {handlers} from '@/pages/task/kanban/handlers'
 import {environment} from "@kanban/types2"
 import {EnvironmentProvider} from "@kanban/environment"
 import Tstyles from "@kanban/column/task/styles.module.scss"
-import ContextMenu, {types} from "@kanban/contextmenu/contextmenu"
+import ContextMenu from "@kanban/contextmenu/contextmenu"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -32,7 +32,7 @@ export default function Kanban() {
 
     useEffect(() => {
         boardRef?.current?.addEventListener("contextmenu", (e) => {
-            if (contextMenu.open) return
+            // if (contextMenu.open) return
             e.preventDefault()
             setContextMenu({
                 open: true,
@@ -129,20 +129,16 @@ export default function Kanban() {
                                                 </div>
                                             </Stack>
                                         </div>
-
                                     }
-
                                 </div>
                             </div>
                         )
-
                         }
-
                     </Droppable>
 
                 </DragDropContext>
             </div>
-            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open} type={types.TASK}
+            <ContextMenu x={contextMenu.x} y={contextMenu.y} open={contextMenu.open}
                          close={closeContextMenu}/>
         </EnvironmentProvider>
     )

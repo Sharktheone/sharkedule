@@ -10,7 +10,6 @@ type Props = {
 }
 
 
-
 //TODO: make changable
 let type = details.DRAWER
 

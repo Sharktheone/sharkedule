@@ -33,11 +33,11 @@
 }
 
 .open {
-  animation: scale 500ms cubic-bezier(.68,-0.55,.27,1.55);
+  animation: scale 500ms cubic-bezier(.68, -0.55, .27, 1.55);
 }
 
 .close {
-  animation: scale 500ms cubic-bezier(.68,-0.55,.27,1.55) reverse;
+  animation: scale 500ms cubic-bezier(.68, -0.55, .27, 1.55) reverse;
 }
 
 @keyframes scale {

@@ -7,17 +7,26 @@ export type ContextMenuEntry = {
     color?: string
     handler?: (uuid: string) => void
     icon: ReactNode
-    // type: types
+    type: types
 }
+
+export enum types {
+    TASK,
+    COLUMN,
+    BOTH
+}
+
 
 export const Entries: ContextMenuEntry[] = [
     {
         name: "Add Task",
         icon: <IconPlus/>,
+        type: types.COLUMN,
     },
     {
         name: "Delete",
         color: "red",
         icon: <IconTrash/>,
+        type: types.BOTH,
     }
 ]

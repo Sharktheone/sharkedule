@@ -12,7 +12,6 @@ type Props = {
 }
 
 
-
 export default function ContextMenu({x, y, open, close}: Props) {
     const {classes, cx} = useColors()
     const contextMenuRef = useRef<HTMLDivElement>(null)
@@ -32,8 +31,7 @@ export default function ContextMenu({x, y, open, close}: Props) {
             setVisible(true)
             setSlide(true)
             setTimeout(() => setSlide(false), 500)
-        }
-        else {
+        } else {
             setTimeout(() => setVisible(false), 490)
         }
     }, [open])
@@ -47,20 +45,20 @@ export default function ContextMenu({x, y, open, close}: Props) {
              className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${slide ? styles.open : ""} ${!open && visible ? styles.close : ""}`}
              style={position()}>
             <div>
-            <button onClick={close} style={{height: "2rem", width: "3rem"}}/>
-            {
-                Entries.map((entry, i) => (
-                    <button className={styles.entry} key={i} onClick={() => entry.handler}>
-                        <div className={styles.icon}>
-                            {entry.icon}
-                        </div>
-                        <div className={styles.name}>
-                            {entry.name}
-                        </div>
-                    </button>
+                <button onClick={close} style={{height: "2rem", width: "3rem"}}/>
+                {
+                    Entries.map((entry, i) => (
+                        <button className={styles.entry} key={i} onClick={() => entry.handler}>
+                            <div className={styles.icon}>
+                                {entry.icon}
+                            </div>
+                            <div className={styles.name}>
+                                {entry.name}
+                            </div>
+                        </button>
 
-                ))
-            }
+                    ))
+                }
             </div>
         </div>
     )
