@@ -16,7 +16,7 @@ let type = details.DRAWER
 export default function Details({children, onClose, open}: Props) {
     if (type === details.DRAWER) {
         return (
-            <Drawer opened={open} onClose={onClose}>
+            <Drawer opened={open} onClose={onClose} position="right">
                 {children}
             </Drawer>
         )

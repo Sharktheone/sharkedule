@@ -10,6 +10,7 @@ import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
 import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
+import TaskDetails from "@kanban/column/task/details"
 
 type TaskProps = {
     board: string
@@ -80,6 +81,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 </div>
                 <LowerSlot/>
             </div>
+            <TaskDetails open={true}/>
         </SlotProvider>
     )
 }
