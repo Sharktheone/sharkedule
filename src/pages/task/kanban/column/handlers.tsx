@@ -85,6 +85,17 @@ export class handlers {
                 }
             })
         })
+        api.patch(`/kanban/task/${uuid}/rename`, {
+            name: name
+        }).then(
+            (res) => {
+            if (res.status > 300) {
+                notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+            } else {
+                notifications.show({title: "Success", message: "Renamed Task", color: "green"})
+                this.refresh()
+            }
+            })
         this.setEnvironment(newBoard)
     }
 
@@ -96,7 +107,6 @@ export class handlers {
                 } else {
                     notifications.show({title: "Success", message: "Deleted Column", color: "green"})
                     this.refresh()
-
                 }
             }
         )
