@@ -25,6 +25,8 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     const [editable, setEditable] = useState(false)
     const navigate = useNavigate()
     const {environment, setEnvironment} = useContext(EnvironmentContext)
+    const [taskDetails, setTaskDetails] = useState(false)
+
 
     const [t, setT] = useState(getTask(task))
 
@@ -60,9 +62,14 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
         )
     }
 
+    function openDetails() {
+        setTaskDetails(true)
+
+    }
+
     return (
         <SlotProvider task={task}>
-            <div className={`${cx(classes.task)} ${styles.task}`}>
+            <div className={`${cx(classes.task)} ${styles.task}`} onClick={openDetails}>
                 <UpperSlot/>
                 <div className={styles.taskname}>
                     <div className={styles.name}>
@@ -81,7 +88,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 </div>
                 <LowerSlot/>
             </div>
-            <TaskDetails open={true}/>
+            <TaskDetails open={false}/>
         </SlotProvider>
     )
 }
