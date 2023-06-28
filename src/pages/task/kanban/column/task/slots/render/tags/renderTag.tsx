@@ -1,6 +1,8 @@
 import {TagsSlot} from "@kanban/column/task/slots/slotTypes"
 import {kanbanTagType} from "@kanban/types"
 import styles from "@kanban/column/task/slots/render/tags/styles.module.scss"
+import {getTag} from "@/pages/task/utils/tag"
+import {Tag} from "@kanban/types2"
 
 
 type Props = {
@@ -8,10 +10,17 @@ type Props = {
 }
 
 export default function RenderTags({tagSlot}: Props) {
-    let tags = tagSlot.tag
+    let tagsUUIDs = tagSlot as string[]
+
+    let tags = tagsUUIDs.map((uuid) => {
+        return getTag(uuid) as Tag
+    })
+
+
+
     return (
         <div>
-            {tags?.map((tag: kanbanTagType) => (
+            {tags?.map((tag: Tag) => (
                 <RenderTag key={tag.uuid} tag={tag}/>
             ))}
         </div>
