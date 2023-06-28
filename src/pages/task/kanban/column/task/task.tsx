@@ -88,7 +88,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 </div>
                 <LowerSlot/>
             </div>
-            <TaskDetails open={false}/>
+            <TaskDetails open={taskDetails} setOpen={setTaskDetails}/>
         </SlotProvider>
     )
 }
