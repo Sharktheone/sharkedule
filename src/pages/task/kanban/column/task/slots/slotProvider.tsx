@@ -2,15 +2,9 @@ import {createContext, ReactNode, useContext, useState} from "react"
 import {Configuration, IndexedSlot, Slot, SlotTypes,} from "@kanban/column/task/slots/slotTypes"
 import {Task} from "@kanban/types2"
 import {EnvironmentContext} from "@kanban/environment"
+import { SlotContext } from "./slotContext"
 
-type SlotContextType = {
-    upperSlot: Slot[] | null
-    lowerSlot: Slot[] | null
-    border: string | null
-    color: string | null
-}
 
-export const SlotContext = createContext<SlotContextType | undefined>(undefined)
 
 type Props = {
     children: ReactNode
