@@ -18,9 +18,7 @@ type ColumnProps = {
 
 export default function Column({column, ghost, boardUUID}: ColumnProps) {
     const {classes, cx} = useStyles()
-
     const {environment, setEnvironment} = useContext(EnvironmentContext)
-
     const h = new handlers(column, boardUUID, setEnvironment, environment, ghost)
 
     h.checkGhost()
@@ -28,7 +26,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
 
     function getIndex() {
         const board = environment.boards?.find(b => b.uuid === boardUUID)
-        return board?.columns?.findIndex(c => c === column) ?? 0
+        return board?.columns?.findIndex(c => c === column) ?? -1
     }
 
     function getColumn() {

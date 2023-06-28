@@ -12,7 +12,7 @@ export default function TaskDetails({open, setOpen}: Props) {
 
     }
     return (
-        <Details open={open} onClose={onClose}>
+        <Details open={open} onClose={onClose} title="task.name //TODO">
             <div>
                 hello
             </div>

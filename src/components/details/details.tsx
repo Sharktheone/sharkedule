@@ -20,7 +20,7 @@ export default function Details({children, onClose, open, about, title}: Props) 
         return (
             <Drawer opened={open} onClose={onClose} position="right"
                     about={about} title={title}
-                    overlayProps={{opacity: 0.15, blur: 1}}
+                    overlayProps={{opacity: 0.15, blur: 2}}
             >
                 {children}
             </Drawer>
@@ -29,7 +29,7 @@ export default function Details({children, onClose, open, about, title}: Props) 
         return (
             <Modal opened={open} onClose={onClose}
                    about={about} title={title}
-                   overlayProps={{opacity: 0.15, blur: 1}}
+                   overlayProps={{opacity: 0.15, blur: 2}}
             >
                 {children}
             </Modal>
