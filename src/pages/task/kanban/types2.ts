@@ -44,7 +44,7 @@ export type Column = {
 }
 
 export type Task = {
-    progress: Progress | string // TODO idk what of tose - i need to think about that (uuid or a inline progress)
+    progress: number
     name: string
     uuid: string
     boards: string[]
@@ -64,7 +64,7 @@ export type Task = {
     done: boolean
     activity: Activity[]
     stage: string
-    subtasks: undefined //TODO
+    subtasks: string[]
     custom_fields: undefined[] //TODO
 }
 
@@ -123,7 +123,7 @@ export type Attachment = {
 export type Date = {
     uuid: string
     name: string
-    date: number
+    timestamp: number
     description: string
 }
 

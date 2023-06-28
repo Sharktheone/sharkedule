@@ -3,7 +3,7 @@ import {kanbanSubtaskType,} from "@kanban/types"
 
 export type Slot = {
     type: SlotTypes
-    value: string | string[]
+    value: string | number | string[] | undefined[]
 }
 
 
@@ -15,9 +15,9 @@ export type IndexedSlot = {
     date_due: string
     stage: string
     members: string[]
-    progress: string
+    progress: number
     subtasks: string[]
-    custom_fields: string[]
+    custom_fields: undefined[] // TODO
     checklists: string[]
 }
 
