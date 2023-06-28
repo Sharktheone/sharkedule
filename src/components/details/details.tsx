@@ -7,16 +7,19 @@ type Props = {
     children: ReactNode
     open: boolean
     onClose: () => void
+    title?: string
+    about?: string
 }
 
 
 //TODO: make changable
 let type = details.DRAWER
 
-export default function Details({children, onClose, open}: Props) {
+export default function Details({children, onClose, open, about, title}: Props) {
     if (type === details.DRAWER) {
         return (
             <Drawer opened={open} onClose={onClose} position="right"
+                    about={about} title={title}
                     overlayProps={{opacity: 0.15, blur: 1}}
             >
                 {children}
@@ -25,6 +28,7 @@ export default function Details({children, onClose, open}: Props) {
     } else {
         return (
             <Modal opened={open} onClose={onClose}
+                   about={about} title={title}
                    overlayProps={{opacity: 0.15, blur: 1}}
             >
                 {children}
