@@ -1,4 +1,4 @@
-import {Slot, SlotNames} from "@kanban/column/task/slots/slotTypes"
+import {Slot, SlotTypes} from "@kanban/column/task/slots/slotTypes"
 import RenderTags from "@kanban/column/task/slots/render/tags/renderTag"
 
 
@@ -8,7 +8,7 @@ type Props = {
 
 export default function Render({slot}: Props) {
     switch (slot.type) {
-        case SlotNames.TAGS:
+        case SlotTypes.TAGS:
             return <RenderTags tagSlot={slot}/>
         default:
             return null

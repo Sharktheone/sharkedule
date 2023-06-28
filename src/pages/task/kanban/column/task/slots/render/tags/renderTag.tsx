@@ -6,13 +6,12 @@ import {Tag} from "@kanban/types2"
 
 
 type Props = {
-    tagSlot: TagsSlot
+    tagUUIDs: string[]
 }
 
-export default function RenderTags({tagSlot}: Props) {
-    let tagsUUIDs = tagSlot as string[]
+export default function RenderTags({tagUUIDs}: Props) {
 
-    let tags = tagsUUIDs.map((uuid) => {
+    let tags = tagUUIDs.map((uuid) => {
         return getTag(uuid) as Tag
     })
 

@@ -1,5 +1,5 @@
 import {createContext, ReactNode, useContext, useState} from "react"
-import {Configuration, IndexedSlot, Slot, SlotNames,} from "@kanban/column/task/slots/slotTypes"
+import {Configuration, IndexedSlot, Slot, SlotTypes,} from "@kanban/column/task/slots/slotTypes"
 import {Task} from "@kanban/types2"
 import {EnvironmentContext} from "@kanban/environment"
 
@@ -19,18 +19,18 @@ type Props = {
 
 const config: Configuration = {
     upper: [
-        SlotNames.TAGS,
-        SlotNames.PRIORITY,
-        SlotNames.STATUS,
-        SlotNames.STAGE,
-        SlotNames.PROGRESS,
+        SlotTypes.TAGS,
+        SlotTypes.PRIORITY,
+        SlotTypes.STATUS,
+        SlotTypes.STAGE,
+        SlotTypes.PROGRESS,
     ],
     lower: [
-        SlotNames.DATE_DUE,
-        SlotNames.MEMBERS,
-        SlotNames.SUBTASKS,
-        SlotNames.CUSTOM_FIELDS,
-        SlotNames.CHECKLIST,
+        SlotTypes.DATE_DUE,
+        SlotTypes.MEMBERS,
+        SlotTypes.SUBTASKS,
+        SlotTypes.CUSTOM_FIELDS,
+        SlotTypes.CHECKLIST,
     ]
 }
 
