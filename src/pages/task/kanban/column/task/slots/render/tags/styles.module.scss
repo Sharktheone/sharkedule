@@ -5,3 +5,9 @@
   border: solid 1px;
   font-size: .75em;
 }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}

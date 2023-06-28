@@ -9,7 +9,7 @@ type Props = {
 
 export default function RenderTags({tags}: Props) {
     return (
-        <div>
+        <div className={styles.tags}>
             {tags?.map((tag) => (
                 <RenderTag key={tag} uuid={tag}/>
             ))}

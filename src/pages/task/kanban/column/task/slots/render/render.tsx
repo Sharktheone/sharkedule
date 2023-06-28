@@ -9,7 +9,8 @@ type Props = {
 export default function Render({slot}: Props) {
     switch (slot.type) {
         case SlotTypes.TAGS:
-            return <RenderTags tagSlot={slot}/>
+            if (!slot.value) return null
+            return <RenderTags tags={slot.value as string[]}/>
         default:
             return null
     }
