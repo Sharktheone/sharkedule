@@ -1,0 +1,25 @@
+
+.avaiableTags {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+
+.tag {
+  cursor: pointer;
+  border-radius: .5rem;
+  padding: .5rem;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox:checked + label {
+  border: 1px solid aquamarine;
+}
+
+.checkbox:checked{
+  display: block;
+}
