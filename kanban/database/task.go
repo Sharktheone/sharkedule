@@ -92,6 +92,10 @@ func RemoveTagOnTask(task *types2.Task, tag string) error {
 	return fmt.Errorf("error while deleting tag %s not found on task %s", tag, task.UUID)
 }
 
+func SetTagsOnTask(task *types2.Task, tags []string) {
+	task.Tags = tags
+}
+
 func DeleteTaskOnColumn(column *types2.Column, uuid string) error {
 	for index, t := range column.Tasks {
 		if t == uuid {

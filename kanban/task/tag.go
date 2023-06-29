@@ -11,3 +11,8 @@ func (t *Task) RemoveTag(uuid string) error {
 
 	return db.DB.RemoveTagOnTask(t.UUID, uuid)
 }
+
+func (t *Task) SetTags(uuids []string) error {
+
+	return db.DB.SetTagsOnTask(t.UUID, uuids)
+}

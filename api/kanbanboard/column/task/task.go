@@ -172,5 +172,29 @@ func RemoveTag(c *fiber.Ctx) error {
 	}
 
 	return c.SendStatus(fiber.StatusNoContent)
+}
 
+func SetTags(c *fiber.Ctx) error {
+	type SetTags struct {
+		Tags []string `json:"tags"`
+	}
+
+	var setTags SetTags
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&setTags); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	t, err := middleware.ExtractTask(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting task: %v", err)
+	}
+
+	if err := t.SetTags(setTags.Tags); err != nil {
+		return fmt.Errorf("failed setting tags: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
 }

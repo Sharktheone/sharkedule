@@ -77,6 +77,7 @@ func Start() {
 					t.Patch("rename", task.Rename)  // PATCH /api/kanban/task/rename
 					t.Put("tag", task.AddTag)       // PUT /api/kanban/task/tag
 					t.Delete("tag", task.RemoveTag) // DELETE /api/kanban/task/tag
+					t.Patch("tag", task.SetTags)    // PATCH /api/kanban/task/tag
 				}
 			}
 			tags := kanban.Group("tag") // /api/kanban/tag
