@@ -1,6 +1,6 @@
 import {Text} from "@mantine/core"
 import {useStyles} from "./styles"
-import {useContext, useState} from "react"
+import React, {LegacyRef, RefObject, useContext, useRef, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -11,6 +11,7 @@ import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
 import TaskDetails from "@kanban/column/task/details"
+import useDoubleClick from "@/utils/useDoubleClick"
 
 type TaskProps = {
     board: string
@@ -27,6 +28,10 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     const {environment, setEnvironment} = useContext(EnvironmentContext)
     const [taskDetails, setTaskDetails] = useState(false)
 
+    const clickHandler = useDoubleClick(openDetails, editText)
+
+    const nameRef = useRef<HTMLDivElement>()
+
 
     const [t, setT] = useState(getTask(task))
 
@@ -37,6 +42,8 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
     function editText() {
         setEditable(true)
+        nameRef?.current?.focus()
+
     }
 
     function handleBlur(e: any) {
@@ -62,20 +69,23 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
         )
     }
 
-    function openDetails() {
-        setTaskDetails(true)
 
+    function openDetails() {
+        if (editable) return
+        setTaskDetails(true)
     }
+
+
 
     return (
         <SlotProvider task={task}>
-            <div className={`${cx(classes.task)} ${styles.task}`} onClick={openDetails}>
+            <div className={`${cx(classes.task)} ${styles.task}`} onClick={clickHandler.onClick} onDoubleClick={clickHandler.onDoubleClick}>
                 <UpperSlot/>
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
-                        <Text align="start" onClick={editText} onBlur={handleBlur} contentEditable={editable}>
-                            {t?.name}
+                        <Text align="start"  onBlur={handleBlur} contentEditable={editable} ref={nameRef as RefObject<HTMLDivElement>}> {/*TODO: dont use contentEditable*/}
+                            {t?.name as string}
                         </Text>
                     </div>
                     <div className={styles.hover}>
