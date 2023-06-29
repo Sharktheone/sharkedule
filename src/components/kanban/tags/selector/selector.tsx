@@ -10,25 +10,36 @@ export default function TagSelector() {
 
     const [selected, setSelected] = useState<string[]>([])
 
+    function checked(uuid: string) {
+        return selected.includes(uuid)
+    }
+
+    function handleChange(uuid: string) {
+        if (selected.includes(uuid)) {
+            setSelected(selected.filter((t: string) => t !== uuid))
+        } else {
+            setSelected([...selected, uuid])
+        }
+    }
+
     return (
         <>
             <div className={styles.avaiableTags}>
                 {tags.map((tag) => (
                     <>
-                        <label key={tag.uuid} className={styles.tag} style={{
-                            backgroundColor: `${tag.color}90`,
-                        }}
+                        <label key={tag.uuid} className={styles.tag}
                         htmlFor={`tag-select-${tag.uuid}`}
                         >
-                            {tag.name}
+                            <input id={`tag-select-${tag.uuid}`} type="checkbox" className={styles.checkbox} checked={checked(tag.uuid)}
+                                   onChange={() => handleChange(tag.uuid)}/>
+
+                            <span className={styles.name} style={{
+                                backgroundColor: `${tag.color}90`,
+                            }}>
+                                {tag.name}
+                            </span>
                         </label>
-                        <input id={`tag-select-${tag.uuid}`} type="checkbox" className={styles.checkbox} checked={selected.includes(tag.uuid)} onChange={() => {
-                            if (selected.includes(tag.name)) {
-                                setSelected(selected.filter((t: string) => t !== tag.name))
-                            } else {
-                                setSelected([...selected, tag.uuid])
-                            }
-                        }}/>
+
                     </>
                 ))}
 

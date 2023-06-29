@@ -1,8 +1,9 @@
 
 .avaiableTags {
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 1rem;
 }
 
 
@@ -24,5 +25,6 @@
 }
 
 .checkbox:checked ~ .name {
-  border-color: aquamarine;
+  border-color: lawngreen;
+  box-shadow: 0 0 5px 1px aquamarine;
 }
