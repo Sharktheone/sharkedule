@@ -12,7 +12,7 @@ export default function UpperSlot() {
 
     let allUndefined = true
     upperSlot.forEach((slot: Slot) => {
-        if (slot.value !== undefined) allUndefined = false
+        if (slot.value !== undefined && !allUndefined) allUndefined = false
     })
 
     if (allUndefined) return null
