@@ -52,7 +52,8 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                 <div className={`${cx(classes.column)} ${styles.column}`}>
                                     <Title align="left" className={cx(classes.title)} order={3}>
                                         <div>
-                                            <span onClick={() => h.editText()} contentEditable={h.editable} // TODO: dont use contentEditable
+                                            <span onClick={() => h.editText()}
+                                                  contentEditable={h.editable} // TODO: dont use contentEditable
                                                   onBlur={event => h.handleBlur(event)}>
                                                 {getColumn().name as string}
                                             </span>

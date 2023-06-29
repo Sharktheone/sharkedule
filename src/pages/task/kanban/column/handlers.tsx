@@ -89,12 +89,12 @@ export class handlers {
             name: name
         }).then(
             (res) => {
-            if (res.status > 300) {
-                notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
-            } else {
-                notifications.show({title: "Success", message: "Renamed Task", color: "green"})
-                this.refresh()
-            }
+                if (res.status > 300) {
+                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                } else {
+                    notifications.show({title: "Success", message: "Renamed Task", color: "green"})
+                    this.refresh()
+                }
             })
         this.setEnvironment(newBoard)
     }

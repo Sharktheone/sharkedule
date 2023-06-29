@@ -1,11 +1,7 @@
-import {kanbanSubtaskType,} from "@kanban/types"
-
-
 export type Slot = {
     type: SlotTypes
     value: string | number | string[] | undefined[]
 }
-
 
 
 export type IndexedSlot = {

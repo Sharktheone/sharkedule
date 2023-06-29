@@ -1,6 +1,6 @@
 import {Text} from "@mantine/core"
 import {useStyles} from "./styles"
-import React, {LegacyRef, RefObject, useContext, useRef, useState} from "react"
+import React, {RefObject, useContext, useRef, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -76,15 +76,16 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     }
 
 
-
     return (
         <SlotProvider task={task}>
-            <div className={`${cx(classes.task)} ${styles.task}`} onClick={clickHandler.onClick} onDoubleClick={clickHandler.onDoubleClick}>
+            <div className={`${cx(classes.task)} ${styles.task}`} onClick={clickHandler.onClick}
+                 onDoubleClick={clickHandler.onDoubleClick}>
                 <UpperSlot/>
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
-                        <Text align="start"  onBlur={handleBlur} contentEditable={editable} ref={nameRef as RefObject<HTMLDivElement>}> {/*TODO: dont use contentEditable*/}
+                        <Text align="start" onBlur={handleBlur} contentEditable={editable}
+                              ref={nameRef as RefObject<HTMLDivElement>}> {/*TODO: dont use contentEditable*/}
                             {t?.name as string}
                         </Text>
                     </div>

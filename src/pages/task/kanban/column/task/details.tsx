@@ -16,8 +16,8 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
 
     function onClose() {
         setOpen(false)
-
     }
+    
     return (
         <Details open={open} onClose={onClose} title={task.name}>
             <div>
