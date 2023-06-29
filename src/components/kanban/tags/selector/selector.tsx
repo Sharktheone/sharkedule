@@ -1,14 +1,21 @@
-import {useContext, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
 
-export default function TagSelector() {
+type Props = {
+    onChange: (tags: string[]) => void
+}
+export default function TagSelector({onChange}: Props) {
 
     const {environment} = useContext(EnvironmentContext)
 
     const tags = environment.tags
 
     const [selected, setSelected] = useState<string[]>([])
+
+    useEffect(() => {
+        onChange(selected)
+    }, [selected])
 
     function checked(uuid: string) {
         return selected.includes(uuid)
