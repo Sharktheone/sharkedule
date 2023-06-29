@@ -8,18 +8,21 @@
 
 .tag {
   cursor: pointer;
-  border-radius: .5rem;
-  padding: .5rem;
 }
 
 .checkbox {
   display: none;
 }
 
-.checkbox:checked + label {
-  border: 1px solid aquamarine;
+.name {
+  border-radius: .5rem;
+  padding: .5rem;
+  display: flex;
+  justify-self: stretch;
+  border: 3px solid transparent;
+
 }
 
-.checkbox:checked{
-  display: block;
+.checkbox:checked ~ .name {
+  border-color: aquamarine;
 }
