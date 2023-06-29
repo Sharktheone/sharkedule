@@ -34,23 +34,23 @@ export function SlotProvider({children, task}: Props) {
     const {environment, setEnvironment} = useContext(EnvironmentContext)
 
     function getTask(uuid: string) {
-        return environment.tasks.find((task) => task.uuid === uuid)
+        return environment?.tasks?.find((task) => task.uuid === uuid)
     }
 
     function getPriority(priority: string) {
-        return environment.priority.find((p) => p.name === priority)
+        return environment?.priority.find((p) => p.name === priority)
     }
 
     function getStatus(status: string) {
-        return environment.status.find((s) => s.name === status)
+        return environment?.status.find((s) => s.name === status)
     }
 
     function getDate(date: string) {
-        return environment.dates.find((d) => d.name === date)
+        return environment?.dates.find((d) => d.name === date)
     }
 
     function getStage(stage: string) {
-        return environment.stage.find((s) => s.name === stage)
+        return environment?.stage.find((s) => s.name === stage)
     }
 
     const [t, setT] = useState<Task | undefined>(() => getTask(task))

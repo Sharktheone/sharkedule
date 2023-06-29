@@ -198,7 +198,7 @@ export class handlers {
     }
 
     private getTask(uuid: string) {
-        return this.environment.tasks?.find((t) => t.uuid === uuid) ?? {} as Task
+        return this.environment?.tasks?.find((t) => t.uuid === uuid) ?? {} as Task
     }
 
     private refresh() {

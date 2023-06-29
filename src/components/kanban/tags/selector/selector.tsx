@@ -9,7 +9,7 @@ export default function TagSelector({onChange}: Props) {
 
     const {environment} = useContext(EnvironmentContext)
 
-    const tags = environment.tags
+    const tags = environment?.tags
 
     const [selected, setSelected] = useState<string[]>([])
 
@@ -32,7 +32,7 @@ export default function TagSelector({onChange}: Props) {
     return (
         <>
             <div className={styles.avaiableTags}>
-                {tags.map((tag) => (
+                {tags?.map((tag) => (
                     <>
                         <label key={tag.uuid} className={styles.tag}
                         htmlFor={`tag-select-${tag.uuid}`}

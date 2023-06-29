@@ -56,7 +56,7 @@ export class dragHandlers {
     }
 
     private reorderColumn(uuid: string, to: number) {
-        let newBoard = {...this?.environment.boards?.find((board) => board.uuid === this?.uuid)}
+        let newBoard = {...this?.environment?.boards?.find((board) => board.uuid === this?.uuid)}
 
         let columnIndex = newBoard?.columns?.findIndex((column) => column === uuid)
         if (columnIndex === undefined) return
@@ -80,7 +80,7 @@ export class dragHandlers {
     }
 
     private reorderTask(fromColumn: string, uuid: string, to: number, toColumn: string,) {
-        let columns = [...this.environment.columns]
+        let columns = [...this.environment?.columns]
         if (!columns) return
 
         let fromTasks = columns?.find((column) => column.uuid === fromColumn)?.tasks

@@ -70,7 +70,7 @@ export default function Kanban() {
 
     function getBoard() {
         return useMemo(() => {
-            return environment.boards?.find(b => b.uuid === uuid)
+            return environment?.boards?.find(b => b.uuid === uuid)
         }, [environment])
     }
 

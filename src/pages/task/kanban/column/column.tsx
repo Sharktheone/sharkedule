@@ -25,13 +25,13 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
     h.checkAdding()
 
     function getIndex() {
-        const board = environment.boards?.find(b => b.uuid === boardUUID)
+        const board = environment?.boards?.find(b => b.uuid === boardUUID)
         return board?.columns?.findIndex(c => c === column) ?? -1
     }
 
     function getColumn() {
         return useMemo(() => {
-            return environment.columns?.find(c => c.uuid === column) ?? {} as Col
+            return environment?.columns?.find(c => c.uuid === column) ?? {} as Col
         }, [environment, column])
 
     }

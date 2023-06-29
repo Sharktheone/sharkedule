@@ -37,7 +37,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
 
     function getTask(uuid: string) {
-        return environment.tasks.find((task) => task.uuid === uuid)
+        return environment?.tasks?.find((task) => task.uuid === uuid)
     }
 
     function editText() {
