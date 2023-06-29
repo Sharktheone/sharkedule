@@ -25,9 +25,12 @@ type Environment struct {
 func (e *Environment) Index() {
 	if e.Boards != nil || e.boardUUIDs != nil {
 		e.IndexBoards()
-	} else if e.Columns != nil || e.columnUUIDs != nil {
+	}
+	if e.Columns != nil || e.columnUUIDs != nil {
 		e.IndexColumns()
-	} else if e.Tasks != nil || e.tagUUIDs != nil {
+	}
+	if e.Tasks != nil || e.taskUUIDs != nil {
+		log.Println("indexing tasks")
 		e.IndexTasks()
 	}
 
@@ -169,7 +172,6 @@ func (e *Environment) IndexBoard(b *types.Board) {
 	if b.DueDate != "" {
 		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &b.DueDate)
 	}
-	e.IndexColumns()
 }
 
 func (e *Environment) IndexColumns() {
@@ -198,6 +200,7 @@ func (e *Environment) IndexColumns() {
 }
 
 func (e *Environment) IndexColumn(column *types.Column) {
+	log.Printf("indexing column with tasks: %s", column.Tasks)
 	e.taskUUIDs = AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
@@ -209,8 +212,6 @@ func (e *Environment) IndexColumn(column *types.Column) {
 		}
 		e.BoardNames[b] = bor.Name
 	}
-
-	e.IndexTasks()
 }
 
 func (e *Environment) IndexTasks() {
@@ -234,6 +235,7 @@ func (e *Environment) IndexTasks() {
 	}
 
 	for _, t := range e.Tasks {
+		log.Printf("Indexing task: %+v", t)
 		e.IndexTask(t)
 	}
 }
