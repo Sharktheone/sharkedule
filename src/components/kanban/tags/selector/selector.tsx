@@ -12,8 +12,13 @@ export default function TagSelector({onChange}: Props) {
     const tags = environment?.tags
 
     const [selected, setSelected] = useState<string[]>([])
+    const [firstRender, setFirstRender] = useState<boolean>(true)
 
     useEffect(() => {
+        if (firstRender) {
+            setFirstRender(false)
+            return
+        }
         onChange(selected)
     }, [selected])
 

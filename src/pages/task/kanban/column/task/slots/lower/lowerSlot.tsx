@@ -6,7 +6,7 @@ import Render from "@kanban/column/task/slots/render/render"
 
 
 export default function LowerSlot() {
-    const context = useContext(SlotContext)
+    let context = useContext(SlotContext)
     let lowerSlot = context?.lowerSlot
     if (!lowerSlot) return null
 

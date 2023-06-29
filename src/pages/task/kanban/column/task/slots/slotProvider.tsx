@@ -1,4 +1,4 @@
-import {ReactNode, useContext, useState} from "react"
+import {ReactNode, useContext, useEffect, useState} from "react"
 import {Configuration, IndexedSlot, Slot, SlotTypes,} from "@kanban/column/task/slots/slotTypes"
 import {Task} from "@kanban/types2"
 import {EnvironmentContext} from "@kanban/environment"
@@ -31,7 +31,7 @@ const config: Configuration = {
 // TODO: This method of rendering tags etc is not very efficient, as it requires a lot of looping over the same data.
 //  I'm a lazy b... , so I'll leave it for now, but maybe in the year 3048 or something I'll fix it - or may not KEKW.
 export function SlotProvider({children, task}: Props) {
-    const {environment, setEnvironment} = useContext(EnvironmentContext)
+    let {environment, setEnvironment} = useContext(EnvironmentContext)
 
     function getTask(uuid: string) {
         return environment?.tasks?.find((task) => task.uuid === uuid)
@@ -55,12 +55,20 @@ export function SlotProvider({children, task}: Props) {
 
     const [t, setT] = useState<Task | undefined>(() => getTask(task))
 
+    useEffect(() => {
+        setT(getTask(task))
+    }, [environment, task])
+
     function slotify() {
         let upperSlot: Slot[] = []
         let lowerSlot: Slot[] = []
         let border: string | null = null
         let color: string | null = null
         let slots: IndexedSlot = {} as IndexedSlot
+
+        if (task === "eaff443a-72cd-4395-8d23-794ee786b36e") {
+            console.log(t?.tags)
+        }
 
         if (t?.tags) {
             slots.tags = t.tags
@@ -122,6 +130,8 @@ export function SlotProvider({children, task}: Props) {
             const s = slots[c]
             // color = getSlotColor(s) TODO
         }
+        //
+        // console.log({upperSlot, lowerSlot, border, color})
 
         return {upperSlot, lowerSlot, border, color}
     }

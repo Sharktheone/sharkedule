@@ -6,7 +6,7 @@ import Render from "@kanban/column/task/slots/render/render"
 
 
 export default function UpperSlot() {
-    const context = useContext(SlotContext)
+    let context = useContext(SlotContext)
     let upperSlot = context?.upperSlot
     if (!upperSlot) return null
 
@@ -15,7 +15,6 @@ export default function UpperSlot() {
         if (slot.value !== undefined && allUndefined) allUndefined = false
     })
 
-    console.log(upperSlot, allUndefined)
     if (allUndefined) return null
 
     if (upperSlot.length === 0) return null
