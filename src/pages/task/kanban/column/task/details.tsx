@@ -2,6 +2,7 @@ import Details from "@/components/details/details"
 import {Dispatch, SetStateAction, useState} from "react"
 import {Task} from "@kanban/types2"
 import {getTask} from "@/pages/task/utils/task"
+import TagSelector from "@/components/kanban/tags/selector/selector"
 
 type Props = {
     open: boolean
@@ -10,9 +11,7 @@ type Props = {
 }
 
 export default function TaskDetails({open, setOpen, uuid}: Props) {
-
     const [task, setTask] = useState<Task>(getTask(uuid) ?? {} as Task)
-
 
     function onClose() {
         setOpen(false)
@@ -21,7 +20,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
     return (
         <Details open={open} onClose={onClose} title={task.name}>
             <div>
-                hello
+                <TagSelector/>
             </div>
         </Details>
     )
