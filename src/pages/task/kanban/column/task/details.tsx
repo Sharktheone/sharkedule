@@ -34,7 +34,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
                 console.log(err)
             })
     }
-    
+
     return (
         <Details open={open} onClose={onClose} title={task.name}>
             <div>

@@ -48,7 +48,7 @@ export default function TagSelector({onChange, selected}: Props) {
                         return <></>
                     }
                     return (
-                        <div key={uuid}  style={{
+                        <div key={uuid} style={{
                             backgroundColor: `${tag?.color}90`,
                         }}>
                             {tag?.name}
