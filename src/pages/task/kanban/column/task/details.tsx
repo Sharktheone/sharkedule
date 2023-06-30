@@ -38,7 +38,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
     return (
         <Details open={open} onClose={onClose} title={task.name}>
             <div>
-                <TagSelector onChange={(tags) => setTags(tags)}/>
+                <TagSelector selected={task.tags} onChange={(tags) => setTags(tags)}/>
             </div>
         </Details>
     )
