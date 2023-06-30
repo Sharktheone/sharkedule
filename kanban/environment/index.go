@@ -30,7 +30,6 @@ func (e *Environment) Index() {
 		e.IndexColumns()
 	}
 	if e.Tasks != nil || e.taskUUIDs != nil {
-		log.Println("indexing tasks")
 		e.IndexTasks()
 	}
 
@@ -200,7 +199,6 @@ func (e *Environment) IndexColumns() {
 }
 
 func (e *Environment) IndexColumn(column *types.Column) {
-	log.Printf("indexing column with tasks: %s", column.Tasks)
 	e.taskUUIDs = AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
@@ -235,7 +233,6 @@ func (e *Environment) IndexTasks() {
 	}
 
 	for _, t := range e.Tasks {
-		log.Printf("Indexing task: %+v", t)
 		e.IndexTask(t)
 	}
 }
