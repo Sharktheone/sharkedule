@@ -100,8 +100,6 @@ export class dragHandlers {
             }
         )
 
-        console.log(this.environment)
-
         api.patch(`/kanban/board/${this?.uuid}/column/${fromColumn}/task/${uuid}/move`, {
             column: toColumn,
             index: to

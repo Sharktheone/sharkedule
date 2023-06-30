@@ -66,10 +66,6 @@ export function SlotProvider({children, task}: Props) {
         let color: string | null = null
         let slots: IndexedSlot = {} as IndexedSlot
 
-        if (task === "eaff443a-72cd-4395-8d23-794ee786b36e") {
-            console.log(t?.tags)
-        }
-
         if (t?.tags) {
             slots.tags = t.tags
         }
