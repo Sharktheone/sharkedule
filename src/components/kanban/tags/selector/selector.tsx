@@ -41,6 +41,21 @@ export default function TagSelector({onChange, selected}: Props) {
 
     return (
         <>
+            <div className={styles.selected}>
+                {newSelected?.map((uuid) => {
+                    let tag = tags?.find((tag) => tag.uuid === uuid)
+                    if (!tags) {
+                        return <></>
+                    }
+                    return (
+                        <div key={uuid}  style={{
+                            backgroundColor: `${tag?.color}90`,
+                        }}>
+                            {tag?.name}
+                        </div>
+                    )
+                })}
+            </div>
             <div className={styles.avaiableTags}>
                 {tags?.map((tag) => (
                     <>
