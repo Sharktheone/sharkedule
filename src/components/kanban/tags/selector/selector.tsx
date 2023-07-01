@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
 import {useColors} from "@/components/kanban/tags/selector/colors"
+import {useClickOutside} from "@mantine/hooks"
 
 type Props = {
     onChange: (tags: string[]) => void
@@ -15,7 +16,9 @@ export default function TagSelector({onChange, selected}: Props) {
 
     const [newSelected, setNewSelected] = useState<string[]>(selected ?? [])
     const [firstRender, setFirstRender] = useState<boolean>(true)
-    const [open, setOpen] = useState<boolean>(false)
+    const [opened, setOpened] = useState<boolean>(false)
+
+    const ref = useClickOutside(() => setOpened(false))
 
     const {classes, cx} = useColors()
 
@@ -43,25 +46,48 @@ export default function TagSelector({onChange, selected}: Props) {
         }
     }
 
+    function deleteTag(uuid: string) {
+        if (newSelected.includes(uuid)) {
+            setNewSelected(newSelected.filter((t: string) => t !== uuid))
+        } else {
+            setNewSelected([...newSelected, uuid])
+        }
+    }
+
+    function open() {
+        setOpened(!opened)
+    }
+
+    //@ts-ignore
+    function fakeContextMenu(e: MouseEvent<HTMLDivElement, MouseEvent>, uuid: string) {
+        e.preventDefault()
+        deleteTag(uuid)
+    }
+
     return (
         <div className={styles.selector}>
             <div className={styles.selected}>
                 {newSelected?.map((uuid) => {
                     let tag = tags?.find((tag) => tag.uuid === uuid)
                     if (!tags) {
-                        return <></>
+                        return null
                     }
                     return (
-                        <div key={uuid} style={{
+                        <div key={uuid}
+                             onClick={open}
+                             onContextMenu={e => fakeContextMenu(e, uuid)}
+                             style={{
                             backgroundColor: `${tag?.color}90`,
                         }}>
                             {tag?.name}
                         </div>
                     )
                 })}
-                <button onClick={() => setOpen(!open)}>+</button>
+                <button onClick={open}>+</button>
             </div>
-            {open ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}>
+            {opened ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}
+                ref={ref}
+                >
                 {tags?.map((tag) => (
                     <>
                         <label key={tag.uuid} className={styles.tag}
