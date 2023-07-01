@@ -56,7 +56,7 @@ export default function TagSelector({onChange, selected}: Props) {
                     )
                 })}
             </div>
-            <div className={styles.avaiableTags}>
+            {open ? <div className={styles.availableTags}>
                 {tags?.map((tag) => (
                     <>
                         <label key={tag.uuid} className={styles.tag}
