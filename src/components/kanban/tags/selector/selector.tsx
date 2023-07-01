@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
+import {useColors} from "@/components/kanban/tags/selector/colors"
 
 type Props = {
     onChange: (tags: string[]) => void
@@ -43,7 +44,7 @@ export default function TagSelector({onChange, selected}: Props) {
     }
 
     return (
-        <>
+        <div className={styles.selector}>
             <div className={styles.selected}>
                 {newSelected?.map((uuid) => {
                     let tag = tags?.find((tag) => tag.uuid === uuid)
@@ -81,6 +82,8 @@ export default function TagSelector({onChange, selected}: Props) {
                 ))}
 
             </div>
-        </>
+            : null
+            }
+        </div>
     )
 }
