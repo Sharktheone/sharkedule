@@ -3,6 +3,7 @@ import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
 import {useColors} from "@/components/kanban/tags/selector/colors"
 import {useClickOutside} from "@mantine/hooks"
+import {IconCirclePlus, IconPlus} from "@tabler/icons-react"
 
 type Props = {
     onChange: (tags: string[]) => void
@@ -83,7 +84,9 @@ export default function TagSelector({onChange, selected}: Props) {
                         </div>
                     )
                 })}
-                <button onClick={open}>+</button>
+                <button onClick={open}>
+                    <IconCirclePlus/>
+                </button>
             </div>
             {opened ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}
                            ref={ref}

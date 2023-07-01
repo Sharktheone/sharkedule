@@ -49,4 +49,12 @@
     border-radius: .5rem;
     padding: .25rem .5rem;
   }
+
+  & > button {
+    border-radius: .5rem;
+    padding: .25rem .5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
 }
