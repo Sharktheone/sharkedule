@@ -14,6 +14,9 @@ export default function TagSelector({onChange, selected}: Props) {
 
     const [newSelected, setNewSelected] = useState<string[]>(selected ?? [])
     const [firstRender, setFirstRender] = useState<boolean>(true)
+    const [open, setOpen] = useState<boolean>(false)
+
+    const {classes, cx} = useColors()
 
     useEffect(() => {
         setNewSelected(selected ?? [])
@@ -55,8 +58,9 @@ export default function TagSelector({onChange, selected}: Props) {
                         </div>
                     )
                 })}
+                <button onClick={() => setOpen(!open)}>+</button>
             </div>
-            {open ? <div className={styles.availableTags}>
+            {open ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}>
                 {tags?.map((tag) => (
                     <>
                         <label key={tag.uuid} className={styles.tag}
