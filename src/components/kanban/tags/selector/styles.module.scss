@@ -1,9 +1,21 @@
 
-.availableTags {
+.selector {
+  position: relative;
+  display: flex;
   margin: 1rem 0;
+}
+
+
+.availableTags {
+  margin: 2.5rem 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 1rem;
+  border-radius: .5rem;
+  position: absolute;
+  width: 24rem;
+  z-index: 100;
 }
 
 
