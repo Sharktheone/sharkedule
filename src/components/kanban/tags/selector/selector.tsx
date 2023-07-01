@@ -106,10 +106,8 @@ export default function TagSelector({onChange, selected}: Props) {
                                 {tag.name}
                             </span>
                             </label>
-
                         </>
                     ))}
-
                 </div>
                 : null
             }
