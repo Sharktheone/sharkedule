@@ -77,8 +77,8 @@ export default function TagSelector({onChange, selected}: Props) {
                              onClick={open}
                              onContextMenu={e => fakeContextMenu(e, uuid)}
                              style={{
-                            backgroundColor: `${tag?.color}90`,
-                        }}>
+                                 backgroundColor: `${tag?.color}90`,
+                             }}>
                             {tag?.name}
                         </div>
                     )
@@ -86,29 +86,29 @@ export default function TagSelector({onChange, selected}: Props) {
                 <button onClick={open}>+</button>
             </div>
             {opened ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}
-                ref={ref}
+                           ref={ref}
                 >
-                {tags?.map((tag) => (
-                    <>
-                        <label key={tag.uuid} className={styles.tag}
-                               htmlFor={`tag-select-${tag.uuid}`}
-                        >
-                            <input id={`tag-select-${tag.uuid}`} type="checkbox" className={styles.checkbox}
-                                   checked={checked(tag.uuid)}
-                                   onChange={() => handleChange(tag.uuid)}/>
+                    {tags?.map((tag) => (
+                        <>
+                            <label key={tag.uuid} className={styles.tag}
+                                   htmlFor={`tag-select-${tag.uuid}`}
+                            >
+                                <input id={`tag-select-${tag.uuid}`} type="checkbox" className={styles.checkbox}
+                                       checked={checked(tag.uuid)}
+                                       onChange={() => handleChange(tag.uuid)}/>
 
-                            <span className={styles.name} style={{
-                                backgroundColor: `${tag.color}90`,
-                            }}>
+                                <span className={styles.name} style={{
+                                    backgroundColor: `${tag.color}90`,
+                                }}>
                                 {tag.name}
                             </span>
-                        </label>
+                            </label>
 
-                    </>
-                ))}
+                        </>
+                    ))}
 
-            </div>
-            : null
+                </div>
+                : null
             }
         </div>
     )
