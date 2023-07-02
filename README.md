@@ -14,7 +14,7 @@ take a lot of time and effort, but I think it will be worth it.
     - [x] Create kanban boards
     - [x] Create columns
     - [x] Create tasks
-    - [ ] Edit task name (yes, but currently it is not saved)
+    - [x] Edit task name
     - [x] Drag and drop tasks and columns
     - [x] Delete tasks
     - [x] Delete columns
