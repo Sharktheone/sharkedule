@@ -16,9 +16,11 @@ export default function Menu({views, defaultView}: Props) {
     const [secondsToReturn, setSecondsToReturn] = useState<number>(5)
 
     const {classes, cx} = useColors()
+
     function returnToDefault() {
         setCurrentView(defaultView)
     }
+
     function secondsToDefault() {
         setTimeout(() => {
             if (secondsToReturn === 0) {
@@ -40,8 +42,9 @@ export default function Menu({views, defaultView}: Props) {
                     <div>
                         Error, view not found
                         <span> Returning to default in {secondsToReturn}s {secondsToDefault()} </span>
-                    </div>)
-        } as MenuView
+                    </div>
+                )
+            } as MenuView
         }
         return view
     }

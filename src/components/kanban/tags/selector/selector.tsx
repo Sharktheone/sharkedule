@@ -20,7 +20,7 @@ export default function TagSelector({onChange, selected}: Props) {
     const [opened, setOpened] = useState<boolean>(false)
     const selectedRef = useRef<HTMLDivElement>()
 
-    const popoverRef = useClickOutside(() => setOpened(false), undefined,  selectedRef.current ? [selectedRef.current] : [])
+    const popoverRef = useClickOutside(() => setOpened(false), undefined, selectedRef.current ? [selectedRef.current] : [])
 
     const {classes, cx} = useColors()
 
