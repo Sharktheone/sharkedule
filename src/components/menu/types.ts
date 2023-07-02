@@ -1,9 +1,10 @@
 import {ReactNode} from "react"
 
 
-export type MenuViews = {
+export type MenuView = {
     name: string
-    items: MenuItem[]
+    id: string
+    items: MenuItem[] | ReactNode
 }
 
 export type MenuItems = MenuDivider | MenuGroup | MenuItem | MenuLink | MenuToggle | ReactNode
