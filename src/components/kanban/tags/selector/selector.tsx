@@ -1,9 +1,9 @@
-import {useContext, useEffect, useState} from "react"
+import {MutableRefObject, useContext, useEffect, useRef, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
 import {useColors} from "@/components/kanban/tags/selector/colors"
 import {useClickOutside} from "@mantine/hooks"
-import {IconCirclePlus, IconPlus} from "@tabler/icons-react"
+import {IconCirclePlus} from "@tabler/icons-react"
 
 type Props = {
     onChange: (tags: string[]) => void
@@ -18,8 +18,9 @@ export default function TagSelector({onChange, selected}: Props) {
     const [newSelected, setNewSelected] = useState<string[]>(selected ?? [])
     const [firstRender, setFirstRender] = useState<boolean>(true)
     const [opened, setOpened] = useState<boolean>(false)
+    const selectedRef = useRef<HTMLDivElement>()
 
-    const ref = useClickOutside(() => setOpened(false))
+    const popoverRef = useClickOutside(() => setOpened(false), undefined,  selectedRef.current ? [selectedRef.current] : [])
 
     const {classes, cx} = useColors()
 
@@ -67,7 +68,7 @@ export default function TagSelector({onChange, selected}: Props) {
 
     return (
         <div className={styles.selector}>
-            <div className={styles.selected}>
+            <div ref={selectedRef as MutableRefObject<HTMLDivElement>} className={styles.selected}>
                 {newSelected?.map((uuid) => {
                     let tag = tags?.find((tag) => tag.uuid === uuid)
                     if (!tags) {
@@ -89,7 +90,7 @@ export default function TagSelector({onChange, selected}: Props) {
                 </button>
             </div>
             {opened ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}
-                           ref={ref}
+                           ref={popoverRef}
                 >
                     {tags?.map((tag) => (
                         <>
