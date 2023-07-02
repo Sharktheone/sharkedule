@@ -26,7 +26,6 @@ export default function Menu({views, defaultView}: Props) {
                 return
             }
             setSecondsToReturn(secondsToReturn - 1)
-            console.log(secondsToReturn - 1)
         }, 1000)
         return null
     }
