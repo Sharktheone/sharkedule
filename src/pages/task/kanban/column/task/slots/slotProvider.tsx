@@ -116,37 +116,35 @@ export function SlotProvider({children, task}: Props) {
         }
 
         if (config.border) {
-            const b = config.border
+            const b = config.border as string as SlotTypes
             const s = slots[b]
-            // border = getSlotColor(s) TODO
+            border = getSlotColor(b, s)
         }
 
         if (config.color) {
-            const c = config.color
+            const c = config.color as string as SlotTypes
             const s = slots[c]
-            // color = getSlotColor(s) TODO
+            color = getSlotColor(c, s)
         }
-        //
-        // console.log({upperSlot, lowerSlot, border, color})
 
         return {upperSlot, lowerSlot, border, color}
     }
 
-    function getSlotColor(slot: Slot): string | null {
-        switch (slot.type) {
+    function getSlotColor(type: SlotTypes, value: string | number | string[] | undefined[]): string | null {
+        switch (type) {
             case SlotTypes.PRIORITY: {
-                if (typeof slot.value !== "string") return null
-                const s = getPriority(slot.value)
+                if (typeof value !== "string") return null
+                const s = getPriority(value)
                 return s?.color || null
             }
             case SlotTypes.STATUS: {
-                if (typeof slot.value !== "string") return null
-                const s = getStatus(slot.value)
+                if (typeof value !== "string") return null
+                const s = getStatus(value)
                 return s?.color || null
             }
             case SlotTypes.DATE_DUE: {
-                if (typeof slot.value !== "string") return null
-                const s = getDate(slot.value)
+                if (typeof value !== "string") return null
+                const s = getDate(value)
                 if (!s) return null
 
 
@@ -161,15 +159,15 @@ export function SlotProvider({children, task}: Props) {
             }
 
             case SlotTypes.STAGE: {
-                if (typeof slot.value !== "string") return null
-                const s = getStage(slot.value)
+                if (typeof value !== "string") return null
+                const s = getStage(value)
                 return s?.color || null
             }
 
             case SlotTypes.PROGRESS: {
-                if (typeof slot.value !== "number") return null
+                if (typeof value !== "number") return null
 
-                const progress = slot.value
+                const progress = value
                 if (progress >= 100) return "#00ff00" // TODO: Make configurable
                 if (progress > 80) return "#d5ff18"
                 if (progress > 70) return "#ffff00"
