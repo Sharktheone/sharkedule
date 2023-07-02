@@ -6,7 +6,7 @@ export type MenuViews = {
     items: MenuItem[]
 }
 
-export type MenuIcons = MenuDivider | MenuGroup | MenuItem | MenuLink | MenuToggle | ReactNode
+export type MenuItems = MenuDivider | MenuGroup | MenuItem | MenuLink | MenuToggle | ReactNode
 
 export type MenuDivider = {
     type: "divider"
@@ -16,7 +16,7 @@ export type MenuDivider = {
 export type MenuGroup = {
     name: string
     icon: ReactNode
-    items: MenuIcons[]
+    items: MenuItems[]
 }
 
 export type MenuItem = {
