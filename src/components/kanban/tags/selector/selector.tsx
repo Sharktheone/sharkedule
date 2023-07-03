@@ -4,6 +4,7 @@ import styles from "./styles.module.scss"
 import {useColors} from "@/components/kanban/tags/selector/colors"
 import {useClickOutside} from "@mantine/hooks"
 import {IconCirclePlus} from "@tabler/icons-react"
+import {usePopover} from "@mantine/core/lib/Popover/use-popover"
 
 type Props = {
     onChange: (tags: string[]) => void
@@ -17,9 +18,10 @@ export default function TagSelector({onChange, selected}: Props) {
     const [newSelected, setNewSelected] = useState<string[]>(selected ?? [])
     const [firstRender, setFirstRender] = useState<boolean>(true)
     const [opened, setOpened] = useState<boolean>(false)
-    const selectedRef = useRef<HTMLDivElement>()
+    const [selectedRef, setSelectedRef] = useState<HTMLDivElement | null>(null)
 
-    const popoverRef = useClickOutside(() => setOpened(false), undefined, selectedRef.current ? [selectedRef.current] : [])
+    const [popoverRef, setPopoverRef] = useState<HTMLDivElement | null>(null)
+    useClickOutside(() => setOpened(false), null, [selectedRef, popoverRef])
 
     const {classes, cx} = useColors()
 
@@ -56,7 +58,7 @@ export default function TagSelector({onChange, selected}: Props) {
     }
 
     function open() {
-        setOpened(!opened)
+        setOpened(true)
     }
 
     //@ts-ignore
@@ -67,7 +69,7 @@ export default function TagSelector({onChange, selected}: Props) {
 
     return (
         <div className={styles.selector}>
-            <div ref={selectedRef as MutableRefObject<HTMLDivElement>} className={styles.selected}>
+            <div ref={setSelectedRef} className={styles.selected}>
                 {newSelected?.map((uuid) => {
                     let tag = tags?.find((tag) => tag.uuid === uuid)
                     if (!tags) {
@@ -89,7 +91,7 @@ export default function TagSelector({onChange, selected}: Props) {
                 </button>
             </div>
             {opened ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}
-                           ref={popoverRef}
+                           ref={setPopoverRef}
                 >
                     {tags?.map((tag) => (
                         <>
