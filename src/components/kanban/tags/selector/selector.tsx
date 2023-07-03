@@ -10,7 +10,6 @@ type Props = {
     selected?: string[]
 }
 export default function TagSelector({onChange, selected}: Props) {
-
     const {environment} = useContext(EnvironmentContext)
 
     const tags = environment?.tags

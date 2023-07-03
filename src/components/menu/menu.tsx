@@ -49,7 +49,6 @@ export default function Menu({views, defaultView}: Props) {
         return view
     }
 
-
     return (
         <div className={`${styles.menu} ${cx(classes.menu)}`}>
             <RenderView view={getCurrentView()}/>
