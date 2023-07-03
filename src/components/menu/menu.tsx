@@ -27,13 +27,12 @@ export namespace Menu {
     }
 
 
-
     type ItemProps = {
         children: ReactNode
-        icon: ReactNode
-        label: ReactNode
-        color: string
-        toView: string
+        icon?: ReactNode
+        label?: ReactNode
+        color?: string
+        toView?: string
         onSelect: () => void
     }
 
@@ -47,15 +46,21 @@ export namespace Menu {
 
         return (
             <div className={styles.labelComponent}>
-                <div className={styles.icon}>
-                    {icon}
-                </div>
+                {icon ?
+                    <div className={styles.icon}>
+                        {icon}
+                    </div>
+                    : null
+                }
                 <div className={styles.item}>
                     {children}
                 </div>
-                <div className={styles.label}>
-                    {label}
-                </div>
+                {label ?
+                    <div className={styles.label}>
+                        {label}
+                    </div>
+                    : null
+                }
             </div>
         )
     }
@@ -76,15 +81,21 @@ export namespace Menu {
     export function Section({children, icon, label}: SectionProps) {
         return (
             <div className={styles.labelComponent}>
-                <div className={styles.icon}>
-                    {icon}
-                </div>
+                {icon ?
+                    <div className={styles.icon}>
+                        {icon}
+                    </div>
+                    : null
+                }
                 <div className={styles.labelName}>
                     {children}
                 </div>
-                <div className={styles.label}>
-                    {label}
-                </div>
+                {label ?
+                    <div className={styles.label}>
+                        {label}
+                    </div>
+                    : null
+                }
             </div>
         )
     }
