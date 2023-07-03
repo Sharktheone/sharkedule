@@ -3,3 +3,39 @@
   border-radius: .5rem;
   padding: .5rem;
 }
+
+
+.divider {
+    border: 1px solid #ccc;
+    margin: .5rem 0;
+}
+
+.label-component {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .5rem;
+  padding: .5rem;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .5rem;
+  padding: .5rem;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.label-name {
+  margin-left: .5rem;
+}
