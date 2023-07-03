@@ -1,4 +1,5 @@
 import {ReactNode} from "react"
+import styles from "./menu.module.css"
 
 export function Menu() {
     return (
@@ -17,6 +18,7 @@ export namespace Menu {
     }
 
     export function View({children, id, name}: ViewProps) {
+        // hmm, how do we do this?
         return (
             <div>
                 View
@@ -36,32 +38,53 @@ export namespace Menu {
     }
 
     export function Item({children, icon, label, color}: ItemProps) {
+        function getColor() {
+            return {
+                backgroundColor: color
+            }
+        }
+
+
         return (
-            <div>
-                Item
+            <div className={styles.labelComponent}>
+                <div className={styles.icon}>
+                    {icon}
+                </div>
+                <div className={styles.item}>
+                    {children}
+                </div>
+                <div className={styles.label}>
+                    {label}
+                </div>
             </div>
         )
     }
 
     export function Divider() {
         return (
-            <div>
-                Divider
-            </div>
+            <div className={styles.divider}/>
         )
     }
 
-    type LabelProps = {
+    type SectionProps = {
         children: ReactNode
         icon: ReactNode
         label: ReactNode
 
     }
 
-    export function Label({children, icon, label}: LabelProps) {
+    export function Section({children, icon, label}: SectionProps) {
         return (
-            <div>
-                Label
+            <div className={styles.labelComponent}>
+                <div className={styles.icon}>
+                    {icon}
+                </div>
+                <div className={styles.labelName}>
+                    {children}
+                </div>
+                <div className={styles.label}>
+                    {label}
+                </div>
             </div>
         )
     }
