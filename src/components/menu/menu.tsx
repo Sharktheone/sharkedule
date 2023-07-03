@@ -1,57 +1,68 @@
-import {MenuView} from "@/components/menu/types"
-import {useMemo, useState} from "react"
-import styles from "./styles.module.scss"
-import {useColors} from "@/components/menu/colors"
-import RenderView from "@/components/menu/RenderView"
+import {ReactNode} from "react"
 
-
-type Props = {
-    views: MenuView[]
-    defaultView: string
+export function Menu() {
+    return (
+        <div>
+            Menu
+        </div>
+    )
 }
 
 
-export default function Menu({views, defaultView}: Props) {
-    const [currentView, setCurrentView] = useState<string>(defaultView)
-    const [secondsToReturn, setSecondsToReturn] = useState<number>(5)
-
-    const {classes, cx} = useColors()
-
-    function returnToDefault() {
-        setCurrentView(defaultView)
+export namespace Menu {
+    type ViewProps = {
+        children: ReactNode
+        id: string
+        name: string
     }
 
-    function secondsToDefault() {
-        setTimeout(() => {
-            if (secondsToReturn === 0) {
-                returnToDefault()
-                return
-            }
-            setSecondsToReturn(secondsToReturn - 1)
-        }, 1000)
-        return null
+    export function View({children, id, name}: ViewProps) {
+        return (
+            <div>
+                View
+            </div>
+        )
     }
 
-    function getCurrentView() {
-        const view = useMemo(() => views?.find((v) => v?.id === currentView), [currentView, views])
-        if (!view) {
-            return {
-                id: "error",
-                name: "Error, view not found",
-                items: (
-                    <div>
-                        Error, view not found
-                        <span> Returning to default in {secondsToReturn}s {secondsToDefault()} </span>
-                    </div>
-                )
-            } as MenuView
-        }
-        return view
+
+
+    type ItemProps = {
+        children: ReactNode
+        icon: ReactNode
+        label: ReactNode
+        color: string
+        toView: string
+        onSelect: () => void
     }
 
-    return (
-        <div className={`${styles.menu} ${cx(classes.menu)}`}>
-            <RenderView view={getCurrentView()}/>
-        </div>
-    )
+    export function Item({children, icon, label, color}: ItemProps) {
+        return (
+            <div>
+                Item
+            </div>
+        )
+    }
+
+    export function Divider() {
+        return (
+            <div>
+                Divider
+            </div>
+        )
+    }
+
+    type LabelProps = {
+        children: ReactNode
+        icon: ReactNode
+        label: ReactNode
+
+    }
+
+    export function Label({children, icon, label}: LabelProps) {
+        return (
+            <div>
+                Label
+            </div>
+        )
+    }
 }
