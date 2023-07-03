@@ -21,7 +21,6 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
     }
 
     function setTags(tags: string[]) {
-        console.log(tags)
         api.patch(`/kanban/task/${uuid}/tags`, {tags: tags}).then(
             (res) => {
                 if (res.status >= 300) {
