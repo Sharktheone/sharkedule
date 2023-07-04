@@ -1,6 +1,5 @@
-import {createContext, Dispatch, ReactElement, ReactNode, SetStateAction} from "react"
+import {createContext, Dispatch, ReactNode, SetStateAction, useContext} from "react"
 import styles from "./styles.module.scss"
-
 
 
 const MenuContext = createContext<string>("")
@@ -10,9 +9,10 @@ type Props = {
     width?: number
     open?: boolean
     setOpen?: Dispatch<SetStateAction<boolean>>
+    defaultView: string
 }
 
-export function Menu({children, width, open, setOpen}: Props) {
+export function Menu({children, width, open, setOpen, defaultView}: Props) {
     if (Array.isArray(children)) {
         let allMenuViews = true
         children.forEach((child) => {
@@ -20,19 +20,19 @@ export function Menu({children, width, open, setOpen}: Props) {
                 allMenuViews = false
             }
         })
-        if (allMenuViews) {
+        if (!allMenuViews) {
             throw new Error("Menu must have at least one View")
         }
     } // TODO: this is not optimal => allow no view but multiple of the other components
 
     // if (!open) {
     //     return null
-    // }
+    // } // DEBUG
 
 
     return (
-        <MenuContext.Provider value="">
-            Menu
+        <MenuContext.Provider value={defaultView}>
+            {children}
         </MenuContext.Provider>
     )
 }
@@ -46,10 +46,15 @@ export namespace Menu {
     }
 
     export function View({children, id, name}: ViewProps) {
+        const view = useContext(MenuContext)
+        if (view !== id) {
+            return null
+        }
+
         // hmm, how do we do this? - We do it with a Context!
         return (
             <div>
-                View
+                {children}
             </div>
         )
     }
@@ -62,6 +67,7 @@ export namespace Menu {
         color?: string
         className?: string
     }
+
     function ComponentStructure({children, icon, label, color, className}: ComponentStructureProps) {
         function getColor() {
             return {

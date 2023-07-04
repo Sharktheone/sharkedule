@@ -38,9 +38,16 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
     return (
         <Details open={open} onClose={onClose} title={task.name}>
             <div>
-                <Menu>
-                    <Menu.View id="edit" name="Edit">
-                        <div>Edit</div>
+                <Menu defaultView="anotherView">
+                    <Menu.View id="default" name="Edit">
+                        <div>
+                            HELLO YOU LITTLE THING
+                        </div>
+                    </Menu.View>
+                    <Menu.View id="anotherView" name="Edit">
+                        <div>
+                            ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                        </div>
                     </Menu.View>
                 </Menu>
                 <TagSelector selected={task.tags} onChange={(tags) => setTags(tags)}/>
