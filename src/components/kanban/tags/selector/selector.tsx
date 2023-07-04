@@ -1,10 +1,9 @@
-import {MutableRefObject, useContext, useEffect, useRef, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
 import {useColors} from "@/components/kanban/tags/selector/colors"
 import {useClickOutside} from "@mantine/hooks"
 import {IconCirclePlus} from "@tabler/icons-react"
-import {usePopover} from "@mantine/core/lib/Popover/use-popover"
 
 type Props = {
     onChange: (tags: string[]) => void
