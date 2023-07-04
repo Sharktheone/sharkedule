@@ -4,19 +4,12 @@ import styles from "./styles.module.scss"
 
 export type viewRef = {
     id: string
-    element: HTMLElement | null
+    element: HTMLElement
 }
 
 
 export default function useViewTransition(currentView: string, viewList: viewRef[], duration?: number, transition?: string, timingFunction?: string) {
-    const [firstRender, setFirstRender] = useState(true)
-    const [lastView, setLastView] = useState<string | null>(null)
     useEffect(() => {
-        if (firstRender) {
-            setFirstRender(false)
-            setLastView(currentView)
-            return
-        }
         viewList.forEach(({id, element}) => {
             console.log(element, id)
             if (id === currentView) {
@@ -28,7 +21,7 @@ export default function useViewTransition(currentView: string, viewList: viewRef
                 hide(element)
             }
         })
-    }, [currentView])
+    }, [currentView, viewList])
 
     function hide(element: HTMLElement) {
         element.classList.remove(styles.active)
