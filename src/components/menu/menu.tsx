@@ -1,19 +1,39 @@
-import {Dispatch, ReactNode, SetStateAction} from "react"
-import styles from "./menu.module.css"
+import {createContext, Dispatch, ReactElement, ReactNode, SetStateAction} from "react"
+import styles from "./styles.module.scss"
 
+
+
+const MenuContext = createContext<string>("")
 
 type Props = {
     children: ReactNode
     width?: number
     open?: boolean
     setOpen?: Dispatch<SetStateAction<boolean>>
-
 }
-export function Menu() {
+
+export function Menu({children, width, open, setOpen}: Props) {
+    if (Array.isArray(children)) {
+        let allMenuViews = true
+        children.forEach((child) => {
+            if (child.type.name !== "View") {
+                allMenuViews = false
+            }
+        })
+        if (allMenuViews) {
+            throw new Error("Menu must have at least one View")
+        }
+    } // TODO: this is not optimal => allow no view but multiple of the other components
+
+    // if (!open) {
+    //     return null
+    // }
+
+
     return (
-        <div>
+        <MenuContext.Provider value="">
             Menu
-        </div>
+        </MenuContext.Provider>
     )
 }
 
@@ -26,7 +46,7 @@ export namespace Menu {
     }
 
     export function View({children, id, name}: ViewProps) {
-        // hmm, how do we do this?
+        // hmm, how do we do this? - We do it with a Context!
         return (
             <div>
                 View
