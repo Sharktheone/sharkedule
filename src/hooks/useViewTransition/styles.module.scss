@@ -1,0 +1,37 @@
+.active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
+}
+
+.slide-x {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide-y {
+  transform: translateY(100%);
+}
+
+.rotate-left {
+  transform: rotate(-90deg);
+}
+
+.rotate-right {
+  transform: rotate(90deg);
+}
+
+.flip-x {
+  transform: scaleX(-1);
+}
+
+.flip-y {
+  transform: scaleY(-1);
+}
