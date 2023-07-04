@@ -5,6 +5,7 @@ import {getTask} from "@/pages/task/utils/task"
 import TagSelector from "@/components/kanban/tags/selector/selector"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
+import {Menu} from "@/components/menu/menu"
 
 type Props = {
     open: boolean
@@ -37,6 +38,11 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
     return (
         <Details open={open} onClose={onClose} title={task.name}>
             <div>
+                <Menu>
+                    <Menu.View id="edit" name="Edit">
+                        <div>Edit</div>
+                    </Menu.View>
+                </Menu>
                 <TagSelector selected={task.tags} onChange={(tags) => setTags(tags)}/>
             </div>
         </Details>
