@@ -1,14 +1,4 @@
-import {
-    createContext,
-    createRef,
-    Dispatch,
-    JSX,
-    ReactNode,
-    SetStateAction,
-    useContext,
-    useEffect,
-    useState
-} from "react"
+import {createContext, Dispatch, JSX, ReactNode, SetStateAction, useContext, useEffect, useState} from "react"
 import styles from "./styles.module.scss"
 import useViewTransition, {viewRef} from "@/hooks/useViewTransition/useViewTransition"
 
@@ -42,7 +32,6 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
             }
         } // TODO: this is not optimal => allow no view but multiple of the other components
     }, [children])
-    console.log("RENDERING MENU")
 
 
     // if (!open) {
@@ -51,19 +40,24 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
 
     function Children() {
         if (!Array.isArray(children)) return <></>
-
-        refs = []
+        let refs: viewRef[] = []
 
         let childArray = children.map((child, index) => {
-            const ref = createRef<HTMLDivElement>()
-            refs.push({id: child.props.id, element: ref.current})
+            const [ref, setRef] = useState<HTMLDivElement | null>(null)
+            useEffect(() => {
+                if (ref) {
+                    refs.push({element: ref, id: child.props.id})
+                }
+            }, [ref])
+
 
             return (
-                <div key={index} ref={ref}>
+                <div key={index} ref={setRef}>
                     {child}
                 </div>
             )
         })
+
         useViewTransition(defaultView, refs)
         return childArray as unknown as JSX.Element
 
@@ -73,7 +67,7 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
     return (
         <MenuContext.Provider value={defaultView}>
             <div>
-            <Children/>
+                <Children/>
             </div>
         </MenuContext.Provider>
     )
