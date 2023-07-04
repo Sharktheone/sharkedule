@@ -11,5 +11,4 @@ export default function RenderView({view}: Props) {
             {view?.name}
         </div>
     )
-
 }
