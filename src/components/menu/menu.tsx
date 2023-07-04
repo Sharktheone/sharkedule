@@ -1,5 +1,16 @@
-import {createContext, Dispatch, ReactNode, SetStateAction, useContext} from "react"
+import {
+    createContext,
+    createRef,
+    Dispatch,
+    JSX,
+    ReactNode,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useState
+} from "react"
 import styles from "./styles.module.scss"
+import useViewTransition, {viewRef} from "@/hooks/useViewTransition/useViewTransition"
 
 
 const MenuContext = createContext<string>("")
@@ -13,26 +24,57 @@ type Props = {
 }
 
 export function Menu({children, width, open, setOpen, defaultView}: Props) {
-    if (Array.isArray(children)) {
-        let allMenuViews = true
-        children.forEach((child) => {
-            if (child.type.name !== "View") {
-                allMenuViews = false
+
+    let refs: viewRef[] = [] // We can't use state here because it would cause an infinite loop... I definitely did not spend 1.5 hours on this
+    const [attachedRefs, setAttachedRefs] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (Array.isArray(children)) {
+            let allMenuViews = true
+            children.forEach((Child) => {
+                if (Child.type.name !== "View") {
+                    allMenuViews = false
+                    return
+                }
+            })
+            if (!allMenuViews) {
+                throw new Error("Menu must have at least one View")
             }
-        })
-        if (!allMenuViews) {
-            throw new Error("Menu must have at least one View")
-        }
-    } // TODO: this is not optimal => allow no view but multiple of the other components
+        } // TODO: this is not optimal => allow no view but multiple of the other components
+    }, [children])
+    console.log("RENDERING MENU")
+
 
     // if (!open) {
     //     return null
     // } // DEBUG
 
+    function Children() {
+        if (!Array.isArray(children)) return <></>
+
+        refs = []
+
+        let childArray = children.map((child, index) => {
+            const ref = createRef<HTMLDivElement>()
+            refs.push({id: child.props.id, element: ref.current})
+
+            return (
+                <div key={index} ref={ref}>
+                    {child}
+                </div>
+            )
+        })
+        useViewTransition(defaultView, refs)
+        return childArray as unknown as JSX.Element
+
+
+    }
 
     return (
         <MenuContext.Provider value={defaultView}>
-            {children}
+            <div>
+            <Children/>
+            </div>
         </MenuContext.Provider>
     )
 }
@@ -47,10 +89,6 @@ export namespace Menu {
 
     export function View({children, id, name}: ViewProps) {
         const view = useContext(MenuContext)
-        if (view !== id) {
-            return null
-        }
-
         // hmm, how do we do this? - We do it with a Context!
         return (
             <div>

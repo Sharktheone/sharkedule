@@ -4,7 +4,7 @@ import styles from "./styles.module.scss"
 
 export type viewRef = {
     id: string
-    element: HTMLElement
+    element: HTMLElement | null
 }
 
 
@@ -18,10 +18,13 @@ export default function useViewTransition(currentView: string, viewList: viewRef
             return
         }
         viewList.forEach(({id, element}) => {
+            console.log(element, id)
             if (id === currentView) {
+                if (!element) return
                 show(element)
-                setLastView(currentView)
+                // setLastView(currentView)
             } else {
+                if (!element) return
                 hide(element)
             }
         })
