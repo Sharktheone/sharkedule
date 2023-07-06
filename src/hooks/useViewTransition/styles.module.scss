@@ -6,6 +6,7 @@
 
 .hidden {
   visibility: hidden;
+  display: none;
   opacity: 0;
   transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
 }
