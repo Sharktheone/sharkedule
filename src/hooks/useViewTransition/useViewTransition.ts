@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 import styles from "./styles.module.scss"
 
 
@@ -6,7 +6,6 @@ export type viewRef = {
     id: string
     element: HTMLElement
 }
-
 
 export default function useViewTransition(currentView: string, viewList: viewRef[], duration?: number, transition?: string, timingFunction?: string) {
     useEffect(() => {
