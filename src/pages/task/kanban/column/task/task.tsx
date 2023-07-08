@@ -10,7 +10,7 @@ import {SlotProvider} from "@kanban/column/task/slots/slotProvider"
 import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
-import TaskDetails from "@kanban/column/task/details"
+import TaskDetails from "@kanban/column/task/details/details"
 import useDoubleClick from "@/hooks/useDoubleClick/useDoubleClick"
 
 type TaskProps = {
