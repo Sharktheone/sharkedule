@@ -4,7 +4,7 @@ import {Dispatch, SetStateAction} from "react"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
-import {Board, environment} from "@kanban/types2"
+import {Board, environment} from "@kanban/types"
 
 
 export class dragHandlers {

@@ -1,6 +1,6 @@
 import {useContext} from "react"
 import {EnvironmentContext} from "@kanban/environment"
-import {Column} from "@kanban/types2"
+import {Column} from "@kanban/types"
 
 
 export function getColumn(uuid: string) {

@@ -1,6 +1,6 @@
 import {useContext} from "react"
 import {EnvironmentContext} from "@kanban/environment"
-import {Task} from "@kanban/types2"
+import {Task} from "@kanban/types"
 
 
 export function getTask(uuid: string) {

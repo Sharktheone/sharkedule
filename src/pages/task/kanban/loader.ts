@@ -1,5 +1,5 @@
 import {api} from "@/api/api"
-import {environment} from "@kanban/types2"
+import {environment} from "@kanban/types"
 
 
 export default async function KanbanBoardLoader({params}: { params: any }) {

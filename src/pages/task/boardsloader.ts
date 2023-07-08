@@ -1,5 +1,5 @@
 import {api} from "@/api/api"
-import {NameList} from "@kanban/types2"
+import {NameList} from "@kanban/types"
 
 
 export default function boardsLoader() {

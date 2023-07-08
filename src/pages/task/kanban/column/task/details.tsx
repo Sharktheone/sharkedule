@@ -1,6 +1,6 @@
 import Details from "@/components/details/details"
 import {Dispatch, SetStateAction, useState} from "react"
-import {Task} from "@kanban/types2"
+import {Task} from "@kanban/types"
 import {getTask} from "@/pages/task/utils/task"
 import TagSelector from "@/components/kanban/tags/selector/selector"
 import {api} from "@/api/api"

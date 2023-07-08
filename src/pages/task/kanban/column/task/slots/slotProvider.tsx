@@ -1,6 +1,6 @@
 import {ReactNode, useContext, useEffect, useState} from "react"
 import {Configuration, IndexedSlot, Slot, SlotTypes,} from "@kanban/column/task/slots/slotTypes"
-import {Task} from "@kanban/types2"
+import {Task} from "@kanban/types"
 import {EnvironmentContext} from "@kanban/environment"
 import {SlotContext} from "./slotContext"
 

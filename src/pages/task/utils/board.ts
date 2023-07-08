@@ -1,6 +1,6 @@
 import {useContext} from "react"
 import {EnvironmentContext} from "@kanban/environment"
-import {Board} from "@kanban/types2"
+import {Board} from "@kanban/types"
 
 
 export function getBoard(uuid: string) {

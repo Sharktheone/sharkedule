@@ -1,5 +1,5 @@
 import {createContext, Dispatch, ReactNode, SetStateAction} from "react"
-import {environment} from "@kanban/types2"
+import {environment} from "@kanban/types"
 
 type context = {
     environment: environment

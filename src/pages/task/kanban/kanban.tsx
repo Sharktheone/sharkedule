@@ -8,7 +8,7 @@ import styles from "./styles.module.scss"
 import {useStyles} from "./styles"
 import {dragHandlers} from "@/pages/task/kanban/dragHandlers"
 import {handlers} from '@/pages/task/kanban/handlers'
-import {environment} from "@kanban/types2"
+import {environment} from "@kanban/types"
 import {EnvironmentProvider} from "@kanban/environment"
 import Tstyles from "@kanban/column/task/styles.module.scss"
 import ContextMenu from "@kanban/contextmenu/contextmenu"

@@ -8,7 +8,7 @@ import {useDisclosure} from "@mantine/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"
-import {NameList} from "@kanban/types2"
+import {NameList} from "@kanban/types"
 
 
 export default function KanbanBoards() {

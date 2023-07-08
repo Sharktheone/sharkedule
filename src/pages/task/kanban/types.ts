@@ -1,192 +1,172 @@
-export type kanbanBoardType = {
-    uuid: string
+export type environment = {
+    tags: Tag[]
+    status: Status[]
+    priority: Priority[]
+    stage: Stage[]
+    columns: Column[]
+    boards: Board[]
+    tasks: Task[]
+    members: Member[]
+    checklists: Checklist[]
+    attachments: Attachment[]
+    dates: Date[]
+    board_names: BoardNames
+    column_names: ColumnNames
+    dependent_tasks: DependentTasks[]
+}
+
+export type Board = {
     name: string
-    description: kanbanDescriptionType
-    members: kanbanMemberType[]
-    tags: kanbanTagType[]
-    priority: kanbanPriorityType
-    status: kanbanStatusType
-    dueDate: kanbanDateDueType
-    dates: kanbanDateType[]
-    comments: kanbanCommentType[]
-    attachments: kanbanAttachmentType[]
-    checkList: kanbanCheckListType[]
-    images: kanbanImageType[]
-    archived: kanbanArchivedType
-    activity: kanbanActivityType[]
-    actions: kanbanActionType[]
-    columns: kanbanColumnType[]
-    progress: kanbanProgressType
-    stage: kanbanStageType
-}
-
-export type kanbanColumnType = {
     uuid: string
-    name: string
-    description: kanbanDescriptionType
-    tasks: kanbanTaskType[]
+    columns: string[]
+    tags: string[]
+    description: string
+    members: string[]
+    priority: string
+    status: string
+    dueDate: string
+    dates: string[]
+    comments: Comment[]
+    attachments: string[]
+    checklists: string[]
+    archived: boolean
+    activity: Activity[]
+    actions: string[]
 }
 
-export type kanbanTaskType = {
+export type Column = {
+    name: string
     uuid: string
-    name: string
-    type: string
-    members: kanbanMemberType[]
-    tags: kanbanTagType[]
-    priority: kanbanPriorityType
-    status: kanbanStatusType
-    dueDate: kanbanDateDueType
-    dates: kanbanDateType[]
-    description: kanbanDescriptionType
-    comments: kanbanCommentType[]
-    attachments: kanbanAttachmentType[]
-    checkList: kanbanCheckListType[]
-    images: kanbanImageType[]
-    archived: kanbanArchivedType
-    activity: kanbanActivityType[]
-    actions: kanbanActionType[]
-    subtasks: kanbanSubtaskType[]
-    stage: kanbanStageType
-    progress: kanbanProgressType
-    customFields: kanbanCustomFieldType[]
-}
-
-//TODO: find better way to nest subtasks - this is very ugly
-export type kanbanSubtaskType = task & {
-    subtasks: subtask2[]
-}
-
-type subtask2 = task & {
-    subtasks: subtask3[]
-}
-
-type subtask3 = task & {
-    subtasks: subtask4[]
-}
-
-type subtask4 = task & {
-    subtasks: task[]
-}
-
-type task = Omit<kanbanTaskType, 'subtasks'>
-
-export type kanbanDescriptionType = {
+    boards: string[]
+    tasks: string[]
+    tags: string[]
     description: string
 }
 
-export type kanbanPriorityType = {
-    uuid: string
-    priority: string
-    color: string
-}
-
-export type kanbanStatusType = {
-    uuid: string
-    color: string
-    status: string
-}
-
-export type kanbanDateDueType = {
-    uuid: string
-    date: string
-}
-
-export type kanbanArchivedType = {
-    archived: boolean
-    date: string
-    user: string
-
-}
-
-export type kanbanMemberType = {
-    uuid: string
-
-}
-
-export type kanbanTagType = {
-    uuid: string
+export type Task = {
+    progress: number
     name: string
+    uuid: string
+    boards: string[]
+    columns: string[]
+    tags: string[]
+    dependencies: string[]
+    dependents: string[]
+    comments: string[]
+    description: string
+    members: string[]
+    priority: string
+    status: string
+    due_date: string
+    dates: string[]
+    attachments: string[]
+    checklists: string[]
+    done: boolean
+    activity: Activity[]
+    stage: string
+    subtasks: string[]
+    custom_fields: undefined[] //TODO
+}
+
+export type Tag = {
+    name: string
+    uuid: string
     color: string
     icon: string
-}
-
-export type kanbanDateType = {
-    uuid: string,
-    name: string,
-    date: string,
-}
-
-export type kanbanAttachmentType = {
-    uuid: string
-    name: string
     type: string
-    size: string
-    date: string
-    user: string
+    description: string
 }
 
-export type kanbanImageType = {
+export type Member = {
+    username: string
     uuid: string
+    profile_picture: string
+}
+
+export type Checklist = {
     name: string
-    type: string
-    size: string
-    date: string
-    user: string
-    url: string
+    uuid: string
+    items: ChecklistItem[]
+    description: string
 }
 
-
-export type kanbanCommentType = {
-    uuid: string
-    message: string
-    date: string
-    user: string
-}
-
-export type kanbanCheckListType = {
-    uuid: string
+export type ChecklistItem = {
     name: string
-    items: kanbanCheckListItemType[]
-}
-
-export type kanbanCheckListItemType = {
     uuid: string
-    name: string
     checked: boolean
 }
 
-export type kanbanActionType = {
-    uuid: string
+export type Priority = {
     name: string
-    icon: string
+    uuid: string
     color: string
-    type: string
-    action: string
+    description: string
 }
 
-export type kanbanActivityType = {
+export type Status = {
+    name: string
     uuid: string
-    message: string
-    date: string
+    color: string
+    description: string
+}
+
+export type Attachment = {
+    uuid: string
     user: string
+    size: number
+    type: string
+    date: string
+    description: string
+    name: string
 }
 
-export type kanbanStageType = {
+export type Date = {
     uuid: string
     name: string
-    description: kanbanDescriptionType
-    color: string
+    timestamp: number
+    description: string
 }
 
-export type kanbanProgressType = {
+export type Stage = {
+    name: string
     uuid: string
-    percentage: number
+    color: string
+    description: string
 }
 
-export type kanbanCustomFieldType = {
+export type Activity = {
+    //TODO
+}
+
+export type BoardNames = {
+    [key: string]: string
+}
+
+export type ColumnNames = {
+    [key: string]: {
+        [key: string]: string
+    }
+}
+
+export type DependentTasks = {
+    [key: string]: {
+        [key: string]: string[]
+    }
+}
+
+export type NameList = {
+    name: string
+    uuid: string
+}
+
+export type CustomField = {
     uuid: string
     name: string
     type: string
     value: string
     color: string
+}
+
+export type Progress = {
+    //TODO multiple options => similar like stage etc or a percentage?
 }

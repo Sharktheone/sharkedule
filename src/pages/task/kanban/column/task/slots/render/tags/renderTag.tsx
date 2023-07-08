@@ -1,6 +1,6 @@
 import styles from "@kanban/column/task/slots/render/tags/styles.module.scss"
 import {getTag} from "@/pages/task/utils/tag"
-import {Tag} from "@kanban/types2"
+import {Tag} from "@kanban/types"
 
 
 type Props = {

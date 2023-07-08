@@ -7,7 +7,7 @@ import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "@/pages/task/kanban/ghost"
 import {handlers} from "@/pages/task/kanban/column/handlers"
-import {Column as Col} from "@kanban/types2"
+import {Column as Col} from "@kanban/types"
 import {EnvironmentContext} from "@kanban/environment"
 
 type ColumnProps = {
