@@ -6,6 +6,8 @@ import TagSelector from "@/components/kanban/tags/selector/selector"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
 import {Menu} from "@/components/menu/menu"
+import Description from "@kanban/column/task/details/description"
+import styles from "./styles.module.scss"
 
 type Props = {
     open: boolean
@@ -37,7 +39,8 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
 
     return (
         <Details open={open} onClose={onClose} title={task.name}>
-            <div>
+            <div className={styles.details}>
+                <Description uuid={uuid}/>
                 <Menu defaultView="anotherView">
                     <Menu.View id="default" name="Edit">
                         <div>
