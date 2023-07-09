@@ -7,7 +7,7 @@ type Props = {
     uuid: string
 }
 
-export  default function Description({uuid}: Props) {
+export default function Description({uuid}: Props) {
     const {environment} = useContext(EnvironmentContext)
 
     const task = environment?.tasks?.find((task) => task.uuid === uuid)

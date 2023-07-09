@@ -9,5 +9,4 @@ export const useColors = createStyles((theme) => ({
         }`,
         "--outline-color": theme.colors.blue[5],
     },
-
 }))
