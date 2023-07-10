@@ -1,0 +1,24 @@
+
+.loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid var(--loader-color-primary);
+  border-top-color: var(--loader-color-secondary);
+  opacity: .8;
+  color: transparent;
+  text-align: center;
+  user-select: none;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    opacity: .8;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: .8;
+  }
+}
