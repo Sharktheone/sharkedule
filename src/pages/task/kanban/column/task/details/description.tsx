@@ -2,6 +2,7 @@ import {useContext} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import {useColors} from "./colors"
 import styles from "./styles.module.scss"
+import Loader from "@/components/loader/loader"
 
 type Props = {
     uuid: string
@@ -16,11 +17,14 @@ export default function Description({uuid}: Props) {
 
     if (!task) return null
 
-
     return (
-        <textarea className={`${cx(classes.description)} ${styles.description}`}>
+        <>
+
+            <Loader/>
+            <textarea className={`${cx(classes.description)} ${styles.description}`}>
             {task.description}
         </textarea>
+        </>
     )
 
 }
