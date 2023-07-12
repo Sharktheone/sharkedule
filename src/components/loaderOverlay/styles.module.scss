@@ -1,0 +1,15 @@
+.overlay {
+  position: relative;
+}
+
+
+.loader {
+  position: absolute;
+  display: flex;
+  top: 0;
+  right: 0;
+  height: 100%;
+  align-items: center;
+  margin:  0 .5rem;
+  pointer-events: none;
+}
