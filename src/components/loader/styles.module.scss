@@ -1,9 +1,9 @@
 
 .loader {
-  width: 100px;
   height: 100px;
+  aspect-ratio: 1;
   border-radius: 50%;
-  border: 10px solid var(--loader-color-primary);
+  border: 5px solid var(--loader-color-primary);
   border-top-color: var(--loader-color-secondary);
   opacity: .8;
   color: transparent;
