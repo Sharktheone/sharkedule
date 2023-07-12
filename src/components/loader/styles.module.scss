@@ -1,3 +1,7 @@
+.wrapper {
+  overflow: hidden;
+}
+
 
 .loader {
   height: 100px;
@@ -5,7 +9,6 @@
   border-radius: 50%;
   border: 5px solid var(--loader-color-primary);
   border-top-color: var(--loader-color-secondary);
-  opacity: .8;
   color: transparent;
   text-align: center;
   user-select: none;
