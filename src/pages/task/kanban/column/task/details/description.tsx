@@ -1,4 +1,4 @@
-import {useContext} from "react"
+import {useContext, useEffect} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import {useColors} from "./colors"
 import styles from "./styles.module.scss"
@@ -7,7 +7,6 @@ import {useDebouncedState} from "@mantine/hooks"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
 import {notifications} from "@mantine/notifications"
-import {useEffect} from "react"
 
 type Props = {
     uuid: string
@@ -49,11 +48,11 @@ export default function Description({uuid}: Props) {
     return (
         <div className={styles.wrapper}>
             <LoaderOverlay loading={true}>
-                <textarea className={`${cx(classes.description)} ${styles.description}`} value={description} onChange={e => setDescription(e.target.value)}>
+                <textarea className={`${cx(classes.description)} ${styles.description}`} value={description}
+                          onChange={e => setDescription(e.target.value)}>
                     {task.description}
                 </textarea>
             </LoaderOverlay>
         </div>
     )
-
 }
