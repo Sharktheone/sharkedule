@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react"
+import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import {useColors} from "./colors"
 import styles from "./styles.module.scss"
@@ -16,7 +16,7 @@ export default function Description({uuid}: Props) {
     const {environment} = useContext(EnvironmentContext)
 
     const task = environment?.tasks?.find((task) => task.uuid === uuid)
-
+    const [loading, setLoading] = useState(false)
     const [description, setDescription] = useDebouncedState<string>(task?.description ?? "", 1000)
 
     const {cx, classes} = useColors()
@@ -26,13 +26,17 @@ export default function Description({uuid}: Props) {
     if (!task) return null
 
     useEffect(() => {
-        updateDescription()
+        return () => {
+            if (description === task.description) return
+            updateDescription()
+        }
     }, [description])
 
     function updateDescription() {
         if (!task) return
-        api.patch(`/tasks/${task.uuid}`, {
-            description
+        setLoading(true)
+        api.patch(`/tasks/${task.uuid}/description`, {
+            description: description
         }).then(res => {
             if (res.status < 300) {
                 navigate("")
@@ -42,13 +46,21 @@ export default function Description({uuid}: Props) {
                     message: res.data.message,
                 })
             }
+        }).catch(err => {
+            notifications.show({
+                title: "Failed to update description",
+                message: err.message,
+                color: "red"
+            })
+        }).finally(() => {
+            setLoading(false)
         })
     }
 
     return (
         <div className={styles.wrapper}>
-            <LoaderOverlay loading={true}>
-                <textarea className={`${cx(classes.description)} ${styles.description}`} value={description}
+            <LoaderOverlay loading={loading}>
+                <textarea className={`${cx(classes.description)} ${styles.description}`}
                           onChange={e => setDescription(e.target.value)}>
                     {task.description}
                 </textarea>
