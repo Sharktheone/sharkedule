@@ -40,11 +40,13 @@
       }
     }
   }
+
   &:hover, &:focus {
     & > .hover {
       visibility: visible;
     }
   }
+
   & > .hover {
     margin: .5rem 0;
     position: absolute;
