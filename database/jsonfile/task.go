@@ -91,6 +91,15 @@ func (J *JSONFile) SetTagsOnTask(task string, tags []string) error {
 	return J.Save()
 }
 
+func (J *JSONFile) SetTaskDescription(task, description string) error {
+	t, err := J.GetTask(task)
+	if err != nil {
+		return err
+	}
+	kanbandb.SetTaskDescription(t, description)
+	return J.Save()
+}
+
 func (J *JSONFile) DeleteTaskOnColumn(column, uuid string) error {
 	col, err := J.GetColumn(column)
 	if err != nil {

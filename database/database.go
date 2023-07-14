@@ -49,6 +49,7 @@ type IDatabase interface {
 	AddTagToTask(task, tag string) error
 	RemoveTagOnTask(column, uuid string) error
 	SetTagsOnTask(task string, tags []string) error
+	SetTaskDescription(task, description string) error
 	RenameTask(task, name string) error
 	DeleteColumnOnBoard(board, column string) error
 	RenameColumn(column, name string) error

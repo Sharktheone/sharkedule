@@ -16,3 +16,8 @@ func (t *Task) SetTags(uuids []string) error {
 
 	return db.DB.SetTagsOnTask(t.UUID, uuids)
 }
+
+func (t *Task) SetDescription(description string) error {
+
+	return db.DB.SetTaskDescription(t.UUID, description)
+}

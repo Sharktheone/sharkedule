@@ -73,11 +73,12 @@ func Start() {
 			{
 				t := tasks.Group(":task") // /api/kanban/task/:task
 				{
-					t.Delete("delete", task.Delete) // DELETE /api/kanban/task/:task/delete
-					t.Patch("rename", task.Rename)  // PATCH /api/kanban/task/:task/rename
-					t.Put("tag", task.AddTag)       // PUT /api/kanban/task/:task/tag
-					t.Delete("tag", task.RemoveTag) // DELETE /api/kanban/task/:task/tag
-					t.Patch("tags", task.SetTags)   // PATCH /api/kanban/task/:task/tag
+					t.Delete("delete", task.Delete)             // DELETE /api/kanban/task/:task/delete
+					t.Patch("rename", task.Rename)              // PATCH /api/kanban/task/:task/rename
+					t.Put("tag", task.AddTag)                   // PUT /api/kanban/task/:task/tag
+					t.Delete("tag", task.RemoveTag)             // DELETE /api/kanban/task/:task/tag
+					t.Patch("tags", task.SetTags)               // PATCH /api/kanban/task/:task/tag
+					t.Patch("description", task.SetDescription) // PATCH /api/kanban/task/:task/description
 				}
 			}
 			tags := kanban.Group("tag") // /api/kanban/tag

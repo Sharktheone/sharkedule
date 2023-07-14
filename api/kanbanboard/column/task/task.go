@@ -198,3 +198,29 @@ func SetTags(c *fiber.Ctx) error {
 
 	return c.SendStatus(fiber.StatusNoContent)
 }
+
+func SetDescription(c *fiber.Ctx) error {
+	type SetDescription struct {
+		Description string `json:"description"`
+	}
+
+	var setDescription SetDescription
+
+	if err := json.NewDecoder(bytes.NewReader(c.Body())).Decode(&setDescription); err != nil {
+		if err := c.Status(fiber.StatusBadRequest).JSON(api.JSON{"error": err.Error()}); err != nil {
+			return fmt.Errorf("failed sending task: %v", err)
+		}
+	}
+
+	t, err := middleware.ExtractTask(c)
+	if err != nil {
+		return fmt.Errorf("failed extracting task: %v", err)
+	}
+
+	if err := t.SetDescription(setDescription.Description); err != nil {
+		return fmt.Errorf("failed setting description: %v", err)
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+
+}
