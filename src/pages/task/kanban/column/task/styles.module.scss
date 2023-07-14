@@ -39,35 +39,33 @@
 
       }
     }
-
-    & > div.hover {
-      margin: .75rem 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      visibility: hidden;
-
-      & > div > button {
-        border: none;
-        background: inherit;
-
-        & > svg {
-          width: 1.5rem;
-          height: 1.5rem;
-          padding: .25rem;
-
-          &:hover {
-            background: rgba(255, 77, 79, 0.4);
-            border-radius: 25%;
-            cursor: pointer;
-          }
-        }
-      }
+  }
+  &:hover, &:focus {
+    & > .hover {
+      visibility: visible;
     }
+  }
+  & > .hover {
+    margin: .5rem 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    visibility: hidden;
 
-    &:hover, &:focus {
-      & > div.hover {
-        visibility: visible;
+    & > div > button {
+      border: none;
+      background: inherit;
+
+      & > svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: .25rem;
+
+        &:hover {
+          background: rgba(255, 77, 79, 0.4);
+          border-radius: 25%;
+          cursor: pointer;
+        }
       }
     }
   }

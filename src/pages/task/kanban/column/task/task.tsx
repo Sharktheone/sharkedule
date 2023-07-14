@@ -89,15 +89,15 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                             {t?.name as string}
                         </Text>
                     </div>
-                    <div className={styles.hover}>
-                        <div>
-                            <button onClick={handleDelete}>
-                                <IconTrash/>
-                            </button>
-                        </div>
-                    </div>
                 </div>
                 <LowerSlot/>
+                <div className={styles.hover}>
+                    <div>
+                        <button onClick={handleDelete}>
+                            <IconTrash/>
+                        </button>
+                    </div>
+                </div>
             </div>
             <TaskDetails open={taskDetails} setOpen={setTaskDetails} uuid={task}/>
         </SlotProvider>
