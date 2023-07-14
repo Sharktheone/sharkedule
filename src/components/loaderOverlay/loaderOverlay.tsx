@@ -13,7 +13,7 @@ export default function LoaderOverlay({loading, children}: Props) {
             {children}
             {loading &&
                 <div className={styles.loader}>
-                    <Loader size="30px"/>
+                    <Loader size="20px"/>
                 </div>
             }
         </div>

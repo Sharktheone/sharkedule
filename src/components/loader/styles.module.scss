@@ -7,7 +7,7 @@
   height: 100px;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 5px solid var(--loader-color-primary);
+  border: 5px solid clamp(2px, var(--loader-color-primary), 2rem);
   border-top-color: var(--loader-color-secondary);
   color: transparent;
   text-align: center;
