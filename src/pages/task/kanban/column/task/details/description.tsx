@@ -35,7 +35,7 @@ export default function Description({uuid}: Props) {
     function updateDescription() {
         if (!task) return
         setLoading(true)
-        api.patch(`/tasks/${task.uuid}/description`, {
+        api.patch(`/kanban/task/${task.uuid}/description`, {
             description: description
         }).then(res => {
             if (res.status < 300) {
