@@ -3,7 +3,7 @@ module github.com/Sharktheone/sharkedule
 go 1.20
 
 require (
-	github.com/gofiber/fiber/v2 v2.47.0
+	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/google/uuid v1.3.0
 )
 
