@@ -18,7 +18,7 @@ take a lot of time and effort, but I think it will be worth it.
     - [x] Drag and drop tasks and columns
     - [x] Delete tasks
     - [x] Delete columns
-    - [ ] Edit task description
+    - [x] Edit task description
     - [ ] Tags, Date Due, attachments, checklists, activity, assignments and other metadata
     - [ ] Edit Task, Column, Board metadata
     - [ ] Task comments / conversation
