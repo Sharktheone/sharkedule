@@ -32,5 +32,4 @@ export default function useViewTransition(currentView: string, viewList: viewRef
         element.classList.add(styles.active, styles[transition ?? ""])
         //TODO: transition
     }
-
 }
