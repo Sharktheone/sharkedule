@@ -22,7 +22,7 @@ export type viewRef = {
 
 
 
-export default function useViewTransition(currentView: string, viewList: viewRef[], duration?: number, transition?: string, timingFunction?: string) {
+export default function useViewTransition(currentView: string, viewList: viewRef[], duration: number = 500, transition?: string, timingFunction?: string) {
     const [lastView, setLastView] = useState<string>(currentView)
 
 
@@ -33,7 +33,7 @@ export default function useViewTransition(currentView: string, viewList: viewRef
                 if (!element) return
                 show(element)
                 // setLastView(currentView)
-            } else {
+            } else if (id !== lastView) {
                 if (!element) return
                 hide(element)
             }
@@ -53,14 +53,29 @@ export default function useViewTransition(currentView: string, viewList: viewRef
         }
     }
 
+    function getOldElement() {
+        return viewList.find(({id}) => id === lastView)?.element
+    }
+
     function hide(element: HTMLElement) {
         element.classList.remove(styles.active)
         element.classList.add(styles.hidden, styles[transition ?? ""])
     }
 
     function show(element: HTMLElement) {
+        const old = getOldElement()
         element.classList.remove(styles.hidden)
-        element.classList.add(styles.active, styles[transition ?? ""])
+        if (!old) {
+            element.classList.add(styles.active)
+            return
+        }
+        element.classList.add(direction(currentView, lastView), styles[transition ?? ""])
+        old.classList.add(direction(lastView, currentView), styles[transition ?? ""])
+        setTimeout(() => {
+            element.classList.remove(direction(currentView, lastView), styles[transition ?? ""])
+            old.classList.remove(direction(lastView, currentView), styles[transition ?? ""])
+            element.classList.add(styles.active)
+        }, duration)
         //TODO: transition
     }
 }
