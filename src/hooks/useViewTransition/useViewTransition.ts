@@ -37,6 +37,18 @@ export default function useViewTransition(currentView: string, viewList: viewRef
         })
     }, [currentView, viewList])
 
+
+    function direction(currentView: string, newView: string) {
+        const currentIndex = viewList.findIndex(({id}) => id === currentView)
+        const newIndex = viewList.findIndex(({id}) => id === newView)
+
+        if (currentIndex < newIndex) {
+            return styles.hiddenRight
+        } else {
+            return styles.hiddenLeft
+        }
+    }
+
     function hide(element: HTMLElement) {
         element.classList.remove(styles.active)
         element.classList.add(styles.hidden, styles[transition ?? ""])
