@@ -28,7 +28,6 @@ export default function useViewTransition(currentView: string, viewList: viewRef
 
     useEffect(() => {
         viewList.forEach(({id, element}) => {
-            console.log(element, id)
             if (id === currentView) {
                 if (!element) return
                 show(element)
