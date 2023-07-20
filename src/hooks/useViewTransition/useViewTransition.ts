@@ -1,4 +1,4 @@
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import styles from "./styles.module.scss"
 
 
@@ -23,6 +23,9 @@ export type viewRef = {
 
 
 export default function useViewTransition(currentView: string, viewList: viewRef[], duration?: number, transition?: string, timingFunction?: string) {
+    const [lastView, setLastView] = useState<string>(currentView)
+
+
     useEffect(() => {
         viewList.forEach(({id, element}) => {
             console.log(element, id)
@@ -35,6 +38,7 @@ export default function useViewTransition(currentView: string, viewList: viewRef
                 hide(element)
             }
         })
+        setLastView(currentView)
     }, [currentView, viewList])
 
 
