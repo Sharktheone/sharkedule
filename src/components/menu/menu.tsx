@@ -15,7 +15,6 @@ type Props = {
 }
 
 export function Menu({children, width, open, setOpen, defaultView}: Props) {
-
     let refs: viewRef[] = [] // We can't use state here because it would cause an infinite loop... I definitely did not spend 1.5 hours on this
     const [attachedRefs, setAttachedRefs] = useState<boolean>(false)
     const {classes, cx} = useColors()
@@ -34,6 +33,8 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
             }
         } // TODO: this is not optimal => allow no view but multiple of the other components
     }, [children])
+    const [view, setView] = useState<string>(defaultView)
+    const [lastView, setLastView] = useState<string>("")
 
 
     // if (!open) {
@@ -54,16 +55,33 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
 
 
             return (
-                <div key={index} ref={setRef}>
+                <div key={index} ref={setRef} style={
+                    {
+                        minWidth: width ? width : "100%",
+                    }
+                }>
                     {child}
                 </div>
             )
         })
 
-        useViewTransition(defaultView, refs)
-        return childArray as unknown as JSX.Element
+        const className = useViewTransition(view, lastView, refs)
+        return (
+            <div className={className}>
+                {childArray as unknown as JSX.Element}
+            </div>
+        )
+    }
 
-
+    function change() {
+        if (view === "default") {
+            setLastView("default")
+            setView("anotherView")
+        }
+        if (view === "anotherView") {
+            setLastView("anotherView")
+            setView("default")
+        }
     }
 
     return (
@@ -71,6 +89,7 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
             <div className={`${cx(classes.menu)} ${styles.menu}`}>
                 <Children/>
             </div>
+            <button onClick={change}/>
         </MenuContext.Provider>
     )
 }

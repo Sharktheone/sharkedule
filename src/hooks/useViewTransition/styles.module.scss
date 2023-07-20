@@ -11,18 +11,28 @@
   transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
 }
 
-.hidden-left {
-  transform: translateX(-100%);
+.hiddenLeft {
+  --translate: translateX(-100%);
 }
 
-.hidden-right {
-  transform: translateX(100%);
+.hiddenRight {
+  --translate: translateX(100%);
 }
 
-.slide-x {
-  transform: translateX(100%);
-  opacity: 0;
-  transition: transform 0.5s ease-in-out;
+.slideX {
+  animation: slide-anim-x 1s ease-in-out;
+}
+
+@keyframes slide-anim-x {
+  0% {
+    transform: var(--translate);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
 }
 
 .slide-y {
@@ -43,4 +53,11 @@
 
 .flip-y {
   transform: scaleY(-1);
+}
+
+.wrapper {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  flex-direction: row;
 }

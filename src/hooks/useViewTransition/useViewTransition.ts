@@ -22,8 +22,7 @@ export type viewRef = {
 
 
 
-export default function useViewTransition(currentView: string, viewList: viewRef[], duration: number = 500, transition?: string, timingFunction?: string) {
-    const [lastView, setLastView] = useState<string>(currentView)
+export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 10000, transition?: string, timingFunction?: string) {
 
 
     useEffect(() => {
@@ -37,7 +36,6 @@ export default function useViewTransition(currentView: string, viewList: viewRef
                 hide(element)
             }
         })
-        setLastView(currentView)
     }, [currentView, viewList])
 
 
@@ -65,16 +63,21 @@ export default function useViewTransition(currentView: string, viewList: viewRef
         const old = getOldElement()
         element.classList.remove(styles.hidden)
         if (!old) {
+            console.log("no old")
             element.classList.add(styles.active)
             return
         }
-        element.classList.add(direction(currentView, lastView), styles[transition ?? ""])
-        old.classList.add(direction(lastView, currentView), styles[transition ?? ""])
+
+        element.classList.add(direction(currentView, lastView), styles.slideX)
+        old.classList.add(direction(lastView, currentView), styles.slideX)
         setTimeout(() => {
-            element.classList.remove(direction(currentView, lastView), styles[transition ?? ""])
-            old.classList.remove(direction(lastView, currentView), styles[transition ?? ""])
+            element.classList.remove(direction(currentView, lastView), styles.slideX)
+            old.classList.remove(direction(lastView, currentView), styles.slideX)
             element.classList.add(styles.active)
+            old.classList.remove(styles.active)
+            old.classList.add(styles.hidden)
         }, duration)
         //TODO: transition
     }
+    return styles.wrapper
 }
