@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 import styles from "./styles.module.scss"
 
 
@@ -8,10 +8,7 @@ export type viewRef = {
 }
 
 
-
 export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 10000, transition?: string, timingFunction?: string) {
-
-
     useEffect(() => {
         viewList.forEach(({id, element}) => {
             if (id === currentView) {
@@ -43,11 +40,12 @@ export default function useViewTransition(currentView: string, lastView: string,
 
     function hide(element: HTMLElement) {
         element.classList.remove(styles.active)
-        element.classList.add(styles.hidden, styles[transition ?? ""])
+        element.classList.add(styles.hidden)
     }
 
     function show(element: HTMLElement) {
         const old = getOldElement()
+        console.log("show", element, old)
         element.classList.remove(styles.hidden)
         if (!old) {
             console.log("no old")
@@ -66,5 +64,6 @@ export default function useViewTransition(currentView: string, lastView: string,
             old.classList.add(styles.hidden)
         }, duration)
     }
+
     return styles.wrapper
 }
