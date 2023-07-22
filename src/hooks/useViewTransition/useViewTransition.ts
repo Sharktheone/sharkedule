@@ -7,19 +7,6 @@ export type viewRef = {
     element: HTMLElement
 }
 
-//TODO
-// initial state: show currentView / default
-// onChange show newCurrentView -> transition to new -> hide old
-//
-//
-/// # Change
-/// - 1. showNew
-///     - 1.1. add a show class, but  it needs to be hidden in overflow => translate to right or left (depending on the index)
-///     - 1.2. add a transition class
-///         - 1.2.1. translate old and new to left or right (depending on the index)
-///         - 1.2.2. remove transition class
-/// - 2. hideOld
-
 
 
 export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 10000, transition?: string, timingFunction?: string) {
@@ -78,7 +65,6 @@ export default function useViewTransition(currentView: string, lastView: string,
             old.classList.remove(styles.active)
             old.classList.add(styles.hidden)
         }, duration)
-        //TODO: transition
     }
     return styles.wrapper
 }
