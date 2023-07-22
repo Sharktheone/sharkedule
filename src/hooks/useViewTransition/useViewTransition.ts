@@ -68,12 +68,13 @@ export default function useViewTransition(currentView: string, lastView: string,
             return
         }
 
-        element.classList.add(direction(currentView, lastView), styles.slideX)
-        old.classList.add(direction(lastView, currentView), styles.slideX)
+        console.log(direction(currentView, lastView))
+        element.classList.add(direction(lastView, currentView), styles.slideX)
+        old.classList.add(direction(currentView, lastView), styles.slideXReverse)
         setTimeout(() => {
-            element.classList.remove(direction(currentView, lastView), styles.slideX)
-            old.classList.remove(direction(lastView, currentView), styles.slideX)
+            element.classList.remove(direction(lastView, currentView), styles.slideX)
             element.classList.add(styles.active)
+            old.classList.remove(direction(currentView, lastView), styles.slideX)
             old.classList.remove(styles.active)
             old.classList.add(styles.hidden)
         }, duration)
