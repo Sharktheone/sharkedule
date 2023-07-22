@@ -83,14 +83,14 @@ devDependencies:
     specifier: ^3.1.0
     version: 3.1.0(vite@4.4.6)
   sass:
-    specifier: ^1.64.0
-    version: 1.64.0
+    specifier: ^1.64.1
+    version: 1.64.1
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
   vite:
     specifier: ^4.4.6
-    version: 4.4.6(sass@1.64.0)
+    version: 4.4.6(sass@1.64.1)
 
 packages:
 
@@ -1402,7 +1402,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.9)
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.4.6(sass@1.64.0)
+      vite: 4.4.6(sass@1.64.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1488,7 +1488,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001517
-      electron-to-chromium: 1.4.467
+      electron-to-chromium: 1.4.468
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
 
@@ -1624,8 +1624,8 @@ packages:
       csstype: 3.1.2
     dev: false
 
-  /electron-to-chromium@1.4.467:
-    resolution: {integrity: sha512-2qI70O+rR4poYeF2grcuS/bCps5KJh6y1jtZMDDEteyKJQrzLOEhFyXCLcHW6DTBjKjWkk26JhWoAi+Ux9A0fg==}
+  /electron-to-chromium@1.4.468:
+    resolution: {integrity: sha512-6M1qyhaJOt7rQtNti1lBA0GwclPH+oKCmsra/hkcWs5INLxfXXD/dtdnaKUYQu/pjOBP/8Osoe4mAcNvvzoFag==}
 
   /entities@3.0.1:
     resolution: {integrity: sha512-WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q==}
@@ -2515,8 +2515,8 @@ packages:
     resolution: {integrity: sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==}
     dev: false
 
-  /sass@1.64.0:
-    resolution: {integrity: sha512-m7YtAGmQta9uANIUJwXesAJMSncqH+3INc8kdVXs6eV6GUC8Qu2IYKQSN8PRLgiQfpca697G94klm2leYMxSHw==}
+  /sass@1.64.1:
+    resolution: {integrity: sha512-16rRACSOFEE8VN7SCgBu1MpYCyN7urj9At898tyzdXFhC+a+yOX5dXwAR7L8/IdPJ1NB8OYoXmD55DM30B2kEQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -2693,7 +2693,7 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /vite@4.4.6(sass@1.64.0):
+  /vite@4.4.6(sass@1.64.1):
     resolution: {integrity: sha512-EY6Mm8vJ++S3D4tNAckaZfw3JwG3wa794Vt70M6cNJ6NxT87yhq7EC8Rcap3ahyHdo8AhCmV9PTk+vG1HiYn1A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -2724,7 +2724,7 @@ packages:
       esbuild: 0.18.15
       postcss: 8.4.27
       rollup: 3.26.3
-      sass: 1.64.0
+      sass: 1.64.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
