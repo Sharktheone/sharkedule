@@ -23,6 +23,10 @@
   animation: slide-anim-x 1s ease-in-out;
 }
 
+.slideXReverse {
+  animation: slide-anim-x 10s ease-in-out reverse;
+}
+
 @keyframes slide-anim-x {
   0% {
     transform: var(--translate);
