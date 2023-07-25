@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import {Button, Container, Title} from "@mantine/core"
-import {useColors} from "./styles"
+import {useColors} from "./colors"
 import styles from "./styles.module.scss"
 import CreateNewModal from "@/pages/task/createNewModal"
 import {useDisclosure} from "@mantine/hooks"

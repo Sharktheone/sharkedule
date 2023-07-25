@@ -1,5 +1,5 @@
 import {Text} from "@mantine/core"
-import {useStyles} from "./styles"
+import {useColors} from "./colors"
 import React, {RefObject, useContext, useRef, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
@@ -22,7 +22,7 @@ type TaskProps = {
 
 
 export default function Task({task, renameTask, board, column}: TaskProps) {
-    const {classes, cx} = useStyles()
+    const {classes, cx} = useColors()
     const [editable, setEditable] = useState(false)
     const navigate = useNavigate()
     const {environment, setEnvironment} = useContext(EnvironmentContext)

@@ -1,5 +1,5 @@
 import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
-import {useStyles} from "@/pages/task/kanban/column/styles"
+import {useColors} from "@kanban/column/colors"
 import Task from "@/pages/task/kanban/column/task/task"
 import {Draggable, Droppable} from "react-beautiful-dnd"
 import {useContext, useMemo} from "react"
@@ -17,7 +17,7 @@ type ColumnProps = {
 }
 
 export default function Column({column, ghost, boardUUID}: ColumnProps) {
-    const {classes, cx} = useStyles()
+    const {classes, cx} = useColors()
     const {environment, setEnvironment} = useContext(EnvironmentContext)
     const h = new handlers(column, boardUUID, setEnvironment, environment, ghost)
 

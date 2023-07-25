@@ -1,7 +1,8 @@
 import {createStyles, rem} from "@mantine/core"
 
 
-export const useStyles = createStyles((theme) => ({
+// TODO: remove everything but colors
+export const useColors = createStyles((theme) => ({
     column: {
         backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
         padding: "1rem",

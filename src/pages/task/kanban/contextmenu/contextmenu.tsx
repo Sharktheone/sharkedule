@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 import {CSSProperties, useEffect, useRef, useState} from "react"
-import {useColors} from "./styles"
+import {useColors} from "./colors"
 import {Entries} from "@kanban/contextmenu/entries"
 
 type Props = {

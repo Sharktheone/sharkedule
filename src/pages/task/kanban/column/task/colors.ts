@@ -1,7 +1,7 @@
 import {createStyles} from "@mantine/core"
 
-
-export const useStyles = createStyles((theme) => ({
+//TODO: remove everything but colors
+export const useColors = createStyles((theme) => ({
     task: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
         "&:hover": {
