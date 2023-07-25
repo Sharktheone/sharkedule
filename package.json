@@ -19,7 +19,7 @@
     "@mantine/notifications": "^6.0.17",
     "@mantine/nprogress": "^6.0.17",
     "@mantine/tiptap": "^6.0.17",
-    "@tabler/icons-react": "^2.28.0",
+    "@tabler/icons-react": "^2.29.0",
     "@tiptap/extension-link": "^2.0.4",
     "@tiptap/react": "^2.0.4",
     "@tiptap/starter-kit": "^2.0.4",
@@ -32,7 +32,7 @@
     "react-router-dom": "^6.14.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
+    "@types/react": "^18.2.16",
     "@types/react-beautiful-dnd": "^13.1.4",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^3.1.0",
