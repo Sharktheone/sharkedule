@@ -1,6 +1,5 @@
 import {createStyles} from "@mantine/core"
 
-//TODO: remove everything but colors
 export const useColors = createStyles((theme) => ({
     task: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
@@ -10,8 +9,6 @@ export const useColors = createStyles((theme) => ({
         border: `1px solid ${
             theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
         }`,
-        borderRadius: theme.radius.md,
         boxShadow: theme.shadows.sm,
-        transition: "height 200ms ease",
     }
 }))

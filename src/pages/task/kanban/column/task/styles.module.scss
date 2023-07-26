@@ -7,6 +7,8 @@
   position: relative;
   flex-direction: column;
   gap: .5rem;
+  border-radius: .5rem;
+  transition: height 200ms ease;
 
   & > div.taskname {
     width: 100%;
