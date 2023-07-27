@@ -10,3 +10,4 @@
 - [ ] Better "closing" of create shit when clicking out
 - [ ] Replace Slots?
 - [ ] Think about custom fields
+- [ ] CSS use more classes and remove deeply nested structures
