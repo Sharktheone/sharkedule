@@ -45,10 +45,8 @@ export default function useViewTransition(currentView: string, lastView: string,
 
     function show(element: HTMLElement) {
         const old = getOldElement()
-        console.log("show", element, old)
         element.classList.remove(styles.hidden)
         if (!old) {
-            console.log("no old")
             element.classList.add(styles.active)
             return
         }
