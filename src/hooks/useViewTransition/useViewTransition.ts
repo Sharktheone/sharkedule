@@ -51,6 +51,19 @@ export default function useViewTransition(currentView: string, lastView: string,
             return
         }
 
+
+        // THEORY:
+        // show new:
+        //  move to overflow (left or right) => hiddenLeft or hiddenRight with translateX
+        //  translate to 0
+        // remove hiddenLeft or hiddenRight
+        // add active
+        // hide old:
+        // remove active
+        // translate to hiddenLeft or hiddenRight
+        // add hidden
+        // remove hiddenLeft or hiddenRight
+
         console.log(direction(currentView, lastView))
         element.classList.add(direction(lastView, currentView), styles.slideX)
         old.classList.add(direction(currentView, lastView), styles.slideXReverse)
