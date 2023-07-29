@@ -19,7 +19,7 @@
     "@mantine/notifications": "^6.0.17",
     "@mantine/nprogress": "^6.0.17",
     "@mantine/tiptap": "^6.0.17",
-    "@tabler/icons-react": "^2.29.0",
+    "@tabler/icons-react": "^2.30.0",
     "@tiptap/extension-link": "^2.0.4",
     "@tiptap/react": "^2.0.4",
     "@tiptap/starter-kit": "^2.0.4",
