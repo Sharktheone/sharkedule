@@ -43,12 +43,16 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
                 <Description uuid={uuid}/>
                 <Menu defaultView="anotherView">
                     <Menu.View id="default" name="Edit">
-                        <div>
+                        <div style={{
+                            backgroundColor: "red",
+                        }}>
                             HELLO YOU LITTLE THING
                         </div>
                     </Menu.View>
                     <Menu.View id="anotherView" name="Edit">
-                        <div>
+                        <div style={{
+                            backgroundColor: "blue",
+                        }}>
                             ABCDEFGHIJKLMNOPQRSTUVWXYZ
                         </div>
                     </Menu.View>
