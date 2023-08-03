@@ -64,13 +64,30 @@ export default function useViewTransition(currentView: string, lastView: string,
         // add hidden
         // remove hiddenLeft or hiddenRight
 
-        console.log(direction(lastView, currentView))
+
+        //we need to change some classes depending on the direction
+
+
+        //this is for right to left
+        // console.log(direction(currentView, lastView))
+        // element.classList.add(styles.hiddenLeft, styles.slideX, styles.active, styles.opacityShow)
+        // element.classList.remove(styles.hidden)
+        // old.classList.add(direction(lastView, currentView), styles.slideX, styles.opacityHide)
+        // setTimeout(() => {
+        //     element.classList.remove(direction(lastView, currentView), styles.slideXReverse, styles.opacityShow)
+        //     old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse)
+        //     old.classList.add(styles.hidden)
+        //     old.classList.remove(styles.active)
+        // }, duration)
+
+        // for left to right i need to figure it out:
+        console.log(direction(currentView, lastView))
+        element.classList.add(direction(lastView, currentView), styles.slideXReverse, styles.active, styles.opacityShow)
         element.classList.remove(styles.hidden)
-        element.classList.add(direction(currentView, lastView), styles.slideXReverse, styles.active, styles.opacityShow)
-        old.classList.add(direction(currentView, lastView), styles.slideXReverse, styles.opacityHide)
+        old.classList.add(direction(currentView, lastView), styles.slideX, styles.opacityHide)
         setTimeout(() => {
             element.classList.remove(direction(lastView, currentView), styles.slideXReverse, styles.opacityShow)
-            old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide)
+            old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse)
             old.classList.add(styles.hidden)
             old.classList.remove(styles.active)
         }, duration)
