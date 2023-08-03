@@ -27,11 +27,16 @@ export default function useViewTransition(currentView: string, lastView: string,
         const currentIndex = viewList.findIndex(({id}) => id === currentView)
         const newIndex = viewList.findIndex(({id}) => id === newView)
 
+        // I need to add more classes. But maybe it works with just one class per direction
         if (currentIndex < newIndex) {
+            // transitioning from right to left
             return styles.hiddenRight
-        } else {
+        } else if (currentIndex > newIndex) {
+            // transitioning from left to right
             return styles.hiddenLeft
         }
+        // the same view, so we don't need to transition
+        return ""
     }
 
     function getOldElement() {
