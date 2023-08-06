@@ -75,7 +75,8 @@
 
 .wrapper {
   display: flex;
-  overflow: hidden;
-  width: 100%;
+  //overflow: hidden;
+  width: 50%;
+  margin-right: 50%;
   flex-direction: row;
 }
