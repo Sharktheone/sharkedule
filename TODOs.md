@@ -1,6 +1,5 @@
 # Personal TODOs for this project
 
-
 - [ ] Add Some kind of dashboard "root" page
 - [ ] Add a nav bar / project shell
 - [ ] Settings site for things like details (Drawer/Popup) etc.
