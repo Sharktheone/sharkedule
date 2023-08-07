@@ -53,6 +53,10 @@
   }
 }
 
+.old {
+  position: absolute;
+}
+
 //.slide-y {
 //  transform: translateY(100%);
 //}
@@ -75,8 +79,10 @@
 
 .wrapper {
   display: flex;
+  position: relative;
   //overflow: hidden;
-  width: 50%;
-  margin-right: 50%;
+  width: 100%;
+  //width: 50%;
+  //margin-right: 50%;
   flex-direction: row;
 }

@@ -86,13 +86,16 @@ export default function useViewTransition(currentView: string, lastView: string,
         // }, duration)
 
         // for left to right i need to figure it out:
+
+        // okay, this would work but it is far from perfect, i need to change it, but i can revert to this point if I need
         console.log(direction(currentView, lastView))
-        element.classList.add(direction(lastView, currentView), styles.slideXReverse, styles.active, styles.opacityShow)
+        element.classList.add(direction(lastView, currentView), styles.slideX, styles.active, styles.opacityShow)
         element.classList.remove(styles.hidden)
-        old.classList.add(direction(currentView, lastView), styles.slideX, styles.opacityHide)
+        old.classList.add(direction(currentView, lastView), styles.slideXReverse, styles.opacityHide, styles.old)
+        console.log(element, old)
         setTimeout(() => {
             element.classList.remove(direction(lastView, currentView), styles.slideXReverse, styles.opacityShow)
-            old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse)
+            old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse, styles.old)
             old.classList.add(styles.hidden)
             old.classList.remove(styles.active)
         }, duration)
