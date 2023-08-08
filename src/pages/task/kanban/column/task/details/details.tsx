@@ -47,6 +47,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
                             backgroundColor: "red",
                         }}>
                             HELLO YOU LITTLE THING
+                            LKSJFLGKJSFLKGJSFLKGJSLFKGJSLFKGJLSKFJGLSKFJGLSKFJGLÖSKJGÖLSKGJ
                         </div>
                     </Menu.View>
                     <Menu.View id="anotherView" name="Edit">
@@ -54,6 +55,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
                             backgroundColor: "blue",
                         }}>
                             ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                            LKSJLGKJFSLKGJLSKFJGSLFKJGLSKFJGLKJGLKDSFJGLKDJF
                         </div>
                     </Menu.View>
                 </Menu>
