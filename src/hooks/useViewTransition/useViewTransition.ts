@@ -85,9 +85,9 @@ export default function useViewTransition(currentView: string, lastView: string,
         //     old.classList.remove(styles.active)
         // }, duration)
 
-        // for left to right i need to figure it out:
+        // for left to right I need to figure it out:
 
-        // okay, this would work but it is far from perfect, i need to change it, but i can revert to this point if I need
+        // okay, this would work, but it is far from perfect, I need to change it, but I can revert to this point if I need
         console.log(direction(currentView, lastView))
         element.classList.add(direction(lastView, currentView), styles.slideX, styles.active, styles.opacityShow)
         element.classList.remove(styles.hidden)
