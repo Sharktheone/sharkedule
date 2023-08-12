@@ -30,10 +30,10 @@ export default function useViewTransition(currentView: string, lastView: string,
         // I need to add more classes. But maybe it works with just one class per direction
         if (currentIndex < newIndex) {
             // transitioning from right to left
-            return styles.hiddenRight
+            return styles.right
         } else if (currentIndex > newIndex) {
             // transitioning from left to right
-            return styles.hiddenLeft
+            return styles.left
         }
         // the same view, so we don't need to transition
         return ""
@@ -89,10 +89,9 @@ export default function useViewTransition(currentView: string, lastView: string,
 
         // okay, this would work, but it is far from perfect, I need to change it, but I can revert to this point if I need
         console.log(direction(currentView, lastView))
-        element.classList.add(direction(lastView, currentView), styles.slideX, styles.active, styles.opacityShow)
+        element.classList.add(direction(currentView, lastView), styles.active, styles.opacityShow)
         element.classList.remove(styles.hidden)
-        old.classList.add(direction(currentView, lastView), styles.slideXReverse, styles.opacityHide, styles.old)
-        console.log(element, old)
+        old.classList.add(direction(currentView, lastView), styles.opacityHide, styles.old)
         setTimeout(() => {
             element.classList.remove(direction(lastView, currentView), styles.slideXReverse, styles.opacityShow)
             old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse, styles.old)

@@ -27,14 +27,6 @@
   animation: slide-anim-x 10s ease-in-out reverse;
 }
 
-@keyframes slide-anim-x {
-  0% {
-    transform: var(--translate);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
 
 .opacity-show {
   animation: opacity-anim 10s ease-in-out;
@@ -53,8 +45,28 @@
   }
 }
 
+
+.left {
+  --translate: translateX(-100%);
+  animation: slide-anim-x 10s ease-in-out reverse;
+}
+
+.right {
+  --translate: translateX(-100%);
+  animation: slide-anim-x 10s ease-in-out;
+}
+
+@keyframes slide-anim-x {
+  0% {
+    transform: var(--translate);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .old {
-  position: absolute;
+  //position: absolute;
 }
 
 //.slide-y {
