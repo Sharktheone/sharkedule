@@ -57,46 +57,13 @@ export default function useViewTransition(currentView: string, lastView: string,
         }
 
 
-        // THEORY:
-        // show new:
-        //  move to overflow (left or right) => hiddenLeft or hiddenRight with translateX
-        //  translate to 0
-        // remove hiddenLeft or hiddenRight
-        // add active
-        // hide old:
-        // remove active
-        // translate to hiddenLeft or hiddenRight
-        // add hidden
-        // remove hiddenLeft or hiddenRight
-
-
-        //we need to change some classes depending on the direction
-
-
-        //this is for right to left
-        // console.log(direction(currentView, lastView))
-        // element.classList.add(styles.hiddenLeft, styles.slideX, styles.active, styles.opacityShow)
-        // element.classList.remove(styles.hidden)
-        // old.classList.add(direction(lastView, currentView), styles.slideX, styles.opacityHide)
-        // setTimeout(() => {
-        //     element.classList.remove(direction(lastView, currentView), styles.slideXReverse, styles.opacityShow)
-        //     old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse)
-        //     old.classList.add(styles.hidden)
-        //     old.classList.remove(styles.active)
-        // }, duration)
-
-        // for left to right I need to figure it out:
-
-        // okay, this would work, but it is far from perfect, I need to change it, but I can revert to this point if I need
-        console.log(direction(currentView, lastView))
         element.classList.add(direction(currentView, lastView), styles.active, styles.opacityShow)
         element.classList.remove(styles.hidden)
-        old.classList.add(direction(currentView, lastView), styles.opacityHide, styles.old)
+        old.classList.add(direction(currentView, lastView), styles.opacityHide)
         setTimeout(() => {
-            element.classList.remove(direction(lastView, currentView), styles.slideXReverse, styles.opacityShow)
-            old.classList.remove(direction(currentView, lastView), styles.slideX, styles.opacityHide, styles.slideXReverse, styles.old)
+            element.classList.remove(direction(lastView, currentView), styles.opacityShow)
+            old.classList.remove(direction(currentView, lastView), styles.opacityHide, styles.active)
             old.classList.add(styles.hidden)
-            old.classList.remove(styles.active)
         }, duration)
     }
 

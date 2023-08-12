@@ -11,22 +11,6 @@
   transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
 }
 
-.hiddenLeft {
-  --translate: translateX(-100%);
-}
-
-.hiddenRight {
-  --translate: translateX(100%);
-}
-
-.slideX {
-  animation: slide-anim-x 10s ease-in-out;
-}
-
-.slideXReverse {
-  animation: slide-anim-x 10s ease-in-out reverse;
-}
-
 
 .opacity-show {
   animation: opacity-anim 10s ease-in-out;
@@ -58,7 +42,7 @@
 
 @keyframes slide-anim-x {
   0% {
-    transform: var(--translate);
+    transform: translateX(-100%);
   }
   100% {
     transform: translateX(0);
