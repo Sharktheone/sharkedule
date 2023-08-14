@@ -10,15 +10,15 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
-    "@mantine/core": "^6.0.17",
-    "@mantine/dates": "^6.0.17",
-    "@mantine/dropzone": "^6.0.17",
-    "@mantine/form": "^6.0.17",
-    "@mantine/hooks": "^6.0.17",
-    "@mantine/modals": "^6.0.17",
-    "@mantine/notifications": "^6.0.17",
-    "@mantine/nprogress": "^6.0.17",
-    "@mantine/tiptap": "^6.0.17",
+    "@mantine/core": "^6.0.19",
+    "@mantine/dates": "^6.0.19",
+    "@mantine/dropzone": "^6.0.19",
+    "@mantine/form": "^6.0.19",
+    "@mantine/hooks": "^6.0.19",
+    "@mantine/modals": "^6.0.19",
+    "@mantine/notifications": "^6.0.19",
+    "@mantine/nprogress": "^6.0.19",
+    "@mantine/tiptap": "^6.0.19",
     "@tabler/icons-react": "^2.30.0",
     "@tiptap/extension-link": "^2.0.4",
     "@tiptap/react": "^2.0.4",
@@ -29,15 +29,15 @@
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.2"
+    "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.18",
+    "@types/react": "^18.2.20",
     "@types/react-beautiful-dnd": "^13.1.4",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^3.1.0",
-    "sass": "^1.64.2",
+    "sass": "^1.65.1",
     "typescript": "^4.9.5",
-    "vite": "^4.4.8"
+    "vite": "^4.4.9"
   }
 }
