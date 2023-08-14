@@ -106,7 +106,7 @@ export namespace Menu {
         const view = useContext(MenuContext)
         // hmm, how do we do this? - We do it with a Context!
         return (
-            <div>
+            <div className={styles.view}>
                 {children}
             </div>
         )
