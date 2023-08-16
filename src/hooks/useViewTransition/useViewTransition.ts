@@ -1,4 +1,4 @@
-import {useEffect} from "react"
+import {useEffect, useState, useTransition} from "react"
 import styles from "./styles.module.scss"
 
 
@@ -8,7 +8,7 @@ export type viewRef = {
 }
 
 
-export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 10000, transition?: string, timingFunction?: string) {
+export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 200, transition?: string, timingFunction?: string) {
     useEffect(() => {
         viewList.forEach(({id, element}) => {
             if (id === currentView) {
@@ -21,6 +21,12 @@ export default function useViewTransition(currentView: string, lastView: string,
             }
         })
     }, [currentView, viewList])
+    const [ref, setRef] = useState<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        ref?.classList.add(styles.wrapper)
+        ref?.style.setProperty("--duration", duration.toString())
+    }, [ref])
 
 
     function direction(currentView: string, newView: string) {
@@ -67,5 +73,5 @@ export default function useViewTransition(currentView: string, lastView: string,
         }, duration)
     }
 
-    return styles.wrapper
+    return setRef
 }

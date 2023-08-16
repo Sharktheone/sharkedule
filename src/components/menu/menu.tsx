@@ -65,9 +65,9 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
             )
         })
 
-        const className = useViewTransition(view, lastView, refs)
+        const r = useViewTransition(view, lastView, refs)
         return (
-            <div className={className}>
+            <div ref={r}>
                 {childArray as unknown as JSX.Element}
             </div>
         )
