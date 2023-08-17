@@ -1,8 +1,4 @@
-
-
-
-
-function ColorSelector() {
+export function ColorSelector() {
     // TODO: This is ride now just a note to me...
     // Maybe add some configurable colors that are predefined and also allow user defined colors.
     // For the custom also add places to store them and also allow "single-use" colors, but maybe list them somewhere.
