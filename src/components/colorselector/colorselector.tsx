@@ -27,6 +27,21 @@ export function ColorSelector() {
 
     // (use viewTransition for this one, but maybe let the option, so we can use this as a "popup" variant - user-defined?
 
+    function getColors(): ColorShades[] {
+        const num = 8
+        const startHue = 25
+        const s = 213
+        const l = 100
+
+        for(let h = startHue; h > 360 + startHue; h + (360 / num)) {
+            console.log(h)
+        }
+        return [] as ColorShades[]
+    }
+
+
+    getColors()
+
     return (
         <div>
             hello
