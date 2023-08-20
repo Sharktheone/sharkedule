@@ -1,11 +1,5 @@
-
-
 type ColorShades = {
-    rows: ColorRow[]
-}
-
-type ColorRow = {
-    color: Color[]
+    colors: Color[]
 }
 
 type Color = {
@@ -30,21 +24,46 @@ export function ColorSelector() {
     function getColors(): ColorShades[] {
         const num = 8
         const startHue = 25
-        const s = 213
-        const l = 100
+        const s = 75
+        const l = 50
 
-        for(let h = startHue; h > 360 + startHue; h + (360 / num)) {
-            console.log(h)
+        let shades = [] as ColorShades[]
+
+        for (let h = startHue; h < 360 + startHue; h += (360 / num)) {
+            let color: Color = {
+                h: h,
+                s: s,
+                l: l,
+            }
+            shades.push({
+                colors: [color]
+            })
         }
-        return [] as ColorShades[]
+        return shades
+    }
+
+    function get(color: Color) {
+        return `hsl(${color.h}deg, ${color.s}%, ${color.l}%)`
     }
 
 
-    getColors()
-
     return (
         <div>
-            hello
+            HELLOW
+            {getColors().map(shade => (
+                    <div>
+                        {
+                            shade.colors.map(color => (
+                                <div style={{
+                                    width: "1rem",
+                                    height: ".5rem",
+                                    backgroundColor: get(color)
+                                }}/>
+                            ))
+                        }
+                    </div>
+                ))
+            }
         </div>
     )
 }
