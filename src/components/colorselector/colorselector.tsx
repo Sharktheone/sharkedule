@@ -31,7 +31,7 @@ export function ColorSelector() {
 
         for (let h = startHue; h < 360 + startHue; h += (360 / num)) {
             let color: Color = {
-                h: h,
+                h: h % 360,
                 s: s,
                 l: l,
             }
