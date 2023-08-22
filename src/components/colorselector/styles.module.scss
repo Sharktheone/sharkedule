@@ -1,0 +1,18 @@
+.selector {
+  display: flex;
+  gap: .25rem;
+}
+
+
+.shade {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+}
+
+.color {
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: .5rem;
+}

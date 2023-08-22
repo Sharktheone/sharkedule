@@ -1,3 +1,6 @@
+import styles from "./styles.module.scss"
+
+
 type ColorShades = {
     colors: Color[]
 }
@@ -48,17 +51,16 @@ export function ColorSelector() {
 
 
     return (
-        <div>
-            HELLOW
+        <div className={styles.selector}>
             {getColors().map(shade => (
-                    <div>
+                    <div className={styles.shade}>
                         {
                             shade.colors.map(color => (
                                 <div style={{
-                                    width: "1rem",
-                                    height: ".5rem",
                                     backgroundColor: get(color)
-                                }}/>
+                                }}
+                                className={styles.color}
+                                />
                             ))
                         }
                     </div>
