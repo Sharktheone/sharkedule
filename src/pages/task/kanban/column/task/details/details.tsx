@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom"
 import {Menu} from "@/components/menu/menu"
 import Description from "@kanban/column/task/details/description"
 import styles from "./styles.module.scss"
+import {ColorSelector} from "@/components/colorselector/colorselector"
 
 type Props = {
     open: boolean
@@ -41,6 +42,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
         <Details open={open} onClose={onClose} title={task.name}>
             <div className={styles.details}>
                 <Description uuid={uuid}/>
+                <ColorSelector/>
                 <Menu defaultView="anotherView">
                     <Menu.View id="default" name="Edit">
                         <div>
