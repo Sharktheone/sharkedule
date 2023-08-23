@@ -36,19 +36,19 @@ export function ColorSelector() {
 
         for (let h = startHue; h < 360 + startHue; h += (360 / num)) {
             let colors = [] as Color[]
-            for (let v = variants; v > 0; v --) {
+            for (let v = variants; v > 0; v--) {
                 let color: Color = {
                     h: h % 360,
                     s: s,
-                    l: l  - v * lMin,
+                    l: l - v * lMin,
                 }
                 colors.push(color)
             }
-            for (let v = 1; v < variants; v ++) {
+            for (let v = 1; v < variants; v++) {
                 let color: Color = {
                     h: h % 360,
                     s: s,
-                    l: l  + v * lMin,
+                    l: l + v * lMin,
                 }
                 colors.push(color)
             }
@@ -68,18 +68,18 @@ export function ColorSelector() {
     return (
         <div className={styles.selector}>
             {getColors().map(shade => (
-                    <div className={styles.shade}>
-                        {
-                            shade.colors.map(color => (
-                                <div style={{
-                                    backgroundColor: get(color)
-                                }}
-                                className={styles.color}
-                                />
-                            ))
-                        }
-                    </div>
-                ))
+                <div className={styles.shade}>
+                    {
+                        shade.colors.map(color => (
+                            <div style={{
+                                backgroundColor: get(color)
+                            }}
+                                 className={styles.color}
+                            />
+                        ))
+                    }
+                </div>
+            ))
             }
         </div>
     )
