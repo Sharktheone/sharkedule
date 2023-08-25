@@ -64,6 +64,18 @@ export function ColorSelector() {
         return `hsl(${color.h}deg, ${color.s}%, ${color.l}%)`
     }
 
+    function states(color: Color) {
+        function active(color: Color) {
+            // return styles.active
+            return ""
+        }
+
+        function focus(color: Color) { // do we really need this?
+            // return styles.focus
+            return ""
+        }
+        return `${active(color)} ${focus(color)}`
+    }
 
     return (
         <div className={styles.selector}>
@@ -71,10 +83,10 @@ export function ColorSelector() {
                 <div className={styles.shade}>
                     {
                         shade.colors.map(color => (
-                            <div style={{
+                            <button style={{
                                 backgroundColor: get(color)
                             }}
-                                 className={styles.color}
+                                 className={`${styles.color} ${states(color)}`}
                             />
                         ))
                     }
