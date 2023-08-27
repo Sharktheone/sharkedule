@@ -65,8 +65,8 @@ export function ColorSelector() {
     }
 
     function states(color: Color) {
-        function active(color: Color) {
-            // return styles.active
+        function selected(color: Color) {
+            // return styles.selected
             return ""
         }
 
@@ -74,7 +74,7 @@ export function ColorSelector() {
             // return styles.focus
             return ""
         }
-        return `${active(color)} ${focus(color)}`
+        return `${selected(color)} ${focus(color)}`
     }
 
     return (
