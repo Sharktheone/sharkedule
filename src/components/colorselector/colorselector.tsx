@@ -76,19 +76,11 @@ export function ColorSelector() {
     }
 
     function states(color: Color) {
-        function selected(color: Color) {
             if (!selectedColor) return ""
 
             console.log("selected??", selectedColor, color, isSame(color, selectedColor))
 
             return isSame(color, selectedColor) ? styles.selected : ""
-        }
-
-        function focus(color: Color) { // do we really need this?
-            // return styles.focus
-            return ""
-        }
-        return `${selected(color)} ${focus(color)}`
     }
 
     function select(color: Color) {
