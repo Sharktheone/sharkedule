@@ -78,13 +78,10 @@ export function ColorSelector() {
     function states(color: Color) {
             if (!selectedColor) return ""
 
-            console.log("selected??", selectedColor, color, isSame(color, selectedColor))
-
             return isSame(color, selectedColor) ? styles.selected : ""
     }
 
     function select(color: Color) {
-        console.log(selectedColor, "selected now", color)
         setSelectedColor(color)
     }
 
