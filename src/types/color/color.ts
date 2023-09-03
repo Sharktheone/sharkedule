@@ -5,6 +5,7 @@ export class Color {
     private color: hsl
 
     constructor(h: number, s: number, l: number) {
+        h %= 360
         this.color = {h, s, l}
     }
 
@@ -36,6 +37,10 @@ export class Color {
         if (this.color.h != other.color.h) return false
         if (this.color.s != other.color.s) return false
         return this.color.l == other.color.l;
+    }
+
+    css() {
+        return `hsl(${this.color.h}deg, ${this.color.s}%, ${this.color.l}%)`
     }
 
 

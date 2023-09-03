@@ -1,21 +1,10 @@
 import styles from "./styles.module.scss"
-import {Button} from "@mantine/core"
 import {useState} from "react"
+import {Color} from "@/types/color/color"
 
 
 type ColorShades = {
     colors: Color[]
-}
-
-type Color = {
-    // mainly hsl is used, but we can add rgb if we need
-    h: number
-    s: number
-    l: number
-    //
-    // r: number
-    // g: number
-    // b: number
 }
 
 export function ColorSelector() {
@@ -41,19 +30,18 @@ export function ColorSelector() {
         for (let h = startHue; h < 360 + startHue; h += (360 / num)) {
             let colors = [] as Color[]
             for (let v = variants; v > 0; v--) {
-                let color: Color = {
-                    h: h % 360,
-                    s: s,
-                    l: l - v * lMin,
-                }
+                let color = new Color(
+                    h,
+                    s,
+                    l - v * lMin)
                 colors.push(color)
             }
             for (let v = 1; v < variants; v++) {
-                let color: Color = {
-                    h: h % 360,
-                    s: s,
-                    l: l + v * lMin,
-                }
+                let color = new Color(
+                    h,
+                    s,
+                    l - v * lMin)
+
                 colors.push(color)
             }
 
@@ -64,21 +52,10 @@ export function ColorSelector() {
         return shades
     }
 
-    function get(color: Color) {
-        return `hsl(${color.h}deg, ${color.s}%, ${color.l}%)`
-    }
-
-    function isSame(color1: Color, color2: Color) {
-        if (color1.h != color2.h) return false
-        if (color1.s != color2.s) return false
-        return color1.l == color2.l;
-
-    }
-
     function states(color: Color) {
             if (!selectedColor) return ""
 
-            return isSame(color, selectedColor) ? styles.selected : ""
+            return color.isSame(selectedColor) ? styles.selected : ""
     }
 
     function select(color: Color) {
@@ -92,7 +69,7 @@ export function ColorSelector() {
                     {
                         shade.colors.map(color => (
                             <button style={{
-                                backgroundColor: get(color)
+                                backgroundColor: color.css()
                             }}
                                     onClick={() => select(color)}
                                  className={`${styles.color} ${states(color)}`}
