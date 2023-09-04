@@ -40,7 +40,7 @@ export function ColorSelector() {
                 let color = new Color(
                     h,
                     s,
-                    l - v * lMin)
+                    l + v * lMin)
 
                 colors.push(color)
             }
