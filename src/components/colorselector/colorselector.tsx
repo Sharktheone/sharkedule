@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 import {useState} from "react"
-import {Color} from "@/types/color/color"
+import Color from "@/types/color/color"
 
 
 type ColorShades = {
@@ -53,9 +53,9 @@ export function ColorSelector() {
     }
 
     function states(color: Color) {
-            if (!selectedColor) return ""
+        if (!selectedColor) return ""
 
-            return color.isSame(selectedColor) ? styles.selected : ""
+        return color.isSame(selectedColor) ? styles.selected : ""
     }
 
     function select(color: Color) {
@@ -72,7 +72,7 @@ export function ColorSelector() {
                                 backgroundColor: color.css()
                             }}
                                     onClick={() => select(color)}
-                                 className={`${styles.color} ${states(color)}`}
+                                    className={`${styles.color} ${states(color)}`}
                             />
                         ))
                     }

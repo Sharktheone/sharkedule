@@ -1,7 +1,5 @@
 
-
-
-export class Color {
+export default class Color {
     private color: hsl
 
     constructor(h: number, s: number, l: number) {
