@@ -1,4 +1,3 @@
-
 export default class Color {
     private color: hsl
 
@@ -34,7 +33,7 @@ export default class Color {
     isSame(other: Color) {
         if (this.color.h != other.color.h) return false
         if (this.color.s != other.color.s) return false
-        return this.color.l == other.color.l;
+        return this.color.l == other.color.l
     }
 
     css() {
