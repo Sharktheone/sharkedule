@@ -34,10 +34,10 @@ dependencies:
     version: 6.0.20(@mantine/core@6.0.20)(@mantine/hooks@6.0.20)(react-dom@18.2.0)(react@18.2.0)
   '@mantine/tiptap':
     specifier: ^6.0.20
-    version: 6.0.20(@mantine/core@6.0.20)(@mantine/hooks@6.0.20)(@tabler/icons-react@2.33.0)(@tiptap/extension-link@2.1.8)(@tiptap/react@2.1.8)(react@18.2.0)
+    version: 6.0.20(@mantine/core@6.0.20)(@mantine/hooks@6.0.20)(@tabler/icons-react@2.34.0)(@tiptap/extension-link@2.1.8)(@tiptap/react@2.1.8)(react@18.2.0)
   '@tabler/icons-react':
-    specifier: ^2.33.0
-    version: 2.33.0(react@18.2.0)
+    specifier: ^2.34.0
+    version: 2.34.0(react@18.2.0)
   '@tiptap/extension-link':
     specifier: ^2.1.8
     version: 2.1.8(@tiptap/core@2.1.8)(@tiptap/pm@2.1.8)
@@ -124,7 +124,7 @@ packages:
       '@babel/helper-compilation-targets': 7.22.15
       '@babel/helper-module-transforms': 7.22.15(@babel/core@7.22.15)
       '@babel/helpers': 7.22.15
-      '@babel/parser': 7.22.15
+      '@babel/parser': 7.22.16
       '@babel/template': 7.22.15
       '@babel/traverse': 7.22.15
       '@babel/types': 7.22.15
@@ -249,8 +249,8 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
 
-  /@babel/parser@7.22.15:
-    resolution: {integrity: sha512-RWmQ/sklUN9BvGGpCDgSubhHWfAx24XDTDObup4ffvxaYsptOg2P3KG0j+1eWKLxpkX0j0uHxmpq2Z1SP/VhxA==}
+  /@babel/parser@7.22.16:
+    resolution: {integrity: sha512-+gPfKv8UWeKKeJTUxe59+OobVcrYHETCsORl61EmSkmgymguYk/X5bp7GuUIXaFsc6y++v8ZxPsLSSuujqDphA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
@@ -289,7 +289,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@babel/parser': 7.22.15
+      '@babel/parser': 7.22.16
       '@babel/types': 7.22.15
     dev: true
 
@@ -303,7 +303,7 @@ packages:
       '@babel/helper-function-name': 7.22.5
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.22.15
+      '@babel/parser': 7.22.16
       '@babel/types': 7.22.15
       debug: 4.3.4
       globals: 11.12.0
@@ -807,7 +807,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@mantine/tiptap@6.0.20(@mantine/core@6.0.20)(@mantine/hooks@6.0.20)(@tabler/icons-react@2.33.0)(@tiptap/extension-link@2.1.8)(@tiptap/react@2.1.8)(react@18.2.0):
+  /@mantine/tiptap@6.0.20(@mantine/core@6.0.20)(@mantine/hooks@6.0.20)(@tabler/icons-react@2.34.0)(@tiptap/extension-link@2.1.8)(@tiptap/react@2.1.8)(react@18.2.0):
     resolution: {integrity: sha512-/WbCsY0gHF0+olKS1ZCnDjDh+q2i3iSK1pS4t3WhGCXsQjiJkLGgpWRun8tWx6NWYnyP/e/EpWejlyjSCzO3Gg==}
     peerDependencies:
       '@mantine/core': 6.0.20
@@ -820,7 +820,7 @@ packages:
       '@mantine/core': 6.0.20(@emotion/react@11.11.1)(@mantine/hooks@6.0.20)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       '@mantine/hooks': 6.0.20(react@18.2.0)
       '@mantine/utils': 6.0.20(react@18.2.0)
-      '@tabler/icons-react': 2.33.0(react@18.2.0)
+      '@tabler/icons-react': 2.34.0(react@18.2.0)
       '@tiptap/extension-link': 2.1.8(@tiptap/core@2.1.8)(@tiptap/pm@2.1.8)
       '@tiptap/react': 2.1.8(@tiptap/core@2.1.8)(@tiptap/pm@2.1.8)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -983,18 +983,18 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: false
 
-  /@tabler/icons-react@2.33.0(react@18.2.0):
-    resolution: {integrity: sha512-b+LOKRYe8NJWNTbUeCz6GJV/ha+4nTnChXathzSU/Yqh4u01A3fxmtn1IlzJHYS3yew539L/F5wFr12sMoS7FQ==}
+  /@tabler/icons-react@2.34.0(react@18.2.0):
+    resolution: {integrity: sha512-HNNTdwwAW8IwUxLPY2HWFw+d7nPVByieamIx90qM1+Rq8UfvLjwsBFNcUKaJcfRFIAa80o4g6ZGy/NMD/Zw73A==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@tabler/icons': 2.33.0
+      '@tabler/icons': 2.34.0
       prop-types: 15.8.1
       react: 18.2.0
     dev: false
 
-  /@tabler/icons@2.33.0:
-    resolution: {integrity: sha512-cmVBeVANYGniLa0Q9gSUXU3SY0V9D3bfvHAq2bE+S0sdvnbMRNCHAmVQQv1lV6LT/aT7kzpwHAQz+6Iz1rPPsA==}
+  /@tabler/icons@2.34.0:
+    resolution: {integrity: sha512-65GsJsT4ZBETWcdrNxbsjsbRoZvbVk3CcU2SafaElrzP1wpOeuAn9aELVEbxhdyZyP9dg2SCfgH6iAArJgp7lw==}
     dev: false
 
   /@tiptap/core@2.1.8(@tiptap/pm@2.1.8):
@@ -1400,8 +1400,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001527
-      electron-to-chromium: 1.4.508
+      caniuse-lite: 1.0.30001528
+      electron-to-chromium: 1.4.510
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: true
@@ -1411,8 +1411,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /caniuse-lite@1.0.30001527:
-    resolution: {integrity: sha512-YkJi7RwPgWtXVSgK4lG9AHH57nSzvvOp9MesgXmw4Q7n0C3H04L0foHqfxcmSAm5AcWb8dW9AYj2tR7/5GnddQ==}
+  /caniuse-lite@1.0.30001528:
+    resolution: {integrity: sha512-0Db4yyjR9QMNlsxh+kKWzQtkyflkG/snYheSzkjmvdEtEXB1+jt7A2HmSEiO6XIJPIbo92lHNGNySvE5pZcs5Q==}
     dev: true
 
   /case-anything@2.1.13:
@@ -1535,8 +1535,8 @@ packages:
       csstype: 3.1.2
     dev: false
 
-  /electron-to-chromium@1.4.508:
-    resolution: {integrity: sha512-FFa8QKjQK/A5QuFr2167myhMesGrhlOBD+3cYNxO9/S4XzHEXesyTD/1/xF644gC8buFPz3ca6G1LOQD0tZrrg==}
+  /electron-to-chromium@1.4.510:
+    resolution: {integrity: sha512-xPfLIPFcN/WLXBpQ/K4UgE98oUBO5Tia6BD4rkSR0wE7ep/PwBVlgvPJQrIBpmJGVAmUzwPKuDbVt9XV6+uC2g==}
     dev: true
 
   /entities@3.0.1:
@@ -2387,8 +2387,8 @@ packages:
       supports-preserve-symlinks-flag: 1.0.0
     dev: false
 
-  /rollup@3.28.1:
-    resolution: {integrity: sha512-R9OMQmIHJm9znrU3m3cpE8uhN0fGdXiawME7aZIpQqvpS/85+Vt1Hq1/yVIcYfOmaQiHjvXkQAoJukvLpau6Yw==}
+  /rollup@3.29.0:
+    resolution: {integrity: sha512-nszM8DINnx1vSS+TpbWKMkxem0CDWk3cSit/WWCBVs9/JZ1I/XLwOsiUglYuYReaeWWSsW9kge5zE5NZtf/a4w==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -2609,7 +2609,7 @@ packages:
     dependencies:
       esbuild: 0.18.20
       postcss: 8.4.29
-      rollup: 3.28.1
+      rollup: 3.29.0
       sass: 1.66.1
     optionalDependencies:
       fsevents: 2.3.3
