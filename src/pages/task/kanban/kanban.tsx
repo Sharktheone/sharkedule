@@ -12,6 +12,7 @@ import {environment} from "@kanban/types"
 import {EnvironmentProvider} from "@kanban/environment"
 import Tstyles from "@kanban/column/task/styles.module.scss"
 import ContextMenu from "@kanban/contextmenu/contextmenu"
+import {ColorSelector} from "@/components/colorselector/colorselector"
 
 export default function Kanban() {
     const loaderData = useLoaderData()
@@ -81,6 +82,7 @@ export default function Kanban() {
 
     return (
         <EnvironmentProvider environment={environment} setEnvironment={setEnvironment}>
+            <ColorSelector/>
             <div className={styles.board} ref={boardRef}>
                 <Title order={1} align="center">{getBoard()?.name}</Title>
                 <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>

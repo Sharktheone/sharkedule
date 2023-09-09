@@ -42,7 +42,6 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
         <Details open={open} onClose={onClose} title={task.name}>
             <div className={styles.details}>
                 <Description uuid={uuid}/>
-                <ColorSelector/>
                 <Menu defaultView="anotherView">
                     <Menu.View id="default" name="Edit">
                         <div>
