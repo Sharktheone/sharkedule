@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss"
 import {useState} from "react"
 import Color from "@/types/color/color"
+import {useColors} from "./colors"
 
 
 type ColorShades = {
@@ -16,6 +17,7 @@ export function ColorSelector() {
     // (use viewTransition for this one, but maybe let the option, so we can use this as a "popup" variant - user-defined?
 
     const [selectedColor, setSelectedColor] = useState<Color>()
+    const {classes, cx} = useColors()
 
     function getColors(): ColorShades[] {
         const num = 12
@@ -63,7 +65,7 @@ export function ColorSelector() {
     }
 
     return (
-        <div className={styles.selector}>
+        <div className={`${styles.selector} ${cx(classes.selector)}`}>
             {getColors().map(shade => (
                 <div className={styles.shade}>
                     {
@@ -77,8 +79,7 @@ export function ColorSelector() {
                         ))
                     }
                 </div>
-            ))
-            }
+            ))}
         </div>
     )
 }
