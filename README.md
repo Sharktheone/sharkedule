@@ -8,6 +8,8 @@ free to fork this repo and submit a pull request.
 My goal is to make an open source alternative to Trello, Asana, and other task management tools. Reaching this goal will
 take a lot of time and effort, but I think it will be worth it.
 
+Currently, I have not much time, as you may, could see from the previous commits I've done. So I mostly only have time for very little commits.
+
 ## Features and Roadmap
 
 - [ ] Kanban boards
