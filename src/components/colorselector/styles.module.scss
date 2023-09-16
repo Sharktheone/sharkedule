@@ -16,18 +16,24 @@
 
 .color {
   width: 2rem;
-  height: 2rem;
+  aspect-ratio: 1/1;
   border-radius: 9999rem;
   border: none;
+  outline-width: 0;
+  outline-offset: 0;
+  transition: outline-width, outline-offset, width, height, margin, .2s cubic-bezier(.68,-0.55,.27,1.55);
 }
 
-
-.selected {
-  outline: greenyellow 2px solid;
-  outline-offset: 2px;
-}
-
-.focus {
+.color:focus {
   outline: deepskyblue 2px solid;
   outline-offset: 2px;
+  width: 1.5rem;
+  margin: .25rem;
+}
+
+.selected {
+  outline: greenyellow 2px solid !important;
+  outline-offset: 2px;
+  width: 1.5rem;
+  margin: .25rem;
 }
