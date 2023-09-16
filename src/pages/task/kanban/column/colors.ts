@@ -20,9 +20,9 @@ export const useColors = createStyles((theme) => ({
         "& > div > textarea": {
             backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0],
             borderColor: theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2],
-            shadow: theme.shadows.md,
+            boxShadow: theme.shadows.md,
         },
-        shadow: theme.shadows.md,
+        boxShadow: theme.shadows.md,
     },
     ghost: {
         border: `1px solid ${

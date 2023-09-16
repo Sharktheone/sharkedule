@@ -74,7 +74,7 @@ export function ColorSelector() {
                                 backgroundColor: color.css()
                             }}
                                     onClick={() => select(color)}
-                                    className={`${styles.color} ${states(color)}`}
+                                    className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
                             />
                         ))
                     }
