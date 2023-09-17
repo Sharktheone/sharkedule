@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "bun",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite & go run sharkedule.go && fg",
+    "build": "tsc && vite build && go build",
     "preview": "vite preview"
   },
   "dependencies": {
