@@ -2,6 +2,7 @@ import styles from "./styles.module.scss"
 import {useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
+import {SegmentedControl} from "@mantine/core"
 
 
 type ColorShades = {
@@ -68,20 +69,26 @@ export function ColorSelector() {
 
     return (
         <div className={`${styles.selector} ${cx(classes.selector)}`}>
-            {getColors().map(shade => (
-                <div className={styles.shade}>
-                    {
-                        shade.colors.map(color => (
-                            <button style={{
-                                backgroundColor: color.css()
-                            }}
-                                    onClick={() => select(color)}
-                                    className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
-                            />
-                        ))
-                    }
-                </div>
-            ))}
+            <SegmentedControl data={[
+                { label: 'Predefined', value: 'pre' },
+                { label: 'Custom', value: 'custom' },
+            ]} />
+            <div className={styles.colors}>
+                {getColors().map(shade => (
+                    <div className={styles.shade}>
+                        {
+                            shade.colors.map(color => (
+                                <button style={{
+                                    backgroundColor: color.css()
+                                }}
+                                        onClick={() => select(color)}
+                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
+                                />
+                            ))
+                        }
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

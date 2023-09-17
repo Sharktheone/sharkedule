@@ -1,9 +1,15 @@
 .selector {
   display: flex;
-  gap: .5rem;
+  flex-direction: column;
+  gap: 1rem;
   padding: 1rem;
   border-radius: .5rem;
   width: max-content;
+}
+
+.colors {
+  display: flex;
+  gap: .5rem;
 }
 
 

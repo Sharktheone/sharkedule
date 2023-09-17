@@ -11,5 +11,5 @@ export const useColors = createStyles((theme) => ({
     },
     color: {
         boxShadow: theme.shadows.sm,
-    }
+    },
 }))
