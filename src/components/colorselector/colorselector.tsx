@@ -9,6 +9,9 @@ type ColorShades = {
     colors: Color[]
 }
 
+const num = 12
+const variants = 3
+
 export function ColorSelector() {
     // TODO: This is ride now just a note to me...
     // Maybe add some configurable colors that are predefined and also allow user defined colors.
@@ -20,14 +23,13 @@ export function ColorSelector() {
     // (use viewTransition for this one, but maybe let the option, so we can use this as a "popup" variant - user-defined?
 
     const [selectedColor, setSelectedColor] = useState<Color>()
+    const [tab, setTab] = useState("simple")
     const {classes, cx} = useColors()
 
     function getColors(): ColorShades[] {
-        const num = 12
         const startHue = 25
         const s = 100
         const l = 50
-        const variants = 3
         const lMin = 10
 
         let shades = [] as ColorShades[]
@@ -70,24 +72,45 @@ export function ColorSelector() {
     return (
         <div className={`${styles.selector} ${cx(classes.selector)}`}>
             <SegmentedControl data={[
-                { label: 'Predefined', value: 'pre' },
-                { label: 'Custom', value: 'custom' },
-            ]} />
-            <div className={styles.colors}>
-                {getColors().map(shade => (
-                    <div className={styles.shade}>
-                        {
-                            shade.colors.map(color => (
-                                <button style={{
-                                    backgroundColor: color.css()
-                                }}
-                                        onClick={() => select(color)}
-                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
-                                />
-                            ))
-                        }
-                    </div>
-                ))}
+                {label: 'Simple', value: 'simple'},
+                {label: 'Custom', value: 'custom'},
+                {label: 'Single', value: 'single'},
+            ]} onChange={setTab} value={tab}/>
+            <div className={styles.content}>
+                {tab == "simple" ?
+                    <div className={styles.colors}>
+                        {getColors().map(shade => (
+                            <div className={styles.shade}>
+                                {
+                                    shade.colors.map(color => (
+                                        <button style={{
+                                            backgroundColor: color.css()
+                                        }}
+                                                onClick={() => select(color)}
+                                                className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
+                                        />
+                                    ))
+                                }
+                            </div>
+                        ))}
+                    </div> : null
+                }
+                {tab == "custom" ?
+                    <div className={styles.colors}>
+                        {getColors().map(shade => (
+                            <div className={styles.shade}>
+                                {
+                                    shade.colors.map(color => (
+                                        <button
+                                            onClick={() => select(color)}
+                                            className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
+                                        />
+                                    ))
+                                }
+                            </div>
+                        ))}
+                    </div> : null
+                }
             </div>
         </div>
     )

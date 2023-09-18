@@ -5,6 +5,15 @@
   padding: 1rem;
   border-radius: .5rem;
   width: max-content;
+
+}
+
+.content {
+  width: 30rem;
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .colors {
@@ -28,7 +37,7 @@
   outline-width: 0;
   outline-offset: 0;
   cursor: pointer;
-  transition: outline-width, outline-offset, width, height, margin, scale .2s cubic-bezier(.68,-0.55,.27,1.55);
+  transition: outline-width, outline-offset, width, height, margin, scale .2s cubic-bezier(.68, -0.55, .27, 1.55);
 }
 
 .color:focus {
