@@ -74,8 +74,7 @@ export function ColorSelector() {
             <SegmentedControl data={[
                 {label: 'Simple', value: 'simple'},
                 {label: 'Custom', value: 'custom'},
-                {label: 'Single', value: 'single'},
-            ]} onChange={setTab} value={tab}/>
+            ]} onChange={setTab} value={tab} classNames={control}/>
             <div className={styles.content}>
                 {tab == "simple" ?
                     <div className={styles.colors}>
@@ -96,19 +95,18 @@ export function ColorSelector() {
                     </div> : null
                 }
                 {tab == "custom" ?
-                    <div className={styles.colors}>
-                        {getColors().map(shade => (
-                            <div className={styles.shade}>
-                                {
-                                    shade.colors.map(color => (
-                                        <button
-                                            onClick={() => select(color)}
-                                            className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
-                                        />
-                                    ))
-                                }
+                        <div className={styles.custom}>
+                            <div className={styles.customColors}>
+                                {customColors().map(color => (
+                                    <button
+                                        onClick={() => select(color)}
+                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
+                                    />
+                                ))}
                             </div>
-                        ))}
+                            <button className={`${styles.single} ${cx(classes.single)}`}>
+                                <IconColorPicker/>
+                            </button>
                     </div> : null
                 }
             </div>

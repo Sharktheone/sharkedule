@@ -12,4 +12,10 @@ export const useColors = createStyles((theme) => ({
     color: {
         boxShadow: theme.shadows.sm,
     },
+
+    single: {
+        border: `1px solid ${
+            theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+        }`,
+    }
 }))
