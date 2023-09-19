@@ -1,9 +1,10 @@
 import styles from "./styles.module.scss"
-import {useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
 import {SegmentedControl} from "@mantine/core"
-
+import {IconCirclePlus, IconColorPicker, IconEditCircle} from "@tabler/icons-react"
+import control from "./control.module.scss"
 
 type ColorShades = {
     colors: Color[]
@@ -25,6 +26,22 @@ export function ColorSelector() {
     const [selectedColor, setSelectedColor] = useState<Color>()
     const [tab, setTab] = useState("simple")
     const {classes, cx} = useColors()
+    const controlRef = useRef<HTMLDivElement>(null)
+
+
+    useEffect(() => {
+        let hsl = selectedColor?.hsl()
+
+        if (!hsl) return
+
+        let color = new Color(hsl.h + 10, hsl.s, hsl.l)
+
+        console.log(controlRef)
+
+        controlRef?.current?.style.setProperty("gradient-color-1", selectedColor?.css() ?? "unset")
+
+        controlRef?.current?.style.setProperty("gradient-color-2", color?.css() ?? "unset")
+    }, [selectedColor])
 
     function getColors(): ColorShades[] {
         const startHue = 25
@@ -71,7 +88,7 @@ export function ColorSelector() {
 
     return (
         <div className={`${styles.selector} ${cx(classes.selector)}`}>
-            <SegmentedControl data={[
+            <SegmentedControl ref={controlRef} data={[
                 {label: 'Simple', value: 'simple'},
                 {label: 'Custom', value: 'custom'},
             ]} onChange={setTab} value={tab} classNames={control}/>

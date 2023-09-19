@@ -1,0 +1,8 @@
+
+.indicator {
+  background-image: linear-gradient(
+                  to right,
+                  var(--gradient-color-1, red),
+                  var(--gradient-color-2, orangered)
+  );
+}
