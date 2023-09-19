@@ -14,10 +14,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .colors {
   display: flex;
+  gap: .5rem;
+}
+
+.custom {
+  display: flex;
+  gap: 1rem;
+}
+
+.single {
+  width: 4rem;
+  border-radius: .5rem;
+}
+
+.customColors {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   gap: .5rem;
 }
 
