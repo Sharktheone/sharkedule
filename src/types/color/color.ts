@@ -44,7 +44,7 @@ export default class Color {
 }
 
 
-type hsl = {
+export type hsl = {
     h: number
     s: number
     l: number

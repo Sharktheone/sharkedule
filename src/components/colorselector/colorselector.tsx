@@ -86,6 +86,18 @@ export function ColorSelector() {
         setSelectedColor(color)
     }
 
+    function customColors() {
+        const n = (num - 2) * (variants * 2 - 1)
+
+        let colors = [] as Color[]
+
+        for (let i = 0; i < n; i ++) {
+            colors.push(new Color(0, 0, 0))
+        }
+
+        return colors
+    }
+
     return (
         <div className={`${styles.selector} ${cx(classes.selector)}`}>
             <SegmentedControl ref={controlRef} data={[
