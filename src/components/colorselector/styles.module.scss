@@ -57,7 +57,15 @@
   transition: outline-width, outline-offset, width, height, margin, scale .2s cubic-bezier(.68, -0.55, .27, 1.55);
 }
 
-.color:focus {
+
+.selected {
+  outline: greenyellow 2px solid !important;
+  outline-offset: 2px;
+  width: 1.5rem;
+  margin: .25rem;
+}
+
+.color:focus-visible {
   outline: deepskyblue 2px solid;
   outline-offset: 2px;
   width: 1.5rem;
@@ -67,11 +75,4 @@
 .color:hover {
   scale: 1.1;
   opacity: .7;
-}
-
-.selected {
-  outline: greenyellow 2px solid !important;
-  outline-offset: 2px;
-  width: 1.5rem;
-  margin: .25rem;
 }
