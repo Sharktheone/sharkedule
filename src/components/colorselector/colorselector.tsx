@@ -34,13 +34,14 @@ export function ColorSelector() {
 
         if (!hsl) return
 
-        let color = new Color(hsl.h + 10, hsl.s, hsl.l)
+        let color = new Color(hsl.h + 30, hsl.s, hsl.l)
 
         console.log(controlRef)
 
-        controlRef?.current?.style.setProperty("gradient-color-1", selectedColor?.css() ?? "unset")
+        controlRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
 
-        controlRef?.current?.style.setProperty("gradient-color-2", color?.css() ?? "unset")
+        controlRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
+
     }, [selectedColor])
 
     function getColors(): ColorShades[] {
