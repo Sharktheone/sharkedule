@@ -3,8 +3,9 @@ import {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
 import {SegmentedControl} from "@mantine/core"
-import {IconCirclePlus, IconColorPicker, IconEditCircle} from "@tabler/icons-react"
+import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
+import ViewTransition from "@/components/viewTransition/viewTransition"
 
 type ColorShades = {
     colors: Color[]
@@ -92,54 +93,58 @@ export function ColorSelector() {
 
         let colors = [] as Color[]
 
-        for (let i = 0; i < n; i ++) {
+        for (let i = 0; i < n; i++) {
             colors.push(new Color(0, 0, 0))
         }
 
         return colors
     }
 
+    // const r = useViewTransition()
+
+
     return (
-        <div className={`${styles.selector} ${cx(classes.selector)}`}>
-            <SegmentedControl ref={controlRef} data={[
-                {label: 'Simple', value: 'simple'},
-                {label: 'Custom', value: 'custom'},
-            ]} onChange={setTab} value={tab} classNames={control}/>
-            <div className={styles.content}>
-                {tab == "simple" ?
-                    <div className={styles.colors}>
-                        {getColors().map(shade => (
-                            <div className={styles.shade}>
-                                {
-                                    shade.colors.map(color => (
+        // <ViewTransition view="default">
+        <>
+            <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
+                <SegmentedControl ref={controlRef} data={[
+                    {label: 'Simple', value: 'simple'},
+                    {label: 'Custom', value: 'custom'},
+                ]} onChange={setTab} value={tab} classNames={control}/>
+                <div className={styles.content}>
+                    {tab == "simple" ?
+                        <div className={styles.colors}>
+                            {getColors().map(shade => (
+                                <div className={styles.shade}>
+                                    {shade.colors.map(color => (
                                         <button style={{
                                             backgroundColor: color.css()
                                         }}
                                                 onClick={() => select(color)}
-                                                className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
-                                        />
-                                    ))
-                                }
-                            </div>
-                        ))}
-                    </div> : null
-                }
-                {tab == "custom" ?
+                                                className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
+                                    ))}
+                                </div>
+                            ))}
+                        </div> : null}
+                    {tab == "custom" ?
                         <div className={styles.custom}>
                             <div className={styles.customColors}>
                                 {customColors().map(color => (
                                     <button
                                         onClick={() => select(color)}
-                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}
-                                    />
+                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
                                 ))}
                             </div>
                             <button className={`${styles.single} ${cx(classes.single)}`}>
                                 <IconColorPicker/>
                             </button>
-                    </div> : null
-                }
+                        </div> : null}
+                </div>
             </div>
-        </div>
+            <div>
+                Hello
+            </div>
+        </>
+        // </ViewTransition>
     )
 }
