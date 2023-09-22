@@ -104,8 +104,7 @@ export function ColorSelector() {
 
 
     return (
-        // <ViewTransition view="default">
-        <>
+        <ViewTransition view="default">
             <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
                 <SegmentedControl ref={controlRef} data={[
                     {label: 'Simple', value: 'simple'},
@@ -144,7 +143,6 @@ export function ColorSelector() {
             <div>
                 Hello
             </div>
-        </>
-        // </ViewTransition>
+        </ViewTransition>
     )
 }
