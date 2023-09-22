@@ -4,7 +4,7 @@ import styles from "./styles.module.scss"
 
 export type viewRef = {
     id: string
-    element: HTMLElement
+    element: HTMLElement | Element
 }
 
 
@@ -49,12 +49,12 @@ export default function useViewTransition(currentView: string, lastView: string,
         return viewList.find(({id}) => id === lastView)?.element
     }
 
-    function hide(element: HTMLElement) {
+    function hide(element: HTMLElement | Element) {
         element.classList.remove(styles.active)
         element.classList.add(styles.hidden)
     }
 
-    function show(element: HTMLElement) {
+    function show(element: HTMLElement | Element) {
         const old = getOldElement()
         element.classList.remove(styles.hidden)
         if (!old) {
