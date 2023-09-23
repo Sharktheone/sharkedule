@@ -10,16 +10,21 @@ export type viewRef = {
 
 export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 200, transition?: string, timingFunction?: string) {
     useEffect(() => {
+        console.log(currentView, lastView)
         viewList.forEach(({id, element}) => {
             if (id === currentView) {
                 if (!element) return
+                console.log("showing element:", id)
                 show(element)
                 // setLastView(currentView)
-            } else if (id !== lastView) {
+            } else if (id !== currentView) {
                 if (!element) return
                 hide(element)
+                console.log("hiding element:", id)
             }
         })
+
+        console.log(" ")
     }, [currentView, viewList])
     const [ref, setRef] = useState<HTMLDivElement | null>(null)
 
@@ -42,7 +47,7 @@ export default function useViewTransition(currentView: string, lastView: string,
             return styles.left
         }
         // the same view, so we don't need to transition
-        return ""
+        return
     }
 
     function getOldElement() {
@@ -50,27 +55,28 @@ export default function useViewTransition(currentView: string, lastView: string,
     }
 
     function hide(element: HTMLElement | Element) {
-        element.classList.remove(styles.active)
-        element.classList.add(styles.hidden)
+        element?.classList?.remove(styles.active)
+        element?.classList?.add(styles.hidden)
     }
 
     function show(element: HTMLElement | Element) {
         const old = getOldElement()
-        element.classList.remove(styles.hidden)
+        element?.classList?.remove(styles.hidden)
         if (!old) {
-            element.classList.add(styles.active)
+            element?.classList?.add(styles.active)
             return
         }
+        console.log(element, old)
 
-
-        element.classList.add(direction(currentView, lastView), styles.active, styles.opacityShow)
-        element.classList.remove(styles.hidden)
-        old.classList.add(direction(currentView, lastView), styles.opacityHide)
+        element?.classList?.add(direction(currentView, lastView), styles.active, styles.opacityShow)
+        element?.classList?.remove(styles.hidden)
+        old?.classList?.add(direction(currentView, lastView), styles.opacityHide)
         setTimeout(() => {
-            element.classList.remove(direction(lastView, currentView), styles.opacityShow)
-            old.classList.remove(direction(currentView, lastView), styles.opacityHide, styles.active)
-            old.classList.add(styles.hidden)
+            element?.classList?.remove(direction(lastView, currentView), styles.opacityShow)
+            old?.classList?.remove(direction(currentView, lastView), styles.opacityHide, styles.active)
+            console.log(element.classList)
         }, duration)
+        console.log(element.classList)
     }
 
     return setRef

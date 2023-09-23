@@ -6,7 +6,7 @@
 
 .hidden {
   visibility: hidden;
-  display: none;
+  display: none !important;
   opacity: 0;
   transition: visibility calc(var(--duration, attr(duration)) * 1ms), opacity calc(var(--duration,  attr(duration)) * 1m) ease-in-out;
 }
