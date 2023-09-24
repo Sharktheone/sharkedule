@@ -34,10 +34,10 @@ dependencies:
     version: 6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(react-dom@18.2.0)(react@18.2.0)
   '@mantine/tiptap':
     specifier: ^6.0.21
-    version: 6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(@tabler/icons-react@2.34.0)(@tiptap/extension-link@2.1.11)(@tiptap/react@2.1.11)(react@18.2.0)
+    version: 6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(@tabler/icons-react@2.35.0)(@tiptap/extension-link@2.1.11)(@tiptap/react@2.1.11)(react@18.2.0)
   '@tabler/icons-react':
-    specifier: ^2.34.0
-    version: 2.34.0(react@18.2.0)
+    specifier: ^2.35.0
+    version: 2.35.0(react@18.2.0)
   '@tiptap/extension-link':
     specifier: ^2.1.11
     version: 2.1.11(@tiptap/core@2.1.11)(@tiptap/pm@2.1.11)
@@ -83,14 +83,14 @@ devDependencies:
     specifier: ^3.1.0
     version: 3.1.0(vite@4.4.9)
   sass:
-    specifier: ^1.67.0
-    version: 1.67.0
+    specifier: ^1.68.0
+    version: 1.68.0
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
   vite:
     specifier: ^4.4.9
-    version: 4.4.9(sass@1.67.0)
+    version: 4.4.9(sass@1.68.0)
 
 packages:
 
@@ -153,7 +153,7 @@ packages:
     dependencies:
       '@babel/compat-data': 7.22.20
       '@babel/helper-validator-option': 7.22.15
-      browserslist: 4.21.10
+      browserslist: 4.21.11
       lru-cache: 5.1.1
       semver: 6.3.1
     dev: true
@@ -807,7 +807,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@mantine/tiptap@6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(@tabler/icons-react@2.34.0)(@tiptap/extension-link@2.1.11)(@tiptap/react@2.1.11)(react@18.2.0):
+  /@mantine/tiptap@6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(@tabler/icons-react@2.35.0)(@tiptap/extension-link@2.1.11)(@tiptap/react@2.1.11)(react@18.2.0):
     resolution: {integrity: sha512-SeVoMN+STXeeVTg2H4bxLJUjDuZ9ykAm6TSTqDi/vTRxp/v3aokAU8DCD8Z207DNXaRfZ50YByxfo1/uIyndYw==}
     peerDependencies:
       '@mantine/core': 6.0.21
@@ -820,7 +820,7 @@ packages:
       '@mantine/core': 6.0.21(@emotion/react@11.11.1)(@mantine/hooks@6.0.21)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       '@mantine/hooks': 6.0.21(react@18.2.0)
       '@mantine/utils': 6.0.21(react@18.2.0)
-      '@tabler/icons-react': 2.34.0(react@18.2.0)
+      '@tabler/icons-react': 2.35.0(react@18.2.0)
       '@tiptap/extension-link': 2.1.11(@tiptap/core@2.1.11)(@tiptap/pm@2.1.11)
       '@tiptap/react': 2.1.11(@tiptap/core@2.1.11)(@tiptap/pm@2.1.11)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -983,18 +983,18 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: false
 
-  /@tabler/icons-react@2.34.0(react@18.2.0):
-    resolution: {integrity: sha512-HNNTdwwAW8IwUxLPY2HWFw+d7nPVByieamIx90qM1+Rq8UfvLjwsBFNcUKaJcfRFIAa80o4g6ZGy/NMD/Zw73A==}
+  /@tabler/icons-react@2.35.0(react@18.2.0):
+    resolution: {integrity: sha512-jK2zgtMF2+LSjtbjYsfer+ryz72TwyJqv3MsmCfEpQwP37u01xvmTlVhJ+ox3bV+trsgjojsldVDuB05JuXLaw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@tabler/icons': 2.34.0
+      '@tabler/icons': 2.35.0
       prop-types: 15.8.1
       react: 18.2.0
     dev: false
 
-  /@tabler/icons@2.34.0:
-    resolution: {integrity: sha512-65GsJsT4ZBETWcdrNxbsjsbRoZvbVk3CcU2SafaElrzP1wpOeuAn9aELVEbxhdyZyP9dg2SCfgH6iAArJgp7lw==}
+  /@tabler/icons@2.35.0:
+    resolution: {integrity: sha512-qW/itKdmFvfGw6mAQ+cZy+2MYTXb0XdGAVhO3obYLJEfsSPMwQRO0S9ckFk1xMQX/Tj7REC3TEmWUBWNi3/o3g==}
     dev: false
 
   /@tiptap/core@2.1.11(@tiptap/pm@2.1.11):
@@ -1276,8 +1276,8 @@ packages:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: false
 
-  /@types/prop-types@15.7.6:
-    resolution: {integrity: sha512-RK/kBbYOQQHLYj9Z95eh7S6t7gq4Ojt/NT8HTk8bWVhA5DaF+5SMnxHKkP4gPNN3wAZkKP+VjAf0ebtYzf+fxg==}
+  /@types/prop-types@15.7.7:
+    resolution: {integrity: sha512-FbtmBWCcSa2J4zL781Zf1p5YUBXQomPEcep9QZCfRfQgTxz3pJWiDFLebohZ9fFntX5ibzOkSsrJ0TEew8cAog==}
 
   /@types/react-beautiful-dnd@13.1.4:
     resolution: {integrity: sha512-4bIBdzOr0aavN+88q3C7Pgz+xkb7tz3whORYrmSj77wfVEMfiWiooIwVWFR7KM2e+uGTe5BVrXqSfb0aHeflJA==}
@@ -1303,7 +1303,7 @@ packages:
   /@types/react@18.2.22:
     resolution: {integrity: sha512-60fLTOLqzarLED2O3UQImc/lsNRgG0jE/a1mPW9KjMemY0LMITWEsbS4VvZ4p6rorEHd5YKxxmMKSDK505GHpA==}
     dependencies:
-      '@types/prop-types': 15.7.6
+      '@types/prop-types': 15.7.7
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
 
@@ -1325,7 +1325,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.20)
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.4.9(sass@1.67.0)
+      vite: 4.4.9(sass@1.68.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1395,15 +1395,15 @@ packages:
       fill-range: 7.0.1
     dev: true
 
-  /browserslist@4.21.10:
-    resolution: {integrity: sha512-bipEBdZfVH5/pwrvqc+Ub0kUPVfGUhlKxbvfD+z1BDnPEO/X98ruXGA1WP5ASpAFKan7Qr6j736IacbZQuAlKQ==}
+  /browserslist@4.21.11:
+    resolution: {integrity: sha512-xn1UXOKUz7DjdGlg9RrUr0GGiWzI97UQJnugHtH0OLDfJB7jMgoIkYvRIEO1l9EeEERVqeqLYOcFBW9ldjypbQ==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001538
-      electron-to-chromium: 1.4.525
+      electron-to-chromium: 1.4.528
       node-releases: 2.0.13
-      update-browserslist-db: 1.0.12(browserslist@4.21.10)
+      update-browserslist-db: 1.0.13(browserslist@4.21.11)
     dev: true
 
   /callsites@3.1.0:
@@ -1535,8 +1535,8 @@ packages:
       csstype: 3.1.2
     dev: false
 
-  /electron-to-chromium@1.4.525:
-    resolution: {integrity: sha512-GIZ620hDK4YmIqAWkscG4W6RwY6gOx1y5J6f4JUQwctiJrqH2oxZYU4mXHi35oV32tr630UcepBzSBGJ/WYcZA==}
+  /electron-to-chromium@1.4.528:
+    resolution: {integrity: sha512-UdREXMXzLkREF4jA8t89FQjA8WHI6ssP38PMY4/4KhXFQbtImnghh4GkCgrtiZwLKUKVD2iTVXvDVQjfomEQuA==}
     dev: true
 
   /entities@3.0.1:
@@ -2387,8 +2387,8 @@ packages:
       supports-preserve-symlinks-flag: 1.0.0
     dev: false
 
-  /rollup@3.29.2:
-    resolution: {integrity: sha512-CJouHoZ27v6siztc21eEQGo0kIcE5D1gVPA571ez0mMYb25LGYGKnVNXpEj5MGlepmDWGXNjDB5q7uNiPHC11A==}
+  /rollup@3.29.3:
+    resolution: {integrity: sha512-T7du6Hum8jOkSWetjRgbwpM6Sy0nECYrYRSmZjayFcOddtKJWU4d17AC3HNUk7HRuqy4p+G7aEZclSHytqUmEg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -2399,8 +2399,8 @@ packages:
     resolution: {integrity: sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==}
     dev: false
 
-  /sass@1.67.0:
-    resolution: {integrity: sha512-SVrO9ZeX/QQyEGtuZYCVxoeAL5vGlYjJ9p4i4HFuekWl8y/LtJ7tJc10Z+ck1c8xOuoBm2MYzcLfTAffD0pl/A==}
+  /sass@1.68.0:
+    resolution: {integrity: sha512-Lmj9lM/fef0nQswm1J2HJcEsBUba4wgNx2fea6yJHODREoMFnwRpZydBnX/RjyXw2REIwdkbqE4hrTo4qfDBUA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -2494,13 +2494,13 @@ packages:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
     dev: false
 
-  /update-browserslist-db@1.0.12(browserslist@4.21.10):
-    resolution: {integrity: sha512-tE1smlR58jxbFMtrMpFNRmsrOXlpNXss965T1CrpwuZUzUAg/TBQc94SpyhDLSzrqrJS9xTRBthnZAGcE1oaxg==}
+  /update-browserslist-db@1.0.13(browserslist@4.21.11):
+    resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
-      browserslist: 4.21.10
+      browserslist: 4.21.11
       escalade: 3.1.1
       picocolors: 1.0.0
     dev: true
@@ -2579,7 +2579,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /vite@4.4.9(sass@1.67.0):
+  /vite@4.4.9(sass@1.68.0):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -2609,8 +2609,8 @@ packages:
     dependencies:
       esbuild: 0.18.20
       postcss: 8.4.30
-      rollup: 3.29.2
-      sass: 1.67.0
+      rollup: 3.29.3
+      sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
