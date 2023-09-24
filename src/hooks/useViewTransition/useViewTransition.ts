@@ -17,7 +17,7 @@ export default function useViewTransition(currentView: string, lastView: string,
                 console.log("showing element:", id)
                 show(element)
                 // setLastView(currentView)
-            } else if (id !== currentView) {
+            } else if (id !== lastView) {
                 if (!element) return
                 hide(element)
                 console.log("hiding element:", id)
@@ -51,6 +51,8 @@ export default function useViewTransition(currentView: string, lastView: string,
     }
 
     function getOldElement() {
+        console.log(lastView)
+        if (!lastView) return
         return viewList.find(({id}) => id === lastView)?.element
     }
 
@@ -65,18 +67,22 @@ export default function useViewTransition(currentView: string, lastView: string,
         if (!old) {
             element?.classList?.add(styles.active)
             return
+        } else if (old === element) {
+            element?.classList?.add(styles.active)
+            return
         }
         console.log(element, old)
 
-        element?.classList?.add(direction(currentView, lastView), styles.active, styles.opacityShow)
+        element?.classList?.add(direction(currentView, lastView), styles.active)
         element?.classList?.remove(styles.hidden)
-        old?.classList?.add(direction(currentView, lastView), styles.opacityHide)
+        console.log(direction(currentView, lastView))
+        old?.classList?.add(direction(currentView, lastView))
         setTimeout(() => {
-            element?.classList?.remove(direction(lastView, currentView), styles.opacityShow)
-            old?.classList?.remove(direction(currentView, lastView), styles.opacityHide, styles.active)
-            console.log(element.classList)
+            console.log("removing classes")
+            element?.classList?.remove(direction(lastView, currentView), styles.left, styles.right)
+            old?.classList?.remove(direction(currentView, lastView), styles.active, styles.left, styles.right)
+            old?.classList?.add(styles.hidden)
         }, duration)
-        console.log(element.classList)
     }
 
     return setRef

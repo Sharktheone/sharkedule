@@ -1,5 +1,6 @@
 import React, {useState, ReactElement, useEffect, useRef} from "react"
 import useViewTransition, {viewRef} from "@/hooks/useViewTransition/useViewTransition"
+import {usePrevious} from "@mantine/hooks"
 
 
 type props = {
@@ -11,7 +12,6 @@ type props = {
 export default function ViewTransition({view, children}: props) {
     // console.log(children)
     const ref = useRef<HTMLDivElement | null>(null)
-    const [lastView, setLastView] = useState<string | null>(null)
 
     let refs = [] as viewRef[]
 
@@ -20,19 +20,15 @@ export default function ViewTransition({view, children}: props) {
         refs.push({element: ref.current?.children?.item(i) ?? {} as HTMLElement, id: children[i].props["data-id"]})
     }
 
-    useEffect(() => {
-        return () => {
-            setLastView(view)
-        }
-    }, [view])
+    let lastView = usePrevious(view)
 
     let r = useViewTransition(view, lastView, refs)
 
 
     return (
         <div ref={(re) => {
-            r(re)
             ref.current = re
+            r(re)
         }}>
             {children}
         </div>
