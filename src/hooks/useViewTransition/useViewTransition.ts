@@ -10,21 +10,17 @@ export type viewRef = {
 
 export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 200, transition?: string, timingFunction?: string) {
     useEffect(() => {
-        console.log(currentView, lastView)
         viewList.forEach(({id, element}) => {
             if (id === currentView) {
                 if (!element) return
-                console.log("showing element:", id)
                 show(element)
                 // setLastView(currentView)
             } else if (id !== lastView) {
                 if (!element) return
                 hide(element)
-                console.log("hiding element:", id)
             }
         })
 
-        console.log(" ")
     }, [currentView, viewList])
     const [ref, setRef] = useState<HTMLDivElement | null>(null)
 
@@ -51,7 +47,6 @@ export default function useViewTransition(currentView: string, lastView: string,
     }
 
     function getOldElement() {
-        console.log(lastView)
         if (!lastView) return
         return viewList.find(({id}) => id === lastView)?.element
     }
@@ -71,14 +66,11 @@ export default function useViewTransition(currentView: string, lastView: string,
             element?.classList?.add(styles.active)
             return
         }
-        console.log(element, old)
 
         element?.classList?.add(direction(currentView, lastView), styles.active)
         element?.classList?.remove(styles.hidden)
-        console.log(direction(currentView, lastView))
         old?.classList?.add(direction(currentView, lastView))
         setTimeout(() => {
-            console.log("removing classes")
             element?.classList?.remove(direction(lastView, currentView), styles.left, styles.right)
             old?.classList?.remove(direction(currentView, lastView), styles.active, styles.left, styles.right)
             old?.classList?.add(styles.hidden)
