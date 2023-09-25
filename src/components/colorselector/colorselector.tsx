@@ -110,19 +110,9 @@ export function ColorSelector() {
 
             <div className={styles.content}>
                 <ViewTransition view={tab}>
-                    <div data-id="custom" className={`${styles.custom} ${styles.tab}`}>
-                        <div className={styles.customColors}>
-                            {customColors().map(color => (
-                                <button
-                                    onClick={() => select(color)}
-                                    className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
-                            ))}
-                        </div>
-                        <button className={`${styles.single} ${cx(classes.single)}`}>
-                            <IconColorPicker/>
-                        </button>
-                    </div>
-                    <div data-id="simple" className={`${styles.colors} ${styles.tab}`}>
+                    <div data-id="simple" className={styles.colors} style={{
+                        margin: ".25rem"
+                    }}>
                         {getColors().map(shade => (
                             <div className={styles.shade}>
                                 {shade.colors.map(color => (
@@ -134,6 +124,20 @@ export function ColorSelector() {
                                 ))}
                             </div>
                         ))}
+                    </div>
+                    <div data-id="custom" className={styles.custom} style={{
+                        margin: ".25rem"
+                    }}>
+                        <div className={styles.customColors}>
+                            {customColors().map(color => (
+                                <button
+                                    onClick={() => select(color)}
+                                    className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
+                            ))}
+                        </div>
+                        <button className={`${styles.single} ${cx(classes.single)}`}>
+                            <IconColorPicker/>
+                        </button>
                     </div>
                 </ViewTransition>
             </div>
