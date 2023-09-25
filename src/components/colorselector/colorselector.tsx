@@ -110,9 +110,7 @@ export function ColorSelector() {
 
             <div className={styles.content}>
                 <ViewTransition view={tab}>
-                    <div data-id="custom" className={styles.custom} style={{
-                        margin: ".25rem"
-                    }}>
+                    <div data-id="custom" className={`${styles.custom} ${styles.tab}`}>
                         <div className={styles.customColors}>
                             {customColors().map(color => (
                                 <button
@@ -124,9 +122,7 @@ export function ColorSelector() {
                             <IconColorPicker/>
                         </button>
                     </div>
-                    <div data-id="simple" className={styles.colors} style={{
-                        margin: ".25rem"
-                    }}>
+                    <div data-id="simple" className={`${styles.colors} ${styles.tab}`}>
                         {getColors().map(shade => (
                             <div className={styles.shade}>
                                 {shade.colors.map(color => (
