@@ -2,7 +2,7 @@ import styles from "./styles.module.scss"
 import {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
-import {SegmentedControl} from "@mantine/core"
+import {ColorPicker, SegmentedControl} from "@mantine/core"
 import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"
@@ -100,6 +100,9 @@ export function ColorSelector() {
         return colors
     }
 
+    function pickColor() {
+        // setTab("picker")
+    }
 
     return (
         <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
@@ -107,7 +110,6 @@ export function ColorSelector() {
                 {label: 'Simple', value: 'simple'},
                 {label: 'Custom', value: 'custom'},
             ]} onChange={setTab} value={tab} classNames={control}/>
-
             <div className={styles.content}>
                 <ViewTransition view={tab}>
                     <div data-id="simple"  className={`${styles.custom} ${styles.tab}`}>
@@ -131,11 +133,15 @@ export function ColorSelector() {
                                     className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
                             ))}
                         </div>
-                        <button className={`${styles.single} ${cx(classes.single)}`}>
+                        <button className={`${styles.single} ${cx(classes.single)}`} onClick={pickColor}>
                             <IconColorPicker/>
                         </button>
                     </div>
                 </ViewTransition>
+                <div className={styles.pickerOverlay}>
+                    <ColorPicker/>
+                    {/* Hmm, I need to move this depending on the button that is pressed, I have an idea, test it later  */}
+                </div>
             </div>
         </div>
     )

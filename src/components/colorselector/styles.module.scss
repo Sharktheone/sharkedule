@@ -59,8 +59,8 @@
   outline-offset: 0;
   cursor: pointer;
   transition-property: scale, outline-width, outline-offset, width, height, margin;
-  transition-duration:  .2s;
-  transition-timing-function:  cubic-bezier(.68, -0.55, .27, 1.55);
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.68, -0.55, .27, 1.55);
 }
 
 
@@ -81,4 +81,15 @@
 .color:hover {
   scale: 1.1;
   opacity: .7;
+}
+
+.pickerOverlay {
+  position: absolute;
+  background-color: #1a1b1e; //TODO: change this to a mantine color
+  padding: .75rem;
+  border-radius: .5rem;
+}
+
+.pickerPointer {
+
 }
