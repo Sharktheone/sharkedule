@@ -10,3 +10,4 @@
 - [ ] Replace Slots?
 - [ ] Think about custom fields
 - [ ] CSS use more classes and remove deeply nested structures
+- [ ] Remove colors.ts and switch to "inline" mantine colors from colors.scss
