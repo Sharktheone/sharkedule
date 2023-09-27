@@ -64,6 +64,12 @@
 }
 
 
+.colorDisabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+
 .selected {
   outline: greenyellow 2px solid !important;
   outline-offset: 2px;

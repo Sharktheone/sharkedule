@@ -85,6 +85,7 @@ export function ColorSelector() {
     }
 
     function select(color: Color) {
+        if (color.isUndefined()) return
         setSelectedColor(color)
     }
 
@@ -94,7 +95,7 @@ export function ColorSelector() {
         let colors = [] as Color[]
 
         for (let i = 0; i < n; i++) {
-            colors.push(new Color(0, 0, 0))
+            colors.push(new Color(0, 0, 0, true))
         }
 
         return colors
@@ -102,6 +103,12 @@ export function ColorSelector() {
 
     function pickColor() {
         // setTab("picker")
+    }
+
+    function colorDisabled(color: Color) {
+        let CN = color.isUndefined() ? styles.colorDisabled : ""
+        console.log(CN)
+        return CN
     }
 
     return (
@@ -120,7 +127,7 @@ export function ColorSelector() {
                                         backgroundColor: color.css()
                                     }}
                                             onClick={() => select(color)}
-                                            className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
+                                            className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
                                 ))}
                             </div>
                         ))}

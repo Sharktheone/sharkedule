@@ -1,9 +1,11 @@
 export default class Color {
     private color: hsl
+    private undefined: boolean
 
-    constructor(h: number, s: number, l: number) {
+    constructor(h: number, s: number, l: number, undefined? = false) {
         h %= 360
         this.color = {h, s, l}
+        this.undefined = undefined
     }
 
     rgb() {
@@ -18,19 +20,23 @@ export default class Color {
         return this.color
     }
 
-    fromHEX(hex: string) {
+    fromHEX(hex: string, undefined? = false) {
         //TODO
+        this.undefined = undefined
     }
 
-    fromRGB(r: number, g: number, b: number) {
+    fromRGB(r: number, g: number, b: number, undefined? = false) {
         //TODO
+        this.undefined = undefined
     }
 
-    fromHSL(h: number, s: number, l: number) {
+    fromHSL(h: number, s: number, l: number, undefined? = false) {
         this.color = {h, s, l}
+        this.undefined = undefined
     }
 
     isSame(other: Color) {
+        if (this.undefined || other.undefined) return false
         if (this.color.h != other.color.h) return false
         if (this.color.s != other.color.s) return false
         return this.color.l == other.color.l
@@ -38,6 +44,10 @@ export default class Color {
 
     css() {
         return `hsl(${this.color.h}deg, ${this.color.s}%, ${this.color.l}%)`
+    }
+
+    isUndefined() {
+        return this.undefined
     }
 
 
