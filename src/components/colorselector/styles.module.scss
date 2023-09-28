@@ -94,10 +94,37 @@
 
 .pickerOverlay {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   background-color: colors.$dark-600;
   border: 1px solid colors.$dark-500;
   padding: .75rem;
   border-radius: .5rem;
+  gap: .5rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    left: -.25rem;
+    width: .5rem;
+    height: .5rem;
+    background-color: colors.$dark-600;
+    border: 1px solid transparent;
+    border-top-color: #0b7285;
+    border-right-color: #ce0ddc;
+
+    border-bottom-color: #e11444;
+    border-left-color: var(--_left);
+    rotate: 45deg;
+  }
+}
+
+.pickerButtons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: .5rem;
 }
 
 .pickerPointer {

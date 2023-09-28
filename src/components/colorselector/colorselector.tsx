@@ -2,7 +2,7 @@ import styles from "./styles.module.scss"
 import {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
-import {ColorPicker, SegmentedControl} from "@mantine/core"
+import {Button, ColorPicker, SegmentedControl} from "@mantine/core"
 import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"
@@ -26,6 +26,7 @@ export function ColorSelector() {
 
     const [selectedColor, setSelectedColor] = useState<Color>()
     const [tab, setTab] = useState("simple")
+    const [picker, setPicker] = useState(false)
     const {classes, cx} = useColors()
     const controlRef = useRef<HTMLDivElement>(null)
 
@@ -36,8 +37,6 @@ export function ColorSelector() {
         if (!hsl) return
 
         let color = new Color(hsl.h + 30, hsl.s, hsl.l)
-
-        console.log(controlRef)
 
         controlRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
 
@@ -102,7 +101,7 @@ export function ColorSelector() {
     }
 
     function pickColor() {
-        // setTab("picker")
+        setPicker(!picker)
     }
 
     function colorDisabled(color: Color) {
@@ -137,6 +136,7 @@ export function ColorSelector() {
                             {customColors().map(color => (
                                 <button
                                     onClick={() => select(color)}
+                                    onContextMenu={pickColor}
                                     className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
                             ))}
                         </div>
@@ -145,10 +145,14 @@ export function ColorSelector() {
                         </button>
                     </div>
                 </ViewTransition>
-                <div className={styles.pickerOverlay}>
+                {picker ? <div className={styles.pickerOverlay}>
                     <ColorPicker/>
+                    <div className={styles.pickerButtons}>
+                        <Button onClick={pickColor}>Cancel</Button>
+                        <Button onClick={() => select(new Color(0,0,0))}>Select</Button>
+                    </div>
                     {/* Hmm, I need to move this depending on the button that is pressed, I have an idea, test it later  */}
-                </div>
+                </div> : null}
             </div>
         </div>
     )
