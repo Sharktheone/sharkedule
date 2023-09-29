@@ -1,11 +1,12 @@
 import styles from "./styles.module.scss"
-import {useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
 import {Button, ColorPicker, SegmentedControl} from "@mantine/core"
 import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"
+import useDoubleClick from "@/hooks/useDoubleClick/useDoubleClick"
 
 type ColorShades = {
     colors: Color[]
@@ -43,6 +44,10 @@ export function ColorSelector() {
         controlRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
 
     }, [selectedColor])
+
+    useEffect(() => {
+        setPicker(false)
+    }, [tab])
 
     function getColors(): ColorShades[] {
         const startHue = 25
@@ -108,6 +113,12 @@ export function ColorSelector() {
         return color.isUndefined() ? styles.colorDisabled : ""
     }
 
+    function colorContext(e: MouseEvent) {
+        e.preventDefault()
+        e.stopPropagation()
+        setPicker(!picker)
+    }
+
     return (
         <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
             <SegmentedControl ref={controlRef} data={[
@@ -119,24 +130,54 @@ export function ColorSelector() {
                     <div data-id="simple" className={`${styles.custom} ${styles.tab}`}>
                         {getColors().map(shade => (
                             <div className={styles.shade}>
-                                {shade.colors.map(color => (
-                                    <button style={{
-                                        backgroundColor: color.css()
-                                    }}
-                                            onClick={() => select(color)}
-                                            className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
-                                ))}
+                                {shade.colors.map(color => {
+
+                                    const {
+                                        onClick,
+                                        onDoubleClick
+                                    } = useDoubleClick(() => select(color), () => pickColor(), 100)
+
+                                    return (
+                                        <button style={{
+                                            backgroundColor: color.css()
+                                        }}
+                                                onClick={onClick}
+                                                onDoubleClick={onDoubleClick}
+                                                onContextMenu={colorContext}
+                                                className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
+                                    )
+                                })}
                             </div>
                         ))}
                     </div>
                     <div data-id="custom" className={`${styles.custom} ${styles.tab}`}>
                         <div className={styles.customColors}>
-                            {customColors().map(color => (
-                                <button
-                                    onClick={() => select(color)}
-                                    onContextMenu={pickColor}
-                                    className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
-                            ))}
+                            {customColors().map(color => {
+
+                                const {
+                                    onClick,
+                                    onDoubleClick
+                                } = useDoubleClick(() => select(color), pickColor, 100)
+
+                                function clickHandler() {
+                                    if (color.isUndefined()) pickColor()
+                                    onClick()
+                                }
+
+                                function doubleClickHandler() {
+                                    if (color.isUndefined()) return
+                                    onDoubleClick()
+                                }
+
+
+                                return (
+                                    <button
+                                        onClick={clickHandler}
+                                        onDoubleClick={doubleClickHandler}
+                                        onContextMenu={colorContext}
+                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
+                                )
+                            })}
                         </div>
                         <button className={`${styles.single} ${cx(classes.single)}`} onClick={pickColor}>
                             <IconColorPicker/>
