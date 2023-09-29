@@ -8,7 +8,6 @@ import {useNavigate} from "react-router-dom"
 import {Menu} from "@/components/menu/menu"
 import Description from "@kanban/column/task/details/description"
 import styles from "./styles.module.scss"
-import {ColorSelector} from "@/components/colorselector/colorselector"
 
 type Props = {
     open: boolean

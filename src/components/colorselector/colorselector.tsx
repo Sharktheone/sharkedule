@@ -105,20 +105,18 @@ export function ColorSelector() {
     }
 
     function colorDisabled(color: Color) {
-        let CN = color.isUndefined() ? styles.colorDisabled : ""
-        console.log(CN)
-        return CN
+        return color.isUndefined() ? styles.colorDisabled : ""
     }
 
     return (
         <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
             <SegmentedControl ref={controlRef} data={[
-                {label: 'Simple', value: 'simple'},
-                {label: 'Custom', value: 'custom'},
+                {label: "Simple", value: "simple"},
+                {label: "Custom", value: "custom"},
             ]} onChange={setTab} value={tab} classNames={control}/>
             <div className={styles.content}>
                 <ViewTransition view={tab}>
-                    <div data-id="simple"  className={`${styles.custom} ${styles.tab}`}>
+                    <div data-id="simple" className={`${styles.custom} ${styles.tab}`}>
                         {getColors().map(shade => (
                             <div className={styles.shade}>
                                 {shade.colors.map(color => (
@@ -131,7 +129,7 @@ export function ColorSelector() {
                             </div>
                         ))}
                     </div>
-                    <div data-id="custom"  className={`${styles.custom} ${styles.tab}`}>
+                    <div data-id="custom" className={`${styles.custom} ${styles.tab}`}>
                         <div className={styles.customColors}>
                             {customColors().map(color => (
                                 <button
@@ -149,7 +147,7 @@ export function ColorSelector() {
                     <ColorPicker/>
                     <div className={styles.pickerButtons}>
                         <Button onClick={pickColor}>Cancel</Button>
-                        <Button onClick={() => select(new Color(0,0,0))}>Select</Button>
+                        <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
                     </div>
                     {/* Hmm, I need to move this depending on the button that is pressed, I have an idea, test it later  */}
                 </div> : null}
