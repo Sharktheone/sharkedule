@@ -51,6 +51,14 @@ export default class Color {
     }
 
 
+    parseHSL(hsl: string) {
+        hsl.replace(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/g, (match, h, s, l) => {
+            this.color = {h: +h, s: +s, l: +l}
+            this.undefined = false
+        })
+    }
+
+
 }
 
 
