@@ -139,7 +139,11 @@
 
 }
 
-.picked {
+.picked:not(.single) {
   scale: 1.1;
+  outline: colors.$orange-500 2px solid !important;
+}
+
+.picked:is(.single) {
   outline: colors.$orange-500 2px solid !important;
 }
