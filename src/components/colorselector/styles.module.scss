@@ -93,29 +93,37 @@
 }
 
 .pickerOverlay {
+  --_border-color: #{colors.$dark-500};
+  --_border-indicator: #{colors.$orange-500};
+  margin-top: .5rem;
   position: absolute;
   display: flex;
   flex-direction: column;
   background-color: colors.$dark-600;
-  border: 1px solid colors.$dark-500;
+  border: 1px solid var(--_border-color);
   padding: .75rem;
   border-radius: .5rem;
   gap: .5rem;
 
+  translate: calc(var(--_left, 0) * 1px);
+
+
+  transition: translate .2s cubic-bezier(.68, -0.2, .27, 1.2);
+
+
+
   &::before {
     content: "";
+    transition: top .2s cubic-bezier(.68, -0.55, .27, 1.55);
     position: absolute;
-    top: 1rem;
-    left: -.25rem;
+    top: calc(var(--_top) * 1px + 1rem);
+    left: calc(var(--_indicator) * 1px - .25rem);
     width: .5rem;
     height: .5rem;
     background-color: colors.$dark-600;
-    border: 1px solid transparent;
-    border-top-color: #0b7285;
-    border-right-color: #ce0ddc;
-
-    border-bottom-color: #e11444;
-    border-left-color: var(--_left);
+    border: 2px solid var(--_bright, transparent);
+    border-bottom-color: var(--_bleft, transparent);
+    border-left-color: var(--_bleft, transparent);
     rotate: 45deg;
   }
 }
@@ -129,4 +137,9 @@
 
 .pickerPointer {
 
+}
+
+.picked {
+  scale: 1.1;
+  outline: colors.$orange-500 2px solid !important;
 }

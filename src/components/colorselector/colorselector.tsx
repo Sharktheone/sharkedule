@@ -7,6 +7,7 @@ import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"
 import useDoubleClick from "@/hooks/useDoubleClick/useDoubleClick"
+import {useClickOutside} from "@mantine/hooks"
 
 type ColorShades = {
     colors: Color[]
@@ -27,9 +28,22 @@ export function ColorSelector() {
 
     const [selectedColor, setSelectedColor] = useState<Color>()
     const [tab, setTab] = useState("simple")
-    const [picker, setPicker] = useState(false)
+    const [picker, setPicker] = useState<{open: boolean, element: HTMLButtonElement | null}>({open: false, element: null})
     const {classes, cx} = useColors()
     const controlRef = useRef<HTMLDivElement>(null)
+    // const clickRef = useClickOutside<HTMLDivElement>(() => {
+    //     let p = {...picker}
+    //     setTimeout(() => {
+    //         if (picker.x !== p.x || picker.y !== p.y) return
+    //         setPicker({open: false, x: 0, y: 0})
+    //     }, 100)
+    // })
+    const ref = useRef<HTMLDivElement>(null)
+    const singleRef = useRef<HTMLButtonElement>(null)
+
+    // clickRef.current = ref.current
+
+    // ref?.current?.style.setProperty("--_right", "red")
 
 
     useEffect(() => {
@@ -46,7 +60,8 @@ export function ColorSelector() {
     }, [selectedColor])
 
     useEffect(() => {
-        setPicker(false)
+        picker.element?.classList.remove(styles.picked)
+        setPicker({open: false, element: null})
     }, [tab])
 
     function getColors(): ColorShades[] {
@@ -90,6 +105,7 @@ export function ColorSelector() {
 
     function select(color: Color) {
         if (color.isUndefined()) return
+        if (picker) return
         setSelectedColor(color)
     }
 
@@ -105,8 +121,10 @@ export function ColorSelector() {
         return colors
     }
 
-    function pickColor() {
-        setPicker(!picker)
+    function pickColor(element: HTMLElement, open = !picker.open) {
+        picker.element?.classList.remove(styles.picked)
+        if (open) element.classList.add(styles.picked)
+        setPicker({open: open, element: element})
     }
 
     function colorDisabled(color: Color) {
@@ -116,7 +134,41 @@ export function ColorSelector() {
     function colorContext(e: MouseEvent) {
         e.preventDefault()
         e.stopPropagation()
-        setPicker(!picker)
+        const element = e.target as HTMLButtonElement
+        if (element.classList.contains(styles.picked)) {
+            pickColor(element, false)
+            return
+        }
+        pickColor(element, true)
+    }
+
+    function computePickerStyles() {
+        let x = picker.element?.offsetLeft ?? 0
+        const y = picker.element?.offsetTop ?? 0
+        const w = picker.element?.offsetParent?.clientWidth ?? 0
+
+        const pickerWidth = ref?.current?.clientWidth
+
+        let indicator = pickerWidth
+        let bleft = "var(--_border-indicator)"
+        let bright = "var(--_border-indicator)"
+
+        if (w / 2 > x) {
+            indicator = 0
+            bright = "transparent"
+        } else {
+            x -= (pickerWidth + 56)
+            bleft = "transparent"
+        }
+
+        return {
+            left: "5.75rem",
+            "--_left": x,
+            "--_bright": bright,
+            "--_bleft": bleft,
+            "--_indicator": indicator,
+            "--_top": y,
+        } as React.CSSProperties
     }
 
     return (
@@ -132,13 +184,16 @@ export function ColorSelector() {
                             <div className={styles.shade}>
                                 {shade.colors.map(color => {
 
+                                    const r = useRef<HTMLButtonElement>(null)
+
                                     const {
                                         onClick,
                                         onDoubleClick
-                                    } = useDoubleClick(() => select(color), () => pickColor(), 100)
+                                    } = useDoubleClick(() => select(color), () => pickColor(r.current), 100)
+
 
                                     return (
-                                        <button style={{
+                                        <button ref={r} style={{
                                             backgroundColor: color.css()
                                         }}
                                                 onClick={onClick}
@@ -154,13 +209,20 @@ export function ColorSelector() {
                         <div className={styles.customColors}>
                             {customColors().map(color => {
 
+                                const r = useRef<HTMLButtonElement>(null)
+
                                 const {
                                     onClick,
                                     onDoubleClick
-                                } = useDoubleClick(() => select(color), pickColor, 100)
+                                } = useDoubleClick(() => select(color), () => {pickColor(r.current)}, 100)
 
-                                function clickHandler() {
-                                    if (color.isUndefined()) pickColor()
+                                function clickHandler(e: MouseEvent<HTMLButtonElement>) {
+                                    e.stopPropagation()
+                                    if (picker.open && e.target !== picker.element) {
+                                        pickColor(r.current, true)
+                                        return
+                                    }
+                                    if (color.isUndefined()) pickColor(r.current)
                                     onClick()
                                 }
 
@@ -172,6 +234,7 @@ export function ColorSelector() {
 
                                 return (
                                     <button
+                                        ref={r}
                                         onClick={clickHandler}
                                         onDoubleClick={doubleClickHandler}
                                         onContextMenu={colorContext}
@@ -179,19 +242,24 @@ export function ColorSelector() {
                                 )
                             })}
                         </div>
-                        <button className={`${styles.single} ${cx(classes.single)}`} onClick={pickColor}>
+                        <button ref={singleRef} className={`${styles.single} ${cx(classes.single)}`}
+                                onClick={() => pickColor(singleRef.current)}>
                             <IconColorPicker/>
                         </button>
                     </div>
                 </ViewTransition>
-                {picker ? <div className={styles.pickerOverlay}>
-                    <ColorPicker/>
-                    <div className={styles.pickerButtons}>
-                        <Button onClick={pickColor}>Cancel</Button>
-                        <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
-                    </div>
-                    {/* Hmm, I need to move this depending on the button that is pressed, I have an idea, test it later  */}
-                </div> : null}
+                {
+                    picker.open ? <div ref={ref} className={styles.pickerOverlay}
+                                       style={computePickerStyles()}
+                    >
+                        <ColorPicker/>
+                        <div className={styles.pickerButtons}>
+                            <Button onClick={() => pickColor(singleRef.current)}>Cancel</Button>
+                            <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
+                        </div>
+                        {/* Hmm, I need to move this depending on the button that is pressed, I have an idea, test it later  */}
+                    </div> : null
+                }
             </div>
         </div>
     )
