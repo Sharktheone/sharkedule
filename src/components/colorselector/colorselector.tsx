@@ -7,7 +7,6 @@ import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"
 import useDoubleClick from "@/hooks/useDoubleClick/useDoubleClick"
-import {useClickOutside} from "@mantine/hooks"
 
 type ColorShades = {
     colors: Color[]
@@ -31,6 +30,7 @@ export function ColorSelector() {
     const [picker, setPicker] = useState<{open: boolean, element: HTMLButtonElement | null}>({open: false, element: null})
     const {classes, cx} = useColors()
     const controlRef = useRef<HTMLDivElement>(null)
+    const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
     // const clickRef = useClickOutside<HTMLDivElement>(() => {
     //     let p = {...picker}
     //     setTimeout(() => {
@@ -63,6 +63,11 @@ export function ColorSelector() {
         picker.element?.classList.remove(styles.picked)
         setPicker({open: false, element: null})
     }, [tab])
+
+    useEffect(() => {
+        if (!picker.element) return
+        picker.element.style.backgroundColor = pickerValue.css()
+    }, [pickerValue])
 
     function getColors(): ColorShades[] {
         const startHue = 25
@@ -171,6 +176,13 @@ export function ColorSelector() {
         } as React.CSSProperties
     }
 
+    function pickerChange(string: string) {
+        let col = new Color(0, 0, 0)
+        col.parseHSL(string)
+
+        setPickerValue(col)
+    }
+
     return (
         <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
             <SegmentedControl ref={controlRef} data={[
@@ -252,7 +264,7 @@ export function ColorSelector() {
                     picker.open ? <div ref={ref} className={styles.pickerOverlay}
                                        style={computePickerStyles()}
                     >
-                        <ColorPicker/>
+                        <ColorPicker format="hsl" onChange={pickerChange}/>
                         <div className={styles.pickerButtons}>
                             <Button onClick={() => pickColor(singleRef.current)}>Cancel</Button>
                             <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
