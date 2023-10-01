@@ -1,5 +1,5 @@
 import {Button, CloseButton, Input, Stack, Text, Title} from '@mantine/core'
-import {DragDropContext, Droppable} from "react-beautiful-dnd"
+import {DragDropContext, Droppable} from "@hello-pangea/dnd"
 import Column from "@/pages/task/kanban/column/column"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {useLoaderData, useNavigate, useParams} from "react-router-dom"

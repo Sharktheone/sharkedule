@@ -1,5 +1,5 @@
 import {ghostType, useGhost} from "@/pages/task/kanban/ghost"
-import {DragStart, DragUpdate, DropResult} from "react-beautiful-dnd"
+import {DragStart, DragUpdate, DropResult} from "@hello-pangea/dnd"
 import {Dispatch, SetStateAction} from "react"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"

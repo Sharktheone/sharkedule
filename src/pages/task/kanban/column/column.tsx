@@ -1,7 +1,7 @@
 import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
 import {useColors} from "@kanban/column/colors"
 import Task from "@/pages/task/kanban/column/task/task"
-import {Draggable, Droppable} from "react-beautiful-dnd"
+import {Draggable, Droppable} from "@hello-pangea/dnd"
 import {useContext, useMemo} from "react"
 import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"

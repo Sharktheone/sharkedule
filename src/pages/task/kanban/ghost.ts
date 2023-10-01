@@ -1,4 +1,4 @@
-import {DragStart, DragUpdate} from "react-beautiful-dnd"
+import {DragStart, DragUpdate} from "@hello-pangea/dnd"
 import {useState} from "react"
 
 export type ghostType = {
