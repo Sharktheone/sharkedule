@@ -16,34 +16,19 @@ const num = 12
 const variants = 3
 
 export function ColorSelector() {
-    // TODO: This is ride now just a note to me...
-    // Maybe add some configurable colors that are predefined and also allow user defined colors.
-    // For the custom also add places to store them and also allow "single-use" colors, but maybe list them somewhere.
-    // Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
-    // Selector for switching between normal and custom colors
-    // Add button to hide 1/2 of the color shades
+    //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
 
-    // (use viewTransition for this one, but maybe let the option, so we can use this as a "popup" variant - user-defined?
-
+    const [picker, setPicker] = useState<{ open: boolean, element: HTMLButtonElement | null }>({
+        open: false,
+        element: null
+    })
+    const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
     const [selectedColor, setSelectedColor] = useState<Color>()
     const [tab, setTab] = useState("simple")
-    const [picker, setPicker] = useState<{open: boolean, element: HTMLButtonElement | null}>({open: false, element: null})
-    const {classes, cx} = useColors()
-    const controlRef = useRef<HTMLDivElement>(null)
-    const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
-    // const clickRef = useClickOutside<HTMLDivElement>(() => {
-    //     let p = {...picker}
-    //     setTimeout(() => {
-    //         if (picker.x !== p.x || picker.y !== p.y) return
-    //         setPicker({open: false, x: 0, y: 0})
-    //     }, 100)
-    // })
-    const ref = useRef<HTMLDivElement>(null)
     const singleRef = useRef<HTMLButtonElement>(null)
-
-    // clickRef.current = ref.current
-
-    // ref?.current?.style.setProperty("--_right", "red")
+    const controlRef = useRef<HTMLDivElement>(null)
+    const ref = useRef<HTMLDivElement>(null)
+    const {classes, cx} = useColors()
 
 
     useEffect(() => {
@@ -68,6 +53,7 @@ export function ColorSelector() {
         if (!picker.element) return
         picker.element.style.backgroundColor = pickerValue.css()
     }, [pickerValue])
+
 
     function getColors(): ColorShades[] {
         const startHue = 25
@@ -102,17 +88,20 @@ export function ColorSelector() {
         return shades
     }
 
+
     function states(color: Color) {
         if (!selectedColor) return ""
 
         return color.isSame(selectedColor) ? styles.selected : ""
     }
 
+
     function select(color: Color) {
         if (color.isUndefined()) return
         if (picker.open) return
         setSelectedColor(color)
     }
+
 
     function customColors() {
         const n = (num - 2) * (variants * 2 - 1)
@@ -126,15 +115,18 @@ export function ColorSelector() {
         return colors
     }
 
+
     function pickColor(element: HTMLElement, open = !picker.open) {
         picker.element?.classList.remove(styles.picked)
         if (open) element.classList.add(styles.picked)
         setPicker({open: open, element: element})
     }
 
+
     function colorDisabled(color: Color) {
         return color.isUndefined() ? styles.colorDisabled : ""
     }
+
 
     function colorContext(e: MouseEvent) {
         e.preventDefault()
@@ -146,6 +138,7 @@ export function ColorSelector() {
         }
         pickColor(element, true)
     }
+
 
     function computePickerStyles() {
         let x = picker.element?.offsetLeft ?? 0
@@ -176,12 +169,14 @@ export function ColorSelector() {
         } as React.CSSProperties
     }
 
+
     function pickerChange(string: string) {
         let col = new Color(0, 0, 0)
         col.parseHSL(string)
 
         setPickerValue(col)
     }
+
 
     return (
         <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
@@ -220,7 +215,9 @@ export function ColorSelector() {
                                 const {
                                     onClick,
                                     onDoubleClick
-                                } = useDoubleClick(() => select(color), () => {pickColor(r.current)}, 100)
+                                } = useDoubleClick(() => select(color), () => {
+                                    pickColor(r.current)
+                                }, 100)
 
                                 function clickHandler(e: MouseEvent<HTMLButtonElement>) {
                                     e.stopPropagation()
@@ -263,7 +260,6 @@ export function ColorSelector() {
                             <Button onClick={() => pickColor(singleRef.current)}>Cancel</Button>
                             <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
                         </div>
-                        {/* Hmm, I need to move this depending on the button that is pressed, I have an idea, test it later  */}
                     </div> : null
                 }
             </div>
