@@ -43,7 +43,7 @@ export default function useViewTransition(currentView: string, lastView: string,
             return styles.left
         }
         // the same view, so we don't need to transition
-        return
+        return styles.none
     }
 
     function getOldElement() {

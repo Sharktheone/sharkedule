@@ -20,7 +20,7 @@ export default function ViewTransition({view, children}: props) {
         refs.push({element: ref.current?.children?.item(i) ?? {} as HTMLElement, id: children[i].props["data-id"]})
     }
 
-    let lastView = usePrevious(view)
+    let lastView = usePrevious(view) ?? ""
 
     let r = useViewTransition(view, lastView, refs)
 

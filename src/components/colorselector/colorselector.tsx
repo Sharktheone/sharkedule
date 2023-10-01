@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss"
-import React, {useEffect, useRef, useState} from "react"
+import React, {MouseEventHandler, useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
 import {Button, ColorPicker, SegmentedControl} from "@mantine/core"
@@ -18,7 +18,7 @@ const variants = 3
 export function ColorSelector() {
     //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
 
-    const [picker, setPicker] = useState<{ open: boolean, element: HTMLButtonElement | null }>({
+    const [picker, setPicker] = useState<{ open: boolean, element: HTMLElement | null }>({
         open: false,
         element: null
     })
@@ -116,9 +116,9 @@ export function ColorSelector() {
     }
 
 
-    function pickColor(element: HTMLElement, open = !picker.open) {
+    function pickColor(element: HTMLElement | null, open = !picker.open) {
         picker.element?.classList.remove(styles.picked)
-        if (open) element.classList.add(styles.picked)
+        if (open) element?.classList.add(styles.picked)
         setPicker({open: open, element: element})
     }
 
@@ -128,7 +128,7 @@ export function ColorSelector() {
     }
 
 
-    function colorContext(e: MouseEvent) {
+    function colorContext(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
         e.stopPropagation()
         const element = e.target as HTMLButtonElement
@@ -139,13 +139,12 @@ export function ColorSelector() {
         pickColor(element, true)
     }
 
-
     function computePickerStyles() {
         let x = picker.element?.offsetLeft ?? 0
         const y = picker.element?.offsetTop ?? 0
         const w = picker.element?.offsetParent?.clientWidth ?? 0
 
-        const pickerWidth = ref?.current?.clientWidth
+        const pickerWidth = ref?.current?.clientWidth ?? 0
 
         let indicator = pickerWidth
         let bleft = "var(--_border-indicator)"
@@ -199,7 +198,7 @@ export function ColorSelector() {
                                             backgroundColor: color.css()
                                         }}
                                                 onClick={() => select(color)}
-                                                onContextMenu={colorContext}
+                                                onContextMenu={(e) =>  colorContext(e)}
                                                 className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
                                     )
                                 })}
@@ -219,13 +218,13 @@ export function ColorSelector() {
                                     pickColor(r.current)
                                 }, 100)
 
-                                function clickHandler(e: MouseEvent<HTMLButtonElement>) {
+                                function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
                                     e.stopPropagation()
                                     if (picker.open && e.target !== picker.element) {
                                         pickColor(r.current, true)
                                         return
                                     }
-                                    if (color.isUndefined()) pickColor(r.current)
+                                    if (color.isUndefined() && r.current !== null) pickColor(r.current)
                                     onClick()
                                 }
 
@@ -238,7 +237,7 @@ export function ColorSelector() {
                                 return (
                                     <button
                                         ref={r}
-                                        onClick={clickHandler}
+                                        onClick={(e) => clickHandler(e)}
                                         onDoubleClick={doubleClickHandler}
                                         onContextMenu={colorContext}
                                         className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>

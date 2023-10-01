@@ -2,7 +2,7 @@ export default class Color {
     private color: hsl
     private undefined: boolean
 
-    constructor(h: number, s: number, l: number, undefined? = false) {
+    constructor(h: number, s: number, l: number, undefined = false) {
         h %= 360
         this.color = {h, s, l}
         this.undefined = undefined
@@ -20,17 +20,17 @@ export default class Color {
         return this.color
     }
 
-    fromHEX(hex: string, undefined? = false) {
+    fromHEX(hex: string, undefined = false) {
         //TODO
         this.undefined = undefined
     }
 
-    fromRGB(r: number, g: number, b: number, undefined? = false) {
+    fromRGB(r: number, g: number, b: number, undefined = false) {
         //TODO
         this.undefined = undefined
     }
 
-    fromHSL(h: number, s: number, l: number, undefined? = false) {
+    fromHSL(h: number, s: number, l: number, undefined = false) {
         this.color = {h, s, l}
         this.undefined = undefined
     }
@@ -52,6 +52,7 @@ export default class Color {
 
 
     parseHSL(hsl: string) {
+        //@ts-ignore TODO: it works, but typescript doesn't like it
         hsl.replace(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/g, (match, h, s, l) => {
             this.color = {h: +h, s: +s, l: +l}
             this.undefined = false
