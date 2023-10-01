@@ -110,7 +110,7 @@ export function ColorSelector() {
 
     function select(color: Color) {
         if (color.isUndefined()) return
-        if (picker) return
+        if (picker.open) return
         setSelectedColor(color)
     }
 
@@ -198,18 +198,12 @@ export function ColorSelector() {
 
                                     const r = useRef<HTMLButtonElement>(null)
 
-                                    const {
-                                        onClick,
-                                        onDoubleClick
-                                    } = useDoubleClick(() => select(color), () => pickColor(r.current), 100)
-
 
                                     return (
                                         <button ref={r} style={{
                                             backgroundColor: color.css()
                                         }}
-                                                onClick={onClick}
-                                                onDoubleClick={onDoubleClick}
+                                                onClick={() => select(color)}
                                                 onContextMenu={colorContext}
                                                 className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
                                     )
