@@ -84,8 +84,8 @@ export default function Kanban() {
         <EnvironmentProvider environment={environment} setEnvironment={setEnvironment}>
             <ColorSelector/>
             <div className={styles.board} ref={boardRef}>
-                <Title order={1} align="center">{getBoard()?.name}</Title>
-                <Text mb="sm" align="center" color="dimmed">Drag and drop tasks to reorder them</Text>
+                <Title order={1} mt="1rem" align="left">{getBoard()?.name}</Title>
+                <Text mb="2rem" align="left" color="dimmed">Drag and drop tasks to reorder them</Text>
                 <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
                                  onDragUpdate={event => drag.Update(event)}>
                     <Droppable droppableId={uuid} type="column" direction="horizontal">
