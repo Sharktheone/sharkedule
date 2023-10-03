@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss"
-import React, {MouseEventHandler, useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
 import {Button, ColorPicker, SegmentedControl} from "@mantine/core"
@@ -18,7 +18,10 @@ const variants = 3
 export function ColorSelector() {
     //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
 
-    const [picker, setPicker] = useState<{ open: boolean, element: HTMLElement | null }>({
+    const [picker, setPicker] = useState<{
+        open: boolean,
+        element: HTMLElement | null
+    }>({
         open: false,
         element: null
     })
@@ -198,7 +201,7 @@ export function ColorSelector() {
                                             backgroundColor: color.css()
                                         }}
                                                 onClick={() => select(color)}
-                                                onContextMenu={(e) =>  colorContext(e)}
+                                                onContextMenu={(e) => colorContext(e)}
                                                 className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
                                     )
                                 })}
