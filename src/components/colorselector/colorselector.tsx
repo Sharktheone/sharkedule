@@ -15,16 +15,15 @@ type ColorShades = {
 const num = 12
 const variants = 3
 
+type picker = {
+    open: boolean,
+    element: HTMLElement | null
+}
+
 export function ColorSelector() {
     //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
 
-    const [picker, setPicker] = useState<{
-        open: boolean,
-        element: HTMLElement | null
-    }>({
-        open: false,
-        element: null
-    })
+    const [picker, setPicker] = useState<picker>({} as picker)
     const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
     const [selectedColor, setSelectedColor] = useState<Color>()
     const [tab, setTab] = useState("simple")
