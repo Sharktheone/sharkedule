@@ -2,35 +2,24 @@ import styles from "./styles.module.scss"
 import React, {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
 import {useColors} from "./colors"
-import {Button, ColorPicker, SegmentedControl} from "@mantine/core"
+import {SegmentedControl} from "@mantine/core"
 import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"
-import useDoubleClick from "@/hooks/useDoubleClick/useDoubleClick"
-
-type ColorShades = {
-    colors: Color[]
-}
-
-const num = 12
-const variants = 3
-
-type picker = {
-    open: boolean,
-    element: HTMLElement | null
-}
+import CustomColor from "@/components/colorselector/color/custom"
+import getColors from "@/components/colorselector/colorgen"
+import Picker, {picker} from "@/components/colorselector/picker"
+import SimpleColor from "@/components/colorselector/color/simple"
 
 export function ColorSelector() {
     //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
-
-    const [picker, setPicker] = useState<picker>({} as picker)
-    const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
     const [selectedColor, setSelectedColor] = useState<Color>()
     const [tab, setTab] = useState("simple")
     const singleRef = useRef<HTMLButtonElement>(null)
     const controlRef = useRef<HTMLDivElement>(null)
-    const ref = useRef<HTMLDivElement>(null)
     const {classes, cx} = useColors()
+
+    const [picker, setPicker] = useState<picker>({} as picker)
 
 
     useEffect(() => {
@@ -51,45 +40,6 @@ export function ColorSelector() {
         setPicker({open: false, element: null})
     }, [tab])
 
-    useEffect(() => {
-        if (!picker.element) return
-        picker.element.style.backgroundColor = pickerValue.css()
-    }, [pickerValue])
-
-
-    function getColors(): ColorShades[] {
-        const startHue = 25
-        const s = 100
-        const l = 50
-        const lMin = 10
-
-        let shades = [] as ColorShades[]
-
-        for (let h = startHue; h < 360 + startHue; h += (360 / num)) {
-            let colors = [] as Color[]
-            for (let v = variants; v > 0; v--) {
-                let color = new Color(
-                    h,
-                    s,
-                    l - v * lMin)
-                colors.push(color)
-            }
-            for (let v = 1; v < variants; v++) {
-                let color = new Color(
-                    h,
-                    s,
-                    l + v * lMin)
-
-                colors.push(color)
-            }
-
-            shades.push({
-                colors: colors
-            })
-        }
-        return shades
-    }
-
 
     function states(color: Color) {
         if (!selectedColor) return ""
@@ -100,13 +50,13 @@ export function ColorSelector() {
 
     function select(color: Color) {
         if (color.isUndefined()) return
-        if (picker.open) return
+        if (picker) return
         setSelectedColor(color)
     }
 
 
-    function customColors() {
-        const n = (num - 2) * (variants * 2 - 1)
+    function customColors() { //TODO: Get this from user context / board context
+        const n = (12 - 2) * (3 * 2 - 1)
 
         let colors = [] as Color[]
 
@@ -116,19 +66,6 @@ export function ColorSelector() {
 
         return colors
     }
-
-
-    function pickColor(element: HTMLElement | null, open = !picker.open) {
-        picker.element?.classList.remove(styles.picked)
-        if (open) element?.classList.add(styles.picked)
-        setPicker({open: open, element: element})
-    }
-
-
-    function colorDisabled(color: Color) {
-        return color.isUndefined() ? styles.colorDisabled : ""
-    }
-
 
     function colorContext(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
@@ -141,41 +78,10 @@ export function ColorSelector() {
         pickColor(element, true)
     }
 
-    function computePickerStyles() {
-        let x = picker.element?.offsetLeft ?? 0
-        const y = picker.element?.offsetTop ?? 0
-        const w = picker.element?.offsetParent?.clientWidth ?? 0
-
-        const pickerWidth = ref?.current?.clientWidth ?? 0
-
-        let indicator = pickerWidth
-        let bleft = "var(--_border-indicator)"
-        let bright = "var(--_border-indicator)"
-
-        if (w / 2 > x) {
-            indicator = 0
-            bright = "transparent"
-        } else {
-            x -= (pickerWidth + 56)
-            bleft = "transparent"
-        }
-
-        return {
-            left: "5.75rem",
-            "--_left": x,
-            "--_bright": bright,
-            "--_bleft": bleft,
-            "--_indicator": indicator,
-            "--_top": y,
-        } as React.CSSProperties
-    }
-
-
-    function pickerChange(string: string) {
-        let col = new Color(0, 0, 0)
-        col.parseHSL(string)
-
-        setPickerValue(col)
+    function pickColor(element: HTMLElement | null, open = !picker) {
+        picker.element?.classList.remove(styles.picked)
+        if (open) element?.classList.add(styles.picked)
+        setPicker({open: open, element: element})
     }
 
 
@@ -190,61 +96,21 @@ export function ColorSelector() {
                     <div data-id="simple" className={`${styles.custom} ${styles.tab}`}>
                         {getColors().map(shade => (
                             <div className={styles.shade}>
-                                {shade.colors.map(color => {
-
-                                    const r = useRef<HTMLButtonElement>(null)
-
-
-                                    return (
-                                        <button ref={r} style={{
-                                            backgroundColor: color.css()
-                                        }}
-                                                onClick={() => select(color)}
-                                                onContextMenu={(e) => colorContext(e)}
-                                                className={`${styles.color} ${states(color)} ${cx(classes.color)} ${colorDisabled(color)}`}/>
-                                    )
-                                })}
+                                {shade.colors.map(color => (
+                                    <SimpleColor color={color} select={select} states={states}
+                                                 colorContext={colorContext}/>
+                                ))}
                             </div>
                         ))}
                     </div>
                     <div data-id="custom" className={`${styles.custom} ${styles.tab}`}>
                         <div className={styles.customColors}>
-                            {customColors().map(color => {
-
-                                const r = useRef<HTMLButtonElement>(null)
-
-                                const {
-                                    onClick,
-                                    onDoubleClick
-                                } = useDoubleClick(() => select(color), () => {
-                                    pickColor(r.current)
-                                }, 100)
-
-                                function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
-                                    e.stopPropagation()
-                                    if (picker.open && e.target !== picker.element) {
-                                        pickColor(r.current, true)
-                                        return
-                                    }
-                                    if (color.isUndefined() && r.current !== null) pickColor(r.current)
-                                    onClick()
-                                }
-
-                                function doubleClickHandler() {
-                                    if (color.isUndefined()) return
-                                    onDoubleClick()
-                                }
-
-
-                                return (
-                                    <button
-                                        ref={r}
-                                        onClick={(e) => clickHandler(e)}
-                                        onDoubleClick={doubleClickHandler}
-                                        onContextMenu={colorContext}
-                                        className={`${styles.color} ${states(color)} ${cx(classes.color)}`}/>
-                                )
-                            })}
+                            {customColors().map(color => (
+                                <CustomColor color={color} pickColor={pickColor} select={select} picker={picker}
+                                             selectedColor={selectedColor} colorContext={colorContext}
+                                             states={states}
+                                />
+                            ))}
                         </div>
                         <button ref={singleRef} className={`${styles.single} ${cx(classes.single)}`}
                                 onClick={() => pickColor(singleRef.current)}>
@@ -252,17 +118,7 @@ export function ColorSelector() {
                         </button>
                     </div>
                 </ViewTransition>
-                {
-                    picker.open ? <div ref={ref} className={styles.pickerOverlay}
-                                       style={computePickerStyles()}
-                    >
-                        <ColorPicker format="hsl" onChange={pickerChange}/>
-                        <div className={styles.pickerButtons}>
-                            <Button onClick={() => pickColor(singleRef.current)}>Cancel</Button>
-                            <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
-                        </div>
-                    </div> : null
-                }
+                <Picker data={picker} select={select}/>
             </div>
         </div>
     )
