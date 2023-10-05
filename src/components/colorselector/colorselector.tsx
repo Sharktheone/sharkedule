@@ -50,7 +50,7 @@ export function ColorSelector() {
 
     function select(color: Color) {
         if (color.isUndefined()) return
-        if (picker) return
+        if (picker.open) return
         setSelectedColor(color)
     }
 
@@ -78,7 +78,7 @@ export function ColorSelector() {
         pickColor(element, true)
     }
 
-    function pickColor(element: HTMLElement | null, open = !picker) {
+    function pickColor(element: HTMLElement | null, open = !picker.open) {
         picker.element?.classList.remove(styles.picked)
         if (open) element?.classList.add(styles.picked)
         setPicker({open: open, element: element})
