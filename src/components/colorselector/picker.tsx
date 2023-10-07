@@ -3,7 +3,7 @@ import {Button, ColorPicker} from "@mantine/core"
 import Color from "@/types/color/color"
 import React, {useEffect, useRef, useState} from "react"
 import {Simulate} from "react-dom/test-utils"
-import select = Simulate.select
+
 
 export type picker = {
     open: boolean,
@@ -69,7 +69,7 @@ export default function Picker({data, select}: props) {
         >
             <ColorPicker format="hsl" onChange={pickerChange}/>
             <div className={styles.pickerButtons}>
-                <Button onClick={() => pickColor(singleRef.current)}>Cancel</Button>
+                <Button >Cancel</Button>
                 <Button onClick={() => select(new Color(0, 0, 0))}>Select</Button>
             </div>
         </div>

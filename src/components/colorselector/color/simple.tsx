@@ -12,9 +12,7 @@ type props = {
 }
 
 export default function SimpleColor({color, select, states, colorContext}: props) {
-
     const r = useRef<HTMLButtonElement>(null)
-
 
     return (
         <button ref={r} style={{

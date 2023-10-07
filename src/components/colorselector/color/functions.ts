@@ -1,4 +1,3 @@
-import React from "react"
 import styles from "@/components/colorselector/styles.module.scss"
 import Color from "@/types/color/color"
 
