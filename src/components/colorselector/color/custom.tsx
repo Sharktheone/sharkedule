@@ -7,31 +7,31 @@ import {picker} from "@/components/colorselector/picker"
 
 type props = {
     color: Color,
-    pickColor: (element: HTMLElement | null, open?: boolean) => void,
+    pickColor: (element: HTMLElement | null, index: number, open?: boolean) => void,
     select: (color: Color) => void
     picker: picker
-    selectedColor?: Color
-    colorContext: (e: React.MouseEvent<HTMLButtonElement>) => void
+    colorContext: (e: React.MouseEvent<HTMLButtonElement>, index: number) => void
     states: (color: Color) => string
+    index: number,
 
 }
-export default function CustomColor({color, pickColor, select, picker, selectedColor, colorContext, states}: props) {
+export default function CustomColor({color, pickColor, select, picker, colorContext, states, index}: props) {
     const r = useRef<HTMLButtonElement>(null)
 
     const {
         onClick,
         onDoubleClick
     } = useDoubleClick(() => select(color), () => {
-        pickColor(r.current)
+        pickColor(r.current, index)
     }, 100)
 
     function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
         e.stopPropagation()
         if (picker.open && e.target !== picker.element) {
-            pickColor(r.current, true)
+            pickColor(r.current, index, true)
             return
         }
-        if (color.isUndefined() && r.current !== null) pickColor(r.current)
+        if (color.isUndefined() && r.current !== null) pickColor(r.current, index)
         onClick()
     }
 
@@ -45,7 +45,7 @@ export default function CustomColor({color, pickColor, select, picker, selectedC
             ref={r}
             onClick={(e) => clickHandler(e)}
             onDoubleClick={doubleClickHandler}
-            onContextMenu={colorContext}
+            onContextMenu={e => colorContext(e, index)}
             className={`${styles.color} ${states(color)}`}/>
     )
 }

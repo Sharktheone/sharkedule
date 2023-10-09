@@ -43,6 +43,7 @@ export default class Color {
     }
 
     css() {
+        if (this.undefined) return "unset"
         return `hsl(${this.color.h}deg, ${this.color.s}%, ${this.color.l}%)`
     }
 

@@ -67,21 +67,21 @@ export function ColorSelector() {
         return colors
     }
 
-    function colorContext(e: React.MouseEvent<HTMLButtonElement>) {
+    function colorContext(e: React.MouseEvent<HTMLButtonElement>, index: number) {
         e.preventDefault()
         e.stopPropagation()
         const element = e.target as HTMLButtonElement
         if (element.classList.contains(styles.picked)) {
-            pickColor(element, false)
+            pickColor(element, index, false)
             return
         }
-        pickColor(element, true)
+        pickColor(element, index,true)
     }
 
-    function pickColor(element: HTMLElement | null, open = !picker.open) {
+    function pickColor(element: HTMLElement | null, index: number, open = !picker.open) {
         picker.element?.classList.remove(styles.picked)
         if (open) element?.classList.add(styles.picked)
-        setPicker({open: open, element: element})
+        setPicker({open: open, element: element, index: index})
     }
 
 
@@ -97,28 +97,26 @@ export function ColorSelector() {
                         {getColors().map(shade => (
                             <div className={styles.shade}>
                                 {shade.colors.map(color => (
-                                    <SimpleColor color={color} select={select} states={states}
-                                                 colorContext={colorContext}/>
+                                    <SimpleColor color={color} select={select} states={states}/>
                                 ))}
                             </div>
                         ))}
                     </div>
                     <div data-id="custom" className={`${styles.custom} ${styles.tab}`}>
                         <div className={styles.customColors}>
-                            {customColors().map(color => (
+                            {customColors().map((color, index) => (
                                 <CustomColor color={color} pickColor={pickColor} select={select} picker={picker}
-                                             selectedColor={selectedColor} colorContext={colorContext}
-                                             states={states}
+                                             colorContext={colorContext} states={states} index={index} key={index}
                                 />
                             ))}
                         </div>
                         <button ref={singleRef} className={`${styles.single} ${cx(classes.single)}`}
-                                onClick={() => pickColor(singleRef.current)}>
+                                onClick={() => pickColor(singleRef.current, -1)}>
                             <IconColorPicker/>
                         </button>
                     </div>
                 </ViewTransition>
-                <Picker data={picker} select={select}/>
+                <Picker data={picker} setData={setPicker} select={select}/>
             </div>
         </div>
     )
