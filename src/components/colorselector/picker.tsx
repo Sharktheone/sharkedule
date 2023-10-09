@@ -3,7 +3,6 @@ import {Button, ColorPicker} from "@mantine/core"
 import Color from "@/types/color/color"
 import React, {CSSProperties, useEffect, useRef, useState} from "react"
 import {Simulate} from "react-dom/test-utils"
-import cancel = Simulate.cancel
 
 
 export type picker = {
@@ -80,8 +79,7 @@ export default function Picker({data, select, setData}: props) {
     }
 
     function handleSelect() {
-
-
+        //TODO: We need to pass custom colors from the user / board context
     }
 
     if (!data.open) return null
