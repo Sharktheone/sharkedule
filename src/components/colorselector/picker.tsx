@@ -1,7 +1,7 @@
 import styles from "@/components/colorselector/styles.module.scss"
 import {Button, ColorPicker} from "@mantine/core"
 import Color from "@/types/color/color"
-import React, {useEffect, useRef, useState} from "react"
+import React, {CSSProperties, useEffect, useRef, useState} from "react"
 import {Simulate} from "react-dom/test-utils"
 import cancel = Simulate.cancel
 
@@ -21,6 +21,7 @@ type props = {
 export default function Picker({data, select, setData}: props) {
     const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
     const ref = useRef<HTMLDivElement>(null)
+    const [pickerStyles, setPickerStyles] = useState<CSSProperties>(computePickerStyles())
 
     useEffect(() => {
         if (!data.element) return
@@ -28,6 +29,10 @@ export default function Picker({data, select, setData}: props) {
 
         if (data.index === -1337) setData({open: false, element: null, index: -2})
     }, [pickerValue])
+
+    useEffect(() => {
+        setPickerStyles(computePickerStyles())
+    }, [data])
 
     function pickerChange(string: string) {
         let col = new Color(0, 0, 0)
@@ -63,7 +68,7 @@ export default function Picker({data, select, setData}: props) {
             "--_bleft": bleft,
             "--_indicator": indicator,
             "--_top": y,
-        } as React.CSSProperties
+        } as CSSProperties
     }
 
     function cancel() {
@@ -83,7 +88,7 @@ export default function Picker({data, select, setData}: props) {
 
     return (
         <div ref={ref} className={styles.pickerOverlay}
-             style={computePickerStyles()}
+             style={pickerStyles}
         >
             <ColorPicker format="hsl" onChange={pickerChange}/>
             <div className={styles.pickerButtons}>
