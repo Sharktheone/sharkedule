@@ -2,7 +2,6 @@ import styles from "@/components/colorselector/styles.module.scss"
 import {Button, ColorPicker} from "@mantine/core"
 import Color from "@/types/color/color"
 import React, {CSSProperties, useEffect, useRef, useState} from "react"
-import {Simulate} from "react-dom/test-utils"
 
 
 export type picker = {
@@ -15,9 +14,10 @@ type props = {
     data: picker,
     setData: (data: picker) => void
     select: (color: Color) => void
+    finish: () => void
 }
 
-export default function Picker({data, select, setData}: props) {
+export default function Picker({data, select, setData, finish}: props) {
     const [pickerValue, setPickerValue] = useState<Color>(new Color(0, 0, 0))
     const ref = useRef<HTMLDivElement>(null)
     const [pickerStyles, setPickerStyles] = useState<CSSProperties>(computePickerStyles())
@@ -80,6 +80,8 @@ export default function Picker({data, select, setData}: props) {
 
     function handleSelect() {
         //TODO: We need to pass custom colors from the user / board context
+        select(pickerValue)
+        finish()
     }
 
     if (!data.open) return null

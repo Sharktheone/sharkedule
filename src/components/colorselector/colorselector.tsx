@@ -11,9 +11,16 @@ import getColors from "@/components/colorselector/colorgen"
 import Picker, {picker} from "@/components/colorselector/picker"
 import SimpleColor from "@/components/colorselector/color/simple"
 
-export function ColorSelector() {
+type props = {
+    value?: Color,
+    onSelect?: (color: Color) => void,
+    onChange?: (color: Color) => void,
+    onCancel?: () => void,
+}
+
+export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
     //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
-    const [selectedColor, setSelectedColor] = useState<Color>()
+    const [selectedColor, setSelectedColor] = useState<Color>(value ?? new Color(0, 0, 0, true))
     const [tab, setTab] = useState("simple")
     const singleRef = useRef<HTMLButtonElement>(null)
     const controlRef = useRef<HTMLDivElement>(null)
@@ -32,6 +39,8 @@ export function ColorSelector() {
         controlRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
 
         controlRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
+
+        if (onChange) onChange(selectedColor)
 
     }, [selectedColor])
 
@@ -52,6 +61,14 @@ export function ColorSelector() {
         if (color.isUndefined()) return
         if (picker.open) return
         setSelectedColor(color)
+    }
+
+    function finish() {
+        if (onSelect) onSelect(selectedColor)
+    }
+
+    function cancel() {
+        if (onCancel) onCancel()
     }
 
 
@@ -86,6 +103,7 @@ export function ColorSelector() {
 
 
     return (
+
         <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
             <SegmentedControl ref={controlRef} data={[
                 {label: "Simple", value: "simple"},
@@ -116,7 +134,7 @@ export function ColorSelector() {
                         </button>
                     </div>
                 </ViewTransition>
-                <Picker data={picker} setData={setPicker} select={select}/>
+                <Picker data={picker} setData={setPicker} select={select} finish={finish}/>
             </div>
         </div>
     )
