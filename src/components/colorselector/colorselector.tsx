@@ -32,13 +32,19 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
     useEffect(() => {
         let hsl = selectedColor?.hsl()
 
-        if (!hsl) return
+        if (!hsl || selectedColor.isUndefined()) {
+            controlRef?.current?.style.setProperty("--gradient-color-1", "unset")
+            controlRef?.current?.style.setProperty("--gradient-color-2", "unset")
+        } else {
+            let color = new Color(hsl.h + 30, hsl.s, hsl.l)
 
-        let color = new Color(hsl.h + 30, hsl.s, hsl.l)
+            if (color.isUndefined()) color = new Color(0, 0, 0, true)
 
-        controlRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
+            controlRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
 
-        controlRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
+            controlRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
+        }
+
 
         if (onChange) onChange(selectedColor)
 
