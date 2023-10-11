@@ -15,7 +15,7 @@ type props = {
     value?: Color,
     onSelect?: (color: Color) => void,
     onChange?: (color: Color) => void,
-    onCancel?: () => void,
+    onCancel?: (lastColor: Color) => void,
 }
 
 export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
@@ -23,7 +23,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
     const [selectedColor, setSelectedColor] = useState<Color>(value ?? new Color(0, 0, 0, true))
     const [tab, setTab] = useState("simple")
     const singleRef = useRef<HTMLButtonElement>(null)
-    const controlRef = useRef<HTMLDivElement>(null)
+    const rootRef = useRef<HTMLDivElement>(null)
     const {classes, cx} = useColors()
 
     const [picker, setPicker] = useState<picker>({} as picker)
@@ -33,16 +33,15 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
         let hsl = selectedColor?.hsl()
 
         if (!hsl || selectedColor.isUndefined()) {
-            controlRef?.current?.style.setProperty("--gradient-color-1", "unset")
-            controlRef?.current?.style.setProperty("--gradient-color-2", "unset")
+            rootRef?.current?.style.setProperty("--gradient-color-1", "unset")
+            rootRef?.current?.style.setProperty("--gradient-color-2", "unset")
         } else {
             let color = new Color(hsl.h + 30, hsl.s, hsl.l)
 
             if (color.isUndefined()) color = new Color(0, 0, 0, true)
 
-            controlRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
-
-            controlRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
+            rootRef?.current?.style.setProperty("--gradient-color-1", selectedColor?.css() ?? "unset")
+            rootRef?.current?.style.setProperty("--gradient-color-2", color?.css() ?? "unset")
         }
 
 
@@ -66,6 +65,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
     function select(color: Color) {
         if (color.isUndefined()) return
         if (picker.open) return
+
         setSelectedColor(color)
     }
 
@@ -74,7 +74,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
     }
 
     function cancel() {
-        if (onCancel) onCancel()
+        if (onCancel) onCancel(selectedColor)
     }
 
 
@@ -98,7 +98,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
             pickColor(element, index, false)
             return
         }
-        pickColor(element, index,true)
+        pickColor(element, index, true)
     }
 
     function pickColor(element: HTMLElement | null, index: number, open = !picker.open) {
@@ -109,9 +109,8 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
 
 
     return (
-
-        <div data-view="default" className={`${styles.selector} ${cx(classes.selector)}`}>
-            <SegmentedControl ref={controlRef} data={[
+        <div ref={rootRef} className={`${styles.selector} ${cx(classes.selector)}`}>
+            <SegmentedControl  data={[
                 {label: "Simple", value: "simple"},
                 {label: "Custom", value: "custom"},
             ]} onChange={setTab} value={tab} classNames={control}/>
@@ -141,6 +140,10 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
                     </div>
                 </ViewTransition>
                 <Picker data={picker} setData={setPicker} select={select} finish={finish}/>
+            </div>
+            <div className={styles.buttons}>
+                <button onClick={cancel}>Cancel</button> {/* TODO: Change Text Color depending on background color */}
+                <button onClick={finish}>Select</button>
             </div>
         </div>
     )

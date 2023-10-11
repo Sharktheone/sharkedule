@@ -147,3 +147,40 @@
 .picked:is(.single) {
   outline: colors.$orange-500 2px solid !important;
 }
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding-top: .5rem;
+  padding-right: .25rem;
+  padding-left: .25rem;
+
+  & > button:nth-child(1) {
+    --_gradient-color-1: color-mix(in lch, var(--gradient-color-1) 25%, red); // \
+    --_gradient-color-2: color-mix(in lch, var(--gradient-color-2) 25%, red); // TBD: is this really needed?
+  }
+
+  & > button {
+    width: 100%;
+    height: 2rem;
+    background-image: linear-gradient(
+                    to right,
+                    var(--_gradient-color-1, var(--gradient-color-1, red)),
+                    var(--_gradient-color-2, var(--gradient-color-1, orangered))
+    );
+    border: none;
+    border-radius: .5rem;
+    transition: scale .2s cubic-bezier(.68, -0.55, .27, 1.55);
+  }
+
+  & > button:hover {
+    scale: 1.1;
+  }
+
+  & > button:focus-visible {
+    outline: deepskyblue 2px solid;
+    outline-offset: 2px;
+  }
+
+}
