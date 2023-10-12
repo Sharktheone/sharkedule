@@ -16,9 +16,11 @@ type props = {
     onSelect?: (color: Color) => void,
     onChange?: (color: Color) => void,
     onCancel?: (lastColor: Color) => void,
+    controls?: boolean
+    hide?: boolean
 }
 
-export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
+export function ColorSelector({value, onSelect, onChange, onCancel, controls, hide}: props) {
     //TODO:  Also for the custom colors first when you define them only let them change the hsl h-value, and add a extend button for the whole spectrum
     const [selectedColor, setSelectedColor] = useState<Color>(value ?? new Color(0, 0, 0, true))
     const [tab, setTab] = useState("simple")
@@ -107,6 +109,8 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
         setPicker({open: open, element: element, index: index})
     }
 
+    if (hide) return null
+
 
     return (
         <div ref={rootRef} className={`${styles.selector} ${cx(classes.selector)}`}>
@@ -141,10 +145,10 @@ export function ColorSelector({value, onSelect, onChange, onCancel}: props) {
                 </ViewTransition>
                 <Picker data={picker} setData={setPicker} select={select} finish={finish}/>
             </div>
-            <div className={styles.buttons}>
+            {controls ? <div className={styles.buttons}>
                 <button onClick={cancel}>Cancel</button> {/* TODO: Change Text Color depending on background color */}
                 <button onClick={finish}>Select</button>
-            </div>
+            </div> : null}
         </div>
     )
 }
