@@ -1,21 +1,8 @@
-import {createBrowserRouter, Link, RouteObject} from "react-router-dom"
-import {route, routes} from "@/router/routes"
+import {createBrowserRouter, Link} from "react-router-dom"
 import KanbanBoardLoader from "@/pages/task/kanban/loader"
 import boardsLoader from "@/pages/task/boardsloader"
 import {lazy} from "react"
 
-
-function makeRoutes() {
-    return routes.map(toRouteObject)
-}
-
-function toRouteObject(route: route): RouteObject {
-    return {
-        path: route.path,
-        element: route.element,
-        children: route.children?.map(toRouteObject)
-    }
-}
 
 
 function Home() {
