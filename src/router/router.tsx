@@ -1,8 +1,9 @@
-import {createBrowserRouter, Link} from "react-router-dom"
+import {createBrowserRouter} from "react-router-dom"
 import KanbanBoardLoader from "@/pages/task/kanban/loader"
 import boardsLoader from "@/pages/task/boardsloader"
 import {lazy} from "react"
 import Home from "@/pages/home/home"
+import Login from "@/pages/login/login"
 
 
 
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/login",
+        element: <Login/>,
     },
     {
         path: "/register",
