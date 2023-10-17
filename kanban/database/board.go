@@ -1,6 +1,7 @@
 package kanbandb
 
 import (
+	"errors"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	types2 "github.com/Sharktheone/sharkedule/kanban/types"
@@ -21,8 +22,24 @@ func GetBoard(boards []*types2.Board, uuid string) (*types2.Board, error) {
 	return nil, fmt.Errorf("board with uuid %s does not exist", uuid)
 }
 
-func GetBoards(boards []*types2.Board) []*types2.Board {
+func GetAllBoards(boards []*types2.Board) []*types2.Board {
 	return boards
+}
+
+func GetBoards(boards []*types2.Board, uuids []string) (brds *[]types2.Board, err error) {
+	for _, uuid := range uuids {
+		board, _ := GetBoard(boards, uuid)
+		*brds = append(*brds, *board)
+	}
+	if len(*brds) == 0 {
+		return brds, errors.New("no Matching boards found")
+	}
+
+	if len(*brds) != len(uuids) {
+		return brds, errors.New("didn't found all boards")
+	}
+
+	return brds, nil
 }
 
 func GetBoardNames(boards []*types2.Board) []*namelist.NameList {

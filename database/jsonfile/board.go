@@ -16,8 +16,12 @@ func (J *JSONFile) GetBoard(uuid string) (*types.Board, error) {
 	return kanbandb.GetBoard(J.db.Boards, uuid)
 }
 
-func (J *JSONFile) GetBoards() ([]*types.Board, error) {
-	return kanbandb.GetBoards(J.db.Boards), nil
+func (J *JSONFile) GetAllBoards() ([]*types.Board, error) {
+	return kanbandb.GetAllBoards(J.db.Boards), nil
+}
+
+func (J *JSONFile) GetBoards(uuids []string) (*[]types.Board, error) {
+	return kanbandb.GetBoards(J.db.Boards, uuids)
 }
 
 func (J *JSONFile) GetBoardNames() ([]*namelist.NameList, error) {

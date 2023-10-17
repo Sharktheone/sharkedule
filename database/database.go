@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	DBRoot = "/var/lib/sharkedule"
+	DBRoot = "./"
 )
 
 type DBStructure struct {
@@ -26,7 +26,7 @@ type IDatabase interface {
 	SaveTasks(tasks []*types2.Task) error
 	CreateBoard(name string) (*types2.Board, error)
 	GetBoard(uuid string) (*types2.Board, error)
-	GetBoards() ([]*types2.Board, error)
+	GetAllBoards() ([]*types2.Board, error)
 	GetBoardNames() ([]*namelist.NameList, error)
 	GetColumn(uuid string) (*types2.Column, error)
 	GetTask(uuid string) (*types2.Task, error)

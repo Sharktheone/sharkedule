@@ -18,3 +18,6 @@ type User struct {
 	CustomColors []string
 	Settings     settings.Settings
 }
+
+func (u *User) GetAllBoards() {
+}

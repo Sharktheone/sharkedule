@@ -17,7 +17,7 @@ func Get(uuid string) (*Board, error) {
 }
 
 func GetBoards() ([]*Board, error) {
-	boards, er := db.DB.GetBoards()
+	boards, er := db.DB.GetAllBoards()
 	if er != nil {
 		return nil, er
 	}
