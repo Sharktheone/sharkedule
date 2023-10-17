@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database"
 	"github.com/Sharktheone/sharkedule/kanban/database"
-	types2 "github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 	"os"
 	"path"
 	"sync"
@@ -66,26 +66,26 @@ func (J *JSONFile) Save() error {
 	return nil
 }
 
-func (J *JSONFile) GetStatus(uuid string) (*types2.Status, error) {
+func (J *JSONFile) GetStatus(uuid string) (*types.Status, error) {
 	return kanbandb.GetStatus(J.db.Status, uuid)
 }
 
-func (J *JSONFile) GetPriority(uuid string) (*types2.Priority, error) {
+func (J *JSONFile) GetPriority(uuid string) (*types.Priority, error) {
 	return kanbandb.GetPriority(J.db.Priority, uuid)
 }
 
-func (J *JSONFile) GetMember(uuid string) (*types2.Member, error) {
+func (J *JSONFile) GetMember(uuid string) (*types.Member, error) {
 	return kanbandb.GetMember(J.db.Members, uuid)
 }
 
-func (J *JSONFile) GetChecklist(uuid string) (*types2.Checklist, error) {
+func (J *JSONFile) GetChecklist(uuid string) (*types.Checklist, error) {
 	return kanbandb.GetChecklist(J.db.Checklists, uuid)
 }
 
-func (J *JSONFile) GetAttachment(uuid string) (*types2.Attachment, error) {
+func (J *JSONFile) GetAttachment(uuid string) (*types.Attachment, error) {
 	return kanbandb.GetAttachment(J.db.Attachments, uuid)
 }
 
-func (J *JSONFile) GetDate(uuid string) (*types2.Date, error) {
+func (J *JSONFile) GetDate(uuid string) (*types.Date, error) {
 	return kanbandb.GetDate(J.db.Dates, uuid)
 }

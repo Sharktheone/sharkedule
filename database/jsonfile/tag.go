@@ -2,14 +2,14 @@ package jsonfile
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/database"
-	types2 "github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func (J *JSONFile) GetTag(uuid string) (*types2.Tag, error) {
+func (J *JSONFile) GetTag(uuid string) (*types.Tag, error) {
 	return kanbandb.GetTag(J.db.Tags, uuid)
 }
 
-func (J *JSONFile) GetTags() ([]*types2.Tag, error) {
+func (J *JSONFile) GetTags() ([]*types.Tag, error) {
 	return kanbandb.GetTags(J.db.Tags), nil
 }
 
@@ -20,14 +20,14 @@ func (J *JSONFile) DeleteTag(uuid string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SaveTag(tag *types2.Tag) error {
+func (J *JSONFile) SaveTag(tag *types.Tag) error {
 	if err := kanbandb.SaveTag(J.db.Tags, tag); err != nil {
 		return err
 	}
 	return J.Save()
 }
 
-func (J *JSONFile) SaveTags(tags []*types2.Tag) error {
+func (J *JSONFile) SaveTags(tags []*types.Tag) error {
 	kanbandb.SaveTags(J.db.Tags, tags)
 	return J.Save()
 }

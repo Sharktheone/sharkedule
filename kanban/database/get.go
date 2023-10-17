@@ -2,10 +2,10 @@ package kanbandb
 
 import (
 	"fmt"
-	types2 "github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func GetStatus(status []*types2.Status, uuid string) (*types2.Status, error) {
+func GetStatus(status []*types.Status, uuid string) (*types.Status, error) {
 	for _, s := range status {
 		if s.UUID == uuid {
 			return s, nil
@@ -14,7 +14,7 @@ func GetStatus(status []*types2.Status, uuid string) (*types2.Status, error) {
 	return nil, fmt.Errorf("status with uuid %s does not exist", uuid)
 }
 
-func GetPriority(priorities []*types2.Priority, uuid string) (*types2.Priority, error) {
+func GetPriority(priorities []*types.Priority, uuid string) (*types.Priority, error) {
 	for _, p := range priorities {
 		if p.UUID == uuid {
 			return p, nil
@@ -23,7 +23,7 @@ func GetPriority(priorities []*types2.Priority, uuid string) (*types2.Priority, 
 	return nil, fmt.Errorf("priority with uuid %s does not exist", uuid)
 }
 
-func GetMember(members []*types2.Member, uuid string) (*types2.Member, error) {
+func GetMember(members []*types.Member, uuid string) (*types.Member, error) {
 	for _, m := range members {
 		if m.UUID == uuid {
 			return m, nil
@@ -32,7 +32,7 @@ func GetMember(members []*types2.Member, uuid string) (*types2.Member, error) {
 	return nil, fmt.Errorf("member with uuid %s does not exist", uuid)
 }
 
-func GetChecklist(checklists []*types2.Checklist, uuid string) (*types2.Checklist, error) {
+func GetChecklist(checklists []*types.Checklist, uuid string) (*types.Checklist, error) {
 	for _, c := range checklists {
 		if c.UUID == uuid {
 			return c, nil
@@ -41,7 +41,7 @@ func GetChecklist(checklists []*types2.Checklist, uuid string) (*types2.Checklis
 	return nil, fmt.Errorf("checklist with uuid %s does not exist", uuid)
 }
 
-func GetAttachment(attachments []*types2.Attachment, uuid string) (*types2.Attachment, error) {
+func GetAttachment(attachments []*types.Attachment, uuid string) (*types.Attachment, error) {
 	for _, a := range attachments {
 		if a.UUID == uuid {
 			return a, nil
@@ -50,7 +50,7 @@ func GetAttachment(attachments []*types2.Attachment, uuid string) (*types2.Attac
 	return nil, fmt.Errorf("attachment with uuid %s does not exist", uuid)
 }
 
-func GetDate(dates []*types2.Date, uuid string) (*types2.Date, error) {
+func GetDate(dates []*types.Date, uuid string) (*types.Date, error) {
 	for _, date := range dates {
 		if date.UUID == uuid {
 			return date, nil

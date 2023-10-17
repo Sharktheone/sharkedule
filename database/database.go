@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
-	types2 "github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/kanban/types"
 	"sync"
 )
 
@@ -12,40 +12,40 @@ const (
 
 type DBStructure struct {
 	Mu *sync.Mutex `json:"-" yaml:"-" bson:"-"`
-	types2.Environment
+	types.Environment
 }
 
 type IDatabase interface {
 	Load() error
 	Save() error
-	SaveBoard(board *types2.Board) error
-	SaveBoards(boards []*types2.Board) error
-	SaveColumn(column *types2.Column) error
-	SaveColumns(columns []*types2.Column) error
-	SaveTask(task *types2.Task) error
-	SaveTasks(tasks []*types2.Task) error
-	CreateBoard(name string) (*types2.Board, error)
-	GetBoard(uuid string) (*types2.Board, error)
-	GetAllBoards() ([]*types2.Board, error)
+	SaveBoard(board *types.Board) error
+	SaveBoards(boards []*types.Board) error
+	SaveColumn(column *types.Column) error
+	SaveColumns(columns []*types.Column) error
+	SaveTask(task *types.Task) error
+	SaveTasks(tasks []*types.Task) error
+	CreateBoard(name string) (*types.Board, error)
+	GetBoard(uuid string) (*types.Board, error)
+	GetAllBoards() ([]*types.Board, error)
 	GetBoardNames() ([]*namelist.NameList, error)
-	GetColumn(uuid string) (*types2.Column, error)
-	GetTask(uuid string) (*types2.Task, error)
-	GetTags() ([]*types2.Tag, error)
-	GetTag(uuid string) (*types2.Tag, error)
-	GetStatus(uuid string) (*types2.Status, error)
-	GetPriority(uuid string) (*types2.Priority, error)
-	GetMember(uuid string) (*types2.Member, error)
-	GetChecklist(uuid string) (*types2.Checklist, error)
-	GetAttachment(uuid string) (*types2.Attachment, error)
-	GetDate(uuid string) (*types2.Date, error)
+	GetColumn(uuid string) (*types.Column, error)
+	GetTask(uuid string) (*types.Task, error)
+	GetTags() ([]*types.Tag, error)
+	GetTag(uuid string) (*types.Tag, error)
+	GetStatus(uuid string) (*types.Status, error)
+	GetPriority(uuid string) (*types.Priority, error)
+	GetMember(uuid string) (*types.Member, error)
+	GetChecklist(uuid string) (*types.Checklist, error)
+	GetAttachment(uuid string) (*types.Attachment, error)
+	GetDate(uuid string) (*types.Date, error)
 	DeleteBoard(uuid string) error
 	DeleteColumn(uuid string) error
 	MoveColumn(board, uuid string, toIndex int) error
 	DeleteTask(uuid string) error
 	MoveTask(column, uuid, toColumn string, toIndex int) error
 	DeleteTaskOnColumn(column, uuid string) error
-	NewTask(column, name string) (*types2.Task, error)
-	NewColumn(board, name string) (*types2.Column, error)
+	NewTask(column, name string) (*types.Task, error)
+	NewColumn(board, name string) (*types.Column, error)
 	AddTagToTask(task, tag string) error
 	RemoveTagOnTask(column, uuid string) error
 	SetTagsOnTask(task string, tags []string) error
