@@ -20,7 +20,7 @@ func (J *JSONFile) GetAllBoards() ([]*types.Board, error) {
 	return kanbandb.GetAllBoards(J.db.Boards), nil
 }
 
-func (J *JSONFile) GetBoards(uuids []string) (*[]types.Board, error) {
+func (J *JSONFile) GetBoards(uuids []string) ([]*types.Board, error) {
 	return kanbandb.GetBoards(J.db.Boards, uuids)
 }
 

@@ -26,16 +26,16 @@ func GetAllBoards(boards []*types.Board) []*types.Board {
 	return boards
 }
 
-func GetBoards(boards []*types.Board, uuids []string) (brds *[]types.Board, err error) {
+func GetBoards(boards []*types.Board, uuids []string) (brds []*types.Board, err error) {
 	for _, uuid := range uuids {
 		board, _ := GetBoard(boards, uuid)
-		*brds = append(*brds, *board)
+		brds = append(brds, board)
 	}
-	if len(*brds) == 0 {
+	if len(brds) == 0 {
 		return brds, errors.New("no Matching boards found")
 	}
 
-	if len(*brds) != len(uuids) {
+	if len(brds) != len(uuids) {
 		return brds, errors.New("didn't found all boards")
 	}
 

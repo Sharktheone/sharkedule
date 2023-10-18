@@ -27,6 +27,7 @@ type IDatabase interface {
 	CreateBoard(name string) (*types.Board, error)
 	GetBoard(uuid string) (*types.Board, error)
 	GetAllBoards() ([]*types.Board, error)
+	GetBoards(uuids []string) ([]*types.Board, error)
 	GetBoardNames() ([]*namelist.NameList, error)
 	GetColumn(uuid string) (*types.Column, error)
 	GetTask(uuid string) (*types.Task, error)
