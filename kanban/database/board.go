@@ -32,7 +32,7 @@ func GetBoards(boards []*types.Board, uuids []string) (brds []*types.Board, err 
 		brds = append(brds, board)
 	}
 	if len(brds) == 0 {
-		return brds, errors.New("no Matching boards found")
+		return brds, errors.New("no matching boards found")
 	}
 
 	if len(brds) != len(uuids) {
