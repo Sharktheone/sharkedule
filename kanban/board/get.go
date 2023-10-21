@@ -30,7 +30,7 @@ func GetBoards() ([]*Board, error) {
 }
 
 func Names() ([]*namelist.NameList, error) {
-	return db.DB.GetBoardNames()
+	return db.DB.GetAllBoardNames()
 }
 
 func (b *Board) Env() *types.Environment {

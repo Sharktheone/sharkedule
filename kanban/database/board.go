@@ -42,7 +42,7 @@ func GetBoards(boards []*types.Board, uuids []string) (brds []*types.Board, err 
 	return brds, nil
 }
 
-func GetBoardNames(boards []*types.Board) []*namelist.NameList {
+func GetAllBoardNames(boards []*types.Board) []*namelist.NameList {
 	var names []*namelist.NameList
 	for _, b := range boards {
 		names = append(names, &namelist.NameList{
@@ -51,6 +51,25 @@ func GetBoardNames(boards []*types.Board) []*namelist.NameList {
 		})
 	}
 	return names
+}
+
+func GetBoardNames(boards []*types.Board, uuids []string) (names []*namelist.NameList, err error) {
+	for _, uuid := range uuids {
+		board, _ := GetBoard(boards, uuid)
+		names = append(names, &namelist.NameList{
+			Name: board.Name,
+			UUID: board.UUID,
+		})
+	}
+	if len(names) == 0 {
+		return names, errors.New("no matching boards found")
+	}
+
+	if len(names) != len(uuids) {
+		return names, errors.New("didn't found all boards")
+	}
+
+	return names, nil
 }
 
 func SaveBoard(boards []*types.Board, b *types.Board) error {

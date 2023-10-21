@@ -24,8 +24,12 @@ func (J *JSONFile) GetBoards(uuids []string) ([]*types.Board, error) {
 	return kanbandb.GetBoards(J.db.Boards, uuids)
 }
 
-func (J *JSONFile) GetBoardNames() ([]*namelist.NameList, error) {
-	return kanbandb.GetBoardNames(J.db.Boards), nil
+func (J *JSONFile) GetAllBoardNames() ([]*namelist.NameList, error) {
+	return kanbandb.GetAllBoardNames(J.db.Boards), nil
+}
+
+func (J *JSONFile) GetBoardNames(uuids []string) ([]*namelist.NameList, error) {
+	return kanbandb.GetBoardNames(J.db.Boards, uuids)
 }
 
 func (J *JSONFile) SaveBoard(b *types.Board) error {
