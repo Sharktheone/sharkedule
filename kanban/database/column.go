@@ -57,7 +57,7 @@ func MoveColumn(board *types.Board, column string, toIndex int) error {
 		return fmt.Errorf("%v to index %v: index out of range. Moving to last index", column, toIndex)
 	}
 
-	for i, _ := range board.Columns {
+	for i := range board.Columns {
 		if i == toIndex {
 			board.Columns = append(board.Columns[:i], append([]string{column}, board.Columns[i:]...)...)
 			return nil
