@@ -9,6 +9,7 @@ import (
 	"github.com/Sharktheone/sharkedule/user/mfa"
 	"github.com/Sharktheone/sharkedule/user/oauth"
 	"github.com/Sharktheone/sharkedule/user/settings"
+	"github.com/Sharktheone/sharkedule/utils"
 	"slices"
 )
 
@@ -23,6 +24,10 @@ type User struct {
 	CustomColors []string
 	Settings     settings.Settings
 }
+
+var (
+	NotAllBoardsFound = errors.New("didn't found all boards")
+)
 
 func (u *User) GetAllBoards() ([]*types.Board, error) {
 	return db.DB.GetBoards(u.Boards)
@@ -43,7 +48,7 @@ func (u *User) GetBoards(uuids []string) ([]*types.Board, error) {
 		if slices.Contains(u.Boards, uuid) {
 			knownBoards = append(knownBoards, uuid)
 		} else {
-			allKnown = errors.New("didn't found all boards")
+			allKnown = NotAllBoardsFound
 		}
 	}
 
@@ -52,4 +57,34 @@ func (u *User) GetBoards(uuids []string) ([]*types.Board, error) {
 	} else {
 		return boards, err
 	}
+}
+
+func (u *User) SaveBoard(board *types.Board) error {
+	if !slices.Contains(u.Boards, board.UUID) {
+		return fmt.Errorf("board with uuid %s does not exist", board.UUID)
+	}
+	return db.DB.SaveBoard(board)
+}
+
+func (u *User) SaveBoards(boards []*types.Board) error {
+	for _, board := range boards {
+		if !slices.Contains(u.Boards, board.UUID) {
+			return fmt.Errorf("board with uuid %s does not exist", board.UUID)
+		}
+	}
+	return db.DB.SaveBoards(boards)
+}
+
+func (u *User) SaveColumn(column *types.Column) error {
+	if !utils.SliceHaveCommon(u.Boards, column.Boards) {
+		return fmt.Errorf("board with uuid %s does not exist", column.BoardUUID)
+	}
+	return db.DB.SaveColumn(column)
+}
+
+func (u *User) DeleteBoard(uuid string) error {
+	if !slices.Contains(u.Boards, uuid) {
+		return fmt.Errorf("board with uuid %s does not exist", uuid)
+	}
+	return db.DB.DeleteBoard(uuid)
 }
