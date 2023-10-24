@@ -1,7 +1,6 @@
 package user
 
 import (
-	"errors"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/types"
@@ -25,10 +24,6 @@ type User struct {
 	CustomColors []string
 	Settings     settings.Settings
 }
-
-var (
-	NotAllBoardsFound = errors.New("didn't found all boards")
-)
 
 func (u *User) SaveBoard(board *types.Board) error {
 	if !slices.Contains(u.Boards, board.UUID) {

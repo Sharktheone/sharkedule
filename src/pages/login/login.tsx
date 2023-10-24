@@ -2,7 +2,7 @@ import {logo} from "@/utils/logo"
 import {Input} from "@mantine/core"
 import styles from "./styles.module.scss"
 import {useState} from "react"
-import {IconArrowBigLeft, IconArrowBigRight, IconArrowLeft, IconArrowRight} from "@tabler/icons-react"
+import {IconArrowBigRight} from "@tabler/icons-react"
 
 
 export default function Login() {

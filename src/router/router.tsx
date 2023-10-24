@@ -6,7 +6,6 @@ import Home from "@/pages/home/home"
 import Login from "@/pages/login/login"
 
 
-
 const KanbanBoards = lazy(() => import("@/pages/task/kanbanboards"))
 const BoardsError = lazy(() => import("@/pages/task/boardserror"))
 const Kanban = lazy(() => import("@/pages/task/kanban/kanban"))

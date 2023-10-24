@@ -114,7 +114,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
 
     return (
         <div ref={rootRef} className={`${styles.selector} ${cx(classes.selector)}`}>
-            <SegmentedControl  data={[
+            <SegmentedControl data={[
                 {label: "Simple", value: "simple"},
                 {label: "Custom", value: "custom"},
             ]} onChange={setTab} value={tab} classNames={control}/>
@@ -146,7 +146,8 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
                 <Picker data={picker} setData={setPicker} select={select} finish={finish}/>
             </div>
             {controls ? <div className={styles.buttons}>
-                <button onClick={cancel}>Cancel</button> {/* TODO: Change Text Color depending on background color */}
+                <button onClick={cancel}>Cancel</button>
+                {/* TODO: Change Text Color depending on background color */}
                 <button onClick={finish}>Select</button>
             </div> : null}
         </div>
