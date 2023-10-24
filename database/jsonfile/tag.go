@@ -9,7 +9,7 @@ func (J *JSONFile) GetTag(uuid string) (*types.Tag, error) {
 	return kanbandb.GetTag(J.db.Tags, uuid)
 }
 
-func (J *JSONFile) GetTags() ([]*types.Tag, error) {
+func (J *JSONFile) GetAllTags() ([]*types.Tag, error) {
 	return kanbandb.GetTags(J.db.Tags), nil
 }
 

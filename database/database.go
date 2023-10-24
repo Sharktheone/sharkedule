@@ -32,7 +32,7 @@ type IDatabase interface {
 	GetBoardNames(uuids []string) (names []*namelist.NameList, err error)
 	GetColumn(uuid string) (*types.Column, error)
 	GetTask(uuid string) (*types.Task, error)
-	GetTags() ([]*types.Tag, error)
+	GetAllTags() ([]*types.Tag, error)
 	GetTag(uuid string) (*types.Tag, error)
 	GetStatus(uuid string) (*types.Status, error)
 	GetPriority(uuid string) (*types.Priority, error)
