@@ -29,7 +29,7 @@ type IDatabase interface {
 	GetAllBoards() ([]*types.Board, error)
 	GetBoards(uuids []string) ([]*types.Board, error)
 	GetAllBoardNames() ([]*namelist.NameList, error)
-	//GetBoardNames(boards []*types.Board, uuids []string) (names []*namelist.NameList, err error)
+	GetBoardNames(uuids []string) (names []*namelist.NameList, err error)
 	GetColumn(uuid string) (*types.Column, error)
 	GetTask(uuid string) (*types.Task, error)
 	GetTags() ([]*types.Tag, error)
