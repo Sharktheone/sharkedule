@@ -3,6 +3,7 @@ package user
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/user/email"
 	"github.com/Sharktheone/sharkedule/user/mfa"
@@ -103,11 +104,11 @@ func (u *User) GetBoards(uuids []string) ([]*types.Board, error) {
 	return db.DB.GetBoards(uuids)
 }
 
-func (u *User) GetAllBoardNames() ([]*types.NameList, error) {
+func (u *User) GetAllBoardNames() ([]*namelist.NameList, error) {
 	return db.DB.GetBoardNames(u.Boards)
 }
 
-func (u *User) GetBoardNames(uuids []string) ([]*types.NameList, error) {
+func (u *User) GetBoardNames(uuids []string) ([]*namelist.NameList, error) {
 	for _, uuid := range uuids {
 		if !slices.Contains(u.Boards, uuid) {
 			return nil, fmt.Errorf("board with uuid %s does not exist", uuid)
