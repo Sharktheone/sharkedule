@@ -13,6 +13,7 @@ for very little commits.
 
 ## Features and Roadmap
 
+- [ ] Workspaces
 - [ ] Kanban boards
     - [x] Create kanban boards
     - [x] Create columns
