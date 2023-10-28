@@ -1,12 +1,29 @@
 package workspace
 
-import "github.com/google/uuid"
+import (
+	"github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/project"
+	"github.com/google/uuid"
+)
+
+//Replace Environment with Workspace
 
 type Workspace struct {
-	UUID     string
-	Name     string
-	Tags     []string
-	Projects []string
+	UUID        string
+	Name        string
+	Tags        []types.Tag
+	Tasks       []types.Task
+	Columns     []types.Column
+	Boards      []types.Board
+	Checklists  []types.Checklist
+	Priorities  []types.Priority
+	Statuses    []types.Status
+	Attachments []types.Attachment
+	Dates       []types.Date
+	Stages      []types.Stage
+	Projects    []project.Project
+
+	Members []string
 
 	//All uuids here as list?
 }
