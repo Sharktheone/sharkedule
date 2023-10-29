@@ -11,17 +11,17 @@ import (
 type Workspace struct {
 	UUID        string
 	Name        string
-	Tags        []types.Tag
-	Tasks       []types.Task
-	Columns     []types.Column
-	Boards      []types.Board
-	Checklists  []types.Checklist
-	Priorities  []types.Priority
-	Statuses    []types.Status
-	Attachments []types.Attachment
-	Dates       []types.Date
-	Stages      []types.Stage
-	Projects    []project.Project
+	Tags        []*types.Tag
+	Tasks       []*types.Task
+	Columns     []*types.Column
+	Boards      []*types.Board
+	Checklists  []*types.Checklist
+	Priorities  []*types.Priority
+	Statuses    []*types.Status
+	Attachments []*types.Attachment
+	Dates       []*types.Date
+	Stages      []*types.Stage
+	Projects    []*project.Project
 
 	Members []string
 
