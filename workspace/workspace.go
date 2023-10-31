@@ -6,8 +6,6 @@ import (
 	"github.com/google/uuid"
 )
 
-//Replace Environment with Workspace
-
 type Workspace struct {
 	UUID        string
 	Name        string
