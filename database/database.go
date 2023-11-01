@@ -26,7 +26,7 @@ type IDatabase interface {
 	SaveBoard(workspace string, board *types.Board) error
 	SaveBoards(workspace string, boards []*types.Board) error
 	GetBoard(workspace, uuid string) (*types.Board, error)
-	GetAllBoards() ([]*types.Board, error)
+	GetAllBoards(workspace string) ([]*types.Board, error)
 	GetBoards(workspace string, uuids []string) ([]*types.Board, error)
 	GetAllBoardNames(workspace string) ([]*namelist.NameList, error)
 	GetBoardNames(workspace string, uuids []string) (names []*namelist.NameList, err error)
@@ -63,7 +63,7 @@ type IDatabase interface {
 	//Other functions
 	GetStatus(workspace, uuid string) (*types.Status, error)
 	GetPriority(workspace, uuid string) (*types.Priority, error)
-	GetMember(workspace, uuid string) (*types.Member, error)
+	GetUser(uuid string) (*types.Member, error)
 	GetChecklist(workspace, uuid string) (*types.Checklist, error)
 	GetAttachment(workspace, uuid string) (*types.Attachment, error)
 	GetDate(workspace, uuid string) (*types.Date, error)

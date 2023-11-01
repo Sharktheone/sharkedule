@@ -12,7 +12,7 @@ func (J *JSONFile) NewTask(workspace, column, name string) (*types.Task, error) 
 		return nil, err
 	}
 
-	col, err := J.GetColumn(column)
+	col, err := J.GetColumn(workspace, column)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (J *JSONFile) MoveTask(workspace, column, uuid, toColumn string, toIndex in
 		err   error
 	)
 
-	col, err = J.GetColumn(column)
+	col, err = J.GetColumn(workspace, column)
 	if err != nil {
 		return err
 	}
@@ -66,7 +66,7 @@ func (J *JSONFile) MoveTask(workspace, column, uuid, toColumn string, toIndex in
 	if column == toColumn {
 		toCol = col
 	} else {
-		toCol, err = J.GetColumn(toColumn)
+		toCol, err = J.GetColumn(workspace, toColumn)
 		if err != nil {
 			return err
 		}
@@ -130,8 +130,8 @@ func (J *JSONFile) SetTaskDescription(workspace, task, description string) error
 	return J.Save()
 }
 
-func (J *JSONFile) DeleteTaskOnColumn(column, uuid string) error {
-	col, err := J.GetColumn(column)
+func (J *JSONFile) DeleteTaskOnColumn(workspace, column, uuid string) error {
+	col, err := J.GetColumn(workspace, column)
 	if err != nil {
 		return err
 	}
