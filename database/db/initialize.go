@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/Sharktheone/sharkedule/database"
-	jsonfileV2 "github.com/Sharktheone/sharkedule/database/jsonfile"
+	"github.com/Sharktheone/sharkedule/database/jsonfile"
 	"log"
 )
 
@@ -11,7 +11,7 @@ var (
 )
 
 func Init() {
-	DB = jsonfileV2.NewJSONFile()
+	DB = jsonfile.NewJSONFile()
 	if err := DB.Load(); err != nil {
 		log.Fatalf("failed loading database v2: %v", err)
 	}
