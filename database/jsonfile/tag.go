@@ -6,34 +6,64 @@ import (
 )
 
 func (J *JSONFile) GetTag(uuid string) (*types.Tag, error) {
-	return kanbandb.GetTag(J.db.Tags, uuid)
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	return kanbandb.GetTag(ws.Tags, uuid)
 }
 
 func (J *JSONFile) GetAllTags() ([]*types.Tag, error) {
-	return kanbandb.GetTags(J.db.Tags), nil
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	return kanbandb.GetTags(ws.Tags), nil
 }
 
 func (J *JSONFile) DeleteTag(uuid string) error {
-	if err := kanbandb.DeleteTag(J.db.Tags, uuid); err != nil {
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if err := kanbandb.DeleteTag(ws.Tags, uuid); err != nil {
 		return err
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) SaveTag(tag *types.Tag) error {
-	if err := kanbandb.SaveTag(J.db.Tags, tag); err != nil {
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if err := kanbandb.SaveTag(ws.Tags, tag); err != nil {
 		return err
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) SaveTags(tags []*types.Tag) error {
-	kanbandb.SaveTags(J.db.Tags, tags)
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	kanbandb.SaveTags(ws.Tags, tags)
 	return J.Save()
 }
 
 func (J *JSONFile) RenameTag(uuid, name string) error {
-	if err := kanbandb.RenameTag(J.db.Tags, uuid, name); err != nil {
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if err := kanbandb.RenameTag(ws.Tags, uuid, name); err != nil {
 		return err
 	}
 	return J.Save()

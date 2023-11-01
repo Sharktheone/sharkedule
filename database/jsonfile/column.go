@@ -7,39 +7,69 @@ import (
 )
 
 func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
-	b, err := J.GetBoard(board)
+	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
 	}
-	c := kanbandb.NewColumn(&J.db.Columns, b, name)
+
+	b, err := kanbandb.GetBoard(ws.Boards, board)
+	if err != nil {
+		return nil, err
+	}
+	c := kanbandb.NewColumn(&ws.Columns, b, name)
 	return c, J.Save()
 }
 
 func (J *JSONFile) GetColumn(uuid string) (*types.Column, error) {
-	return kanbandb.GetColumn(J.db.Columns, uuid)
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	return kanbandb.GetColumn(ws.Columns, uuid)
 }
 
 func (J *JSONFile) SaveColumn(column *types.Column) error {
-	if err := kanbandb.SaveColumn(J.db.Columns, column); err != nil {
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if err := kanbandb.SaveColumn(ws.Columns, column); err != nil {
 		return fmt.Errorf("failed saving column: %v", err)
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) SaveColumns(columns []*types.Column) error {
-	kanbandb.SaveColumns(J.db.Columns, columns)
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	kanbandb.SaveColumns(ws.Columns, columns)
 	return J.Save()
 }
 
 func (J *JSONFile) DeleteColumn(uuid string) error {
-	if err := kanbandb.DeleteColumn(J.db.Columns, uuid); err != nil {
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if err := kanbandb.DeleteColumn(ws.Columns, uuid); err != nil {
 		return err
 	}
 	return J.Save()
 }
 
 func (J *JSONFile) DeleteColumnOnBoard(board, column string) error {
-	b, err := kanbandb.GetBoard(J.db.Boards, board)
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	b, err := kanbandb.GetBoard(ws.Boards, board)
 	if err != nil {
 		return err
 	}
@@ -50,7 +80,12 @@ func (J *JSONFile) DeleteColumnOnBoard(board, column string) error {
 }
 
 func (J *JSONFile) MoveColumn(board, uuid string, toIndex int) error {
-	b, err := kanbandb.GetBoard(J.db.Boards, board)
+	ws, err := J.GetWorkspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	b, err := kanbandb.GetBoard(ws.Boards, board)
 	if err != nil {
 		return err
 	}
