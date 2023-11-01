@@ -24,7 +24,7 @@ func GetPriority(priorities []*types.Priority, uuid string) (*types.Priority, er
 	return nil, fmt.Errorf("priority with uuid %s does not exist", uuid)
 }
 
-func GetMember(members []*types.Member, uuid string) (*types.Member, error) {
+func GetUser(members []*types.Member, uuid string) (*types.Member, error) {
 	for _, m := range members {
 		if m.UUID == uuid {
 			return m, nil

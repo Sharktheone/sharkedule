@@ -66,7 +66,7 @@ func (J *JSONFile) Save() error {
 	return nil
 }
 
-func (J *JSONFile) GetStatus(uuid string) (*types.Status, error) {
+func (J *JSONFile) GetStatus(workspace, uuid string) (*types.Status, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func (J *JSONFile) GetStatus(uuid string) (*types.Status, error) {
 	return kanbandb.GetStatus(ws.Statuses, uuid)
 }
 
-func (J *JSONFile) GetPriority(uuid string) (*types.Priority, error) {
+func (J *JSONFile) GetPriority(workspace, uuid string) (*types.Priority, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -88,7 +88,7 @@ func (J *JSONFile) GetUser(uuid string) (*types.Member, error) {
 	return kanbandb.GetUser(J.db.Users, uuid) //TODO
 }
 
-func (J *JSONFile) GetChecklist(uuid string) (*types.Checklist, error) {
+func (J *JSONFile) GetChecklist(workspace, uuid string) (*types.Checklist, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -97,7 +97,7 @@ func (J *JSONFile) GetChecklist(uuid string) (*types.Checklist, error) {
 	return kanbandb.GetChecklist(ws.Checklists, uuid)
 }
 
-func (J *JSONFile) GetAttachment(uuid string) (*types.Attachment, error) {
+func (J *JSONFile) GetAttachment(workspace, uuid string) (*types.Attachment, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -106,7 +106,7 @@ func (J *JSONFile) GetAttachment(uuid string) (*types.Attachment, error) {
 	return kanbandb.GetAttachment(ws.Attachments, uuid)
 }
 
-func (J *JSONFile) GetDate(uuid string) (*types.Date, error) {
+func (J *JSONFile) GetDate(workspace, uuid string) (*types.Date, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err

@@ -6,7 +6,7 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
+func (J *JSONFile) NewColumn(workspace, board, name string) (*types.Column, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -20,7 +20,7 @@ func (J *JSONFile) NewColumn(board, name string) (*types.Column, error) {
 	return c, J.Save()
 }
 
-func (J *JSONFile) GetColumn(uuid string) (*types.Column, error) {
+func (J *JSONFile) GetColumn(workspace, uuid string) (*types.Column, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -29,7 +29,7 @@ func (J *JSONFile) GetColumn(uuid string) (*types.Column, error) {
 	return kanbandb.GetColumn(ws.Columns, uuid)
 }
 
-func (J *JSONFile) SaveColumn(column *types.Column) error {
+func (J *JSONFile) SaveColumn(workspace string, column *types.Column) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func (J *JSONFile) SaveColumn(column *types.Column) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SaveColumns(columns []*types.Column) error {
+func (J *JSONFile) SaveColumns(workspace string, columns []*types.Column) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -51,7 +51,7 @@ func (J *JSONFile) SaveColumns(columns []*types.Column) error {
 	return J.Save()
 }
 
-func (J *JSONFile) DeleteColumn(uuid string) error {
+func (J *JSONFile) DeleteColumn(workspace string, uuid string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -63,7 +63,7 @@ func (J *JSONFile) DeleteColumn(uuid string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) DeleteColumnOnBoard(board, column string) error {
+func (J *JSONFile) DeleteColumnOnBoard(workspace, board, column string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -79,7 +79,7 @@ func (J *JSONFile) DeleteColumnOnBoard(board, column string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) MoveColumn(board, uuid string, toIndex int) error {
+func (J *JSONFile) MoveColumn(workspace, board, uuid string, toIndex int) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -95,8 +95,8 @@ func (J *JSONFile) MoveColumn(board, uuid string, toIndex int) error {
 	return J.Save()
 }
 
-func (J *JSONFile) RenameColumn(column, name string) error {
-	col, err := J.GetColumn(column)
+func (J *JSONFile) RenameColumn(workspace, column, name string) error {
+	col, err := J.GetColumn(workspace, column)
 	if err != nil {
 		return err
 	}

@@ -7,7 +7,7 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func (J *JSONFile) CreateBoard(name string) (*types.Board, error) {
+func (J *JSONFile) CreateBoard(workspace, name string) (*types.Board, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -17,7 +17,7 @@ func (J *JSONFile) CreateBoard(name string) (*types.Board, error) {
 	return b, J.Save()
 }
 
-func (J *JSONFile) GetBoard(uuid string) (*types.Board, error) {
+func (J *JSONFile) GetBoard(workspace, uuid string) (*types.Board, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (J *JSONFile) GetBoard(uuid string) (*types.Board, error) {
 	return kanbandb.GetBoard(ws.Boards, uuid)
 }
 
-func (J *JSONFile) GetAllBoards() ([]*types.Board, error) {
+func (J *JSONFile) GetAllBoards(workspace string) ([]*types.Board, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func (J *JSONFile) GetAllBoards() ([]*types.Board, error) {
 	return kanbandb.GetAllBoards(ws.Boards), nil
 }
 
-func (J *JSONFile) GetBoards(uuids []string) ([]*types.Board, error) {
+func (J *JSONFile) GetBoards(workspace string, uuids []string) ([]*types.Board, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (J *JSONFile) GetBoards(uuids []string) ([]*types.Board, error) {
 	return kanbandb.GetBoards(ws.Boards, uuids)
 }
 
-func (J *JSONFile) GetAllBoardNames() ([]*namelist.NameList, error) {
+func (J *JSONFile) GetAllBoardNames(workspace string) ([]*namelist.NameList, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -53,7 +53,7 @@ func (J *JSONFile) GetAllBoardNames() ([]*namelist.NameList, error) {
 	return kanbandb.GetAllBoardNames(ws.Boards), nil
 }
 
-func (J *JSONFile) GetBoardNames(uuids []string) ([]*namelist.NameList, error) {
+func (J *JSONFile) GetBoardNames(workspace string, uuids []string) ([]*namelist.NameList, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (J *JSONFile) GetBoardNames(uuids []string) ([]*namelist.NameList, error) {
 	return kanbandb.GetBoardNames(ws.Boards, uuids)
 }
 
-func (J *JSONFile) SaveBoard(b *types.Board) error {
+func (J *JSONFile) SaveBoard(workspace string, b *types.Board) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -74,7 +74,7 @@ func (J *JSONFile) SaveBoard(b *types.Board) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SaveBoards(boards []*types.Board) error {
+func (J *JSONFile) SaveBoards(workspace string, boards []*types.Board) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -84,7 +84,7 @@ func (J *JSONFile) SaveBoards(boards []*types.Board) error {
 	return J.Save()
 }
 
-func (J *JSONFile) DeleteBoard(uuid string) error {
+func (J *JSONFile) DeleteBoard(workspace, uuid string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err

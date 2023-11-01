@@ -6,7 +6,7 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {
+func (J *JSONFile) NewTask(workspace, column, name string) (*types.Task, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -20,7 +20,7 @@ func (J *JSONFile) NewTask(column, name string) (*types.Task, error) {
 	return t, nil
 }
 
-func (J *JSONFile) GetTask(uuid string) (*types.Task, error) {
+func (J *JSONFile) GetTask(workspace, uuid string) (*types.Task, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -29,7 +29,7 @@ func (J *JSONFile) GetTask(uuid string) (*types.Task, error) {
 	return kanbandb.GetTask(ws.Tasks, uuid)
 }
 
-func (J *JSONFile) SaveTask(task *types.Task) error {
+func (J *JSONFile) SaveTask(workspace string, task *types.Task) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func (J *JSONFile) SaveTask(task *types.Task) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SaveTasks(tasks []*types.Task) error {
+func (J *JSONFile) SaveTasks(workspace string, tasks []*types.Task) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -51,7 +51,7 @@ func (J *JSONFile) SaveTasks(tasks []*types.Task) error {
 	return J.Save()
 }
 
-func (J *JSONFile) MoveTask(column, uuid, toColumn string, toIndex int) error {
+func (J *JSONFile) MoveTask(workspace, column, uuid, toColumn string, toIndex int) error {
 	var (
 		col   *types.Column
 		toCol *types.Column
@@ -77,7 +77,7 @@ func (J *JSONFile) MoveTask(column, uuid, toColumn string, toIndex int) error {
 	return J.Save()
 }
 
-func (J *JSONFile) DeleteTask(uuid string) error {
+func (J *JSONFile) DeleteTask(workspace, uuid string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -89,7 +89,7 @@ func (J *JSONFile) DeleteTask(uuid string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) AddTagToTask(task, tag string) error {
+func (J *JSONFile) AddTagToTask(workspace, task, tag string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -101,8 +101,8 @@ func (J *JSONFile) AddTagToTask(task, tag string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) RemoveTagOnTask(task, tag string) error {
-	t, err := J.GetTask(task)
+func (J *JSONFile) RemoveTagOnTask(workspace, task, tag string) error {
+	t, err := J.GetTask(workspace, task)
 	if err != nil {
 		return err
 	}
@@ -112,8 +112,8 @@ func (J *JSONFile) RemoveTagOnTask(task, tag string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SetTagsOnTask(task string, tags []string) error {
-	t, err := J.GetTask(task)
+func (J *JSONFile) SetTagsOnTask(workspace, task string, tags []string) error {
+	t, err := J.GetTask(workspace, task)
 	if err != nil {
 		return err
 	}
@@ -121,8 +121,8 @@ func (J *JSONFile) SetTagsOnTask(task string, tags []string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SetTaskDescription(task, description string) error {
-	t, err := J.GetTask(task)
+func (J *JSONFile) SetTaskDescription(workspace, task, description string) error {
+	t, err := J.GetTask(workspace, task)
 	if err != nil {
 		return err
 	}
@@ -141,8 +141,8 @@ func (J *JSONFile) DeleteTaskOnColumn(column, uuid string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) RenameTask(task, name string) error {
-	t, err := J.GetTask(task)
+func (J *JSONFile) RenameTask(workspace, task, name string) error {
+	t, err := J.GetTask(workspace, task)
 	if err != nil {
 		return err
 	}

@@ -5,7 +5,7 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func (J *JSONFile) GetTag(uuid string) (*types.Tag, error) {
+func (J *JSONFile) GetTag(workspace, uuid string) (*types.Tag, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -14,7 +14,7 @@ func (J *JSONFile) GetTag(uuid string) (*types.Tag, error) {
 	return kanbandb.GetTag(ws.Tags, uuid)
 }
 
-func (J *JSONFile) GetAllTags() ([]*types.Tag, error) {
+func (J *JSONFile) GetAllTags(workspace string) ([]*types.Tag, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -23,7 +23,7 @@ func (J *JSONFile) GetAllTags() ([]*types.Tag, error) {
 	return kanbandb.GetTags(ws.Tags), nil
 }
 
-func (J *JSONFile) DeleteTag(uuid string) error {
+func (J *JSONFile) DeleteTag(workspace, uuid string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -35,7 +35,7 @@ func (J *JSONFile) DeleteTag(uuid string) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SaveTag(tag *types.Tag) error {
+func (J *JSONFile) SaveTag(workspace string, tag *types.Tag) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -47,7 +47,7 @@ func (J *JSONFile) SaveTag(tag *types.Tag) error {
 	return J.Save()
 }
 
-func (J *JSONFile) SaveTags(tags []*types.Tag) error {
+func (J *JSONFile) SaveTags(workspace string, tags []*types.Tag) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
@@ -57,7 +57,7 @@ func (J *JSONFile) SaveTags(tags []*types.Tag) error {
 	return J.Save()
 }
 
-func (J *JSONFile) RenameTag(uuid, name string) error {
+func (J *JSONFile) RenameTag(workspace, uuid, name string) error {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return err
