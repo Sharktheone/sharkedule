@@ -81,16 +81,11 @@ func (J *JSONFile) GetPriority(uuid string) (*types.Priority, error) {
 		return nil, err
 	}
 
-	return kanbandb.GetPriority(ws.Priority, uuid)
+	return kanbandb.GetPriority(ws.Priorities, uuid)
 }
 
-func (J *JSONFile) GetMember(uuid string) (*types.Member, error) {
-	ws, err := J.GetWorkspace(workspace)
-	if err != nil {
-		return nil, err
-	}
-
-	return kanbandb.GetMember(ws.Members, uuid) //TODO
+func (J *JSONFile) GetUser(uuid string) (*types.Member, error) {
+	return kanbandb.GetUser(J.db.Users, uuid) //TODO
 }
 
 func (J *JSONFile) GetChecklist(uuid string) (*types.Checklist, error) {
