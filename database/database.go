@@ -21,6 +21,9 @@ type IDatabase interface {
 	Load() error
 	Save() error
 
+	//Workspace functions
+	GetWorkspace(uuid string) (*workspace.Workspace, error)
+
 	//Board functions
 	CreateBoard(workspace, name string) (*types.Board, error)
 	SaveBoard(workspace string, board *types.Board) error
