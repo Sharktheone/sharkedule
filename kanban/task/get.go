@@ -6,8 +6,8 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func Get(uuid string) (*Task, error) {
-	t, err := db.DB.GetTask(uuid)
+func Get(workspace, uuid string) (*Task, error) {
+	t, err := db.DB.GetTask(workspace, uuid)
 	if err != nil {
 		return nil, err
 	}

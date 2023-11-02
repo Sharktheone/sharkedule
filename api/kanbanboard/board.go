@@ -19,7 +19,8 @@ func Get(c *fiber.Ctx) error {
 }
 
 func List(c *fiber.Ctx) error {
-	boards, err := board.GetBoards()
+	workspace := c.Params("workspace")
+	boards, err := board.GetBoards(workspace)
 	if err != nil {
 		return fmt.Errorf("failed getting boards: %v", err)
 	}
@@ -31,7 +32,8 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListNames(c *fiber.Ctx) error {
-	boardNames, err := board.Names()
+	workspace := c.Params("workspace")
+	boardNames, err := board.Names(workspace)
 	if err != nil {
 		return fmt.Errorf("failed getting board names: %v", err)
 	}
@@ -53,7 +55,8 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b, err := board.NewBoard(props.Name)
+	workspace := c.Params("workspace")
+	b, err := board.NewBoard(workspace, props.Name)
 	if err != nil {
 		return fmt.Errorf("failed creating board: %v", err)
 	}

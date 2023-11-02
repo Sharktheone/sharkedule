@@ -6,8 +6,8 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func Get(column string) (*Column, error) {
-	c, err := db.DB.GetColumn(column)
+func Get(workspace, column string) (*Column, error) {
+	c, err := db.DB.GetColumn(workspace, column)
 	if err != nil {
 		return nil, err
 	}
