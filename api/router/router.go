@@ -12,6 +12,35 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
+/// # Auth implementation options:
+///
+/// - handle it at the root level (r.Use(auth))
+///		- handle each route in a switch case
+///		- Pros/Cons:
+///			+ clean at router level
+///			- need for each route to be defined in two places
+/// - handle it at the route level (r.Get("route", auth, handler))
+///		- Pros/Cons:
+/// 		- bloated handler definition
+///			- harder to see auth when looking at the handler
+///			+ you can see every route's auth in one place
+/// 		+ handler is clean from any auth code
+/// - handle it at the handler level (handler(c *fiber.Ctx, auth bool))
+///		- Pros/Cons:
+///			- handler has auth code
+///			+ handler definition is clean
+/// - pass auth "decision" to user struct
+/// 	- __Handler calls user.<func>() => user checks if it is allowed and returns an error if not__
+///		- Pros/Cons:
+///			- handler has more code
+///			+ handler definition is clean
+///		- Handler calls user.<func>(workspace) => user checks if it is allowed and calls workspace.<func>() if it is
+///			- Pros/Cons:
+///				+ clean handler
+///				- (user has more code)
+/// - something like user.workspace(workspace).<func>()
+///
+
 func Start() {
 	r := fiber.New()
 
