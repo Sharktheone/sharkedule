@@ -5,8 +5,8 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/column"
 )
 
-func NewBoard(name string) (*Board, error) {
-	b, err := db.DB.CreateBoard(name)
+func NewBoard(workspace, name string) (*Board, error) {
+	b, err := db.DB.CreateBoard(workspace, name)
 	if err != nil {
 		return nil, err
 	}
@@ -15,7 +15,7 @@ func NewBoard(name string) (*Board, error) {
 }
 
 func (b *Board) NewColumn(name string) (*column.Column, error) {
-	c, err := db.DB.NewColumn(b.UUID, name)
+	c, err := db.DB.NewColumn(b.workspace, b.UUID, name)
 	if err != nil {
 		return nil, err
 	}

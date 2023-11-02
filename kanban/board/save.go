@@ -3,5 +3,5 @@ package board
 import "github.com/Sharktheone/sharkedule/database/db"
 
 func (b *Board) Save() error {
-	return db.DB.SaveBoard(b.Board)
+	return db.DB.SaveBoard(b.workspace, b.Board)
 }
