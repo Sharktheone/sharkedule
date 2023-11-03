@@ -13,7 +13,7 @@ func Get(workspace, uuid string) (*Board, error) {
 		return nil, err
 	}
 
-	return &Board{Board: b, workspace: workspace}, nil
+	return &Board{Board: b, Workspace: workspace}, nil
 }
 
 func GetBoards(workspace string) ([]*Board, error) {
@@ -24,7 +24,7 @@ func GetBoards(workspace string) ([]*Board, error) {
 
 	var bds []*Board
 	for _, b := range boards {
-		bds = append(bds, &Board{Board: b, workspace: workspace})
+		bds = append(bds, &Board{Board: b, Workspace: workspace})
 	}
 	return bds, nil
 }

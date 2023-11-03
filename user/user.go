@@ -149,9 +149,9 @@ func (u *User) GetPriority(workspace, uuid string) (*types.Priority, error) {
 	return db.DB.GetPriority(workspace, uuid) //TODO: Filter priority for users
 }
 
-func (u *User) GetMember(uuid string) (*types.Member, error) {
-	return db.DB.GetUser(uuid) //TODO: Filter member for users
-}
+//func (u *User) GetMember(uuid string) (*types.Member, error) {
+//	return db.DB.GetUser(uuid) //TODO: Filter member for users
+//}
 
 func (u *User) GetChecklist(workspace, uuid string) (*types.Checklist, error) {
 	return db.DB.GetChecklist(workspace, uuid) //TODO: Filter checklist for users

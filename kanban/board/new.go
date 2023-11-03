@@ -15,9 +15,9 @@ func NewBoard(workspace, name string) (*Board, error) {
 }
 
 func (b *Board) NewColumn(name string) (*column.Column, error) {
-	c, err := db.DB.NewColumn(b.workspace, b.UUID, name)
+	c, err := db.DB.NewColumn(b.Workspace, b.UUID, name)
 	if err != nil {
 		return nil, err
 	}
-	return &column.Column{Column: c}, nil
+	return &column.Column{Column: c, Workspace: b.Workspace}, nil
 }

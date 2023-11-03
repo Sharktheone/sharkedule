@@ -6,4 +6,5 @@ import (
 
 type Task struct {
 	*types.Task
+	Workspace string
 }

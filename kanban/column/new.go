@@ -5,11 +5,12 @@ import (
 	"github.com/google/uuid"
 )
 
-func NewColumn(name string) *Column {
+func NewColumn(workspace, name string) *Column {
 	return &Column{
 		Column: &types.Column{
 			UUID: uuid.New().String(),
 			Name: name,
 		},
+		Workspace: workspace,
 	}
 }

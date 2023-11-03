@@ -13,7 +13,8 @@ func Get(workspace, uuid string) (*Task, error) {
 	}
 
 	return &Task{
-		Task: t,
+		Task:      t,
+		Workspace: workspace,
 	}, nil
 }
 

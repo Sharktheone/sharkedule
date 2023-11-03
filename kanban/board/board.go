@@ -6,5 +6,5 @@ import (
 
 type Board struct {
 	*types.Board
-	workspace string
+	Workspace string
 }

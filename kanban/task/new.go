@@ -5,11 +5,12 @@ import (
 	"github.com/google/uuid"
 )
 
-func NewTask(name string) *Task {
+func NewTask(workspace, name string) *Task {
 	return &Task{
 		Task: &types.Task{
 			UUID: uuid.New().String(),
 			Name: name,
 		},
+		Workspace: workspace,
 	}
 }

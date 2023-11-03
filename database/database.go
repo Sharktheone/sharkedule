@@ -66,7 +66,7 @@ type IDatabase interface {
 	//Other functions
 	GetStatus(workspace, uuid string) (*types.Status, error)
 	GetPriority(workspace, uuid string) (*types.Priority, error)
-	GetUser(uuid string) (*types.Member, error)
+	//GetUser(uuid string) (*types.Member, error) TODO
 	GetChecklist(workspace, uuid string) (*types.Checklist, error)
 	GetAttachment(workspace, uuid string) (*types.Attachment, error)
 	GetDate(workspace, uuid string) (*types.Date, error)

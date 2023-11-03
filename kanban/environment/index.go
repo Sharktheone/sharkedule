@@ -20,6 +20,7 @@ type Environment struct {
 	attachmentUUIDs []*string
 	dateUUIDs       []*string
 	actionUUIDs     []*string
+	workspace       string
 }
 
 func (e *Environment) Index() {
@@ -37,8 +38,10 @@ func (e *Environment) Index() {
 }
 
 func (e *Environment) GetIndexed() {
+	//TODO: parallelize
+
 	for _, tag := range e.tagUUIDs {
-		t, err := db.DB.GetTag(*tag)
+		t, err := db.DB.GetTag(e.workspace, *tag)
 		if err != nil {
 			log.Printf("error getting tag: %v", err)
 			continue
@@ -47,7 +50,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, status := range e.statusUUIDs {
-		s, err := db.DB.GetStatus(*status)
+		s, err := db.DB.GetStatus(e.workspace, *status)
 		if err != nil {
 			log.Printf("error getting status: %v", err)
 			continue
@@ -56,7 +59,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, priority := range e.priorityUUIDs {
-		p, err := db.DB.GetPriority(*priority)
+		p, err := db.DB.GetPriority(e.workspace, *priority)
 		if err != nil {
 			log.Printf("error getting priority: %v", err)
 			continue
@@ -64,7 +67,7 @@ func (e *Environment) GetIndexed() {
 		e.Priority = append(e.Priority, p)
 	}
 	for _, col := range e.columnUUIDs {
-		c, err := db.DB.GetColumn(*col)
+		c, err := db.DB.GetColumn(e.workspace, *col)
 		if err != nil {
 			log.Printf("error getting column: %v", err)
 			continue
@@ -73,7 +76,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, t := range e.taskUUIDs {
-		t, err := db.DB.GetTask(*t)
+		t, err := db.DB.GetTask(e.workspace, *t)
 		if err != nil {
 			log.Printf("error getting task: %v", err)
 			continue
@@ -81,17 +84,17 @@ func (e *Environment) GetIndexed() {
 		e.Tasks = append(e.Tasks, t)
 
 	}
-	for _, member := range e.memberUUIDs {
-		m, err := db.DB.GetMember(*member)
-		if err != nil {
-			log.Printf("error getting member: %v", err)
-			continue
-		}
-		e.Members = append(e.Members, m)
-
-	}
+	//for _, member := range e.memberUUIDs {
+	//	m, err := db.DB.GetMember(*member)
+	//	if err != nil {
+	//		log.Printf("error getting member: %v", err)
+	//		continue
+	//	}
+	//	e.Members = append(e.Members, m)
+	//
+	//}
 	for _, checklist := range e.checklistUUIDs {
-		c, err := db.DB.GetChecklist(*checklist)
+		c, err := db.DB.GetChecklist(e.workspace, *checklist)
 		if err != nil {
 			log.Printf("error getting checklist: %v", err)
 			continue
@@ -100,7 +103,7 @@ func (e *Environment) GetIndexed() {
 	}
 
 	for _, attachment := range e.attachmentUUIDs {
-		a, err := db.DB.GetAttachment(*attachment)
+		a, err := db.DB.GetAttachment(e.workspace, *attachment)
 		if err != nil {
 			log.Printf("error getting attachment: %v", err)
 			continue
@@ -109,7 +112,7 @@ func (e *Environment) GetIndexed() {
 
 	}
 	for _, date := range e.dateUUIDs {
-		d, err := db.DB.GetDate(*date)
+		d, err := db.DB.GetDate(e.workspace, *date)
 		if err != nil {
 			log.Printf("error getting date: %v", err)
 			continue
@@ -140,7 +143,7 @@ func (e *Environment) IndexBoards() {
 		if found {
 			break
 		}
-		board, err := db.DB.GetBoard(*b)
+		board, err := db.DB.GetBoard(e.workspace, *b)
 		if err != nil {
 			log.Printf("error getting board: %v", err)
 			continue
@@ -185,7 +188,7 @@ func (e *Environment) IndexColumns() {
 		if found {
 			break
 		}
-		col, err := db.DB.GetColumn(*c)
+		col, err := db.DB.GetColumn(e.workspace, *c)
 		if err != nil {
 			log.Printf("error getting column: %v", err)
 			continue
@@ -203,7 +206,7 @@ func (e *Environment) IndexColumn(column *types.Column) {
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
 	for _, b := range column.Boards {
-		bor, err := db.DB.GetBoard(b)
+		bor, err := db.DB.GetBoard(e.workspace, b)
 		if err != nil {
 			log.Printf("error getting board: %v", err)
 			continue
@@ -224,7 +227,7 @@ func (e *Environment) IndexTasks() {
 		if found {
 			break
 		}
-		tsk, err := db.DB.GetTask(*t)
+		tsk, err := db.DB.GetTask(e.workspace, *t)
 		if err != nil {
 			log.Printf("error getting task: %v", err)
 			continue
@@ -233,19 +236,20 @@ func (e *Environment) IndexTasks() {
 	}
 
 	for _, t := range e.Tasks {
-		e.IndexTask(t)
+		e.IndexTask(e.workspace, t)
 	}
 }
 
-func (e *Environment) IndexTask(t *types.Task) {
+func (e *Environment) IndexTask(workspace string, t *types.Task) {
 	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
 	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, t.Members...)
 	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
 	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, t.Attachments...)
 	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.Checklists...)
+	e.workspace = workspace
 
 	for _, dep := range t.Dependencies {
-		loc, err := locations.GetLocations(dep)
+		loc, err := locations.GetLocations(e.workspace, dep)
 		if err != nil {
 			log.Printf("error getting locations: %v", err)
 			continue
@@ -254,7 +258,7 @@ func (e *Environment) IndexTask(t *types.Task) {
 	}
 
 	for _, dep := range t.Dependents {
-		loc, err := locations.GetLocations(dep)
+		loc, err := locations.GetLocations(e.workspace, dep)
 		if err != nil {
 			log.Printf("error getting locations: %v", err)
 			continue

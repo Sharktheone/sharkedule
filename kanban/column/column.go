@@ -6,4 +6,5 @@ import (
 
 type Column struct {
 	*types.Column
+	Workspace string
 }

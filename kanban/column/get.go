@@ -12,7 +12,8 @@ func Get(workspace, column string) (*Column, error) {
 		return nil, err
 	}
 	return &Column{
-		Column: c,
+		Column:    c,
+		Workspace: workspace,
 	}, nil
 }
 
