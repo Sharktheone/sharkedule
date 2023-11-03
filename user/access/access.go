@@ -2,30 +2,44 @@ package access
 
 import "github.com/Sharktheone/sharkedule/user/permissions"
 
-// Hmm, do I really want to do this like this?
 type Access struct {
-	Boards map[string]BoardAccess
-	Orgs   map[string]OrgAccess
-	Create CreateAccess
+	Workspaces []WorkspaceAccess
 	//...
+}
+
+type WorkspaceAccess struct {
+	UUID        string
+	Permissions permissions.WorkspacePerms
+
+	AllBoards bool
+	Boards    []BoardAccess
+
+	AllOrgs bool
+	Orgs    []OrgAccess
 }
 
 type BoardAccess struct {
-	Columns     map[string]ColumnAccess
-	Permissions permissions.Board
-	//...
+	UUID        string
+	AllColumns  bool
+	Columns     []ColumnAccess
+	Permissions permissions.BoardPerms //TODO: Override permissions for specific boards
 }
 
 type ColumnAccess struct {
-	Tasks map[string]TaskAccess
+	UUID        string
+	AllTasks    bool
+	Tasks       []TaskAccess
+	Permissions permissions.ColumnPerms //TODO: Override permissions for specific columns
 }
 
 type TaskAccess struct {
-	Permissions permissions.Task
+	UUID        string
+	Permissions permissions.TaskPerms //TODO: Override permissions for specific tasks
 }
 
 type OrgAccess struct {
-	Permissions permissions.Org
+	UUID        string
+	Permissions permissions.OrgPerms
 }
 
 type CreateAccess struct {

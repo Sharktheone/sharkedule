@@ -1,6 +1,7 @@
 package user
 
 import (
+	"github.com/Sharktheone/sharkedule/user/access"
 	"github.com/Sharktheone/sharkedule/user/email"
 	"github.com/Sharktheone/sharkedule/user/mfa"
 	"github.com/Sharktheone/sharkedule/user/oauth"
@@ -8,14 +9,12 @@ import (
 )
 
 type User struct {
-	UUID         string
-	Username     string
-	Password     string
-	OAuth        oauth.OAuth
-	MFA          mfa.MFA
-	Email        email.EMail
-	Boards       []string
-	Columns      []string
-	CustomColors []string
-	Settings     settings.Settings
+	UUID     string
+	Username string
+	Password string
+	OAuth    oauth.OAuth
+	MFA      mfa.MFA
+	Email    email.EMail
+	Access   access.Access
+	Settings settings.Settings
 }

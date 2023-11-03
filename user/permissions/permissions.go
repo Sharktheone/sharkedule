@@ -1,10 +1,16 @@
 package permissions
 
-type Board struct {
+type WorkspacePerms struct {
 }
 
-type Org struct {
+type OrgPerms struct {
 }
 
-type Task struct {
+type BoardPerms struct {
+}
+
+type ColumnPerms struct {
+}
+
+type TaskPerms struct {
 }
