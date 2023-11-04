@@ -11,7 +11,7 @@ import (
 )
 
 func Get(c *fiber.Ctx) error {
-	b, err := middleware.ExtractBoard(c)
+	_, b, err := middleware.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}
@@ -73,7 +73,7 @@ func Create(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	b, err := middleware.ExtractBoard(c)
+	_, b, err := middleware.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed to get board: %v", err)
 	}

@@ -23,7 +23,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	co, err := middleware.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("[CreateTask] failed extracting column: %v", err)
 	}
@@ -39,7 +39,7 @@ func Create(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -61,7 +61,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -76,7 +76,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 
@@ -88,7 +88,7 @@ func Delete(c *fiber.Ctx) error {
 }
 
 func DeleteOnColumn(c *fiber.Ctx) error {
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -114,7 +114,7 @@ func Rename(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -139,7 +139,7 @@ func AddTag(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -164,7 +164,7 @@ func RemoveTag(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -189,7 +189,7 @@ func SetTags(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}
@@ -214,7 +214,7 @@ func SetDescription(c *fiber.Ctx) error {
 		}
 	}
 
-	t, err := middleware.ExtractTask(c)
+	_, t, err := middleware.ExtractTask(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting task: %v", err)
 	}

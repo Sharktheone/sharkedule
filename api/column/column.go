@@ -22,7 +22,7 @@ func Create(c *fiber.Ctx) error {
 		}
 	}
 
-	b, err := middleware.ExtractBoard(c)
+	_, b, err := middleware.ExtractBoard(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting board: %v", err)
 	}
@@ -47,7 +47,7 @@ func Move(c *fiber.Ctx) error {
 		}
 	}
 
-	co, err := middleware.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -62,7 +62,7 @@ func Move(c *fiber.Ctx) error {
 }
 
 func Get(c *fiber.Ctx) error {
-	co, err := middleware.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -74,7 +74,7 @@ func Get(c *fiber.Ctx) error {
 }
 
 func Delete(c *fiber.Ctx) error {
-	co, err := middleware.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -87,7 +87,7 @@ func Delete(c *fiber.Ctx) error {
 }
 
 func DeleteOnBoard(c *fiber.Ctx) error {
-	co, err := middleware.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
@@ -114,7 +114,7 @@ func Rename(c *fiber.Ctx) error {
 		}
 	}
 
-	co, err := middleware.ExtractColumn(c)
+	_, co, err := middleware.ExtractColumn(c)
 	if err != nil {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
