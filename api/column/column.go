@@ -52,7 +52,7 @@ func Move(c *fiber.Ctx) error {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	board := c.Params("kanbanboard")
+	board := c.Params("board")
 
 	if err := co.Move(board, moveColumn.Index); err != nil {
 		return fmt.Errorf("failed moving column: %v", err)
@@ -92,7 +92,7 @@ func DeleteOnBoard(c *fiber.Ctx) error {
 		return fmt.Errorf("failed extracting column: %v", err)
 	}
 
-	board := c.Params("kanbanboard")
+	board := c.Params("board")
 
 	if err := co.DeleteOnBoard(board); err != nil {
 		return fmt.Errorf("failed deleting column: %v", err)

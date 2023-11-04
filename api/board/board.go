@@ -1,4 +1,4 @@
-package kanbanboard
+package board
 
 import (
 	"bytes"

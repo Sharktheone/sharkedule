@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         path: "/register",
     },
     {
-        path: "/kanbanboard",
+        path: "/board",
         element: <KanbanBoards/>,
         loader: boardsLoader,
         errorElement: <BoardsError/>,
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "/kanbanboard/:uuid",
+        path: "/board/:uuid",
         loader: KanbanBoardLoader,
         element: <Kanban/>,
     },

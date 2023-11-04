@@ -21,6 +21,6 @@ func ExtractColumn(c *fiber.Ctx) (*column.Column, error) {
 
 func ExtractBoard(c *fiber.Ctx) (*board.Board, error) {
 	workspace := c.Params("workspace")
-	boardUUID := c.Params("kanbanboard")
+	boardUUID := c.Params("board")
 	return board.Get(workspace, boardUUID)
 }
