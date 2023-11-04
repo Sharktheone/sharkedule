@@ -3,7 +3,11 @@ package access
 import (
 	"errors"
 	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/kanban/board"
+	"github.com/Sharktheone/sharkedule/kanban/column"
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
+	"github.com/Sharktheone/sharkedule/kanban/tag"
+	"github.com/Sharktheone/sharkedule/kanban/task"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/workspace"
 	"slices"
@@ -17,27 +21,27 @@ func (a *Access) GetWorkspace(uuid string) (*workspace.Workspace, error) {
 }
 
 // Board functions
-func (a *Access) CreateBoard(workspace, name string) (*types.Board, error) {
+func (a *Access) CreateBoard(workspace, name string) (*board.Board, error) {
 
 }
 
-func (a *Access) SaveBoard(workspace string, board *types.Board) error {
+func (a *Access) SaveBoard(workspace string, board *board.Board) error {
 
 }
 
-func (a *Access) SaveBoards(workspace string, boards []*types.Board) error {
+func (a *Access) SaveBoards(workspace string, boards []*board.Board) error {
 
 }
 
-func (a *Access) GetBoard(workspace, uuid string) (*types.Board, error) {
+func (a *Access) GetBoard(workspace, uuid string) (*board.Board, error) {
 
 }
 
-func (a *Access) GetAllBoards(workspace string) ([]*types.Board, error) {
+func (a *Access) GetAllBoards(workspace string) ([]*board.Board, error) {
 
 }
 
-func (a *Access) GetBoards(workspace string, uuids []string) ([]*types.Board, error) {
+func (a *Access) GetBoards(workspace string, uuids []string) ([]*board.Board, error) {
 
 }
 
@@ -53,15 +57,15 @@ func (a *Access) DeleteBoard(workspace, uuid string) error {
 }
 
 // Column functions
-func (a *Access) SaveColumn(workspace string, column *types.Column) error {
+func (a *Access) SaveColumn(workspace string, column *column.Column) error {
 
 }
 
-func (a *Access) SaveColumns(workspace string, columns []*types.Column) error {
+func (a *Access) SaveColumns(workspace string, columns []*column.Column) error {
 
 }
 
-func (a *Access) GetColumn(workspace, uuid string) (*types.Column, error) {
+func (a *Access) GetColumn(workspace, uuid string) (*column.Column, error) {
 
 }
 
@@ -81,20 +85,20 @@ func (a *Access) MoveColumn(workspace, board, uuid string, toIndex int) error {
 
 }
 
-func (a *Access) NewColumn(workspace, board, name string) (*types.Column, error) {
+func (a *Access) NewColumn(workspace, board, name string) (*column.Column, error) {
 
 }
 
 // Task functions
-func (a *Access) SaveTask(workspace string, task *types.Task) error {
+func (a *Access) SaveTask(workspace string, task *task.Task) error {
 
 }
 
-func (a *Access) SaveTasks(workspace string, tasks []*types.Task) error {
+func (a *Access) SaveTasks(workspace string, tasks []*task.Task) error {
 
 }
 
-func (a *Access) GetTask(workspace, uuid string) (*types.Task, error) {
+func (a *Access) GetTask(workspace, uuid string) (*task.Task, error) {
 
 }
 
@@ -110,7 +114,7 @@ func (a *Access) MoveTask(workspace, column, uuid, toColumn string, toIndex int)
 
 }
 
-func (a *Access) NewTask(workspace, column, name string) (*types.Task, error) {
+func (a *Access) NewTask(workspace, column, name string) (*task.Task, error) {
 
 }
 
@@ -131,11 +135,11 @@ func (a *Access) SetTaskDescription(workspace, task, description string) error {
 }
 
 // Tag functions
-func (a *Access) GetAllTags(workspace string) ([]*types.Tag, error) {
+func (a *Access) GetAllTags(workspace string) ([]*tag.Tag, error) {
 
 }
 
-func (a *Access) GetTag(workspace, uuid string) (*types.Tag, error) {
+func (a *Access) GetTag(workspace, uuid string) (*tag.Tag, error) {
 
 }
 
