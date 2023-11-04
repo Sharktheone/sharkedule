@@ -1,4 +1,5 @@
-package workspace // Board functions
+package workspace
+
 import (
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
