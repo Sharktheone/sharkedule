@@ -16,7 +16,7 @@ func Get(workspace, uuid string) (*Board, error) {
 	return &Board{Board: b, Workspace: workspace}, nil
 }
 
-func GetBoards(workspace string) ([]*Board, error) {
+func GetBoardsAll(workspace string) ([]*Board, error) {
 	boards, er := db.DB.GetAllBoards(workspace)
 	if er != nil {
 		return nil, er
@@ -29,8 +29,25 @@ func GetBoards(workspace string) ([]*Board, error) {
 	return bds, nil
 }
 
-func Names(workspace string) ([]*namelist.NameList, error) {
+func GetBoards(workspace string, uuids []string) ([]*Board, error) {
+	boards, er := db.DB.GetBoards(workspace, uuids)
+	if er != nil {
+		return nil, er
+	}
+
+	var bds []*Board
+	for _, b := range boards {
+		bds = append(bds, &Board{Board: b, Workspace: workspace})
+	}
+	return bds, nil
+}
+
+func AllNames(workspace string) ([]*namelist.NameList, error) {
 	return db.DB.GetAllBoardNames(workspace)
+}
+
+func Names(workspace string, uuids []string) ([]*namelist.NameList, error) {
+	return db.DB.GetBoardNames(workspace, uuids)
 }
 
 func (b *Board) Env() *types.Environment {
