@@ -20,7 +20,7 @@ func Get(c *fiber.Ctx) error {
 
 func List(c *fiber.Ctx) error {
 	workspace := c.Params("workspace")
-	boards, err := board.GetBoards(workspace)
+	boards, err := board.GetBoardsAll(workspace)
 	if err != nil {
 		return fmt.Errorf("failed getting boards: %v", err)
 	}
@@ -33,7 +33,7 @@ func List(c *fiber.Ctx) error {
 
 func ListNames(c *fiber.Ctx) error {
 	workspace := c.Params("workspace")
-	boardNames, err := board.Names(workspace)
+	boardNames, err := board.AllNames(workspace)
 	if err != nil {
 		return fmt.Errorf("failed getting board names: %v", err)
 	}
