@@ -44,7 +44,7 @@ func (w *Workspace) GetBoards(uuids []string) ([]*board.Board, error) {
 	return board.GetBoards(w.UUID, uuids)
 }
 
-func (w *Workspace) GetAllBoardNames(workspace string) ([]*namelist.NameList, error) {
+func (w *Workspace) GetAllBoardNames() ([]*namelist.NameList, error) {
 	return board.AllNames(w.UUID)
 }
 
