@@ -6,4 +6,5 @@ import (
 
 type Tag struct {
 	*types.Tag
+	Workspace string
 }
