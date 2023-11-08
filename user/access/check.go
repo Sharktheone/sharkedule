@@ -234,115 +234,622 @@ func (a *Access) DeleteBoard(workspace, uuid string) error {
 
 // Column functions
 func (a *Access) SaveColumn(workspace string, column *column.Column) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
 
+	if !ws.Permissions.UpdateColumns { //TODO check for override permissions
+		return fmt.Errorf("no permissions to update column in workspace %s", workspace)
+	}
+
+	col, err := ws.column(column.UUID)
+	if err == nil {
+		if !col.Permissions.Update {
+			return fmt.Errorf("no permissions to update column %s", column.UUID)
+		}
+	}
+
+	return db.DB.SaveColumn(workspace, column.Column)
 }
 
 func (a *Access) SaveColumns(workspace string, columns []*column.Column) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
 
+	if !ws.Permissions.UpdateColumns {
+		return fmt.Errorf("no permissions to update column in workspace %s", workspace)
+	}
+
+	for _, c := range columns {
+		col, err := ws.column(c.UUID)
+		if err == nil {
+			if !col.Permissions.Update {
+				return fmt.Errorf("no permissions to update column %s", c.UUID)
+			}
+		}
+	}
+
+	var c []*types.Column
+	for _, col := range columns {
+		c = append(c, col.Column)
+	}
+
+	return db.DB.SaveColumns(workspace, c)
 }
 
 func (a *Access) GetColumn(workspace, uuid string) (*column.Column, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllColumns {
+		_, err := ws.column(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	c, err := db.DB.GetColumn(workspace, uuid)
+	if err != nil {
+		return nil, err
+	}
+	return &column.Column{Column: c, Workspace: workspace}, nil
 
 }
 
 func (a *Access) DeleteColumnOnBoard(workspace, board, column string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.RemoveColumnsOnBoard {
+		return fmt.Errorf("no permissions to remove column in workspace %s", workspace)
+	}
+
+	brd, err := ws.board(board)
+	if err == nil {
+		if !brd.Permissions.RemoveColumns {
+			return fmt.Errorf("no permissions to remove column %s", column)
+		}
+	}
+
+	col, err := ws.column(column)
+	if err == nil {
+		if !col.Permissions.RemoveFromBoard {
+			return fmt.Errorf("no permissions to remove column %s", column)
+		}
+	}
+
+	return db.DB.DeleteColumnOnBoard(workspace, board, column)
 
 }
 
 func (a *Access) RenameColumn(workspace, column, name string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.RenameColumns {
+		return fmt.Errorf("no permissions to rename column in workspace %s", workspace)
+	}
+
+	col, err := ws.column(column)
+	if err == nil {
+		if !col.Permissions.Rename {
+			return fmt.Errorf("no permissions to rename column %s", column)
+		}
+	}
+
+	return db.DB.RenameColumn(workspace, column, name)
 
 }
 
 func (a *Access) DeleteColumn(workspace, uuid string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.DeleteColumns {
+		return fmt.Errorf("no permissions to delete column in workspace %s", workspace)
+	}
+
+	col, err := ws.column(uuid)
+	if err == nil {
+		if !col.Permissions.Delete {
+			return fmt.Errorf("no permissions to delete column %s", uuid)
+		}
+	}
+
+	return db.DB.DeleteColumn(workspace, uuid)
 
 }
 
 func (a *Access) MoveColumn(workspace, board, uuid string, toIndex int) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.MoveColumns {
+		return fmt.Errorf("no permissions to move column in workspace %s", workspace)
+	}
+
+	brd, err := ws.board(board)
+	if err == nil {
+		if !brd.Permissions.MoveColumns {
+			return fmt.Errorf("no permissions to move column %s", uuid)
+		}
+	}
+
+	col, err := ws.column(uuid)
+	if err == nil {
+		if !col.Permissions.Move {
+			return fmt.Errorf("no permissions to move column %s", uuid)
+		}
+	}
+
+	return db.DB.MoveColumn(workspace, board, uuid, toIndex)
 
 }
 
 func (a *Access) NewColumn(workspace, board, name string) (*column.Column, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.Permissions.CreateColumns {
+		return nil, fmt.Errorf("no permissions to create column in workspace %s", workspace)
+	}
+
+	brd, err := ws.board(board)
+	if err == nil {
+		if !brd.Permissions.CreateColumns {
+			return nil, fmt.Errorf("no permissions to create column %s", board)
+		}
+	}
+
+	c, err := db.DB.NewColumn(workspace, board, name)
+	if err != nil {
+		return nil, err
+	}
+	return &column.Column{Column: c, Workspace: workspace}, nil
 
 }
 
 // Task functions
 func (a *Access) SaveTask(workspace string, task *task.Task) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.UpdateTasks {
+		return fmt.Errorf("no permissions to update task in workspace %s", workspace)
+	}
+
+	t, err := ws.task(task.UUID)
+	if err == nil {
+		if !t.Permissions.Update {
+			return fmt.Errorf("no permissions to update task %s", task.UUID)
+		}
+	}
+
+	return db.DB.SaveTask(workspace, task.Task)
 
 }
 
 func (a *Access) SaveTasks(workspace string, tasks []*task.Task) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.UpdateTasks {
+		return fmt.Errorf("no permissions to update task in workspace %s", workspace)
+	}
+
+	for _, t := range tasks {
+		tsk, err := ws.task(t.UUID)
+		if err == nil {
+			if !tsk.Permissions.Update {
+				return fmt.Errorf("no permissions to update task %s", t.UUID)
+			}
+		}
+	}
+
+	var t []*types.Task
+	for _, tsk := range tasks {
+		t = append(t, tsk.Task)
+	}
+
+	return db.DB.SaveTasks(workspace, t)
 
 }
 
 func (a *Access) GetTask(workspace, uuid string) (*task.Task, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllTasks {
+		_, err := ws.task(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	t, err := db.DB.GetTask(workspace, uuid)
+	if err != nil {
+		return nil, err
+	}
+	return &task.Task{Task: t, Workspace: workspace}, nil
 
 }
 
 func (a *Access) DeleteTaskOnColumn(workspace, column, uuid string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.RemoveTasksOnColumn {
+		return fmt.Errorf("no permissions to remove task in workspace %s", workspace)
+	}
+
+	col, err := ws.column(column)
+	if err == nil {
+		if !col.Permissions.RemoveTasks {
+			return fmt.Errorf("no permissions to remove task %s", uuid)
+		}
+	}
+
+	t, err := ws.task(uuid)
+	if err == nil {
+		if !t.Permissions.RemoveFromColumn {
+			return fmt.Errorf("no permissions to remove task %s", uuid)
+		}
+	}
+
+	return db.DB.DeleteTaskOnColumn(workspace, column, uuid)
 
 }
 
 func (a *Access) DeleteTask(workspace, uuid string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.DeleteTasks {
+		return fmt.Errorf("no permissions to delete task in workspace %s", workspace)
+	}
+
+	t, err := ws.task(uuid)
+	if err == nil {
+		if !t.Permissions.Delete {
+			return fmt.Errorf("no permissions to delete task %s", uuid)
+		}
+	}
+
+	return db.DB.DeleteTask(workspace, uuid)
 
 }
 
 func (a *Access) MoveTask(workspace, column, uuid, toColumn string, toIndex int) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.MoveTasks {
+		return fmt.Errorf("no permissions to move task in workspace %s", workspace)
+	}
+
+	col, err := ws.column(column)
+	if err == nil {
+		if !col.Permissions.MoveTasks {
+			return fmt.Errorf("no permissions to move task %s", uuid)
+		}
+	}
+
+	t, err := ws.task(uuid)
+	if err == nil {
+		if !t.Permissions.Move {
+			return fmt.Errorf("no permissions to move task %s", uuid)
+		}
+	}
+
+	return db.DB.MoveTask(workspace, column, uuid, toColumn, toIndex)
 
 }
 
 func (a *Access) NewTask(workspace, column, name string) (*task.Task, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.Permissions.CreateTasks {
+		return nil, fmt.Errorf("no permissions to create task in workspace %s", workspace)
+	}
+
+	col, err := ws.column(column)
+	if err == nil {
+		if !col.Permissions.CreateTasks {
+			return nil, fmt.Errorf("no permissions to create task %s", column)
+		}
+	}
+
+	t, err := db.DB.NewTask(workspace, column, name)
+	if err != nil {
+		return nil, err
+	}
+	return &task.Task{Task: t, Workspace: workspace}, nil
 
 }
 
 func (a *Access) RenameTask(workspace, task, name string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.RenameTasks {
+		return fmt.Errorf("no permissions to rename task in workspace %s", workspace)
+	}
+
+	t, err := ws.task(task)
+	if err == nil {
+		if !t.Permissions.Rename {
+			return fmt.Errorf("no permissions to rename task %s", task)
+		}
+	}
+
+	return db.DB.RenameTask(workspace, task, name)
 
 }
 
-func (a *Access) RemoveTagOnTask(workspace, column, uuid string) error {
+func (a *Access) RemoveTagOnTask(workspace, task, uuid string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
 
+	if !ws.Permissions.UpdateTagsOnTask {
+		return fmt.Errorf("no permissions to remove tag on task in workspace %s", workspace)
+	}
+
+	tsk, err := ws.task(task)
+	if err == nil {
+		if !tsk.Permissions.UpdateTags {
+			return fmt.Errorf("no permissions to remove tag on task %s", task)
+		}
+	}
+
+	t, err := ws.tag(uuid)
+	if err == nil {
+		if !t.Permissions.UpdateOn {
+			return fmt.Errorf("no permissions to remove tag on task %s", task)
+		}
+	}
+
+	return db.DB.RemoveTagOnTask(workspace, task, uuid)
 }
 
 func (a *Access) SetTagsOnTask(workspace, task string, tags []string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
 
+	if !ws.Permissions.UpdateTagsOnTask {
+		return fmt.Errorf("no permissions to set tags on task in workspace %s", workspace)
+	}
+
+	tsk, err := ws.task(task)
+	if err == nil {
+		if !tsk.Permissions.UpdateTags {
+			return fmt.Errorf("no permissions to set tags on task %s", task)
+		}
+	}
+
+	return db.DB.SetTagsOnTask(workspace, task, tags)
 }
 
 func (a *Access) SetTaskDescription(workspace, task, description string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
 
+	if !ws.Permissions.UpdateTaskDescription {
+		return fmt.Errorf("no permissions to set description on task in workspace %s", workspace)
+	}
+
+	tsk, err := ws.task(task)
+	if err == nil {
+		if !tsk.Permissions.UpdateDescription {
+			return fmt.Errorf("no permissions to set description on task %s", task)
+		}
+	}
+
+	return db.DB.SetTaskDescription(workspace, task, description)
 }
 
 // Tag functions
 func (a *Access) GetAllTags(workspace string) ([]*tag.Tag, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllTags {
+		var tags []*tag.Tag
+		for _, tsk := range ws.Tags {
+			t, err := db.DB.GetTag(workspace, tsk.UUID)
+			if err != nil {
+				return nil, err
+			}
+
+			tags = append(tags, &tag.Tag{Tag: t, Workspace: workspace})
+		}
+
+		return tags, nil
+	}
+
+	t, err := db.DB.GetAllTags(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	var tags []*tag.Tag
+	for _, tsk := range t {
+		tags = append(tags, &tag.Tag{Tag: tsk, Workspace: workspace})
+	}
+	return tags, nil
 
 }
 
 func (a *Access) GetTag(workspace, uuid string) (*tag.Tag, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllTags {
+		_, err := ws.tag(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	t, err := db.DB.GetTag(workspace, uuid)
+	if err != nil {
+		return nil, err
+	}
+	return &tag.Tag{Tag: t, Workspace: workspace}, nil
 
 }
 
 func (a *Access) AddTagToTask(workspace, task, tag string) error {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.UpdateTagsOnTask {
+		return fmt.Errorf("no permissions to add tag to task in workspace %s", workspace)
+	}
+
+	tsk, err := ws.task(task)
+	if err == nil {
+		if !tsk.Permissions.UpdateTags {
+			return fmt.Errorf("no permissions to add tag to task %s", task)
+		}
+	}
+
+	t, err := ws.tag(tag)
+	if err == nil {
+		if !t.Permissions.UpdateOn {
+			return fmt.Errorf("no permissions to add tag to task %s", task)
+		}
+	}
+
+	return db.DB.AddTagToTask(workspace, task, tag)
 
 }
 
 //Other functions
 
 func (a *Access) GetStatus(workspace, uuid string) (*types.Status, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
 
+	if !ws.AllStatuses {
+		_, err := ws.status(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db.DB.GetStatus(workspace, uuid)
 }
 
 func (a *Access) GetPriority(workspace, uuid string) (*types.Priority, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllPriorities {
+		_, err := ws.priority(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db.DB.GetPriority(workspace, uuid)
 
 }
 
 func (a *Access) GetChecklist(workspace, uuid string) (*types.Checklist, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllChecklists {
+		_, err := ws.checklist(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db.DB.GetChecklist(workspace, uuid)
 
 }
 
 func (a *Access) GetAttachment(workspace, uuid string) (*types.Attachment, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
 
+	if !ws.AllAttachments {
+		_, err := ws.attachment(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db.DB.GetAttachment(workspace, uuid)
 }
 
 func (a *Access) GetDate(workspace, uuid string) (*types.Date, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
 
+	if !ws.AllDates {
+		_, err := ws.date(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db.DB.GetDate(workspace, uuid)
 }
 
 //GetUser(uuid string) (*types.Member, error) TODO
