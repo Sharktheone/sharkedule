@@ -4,21 +4,25 @@ type UserPerms struct {
 }
 
 type WorkspacePerms struct {
-	Admin bool
+	CreateBoards bool
+	UpdateBoards bool
+	DeleteBoards bool
+
+	CreateColumns bool
+	UpdateColumns bool
+	DeleteColumns bool
 }
 
 type OrgPerms struct {
-	Admin bool
 }
 
 type BoardPerms struct {
-	Admin bool
+	Update bool
+	Delete bool
 }
 
 type ColumnPerms struct {
-	Admin bool
 }
 
 type TaskPerms struct {
-	Admin bool
 }

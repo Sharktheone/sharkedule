@@ -1,6 +1,9 @@
 package access
 
-import "github.com/Sharktheone/sharkedule/user/permissions"
+import (
+	"errors"
+	"github.com/Sharktheone/sharkedule/user/permissions"
+)
 
 type Access struct {
 	Workspaces  []WorkspaceAccess
@@ -46,4 +49,14 @@ type OrgAccess struct {
 type CreateAccess struct {
 	Boards bool
 	Orgs   bool
+}
+
+func (wa *WorkspaceAccess) board(uuid string) (*BoardAccess, error) {
+
+	for _, b := range wa.Boards {
+		if b.UUID == uuid {
+			return &b, nil
+		}
+	}
+	return nil, errors.New("board not found")
 }
