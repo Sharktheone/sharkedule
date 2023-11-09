@@ -3,7 +3,6 @@ package kanbandb
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/types"
-	"github.com/Sharktheone/sharkedule/workspace"
 )
 
 func GetStatus(status []*types.Status, uuid string) (*types.Status, error) {
@@ -60,7 +59,7 @@ func GetDate(dates []*types.Date, uuid string) (*types.Date, error) {
 	return nil, fmt.Errorf("date with uuid %s does not exist", uuid)
 }
 
-func GetWorkspace(workspaces []*workspace.Workspace, uuid string) (*workspace.Workspace, error) {
+func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace, error) {
 	for _, w := range workspaces {
 		if w.UUID == uuid {
 			return w, nil

@@ -16,7 +16,11 @@ import (
 func (a *Access) GetWorkspace(uuid string) (*workspace.Workspace, error) {
 	for _, w := range a.Workspaces {
 		if w.UUID == uuid {
-			return db.DB.GetWorkspace(uuid)
+			ws, error := db.DB.GetWorkspace(uuid)
+			if error != nil {
+				return nil, error
+			}
+			return &workspace.Workspace{Workspace: ws}, nil
 		}
 	}
 	return nil, errors.New("workspace not found")

@@ -3,7 +3,6 @@ package database
 import (
 	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
-	"github.com/Sharktheone/sharkedule/workspace"
 	"sync"
 )
 
@@ -12,8 +11,8 @@ const (
 )
 
 type DBStructure struct {
-	Mu         *sync.Mutex            `json:"-" yaml:"-" bson:"-"`
-	Workspaces []*workspace.Workspace `json:"workspaces" yaml:"workspaces" bson:"workspaces"`
+	Mu         *sync.Mutex        `json:"-" yaml:"-" bson:"-"`
+	Workspaces []*types.Workspace `json:"workspaces" yaml:"workspaces" bson:"workspaces"`
 }
 
 type IDatabase interface {
@@ -22,7 +21,7 @@ type IDatabase interface {
 	Save() error
 
 	//Workspace functions
-	GetWorkspace(uuid string) (*workspace.Workspace, error)
+	GetWorkspace(uuid string) (*types.Workspace, error)
 
 	//Board functions
 	CreateBoard(workspace, name string) (*types.Board, error)

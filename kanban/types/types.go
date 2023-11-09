@@ -3,6 +3,7 @@ package types
 import (
 	"github.com/Sharktheone/sharkedule/kanban/activity"
 	"github.com/Sharktheone/sharkedule/kanban/comment"
+	"github.com/Sharktheone/sharkedule/project"
 )
 
 type Board struct {
@@ -134,4 +135,24 @@ type Environment struct {
 	BoardNames     map[string]string              `json:"board_names,omitempty"`     // boardUUID -> name
 	ColumnNames    map[string]map[string]string   `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
 	DependentTasks map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
+}
+
+type Workspace struct {
+	UUID        string
+	Name        string
+	Tags        []*Tag
+	Tasks       []*Task
+	Columns     []*Column
+	Boards      []*Board
+	Checklists  []*Checklist
+	Priorities  []*Priority
+	Statuses    []*Status
+	Attachments []*Attachment
+	Dates       []*Date
+	Stages      []*Stage
+	Projects    []*project.Project
+
+	Members []string
+
+	//All uuids here as list?
 }
