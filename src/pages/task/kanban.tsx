@@ -11,7 +11,7 @@ import {IconTrash, IconX} from "@tabler/icons-react"
 import {NameList} from "@kanban/types"
 
 
-export default function KanbanBoards() {
+export default function Kanban() {
     let loaderData = useLoaderData()
     let navigate = useNavigate()
 

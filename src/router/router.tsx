@@ -6,9 +6,9 @@ import Home from "@/pages/home/home"
 import Login from "@/pages/login/login"
 
 
-const KanbanBoards = lazy(() => import("@/pages/task/kanbanboards"))
-const BoardsError = lazy(() => import("@/pages/task/boardserror"))
-const Kanban = lazy(() => import("@/pages/task/kanban/kanban"))
+const Kanban = lazy(() => import("@/pages/task/kanban"))
+const KanbanError = lazy(() => import("@/pages/task/kanbaberror"))
+const Board = lazy(() => import("@/pages/task/kanban/kanban"))
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -26,9 +26,9 @@ export const router = createBrowserRouter([
     },
     {
         path: "/board",
-        element: <KanbanBoards/>,
+        element: <Kanban/>,
         loader: boardsLoader,
-        errorElement: <BoardsError/>,
+        errorElement: <KanbanError/>,
         children: [
             {
                 path: "assigned"
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
     {
         path: "/board/:uuid",
         loader: KanbanBoardLoader,
-        element: <Kanban/>,
+        element: <Board/>,
     },
     {
         path: "/calendar",

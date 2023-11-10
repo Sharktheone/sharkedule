@@ -1,15 +1,20 @@
 import '@/App.scss'
 import {RouterProvider} from "react-router-dom"
 import {router} from "@/router/router"
-import {MantineProvider} from "@mantine/core"
+import {createTheme, MantineProvider} from "@mantine/core"
 import {Notifications} from "@mantine/notifications"
+
+
+const theme = createTheme({
+    fontFamily: 'sans-serif',
+    primaryColor: 'orange',
+
+})
 
 function App() {
 
     return (
-        <MantineProvider withGlobalStyles withNormalizeCSS theme={{
-            colorScheme: "dark",
-        }}>
+        <MantineProvider theme={theme}>
             <Notifications/>
             <RouterProvider router={router}/>
         </MantineProvider>
