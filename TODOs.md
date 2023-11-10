@@ -12,3 +12,22 @@
 - [ ] CSS use more classes and remove deeply nested structures
 - [ ] Remove colors.ts and switch to "inline" mantine colors from colors.scss
 - [ ] Only post one notification when adding multiple items
+- [ ] Ditch Mantine
+  - [ ] Notifications System
+  - [ ] SegmentedControl
+  - [ ] Button
+  - [ ] ColorPicker
+  - [ ] Drawer
+  - [ ] Modal
+  - [ ] useClickOutside
+  - [ ] Input
+  - [ ] Textarea
+  - [ ] Container
+  - [ ] Title
+  - [ ] useDisclosure
+  - [ ] usePrevious
+  - [ ] useDebouncedState
+  - [ ] CloseButton
+  - [ ] Stack
+  - [ ] Text
+  - [ ] Colors => Monokai?
