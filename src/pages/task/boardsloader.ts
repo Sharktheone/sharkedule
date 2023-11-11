@@ -3,7 +3,7 @@ import {NameList} from "@kanban/types"
 
 
 export default function boardsLoader() {
-    return api.get("/kanban/board/list/names").then((res) => {
+    return api.get("/kanban/board/names").then((res) => {
         if (res.data == null) {
             return [] as NameList[]
         }

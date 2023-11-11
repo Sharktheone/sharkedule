@@ -57,9 +57,9 @@ func Start() {
 			{
 				boards := kanban.Group("board") // /api/:workspace/kanban/board
 				{
-					boards.Get("list", board.List)            // GET /api/:workspace/kanban/board/list
-					boards.Get("list/names", board.ListNames) // GET /api/:workspace/kanban/board/list/names
-					boards.Put("new", board.Create)           // PUT /api/:workspace/kanban/board/new
+					boards.Get("", board.List)           // GET /api/:workspace/kanban/board/
+					boards.Get("names", board.ListNames) // GET /api/:workspace/kanban/board//names
+					boards.Put("new", board.Create)      // PUT /api/:workspace/kanban/board/new
 
 					brd := boards.Group(":board") // /api/:workspace/kanban/board/:board
 					{
