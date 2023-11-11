@@ -13,7 +13,7 @@
 - [ ] Remove colors.ts and switch to "inline" mantine colors from colors.scss
 - [ ] Only post one notification when adding multiple items
 - [ ] Ditch Mantine
-  - [ ] Notifications System
+  - [ ] Notifications System => react-toastify
   - [ ] SegmentedControl
   - [ ] Button
   - [ ] ColorPicker
