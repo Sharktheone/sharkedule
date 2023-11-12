@@ -11,6 +11,10 @@ take a lot of time and effort, but I think it will be worth it.
 Currently, I have not much time, as you may, could see from the previous commits I've done. So I mostly only have time
 for very little commits.
 
+
+> **Note**
+> Currently nothing works, because of the update from Mantine and the API changes (users, workspaces, etc.). I'm working on it.
+
 ## Features and Roadmap
 
 - [ ] Workspaces
@@ -27,6 +31,10 @@ for very little commits.
     - [ ] Edit Task, Column, Board metadata
     - [ ] Task comments / conversation
     - [ ] Task dependencies (blocked by, blocking)
+    - [ ] Task history
+    - [ ] Task activity
+    - [ ] Task assignments
+    - [ ] Repeating tasks
 - [ ] More views
     - [ ] List view
     - [ ] Calendar view
