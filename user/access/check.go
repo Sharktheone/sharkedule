@@ -856,6 +856,28 @@ func (a *Access) GetDate(workspace, uuid string) (*types.Date, error) {
 	return db.DB.GetDate(workspace, uuid)
 }
 
+func (a *Access) ListWorkspaces() ([]*workspace.List, error) {
+	var list []*workspace.List
+
+	for _, w := range a.Workspaces {
+		var ws, err = db.DB.GetWorkspace(w.UUID) // we don't need to check for permissions, because we already have them => saves time
+		if err != nil {
+			return nil, err //TODO: this could be problematic, because when we haven't synced the database and so maybe not removed the workspace from the user but from the database
+		}
+
+		list = append(list, &workspace.List{
+			UUID:        ws.UUID,
+			Name:        ws.Name,
+			Description: ws.Description,
+			Cover:       ws.Cover,
+			Archived:    ws.Archived,
+			Color:       ws.Color,
+		})
+	}
+
+	return list, nil
+}
+
 //GetUser(uuid string) (*types.Member, error) TODO
 
 func (a *Access) workspace(uuid string) (*WorkspaceAccess, error) {

@@ -140,6 +140,13 @@ type Environment struct {
 type Workspace struct {
 	UUID        string
 	Name        string
+	Description string
+	Cover       string
+	Archived    bool
+	Color       string
+
+	Members []string
+
 	Tags        []*Tag
 	Tasks       []*Task
 	Columns     []*Column
@@ -151,8 +158,6 @@ type Workspace struct {
 	Dates       []*Date
 	Stages      []*Stage
 	Projects    []*project.Project
-
-	Members []string
 
 	//All uuids here as list?
 }

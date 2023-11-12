@@ -11,6 +11,15 @@ type Workspace struct {
 	//All uuids here as list?
 }
 
+type List struct {
+	UUID        string
+	Name        string
+	Description string
+	Cover       string
+	Archived    bool
+	Color       string
+}
+
 func NewWorkspace(name string) *Workspace {
 	return &Workspace{
 		Workspace: &types.Workspace{
@@ -19,5 +28,3 @@ func NewWorkspace(name string) *Workspace {
 		},
 	}
 }
-
-//TODO implement all other functions like on user
