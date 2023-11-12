@@ -4,6 +4,7 @@ import (
 	"github.com/Sharktheone/sharkedule/api/board"
 	"github.com/Sharktheone/sharkedule/api/column"
 	"github.com/Sharktheone/sharkedule/api/task"
+	"github.com/Sharktheone/sharkedule/api/workspace"
 	"github.com/Sharktheone/sharkedule/kanban/tag"
 	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2"
@@ -50,77 +51,77 @@ func Start() {
 	r.Use(recover.New())
 
 	api := r.Group("api") // /api
+
+	//TODO: update routes in comments
+
+	// /api/workspace
+	workspaces := api.Group("workspace")
 	{
-		workspace := api.Group(":workspace") // /api/:workspace
+		workspaces.Get("", workspace.List) // GET /api/workspace
+	}
+	ws := api.Group(":workspace") // /api/:workspace
+	{
+		kanban := ws.Group("kanban") // /api/:workspace/kanban
 		{
-			kanban := workspace.Group("kanban") // /api/:workspace/kanban
+			boards := kanban.Group("board") // /api/:workspace/kanban/board
 			{
-				boards := kanban.Group("board") // /api/:workspace/kanban/board
+				boards.Get("", board.List)           // GET /api/:workspace/kanban/board/
+				boards.Get("names", board.ListNames) // GET /api/:workspace/kanban/board//names
+				boards.Put("new", board.Create)      // PUT /api/:workspace/kanban/board/new
+			}
+
+			brd := kanban.Group(":board") // /api/:workspace/kanban/:board
+			{
+				brd.Get("", board.Get)             // GET /api/:workspace/kanban/:board
+				brd.Delete("delete", board.Delete) // DELETE /api/:workspace/kanban/board/:board/delete
+
+				columns := brd.Group("column") // /api/:workspace/kanban/board/:kanban/board/column
 				{
-					boards.Get("", board.List)           // GET /api/:workspace/kanban/board/
-					boards.Get("names", board.ListNames) // GET /api/:workspace/kanban/board//names
-					boards.Put("new", board.Create)      // PUT /api/:workspace/kanban/board/new
+					columns.Put("new", column.Create) // PUT /api/:workspace/kanban/board/:board/column/new
+				}
+				col := columns.Group(":column") // /api/:workspace/kanban/board/:board/column/:column
+				{
+					col.Get("", column.Get)                    // GET /api/:workspace/kanban/board/:board/column/:column
+					col.Delete("delete", column.DeleteOnBoard) // DELETE /api/:workspace/kanban/board/:board/column/:column/delete
+					col.Patch("move", column.Move)             // PATCH /api/:workspace/kanban/board/:board/column/:column/move
 
-					brd := boards.Group(":board") // /api/:workspace/kanban/board/:board
+					tsk := col.Group("task") // /api/:workspace/kanban/board/:board/column/:column/task
 					{
-
-						brd.Get("", board.Get)             // GET /api/:workspace/kanban/board/:board
-						brd.Delete("delete", board.Delete) // DELETE /api/:workspace/kanban/board/:board/delete
-
-						columns := brd.Group("column") // /api/:workspace/kanban/board/:kanban/board/column
-						{
-							columns.Put("new", column.Create) // PUT /api/:workspace/kanban/board/:board/column/new
-
-							col := columns.Group(":column") // /api/:workspace/kanban/board/:board/column/:column
-							{
-								col.Get("", column.Get)                    // GET /api/:workspace/kanban/board/:board/column/:column
-								col.Delete("delete", column.DeleteOnBoard) // DELETE /api/:workspace/kanban/board/:board/column/:column/delete
-								col.Patch("move", column.Move)             // PATCH /api/:workspace/kanban/board/:board/column/:column/move
-
-								tsk := col.Group("task") // /api/:workspace/kanban/board/:board/column/:column/task
-								{
-									tsk.Put("new", task.Create) // PUT /api/:workspace/kanban/board/:board/column/:column/task/new
-
-									t := tsk.Group(":task") // /api/:workspace/kanban/board/:board/column/:column/task/:task
-									{
-										t.Patch("move", task.Move)              // PATCH /api/:workspace/kanban/board/:board/column/:column/task/:task/move
-										t.Get("", task.Get)                     // GET /api/:workspace/kanban/board/:board/column/:column/task/:task
-										t.Delete("delete", task.DeleteOnColumn) // DELETE /api/:workspace/kanban/board/:board/column/:column/task/:task/delete
-									}
-								}
-							}
-						}
+						tsk.Put("new", task.Create) // PUT /api/:workspace/kanban/board/:board/column/:column/task/new
+					}
+					t := tsk.Group(":task") // /api/:workspace/kanban/board/:board/column/:column/task/:task
+					{
+						t.Patch("move", task.Move)              // PATCH /api/:workspace/kanban/board/:board/column/:column/task/:task/move
+						t.Get("", task.Get)                     // GET /api/:workspace/kanban/board/:board/column/:column/task/:task
+						t.Delete("delete", task.DeleteOnColumn) // DELETE /api/:workspace/kanban/board/:board/column/:column/task/:task/delete
 					}
 				}
-				columns := kanban.Group("column") // /api/:workspace/kanban/column
-				{
-					col := columns.Group(":column") // /api/:workspace/kanban/column/:column
-					{
-						col.Delete("delete", column.Delete) // DELETE /api/:workspace/kanban/column/delete
-						col.Patch("rename", column.Rename)  // PATCH /api/:workspace/kanban/column/rename
-					}
-				}
-				tasks := kanban.Group("task") // /api/:workspace/kanban/task
-				{
-					t := tasks.Group(":task") // /api/:workspace/kanban/task/:task
-					{
-						t.Delete("delete", task.Delete)             // DELETE /api/:workspace/kanban/task/:task/delete
-						t.Patch("rename", task.Rename)              // PATCH /api/:workspace/kanban/task/:task/rename
-						t.Put("tag", task.AddTag)                   // PUT /api/:workspace/kanban/task/:task/tag
-						t.Delete("tag", task.RemoveTag)             // DELETE /api/:workspace/kanban/task/:task/tag
-						t.Patch("tags", task.SetTags)               // PATCH /api/:workspace/kanban/task/:task/tag
-						t.Patch("description", task.SetDescription) // PATCH /api/:workspace/kanban/task/:task/description
-					}
-				}
-				tags := kanban.Group("tag") // /api/:workspace/kanban/tag
-				{
-					tags.Put("new", tag.NewTag)          // PUT /api/:workspace/kanban/tag/new
-					tags.Delete("delete", tag.DeleteTag) // DELETE /api/:workspace/kanban/tag/delete
-					tags.Patch("rename", tag.Rename)     // PATCH /api/:workspace/kanban/tag/rename
-					tags.Patch("update", tag.Update)     // PATCH /api/:workspace/kanban/tag/update
-					tags.Get("list", tag.GetTags)        // GET /api/:workspace/kanban/tag/list
+			}
+			col := kanban.Group(":column") // /api/:workspace/kanban/column/:column
+			{
+				col.Delete("delete", column.Delete) // DELETE /api/:workspace/kanban/column/delete
+				col.Patch("rename", column.Rename)  // PATCH /api/:workspace/kanban/column/rename
+			}
+			t := kanban.Group(":task") // /api/:workspace/kanban/task/:task
+			{
+				t.Delete("delete", task.Delete)             // DELETE /api/:workspace/kanban/task/:task/delete
+				t.Patch("rename", task.Rename)              // PATCH /api/:workspace/kanban/task/:task/rename
+				t.Put("tag", task.AddTag)                   // PUT /api/:workspace/kanban/task/:task/tag
+				t.Delete("tag", task.RemoveTag)             // DELETE /api/:workspace/kanban/task/:task/tag
+				t.Patch("tags", task.SetTags)               // PATCH /api/:workspace/kanban/task/:task/tag
+				t.Patch("description", task.SetDescription) // PATCH /api/:workspace/kanban/task/:task/description
+			}
+			tags := kanban.Group("tag") // /api/:workspace/kanban/tag
+			{
+				tags.Put("new", tag.NewTag)   // PUT /api/:workspace/kanban/tag/new
+				tags.Get("list", tag.GetTags) // GET /api/:workspace/kanban/tag/list
+			}
 
-				}
+			tg := kanban.Group(":tag") // /api/:workspace/kanban/tag/:tag
+			{
+				tg.Delete("delete", tag.DeleteTag) // DELETE /api/:workspace/kanban/tag/delete
+				tg.Patch("rename", tag.Rename)     // PATCH /api/:workspace/kanban/tag/rename
+				tg.Patch("update", tag.Update)     // PATCH /api/:workspace/kanban/tag/update
 			}
 		}
 	}
