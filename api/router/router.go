@@ -70,7 +70,7 @@ func Start() {
 				boards.Put("new", board.Create)      // PUT /api/:workspace/kanban/board/new
 			}
 
-			brd := kanban.Group(":board") // /api/:workspace/kanban/:board
+			brd := kanban.Group("board/:board") // /api/:workspace/kanban/:board
 			{
 				brd.Get("", board.Get)             // GET /api/:workspace/kanban/:board
 				brd.Delete("delete", board.Delete) // DELETE /api/:workspace/kanban/board/:board/delete
@@ -89,7 +89,7 @@ func Start() {
 					{
 						tsk.Put("new", task.Create) // PUT /api/:workspace/kanban/board/:board/column/:column/task/new
 					}
-					t := tsk.Group(":task") // /api/:workspace/kanban/board/:board/column/:column/task/:task
+					t := col.Group("task/:task") // /api/:workspace/kanban/board/:board/column/:column/task/:task
 					{
 						t.Patch("move", task.Move)              // PATCH /api/:workspace/kanban/board/:board/column/:column/task/:task/move
 						t.Get("", task.Get)                     // GET /api/:workspace/kanban/board/:board/column/:column/task/:task
@@ -97,12 +97,14 @@ func Start() {
 					}
 				}
 			}
-			col := kanban.Group(":column") // /api/:workspace/kanban/column/:column
+
+			col := kanban.Group("column/:column") // /api/:workspace/kanban/column/:column
 			{
 				col.Delete("delete", column.Delete) // DELETE /api/:workspace/kanban/column/delete
 				col.Patch("rename", column.Rename)  // PATCH /api/:workspace/kanban/column/rename
 			}
-			t := kanban.Group(":task") // /api/:workspace/kanban/task/:task
+
+			t := kanban.Group("task/:task") // /api/:workspace/kanban/task/:task
 			{
 				t.Delete("delete", task.Delete)             // DELETE /api/:workspace/kanban/task/:task/delete
 				t.Patch("rename", task.Rename)              // PATCH /api/:workspace/kanban/task/:task/rename
@@ -111,13 +113,14 @@ func Start() {
 				t.Patch("tags", task.SetTags)               // PATCH /api/:workspace/kanban/task/:task/tag
 				t.Patch("description", task.SetDescription) // PATCH /api/:workspace/kanban/task/:task/description
 			}
+
 			tags := kanban.Group("tag") // /api/:workspace/kanban/tag
 			{
 				tags.Put("new", tag.NewTag)   // PUT /api/:workspace/kanban/tag/new
 				tags.Get("list", tag.GetTags) // GET /api/:workspace/kanban/tag/list
 			}
 
-			tg := kanban.Group(":tag") // /api/:workspace/kanban/tag/:tag
+			tg := kanban.Group("tag/:tag") // /api/:workspace/kanban/tag/:tag
 			{
 				tg.Delete("delete", tag.DeleteTag) // DELETE /api/:workspace/kanban/tag/delete
 				tg.Patch("rename", tag.Rename)     // PATCH /api/:workspace/kanban/tag/rename
