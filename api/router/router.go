@@ -41,6 +41,10 @@ import (
 ///				- (user has more code)
 /// - something like user.workspace(workspace).<func>()
 ///
+/// - Handle it with middleware (ExtractUser)
+///		- Pros/Cons:
+///			+ we need to do it anyway
+///			+ handler has not more code than a normal handler
 
 func Start() {
 	r := fiber.New()
@@ -59,6 +63,7 @@ func Start() {
 	{
 		workspaces.Get("", workspace.List) // GET /api/workspace
 	}
+
 	ws := api.Group(":workspace") // /api/:workspace
 	{
 		kanban := ws.Group("kanban") // /api/:workspace/kanban
