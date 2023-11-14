@@ -6,6 +6,6 @@ import (
 )
 
 func ExtractUser(c *fiber.Ctx) (*user.User, error) {
-	//TODO
+	//TODO: maybe use jwt or something else token based
 	return nil, nil
 }
