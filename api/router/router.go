@@ -84,6 +84,7 @@ func Start() {
 				{
 					columns.Put("new", column.Create) // PUT /api/:workspace/kanban/board/:board/column/new
 				}
+
 				col := columns.Group(":column") // /api/:workspace/kanban/board/:board/column/:column
 				{
 					col.Get("", column.Get)                    // GET /api/:workspace/kanban/board/:board/column/:column
@@ -94,6 +95,7 @@ func Start() {
 					{
 						tsk.Put("new", task.Create) // PUT /api/:workspace/kanban/board/:board/column/:column/task/new
 					}
+
 					t := col.Group("task/:task") // /api/:workspace/kanban/board/:board/column/:column/task/:task
 					{
 						t.Patch("move", task.Move)              // PATCH /api/:workspace/kanban/board/:board/column/:column/task/:task/move

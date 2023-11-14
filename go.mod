@@ -3,7 +3,7 @@ module github.com/Sharktheone/sharkedule
 go 1.20
 
 require (
-	github.com/gofiber/fiber/v2 v2.50.0
+	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/google/uuid v1.4.0
 )
 
@@ -15,7 +15,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.50.0 // indirect
+	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect
 )
