@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/json"
 	"github.com/Sharktheone/sharkedule/api/board"
 	"github.com/Sharktheone/sharkedule/api/column"
 	"github.com/Sharktheone/sharkedule/api/task"
@@ -47,7 +48,10 @@ import (
 ///			+ handler has not more code than a normal handler
 
 func Start() {
-	r := fiber.New()
+	r := fiber.New(fiber.Config{
+		JSONDecoder: json.Unmarshal,
+		JSONEncoder: json.Marshal,
+	})
 
 	r.Use(cors.New())
 
