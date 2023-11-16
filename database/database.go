@@ -13,6 +13,7 @@ const (
 type DBStructure struct {
 	Mu         *sync.Mutex        `json:"-" yaml:"-" bson:"-"`
 	Workspaces []*types.Workspace `json:"workspaces" yaml:"workspaces" bson:"workspaces"`
+	Users      []*types.User      `json:"users" yaml:"users" bson:"users"`
 }
 
 type IDatabase interface {
