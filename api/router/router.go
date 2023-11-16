@@ -62,8 +62,7 @@ func Start() {
 
 	//TODO: update routes in comments
 
-	// /api/workspace
-	workspaces := api.Group("workspace")
+	workspaces := api.Group("workspace") // /api/workspace
 	{
 		workspaces.Get("", workspace.List) // GET /api/workspace
 	}
@@ -74,17 +73,17 @@ func Start() {
 		{
 			boards := kanban.Group("board") // /api/:workspace/kanban/board
 			{
-				boards.Get("", board.List)           // GET /api/:workspace/kanban/board/
-				boards.Get("names", board.ListNames) // GET /api/:workspace/kanban/board//names
+				boards.Get("", board.List)           // GET /api/:workspace/kanban/board
+				boards.Get("names", board.ListNames) // GET /api/:workspace/kanban/board/names
 				boards.Put("new", board.Create)      // PUT /api/:workspace/kanban/board/new
 			}
 
-			brd := kanban.Group("board/:board") // /api/:workspace/kanban/:board
+			brd := kanban.Group("board/:board") // /api/:workspace/kanban/board/:board
 			{
-				brd.Get("", board.Get)             // GET /api/:workspace/kanban/:board
+				brd.Get("", board.Get)             // GET /api/:workspace/kanban/board/:board
 				brd.Delete("delete", board.Delete) // DELETE /api/:workspace/kanban/board/:board/delete
 
-				columns := brd.Group("column") // /api/:workspace/kanban/board/:kanban/board/column
+				columns := brd.Group("column") // /api/:workspace/kanban/board/:board/column
 				{
 					columns.Put("new", column.Create) // PUT /api/:workspace/kanban/board/:board/column/new
 				}
@@ -111,8 +110,8 @@ func Start() {
 
 			col := kanban.Group("column/:column") // /api/:workspace/kanban/column/:column
 			{
-				col.Delete("delete", column.Delete) // DELETE /api/:workspace/kanban/column/delete
-				col.Patch("rename", column.Rename)  // PATCH /api/:workspace/kanban/column/rename
+				col.Delete("delete", column.Delete) // DELETE /api/:workspace/kanban/column/:column/delete
+				col.Patch("rename", column.Rename)  // PATCH /api/:workspace/kanban/column/:column/rename
 			}
 
 			t := kanban.Group("task/:task") // /api/:workspace/kanban/task/:task
@@ -121,7 +120,7 @@ func Start() {
 				t.Patch("rename", task.Rename)              // PATCH /api/:workspace/kanban/task/:task/rename
 				t.Put("tag", task.AddTag)                   // PUT /api/:workspace/kanban/task/:task/tag
 				t.Delete("tag", task.RemoveTag)             // DELETE /api/:workspace/kanban/task/:task/tag
-				t.Patch("tags", task.SetTags)               // PATCH /api/:workspace/kanban/task/:task/tag
+				t.Patch("tags", task.SetTags)               // PATCH /api/:workspace/kanban/task/:task/tags
 				t.Patch("description", task.SetDescription) // PATCH /api/:workspace/kanban/task/:task/description
 			}
 
@@ -133,9 +132,9 @@ func Start() {
 
 			tg := kanban.Group("tag/:tag") // /api/:workspace/kanban/tag/:tag
 			{
-				tg.Delete("delete", tag.DeleteTag) // DELETE /api/:workspace/kanban/tag/delete
-				tg.Patch("rename", tag.Rename)     // PATCH /api/:workspace/kanban/tag/rename
-				tg.Patch("update", tag.Update)     // PATCH /api/:workspace/kanban/tag/update
+				tg.Delete("delete", tag.DeleteTag) // DELETE /api/:workspace/kanban/tag/:tag/delete
+				tg.Patch("rename", tag.Rename)     // PATCH /api/:workspace/kanban/tag/:tag/rename
+				tg.Patch("update", tag.Update)     // PATCH /api/:workspace/kanban/tag/:tag/update
 			}
 		}
 	}
