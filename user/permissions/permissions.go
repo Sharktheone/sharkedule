@@ -1,6 +1,7 @@
 package permissions
 
 type UserPerms struct {
+	CreateWorkspaces bool
 }
 
 type WorkspacePerms struct {

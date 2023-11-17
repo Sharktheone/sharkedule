@@ -1,11 +1,8 @@
 package access
 
-import (
-	"github.com/Sharktheone/sharkedule/user/permissions"
-)
+import "github.com/Sharktheone/sharkedule/kanban/types"
 
 type Access struct {
-	Workspaces  []WorkspaceAccess
-	Permissions permissions.UserPerms
+	types.Access
 	//...
 }

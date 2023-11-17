@@ -4,7 +4,11 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/activity"
 	"github.com/Sharktheone/sharkedule/kanban/comment"
 	"github.com/Sharktheone/sharkedule/project"
+	"github.com/Sharktheone/sharkedule/user/access/workspaceaccess"
+	"github.com/Sharktheone/sharkedule/user/mfa"
+	"github.com/Sharktheone/sharkedule/user/oauth"
 	"github.com/Sharktheone/sharkedule/user/permissions"
+	"github.com/Sharktheone/sharkedule/user/settings"
 )
 
 type Board struct {
@@ -164,204 +168,19 @@ type Workspace struct {
 }
 
 type User struct {
-	UUID     string   `json:"uuid"`
-	Username string   `json:"username"`
-	Name     string   `json:"name,omitempty"`
-	Email    string   `json:"email"`
-	Password string   `json:"password"`
-	OAuth    OAuth    `json:"oauth,omitempty"`
-	MFA      MFA      `json:"mfa,omitempty"`
-	Access   Access   `json:"access"`
-	Settings Settings `json:"settings"`
-}
-
-type OAuth struct {
-}
-
-type MFA struct {
+	UUID     string            `json:"uuid"`
+	Username string            `json:"username"`
+	Name     string            `json:"name,omitempty"`
+	Email    string            `json:"email"`
+	Password string            `json:"password"`
+	OAuth    oauth.OAuth       `json:"oauth,omitempty"`
+	MFA      mfa.MFA           `json:"mfa,omitempty"`
+	Access   Access            `json:"access"`
+	Settings settings.Settings `json:"settings"`
 }
 
 type Access struct {
-	Workspaces  []WorkspaceAccess `json:"workspaces"`
-	Permissions UserPerms         `json:"permissions"`
+	Workspaces  []workspaceaccess.WorkspaceAccess
+	Permissions permissions.UserPerms
+	//...
 }
-
-type Settings struct {
-}
-
-type UserPerms struct {
-}
-
-type WorkspacePerms struct {
-	CreateBoards bool
-	UpdateBoards bool
-	DeleteBoards bool
-
-	CreateColumns        bool
-	UpdateColumns        bool
-	DeleteColumns        bool
-	RemoveColumnsOnBoard bool
-	RenameColumns        bool
-	MoveColumns          bool
-
-	CreateTasks           bool
-	UpdateTasks           bool
-	DeleteTasks           bool
-	MoveTasks             bool
-	RenameTasks           bool
-	RemoveTasksOnColumn   bool
-	UpdateTaskDescription bool
-
-	UpdateTagsOnTask bool
-}
-
-type OrgPerms struct {
-}
-
-type BoardPerms struct {
-	Update        bool
-	Delete        bool
-	RemoveColumns bool
-	MoveColumns   bool
-	CreateColumns bool
-}
-
-type ColumnPerms struct {
-	Update          bool
-	Delete          bool
-	RemoveFromBoard bool
-	Rename          bool
-	Move            bool
-	CreateTasks     bool
-	RemoveTasks     bool
-	MoveTasks       bool
-}
-
-type TaskPerms struct {
-	Update            bool
-	Delete            bool
-	RemoveFromColumn  bool
-	Move              bool
-	Rename            bool
-	UpdateTags        bool
-	UpdateDescription bool
-}
-
-type TagPerms struct {
-	Update   bool
-	Delete   bool
-	UpdateOn bool
-}
-
-type StatusPerms struct {
-}
-
-type PriorityPerms struct {
-}
-
-type ChecklistPerms struct {
-}
-
-type AttachmentPerms struct {
-}
-
-type DatePerms struct {
-}
-
-type WorkspaceAccess struct {
-	UUID        string
-	Permissions permissions.WorkspacePerms
-
-	//TODO: roles / groups
-
-	AllBoards bool
-	Boards    []BoardAccess
-
-	AllColumns bool
-	Columns    []ColumnAccess
-
-	AllTasks bool
-	Tasks    []TaskAccess
-
-	AllTags bool
-	Tags    []TagAccess
-
-	AllOrgs bool
-	Orgs    []OrgAccess
-
-	AllStatuses bool
-	Statuses    []StatusAccess
-
-	AllPriorities bool
-	Priorities    []PriorityAccess
-
-	AllChecklists bool
-	Checklists    []ChecklistAccess
-
-	AllAttachments bool
-	Attachments    []AttachmentAccess
-
-	AllDates bool
-	Dates    []DateAccess
-}
-
-type BoardAccess struct {
-	UUID        string
-	AllColumns  bool
-	Columns     []ColumnAccess
-	Permissions BoardPerms //TODO: Override permissions for specific boards
-}
-
-type ColumnAccess struct {
-	UUID        string
-	AllTasks    bool
-	Tasks       []TaskAccess
-	Permissions ColumnPerms //TODO: Override permissions for specific columns
-}
-
-type TaskAccess struct {
-	UUID        string
-	Permissions TaskPerms //TODO: Override permissions for specific tasks
-}
-
-type TagAccess struct {
-	UUID        string
-	Permissions TagPerms //TODO: Override permissions for specific tags
-}
-
-type OrgAccess struct {
-	UUID        string
-	Permissions OrgPerms
-}
-
-type CreateAccess struct {
-	Boards bool
-	Orgs   bool
-}
-
-type StatusAccess struct {
-	UUID        string
-	Permissions StatusPerms
-}
-
-type PriorityAccess struct {
-	UUID        string
-	Permissions PriorityPerms
-}
-
-type ChecklistAccess struct {
-	UUID        string
-	Permissions ChecklistPerms
-}
-
-type AttachmentAccess struct {
-	UUID        string
-	Permissions AttachmentPerms
-}
-
-type DateAccess struct {
-	UUID        string
-	Permissions DatePerms
-}
-
-//TODO: Maybe do this with interfaces?
