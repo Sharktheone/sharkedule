@@ -16,3 +16,11 @@ func (e *EMail) GetMail() (string, error) {
 func (e *EMail) SetMail(mail string) {
 	e.mail = mail
 }
+
+func (e *EMail) ClearMail() {
+	e.mail = ""
+}
+
+func (e *EMail) ToString() string {
+	return e.mail
+}
