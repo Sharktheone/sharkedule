@@ -1,4 +1,4 @@
-package access
+package workspaceaccess
 
 import (
 	"errors"
@@ -101,7 +101,7 @@ type DateAccess struct {
 	Permissions permissions.DatePerms
 }
 
-func (wa *WorkspaceAccess) board(uuid string) (*BoardAccess, error) {
+func (wa *WorkspaceAccess) Board(uuid string) (*BoardAccess, error) {
 
 	for _, b := range wa.Boards {
 		if b.UUID == uuid {
@@ -111,7 +111,7 @@ func (wa *WorkspaceAccess) board(uuid string) (*BoardAccess, error) {
 	return nil, errors.New("board not found")
 }
 
-func (wa *WorkspaceAccess) column(uuid string) (*ColumnAccess, error) {
+func (wa *WorkspaceAccess) Column(uuid string) (*ColumnAccess, error) {
 	for _, c := range wa.Columns {
 		if c.UUID == uuid {
 			return &c, nil
@@ -120,7 +120,7 @@ func (wa *WorkspaceAccess) column(uuid string) (*ColumnAccess, error) {
 	return nil, errors.New("column not found")
 }
 
-func (wa *WorkspaceAccess) task(uuid string) (*TaskAccess, error) {
+func (wa *WorkspaceAccess) Task(uuid string) (*TaskAccess, error) {
 	for _, t := range wa.Tasks {
 		if t.UUID == uuid {
 			return &t, nil
@@ -129,7 +129,7 @@ func (wa *WorkspaceAccess) task(uuid string) (*TaskAccess, error) {
 	return nil, errors.New("task not found")
 }
 
-func (wa *WorkspaceAccess) tag(uuid string) (*TagAccess, error) {
+func (wa *WorkspaceAccess) Tag(uuid string) (*TagAccess, error) {
 	for _, t := range wa.Tags {
 		if t.UUID == uuid {
 			return &t, nil
@@ -138,7 +138,7 @@ func (wa *WorkspaceAccess) tag(uuid string) (*TagAccess, error) {
 	return nil, errors.New("tag not found")
 }
 
-func (wa *WorkspaceAccess) status(uuid string) (*StatusAccess, error) {
+func (wa *WorkspaceAccess) Status(uuid string) (*StatusAccess, error) {
 	for _, s := range wa.Statuses {
 		if s.UUID == uuid {
 			return &s, nil
@@ -147,7 +147,7 @@ func (wa *WorkspaceAccess) status(uuid string) (*StatusAccess, error) {
 	return nil, errors.New("status not found")
 }
 
-func (wa *WorkspaceAccess) priority(uuid string) (*PriorityAccess, error) {
+func (wa *WorkspaceAccess) Priority(uuid string) (*PriorityAccess, error) {
 	for _, p := range wa.Priorities {
 		if p.UUID == uuid {
 			return &p, nil
@@ -156,7 +156,7 @@ func (wa *WorkspaceAccess) priority(uuid string) (*PriorityAccess, error) {
 	return nil, errors.New("priority not found")
 }
 
-func (wa *WorkspaceAccess) checklist(uuid string) (*ChecklistAccess, error) {
+func (wa *WorkspaceAccess) Checklist(uuid string) (*ChecklistAccess, error) {
 	for _, c := range wa.Checklists {
 		if c.UUID == uuid {
 			return &c, nil
@@ -165,7 +165,7 @@ func (wa *WorkspaceAccess) checklist(uuid string) (*ChecklistAccess, error) {
 	return nil, errors.New("checklist not found")
 }
 
-func (wa *WorkspaceAccess) attachment(uuid string) (*AttachmentAccess, error) {
+func (wa *WorkspaceAccess) Attachment(uuid string) (*AttachmentAccess, error) {
 	for _, a := range wa.Attachments {
 		if a.UUID == uuid {
 			return &a, nil
@@ -174,7 +174,7 @@ func (wa *WorkspaceAccess) attachment(uuid string) (*AttachmentAccess, error) {
 	return nil, errors.New("attachment not found")
 }
 
-func (wa *WorkspaceAccess) date(uuid string) (*DateAccess, error) {
+func (wa *WorkspaceAccess) Date(uuid string) (*DateAccess, error) {
 	for _, d := range wa.Dates {
 		if d.UUID == uuid {
 			return &d, nil
