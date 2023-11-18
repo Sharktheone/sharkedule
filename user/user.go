@@ -6,11 +6,11 @@ import (
 )
 
 type User struct {
-	User   types.User
+	User   *types.User
 	Access *access.Access
 }
 
-func from(user types.User) *User {
+func From(user *types.User) *User {
 	return &User{
 		User:   user,
 		Access: &access.Access{Access: user.Access},
