@@ -12,12 +12,12 @@ type Workspace struct {
 }
 
 type List struct {
-	UUID        string
-	Name        string
-	Description string
-	Cover       string
-	Archived    bool
-	Color       string
+	UUID        string `json:"uuid" yaml:"uuid" bson:"uuid"`
+	Name        string `json:"name" yaml:"name" bson:"name"`
+	Description string `json:"description" yaml:"description" bson:"description"`
+	Cover       string `json:"cover" yaml:"cover" bson:"cover"`
+	Archived    bool   `json:"archived" yaml:"archived" bson:"archived"`
+	Color       string `json:"color" yaml:"color" bson:"color"`
 }
 
 func NewWorkspace(name string) *Workspace {
