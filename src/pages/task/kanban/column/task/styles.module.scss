@@ -1,3 +1,5 @@
+@use "src/styles/colors" as colors;
+@use "src/styles/shadows" as shadows;
 
 .task {
   min-height: 3rem;
@@ -9,6 +11,11 @@
   gap: .5rem;
   border-radius: .5rem;
   transition: height 200ms ease;
+  background-color: colors.$dark-700;
+  border: 1px solid colors.$dark-500;
+
+  box-shadow: shadows.$shadow-sm;
+
 
   & > div.taskname {
     width: 100%;
@@ -55,6 +62,7 @@
     right: 0;
     top: 0;
     visibility: hidden;
+    background-color: colors.$dark-800;
 
     & > div > button {
       border: none;
