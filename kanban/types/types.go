@@ -143,26 +143,26 @@ type Environment struct {
 }
 
 type Workspace struct {
-	UUID        string
-	Name        string
-	Description string
-	Cover       string
-	Archived    bool
-	Color       string
+	UUID        string `json:"uuid"`
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+	Cover       string `json:"cover,omitempty"`
+	Archived    bool   `json:"archived,omitempty"`
+	Color       string `json:"color,omitempty"`
 
-	Members []string
+	Members []string `json:"members,omitempty"`
 
-	Tags        []*Tag
-	Tasks       []*Task
-	Columns     []*Column
-	Boards      []*Board
-	Checklists  []*Checklist
-	Priorities  []*Priority
-	Statuses    []*Status
-	Attachments []*Attachment
-	Dates       []*Date
-	Stages      []*Stage
-	Projects    []*project.Project
+	Tags        []*Tag             `json:"tags,omitempty"`
+	Tasks       []*Task            `json:"tasks,omitempty"`
+	Columns     []*Column          `json:"columns,omitempty"`
+	Boards      []*Board           `json:"boards,omitempty"`
+	Checklists  []*Checklist       `json:"checklists,omitempty"`
+	Priorities  []*Priority        `json:"priorities,omitempty"`
+	Statuses    []*Status          `json:"statuses,omitempty"`
+	Attachments []*Attachment      `json:"attachments,omitempty"`
+	Dates       []*Date            `json:"dates,omitempty"`
+	Stages      []*Stage           `json:"stages,omitempty"`
+	Projects    []*project.Project `json:"projects,omitempty"`
 
 	//All uuids here as list?
 }
@@ -180,7 +180,7 @@ type User struct {
 }
 
 type Access struct {
-	Workspaces  []workspaceaccess.WorkspaceAccess
-	Permissions permissions.UserPerms
+	Workspaces  []workspaceaccess.WorkspaceAccess `json:"workspaces"`
+	Permissions permissions.UserPerms             `json:"permissions"`
 	//...
 }
