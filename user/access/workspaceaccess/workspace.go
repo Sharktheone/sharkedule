@@ -6,40 +6,40 @@ import (
 )
 
 type WorkspaceAccess struct {
-	UUID        string
-	Permissions permissions.WorkspacePerms
+	UUID        string                     `json:"uuid"`
+	Permissions permissions.WorkspacePerms `json:"permissions"`
 
 	//TODO: roles / groups
 
-	AllBoards bool
-	Boards    []BoardAccess
+	AllBoards bool          `json:"all_boards"`
+	Boards    []BoardAccess `json:"boards"`
 
-	AllColumns bool
-	Columns    []ColumnAccess
+	AllColumns bool           `json:"all_columns"`
+	Columns    []ColumnAccess `json:"columns"`
 
-	AllTasks bool
-	Tasks    []TaskAccess
+	AllTasks bool         `json:"all_tasks"`
+	Tasks    []TaskAccess `json:"tasks"`
 
-	AllTags bool
-	Tags    []TagAccess
+	AllTags bool        `json:"all_tags"`
+	Tags    []TagAccess `json:"tags"`
 
-	AllOrgs bool
-	Orgs    []OrgAccess
+	AllOrgs bool        `json:"all_orgs"`
+	Orgs    []OrgAccess `json:"orgs"`
 
-	AllStatuses bool
-	Statuses    []StatusAccess
+	AllStatuses bool           `json:"all_statuses"`
+	Statuses    []StatusAccess `json:"statuses"`
 
-	AllPriorities bool
-	Priorities    []PriorityAccess
+	AllPriorities bool             `json:"all_priorities"`
+	Priorities    []PriorityAccess `json:"priorities"`
 
-	AllChecklists bool
-	Checklists    []ChecklistAccess
+	AllChecklists bool              `json:"all_checklists"`
+	Checklists    []ChecklistAccess `json:"checklists"`
 
-	AllAttachments bool
-	Attachments    []AttachmentAccess
+	AllAttachments bool               `json:"all_attachments"`
+	Attachments    []AttachmentAccess `json:"attachments"`
 
-	AllDates bool
-	Dates    []DateAccess
+	AllDates bool         `json:"all_dates"`
+	Dates    []DateAccess `json:"dates"`
 }
 
 type BoardAccess struct {
