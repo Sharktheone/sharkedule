@@ -1,7 +1,16 @@
+@use "src/styles/colors" as colors;
+
+.dimmed {
+color: rgb(193, 194, 197)
+}
+
 
 .boards {
   padding: 1rem;
   border-radius: .5rem;
+  background-color: colors.$dark-600;
+  max-width: 60rem;
+  margin: 2rem auto 0;
 
   & > div {
     display: flex;
@@ -20,6 +29,18 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 1rem;
+
+    & > li:not(.no-boards) {
+      background-color: colors.$dark-700;
+      border: 1px solid colors.$dark-500;
+      & > a {
+        color: colors.$dark-000;
+      }
+
+      &:hover {
+        background-color: colors.$dark-800;
+      }
+    }
 
     & > li {
       width: 100%;

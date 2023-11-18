@@ -1,7 +1,5 @@
 import {useEffect, useState} from "react"
 import {Link, useLoaderData, useNavigate} from "react-router-dom"
-import {Button, Container, Title} from "@mantine/core"
-import {useColors} from "./colors"
 import styles from "./styles.module.scss"
 import CreateNewModal from "@/pages/task/createNewModal"
 import {useDisclosure} from "@mantine/hooks"
@@ -14,8 +12,6 @@ import {NameList} from "@kanban/types"
 export default function Kanban() {
     let loaderData = useLoaderData()
     let navigate = useNavigate()
-
-    let {classes, cx} = useColors()
 
     const [nameList, setNameList] = useState(loaderData as NameList[])
 
@@ -71,13 +67,14 @@ export default function Kanban() {
     }
 
     return (
-        <Container className={`${styles.boards} ${cx(classes.colors)}`}>
+        <div className={styles.boards}>
             <div>
-                <Title>Your Boards</Title>
-                <Button variant="gradient" gradient={{from: "yellow", to: "red"}} onClick={openNewBoard}>New
-                    Board</Button>
+                <h1>Your Boards</h1>
+                <button onClick={openNewBoard}>
+                    New Board
+                </button>
             </div>
-            <CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>
+            {/*<CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>*/}
 
             <ul>
                 {
@@ -101,11 +98,11 @@ export default function Kanban() {
                             }
                         </>
                         : <li className="no-boards">
-                            <Title color="dimmed">No Boards</Title>
+                            <h1 className={styles.dimmed}>No Boards</h1>
                         </li>
                 }
 
             </ul>
-        </Container>
+        </div>
     )
 }
