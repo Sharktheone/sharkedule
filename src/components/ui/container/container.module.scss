@@ -1,0 +1,22 @@
+@use "src/styles/colors" as colors;
+
+
+.container {
+  max-width: 60rem;
+  border: 1px solid colors.$dark-500;
+  border-radius: 0.5rem;
+  background-color: colors.$dark-700;
+  padding: 1rem;
+}
+
+.container .no-border {
+  border: none;
+}
+
+.container .no-background {
+  background-color: transparent;
+}
+
+.container .no-padding {
+  padding: 0;
+}
