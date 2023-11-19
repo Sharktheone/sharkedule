@@ -1,7 +1,7 @@
 
 
 
-export default function Textarea() {
+export function Textarea() {
     return (
         <div/>
     )

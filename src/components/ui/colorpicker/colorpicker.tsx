@@ -1,6 +1,6 @@
 
 
-export default function ColorPicker() {
+export function ColorPicker() {
     return (
         <div/>
     )

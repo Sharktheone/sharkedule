@@ -1,6 +1,6 @@
 
 
-export default function Input() {
+export function Input() {
     return (
         <div/>
     )

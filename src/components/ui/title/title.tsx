@@ -1,7 +1,7 @@
 
 
 
-export default function Title() {
+export function Title() {
     return (
         <div/>
     )

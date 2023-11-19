@@ -1,6 +1,6 @@
 
 
-export default function Modal() {
+export function Modal() {
     return (
         <div/>
     )

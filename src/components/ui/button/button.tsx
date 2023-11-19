@@ -6,7 +6,7 @@ type props = {
 
 } & React.HTMLAttributes<HTMLButtonElement>
 
-export default function Button({ variant, gradient, ...props }: props) {
+export function Button({ variant, gradient, ...props }: props) {
     return (
         <button className={`${styles.button} ${variant} ${gradient ? "gradient" : ""}`} {...props}/>
     )

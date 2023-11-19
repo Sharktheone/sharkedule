@@ -1,6 +1,6 @@
 
 
-export default function Drawer() {
+export function Drawer() {
     return (
         <div/>
     )
