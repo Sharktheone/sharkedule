@@ -1,7 +1,13 @@
+import styles from "./button.module.scss"
 
+type props = {
+    variant?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark"
+    gradient?: boolean
 
-export default function Button() {
+} & React.HTMLAttributes<HTMLButtonElement>
+
+export default function Button({ variant, gradient, ...props }: props) {
     return (
-        <div/>
+        <button className={`${styles.button} ${variant} ${gradient ? "gradient" : ""}`} {...props}/>
     )
 }
