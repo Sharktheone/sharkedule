@@ -7,8 +7,6 @@ import (
 
 type Workspace struct {
 	*types.Workspace
-
-	//All uuids here as list?
 }
 
 type List struct {
