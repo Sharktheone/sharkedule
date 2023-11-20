@@ -1,5 +1,4 @@
 import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
-import {useColors} from "@kanban/column/colors"
 import Task from "@/pages/task/kanban/column/task/task"
 import {Draggable, Droppable} from "@hello-pangea/dnd"
 import {useContext, useMemo} from "react"
@@ -17,7 +16,6 @@ type ColumnProps = {
 }
 
 export default function Column({column, ghost, boardUUID}: ColumnProps) {
-    const {classes, cx} = useColors()
     const {environment, setEnvironment} = useContext(EnvironmentContext)
     const h = new handlers(column, boardUUID, setEnvironment, environment, ghost)
 
@@ -49,8 +47,8 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                     <Droppable type="task" droppableId={column} direction="vertical">
                         {(provided) => (
                             <div className={styles.colDrop} {...provided.droppableProps} ref={provided.innerRef}>
-                                <div className={`${cx(classes.column)} ${styles.column}`}>
-                                    <Title align="left" className={cx(classes.title)} order={3}>
+                                <div className={styles.column}>
+                                    <h3 className={styles.title}> {/*TODO: this initially was a mantine Title, so look if a h3 makes sense here*/}
                                         <div>
                                             <span onClick={() => h.editText()}
                                                   contentEditable={h.editable} // TODO: dont use contentEditable
@@ -61,7 +59,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                                 <IconTrash/>
                                             </button>
                                         </div>
-                                    </Title>
+                                    </h3>
                                     <div ref={h.tasksRef}>
                                         {getColumn().tasks?.map((task, index) => (
                                             <Draggable key={task} draggableId={task} index={index}>
@@ -85,7 +83,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                             </Draggable>
                                         ))}
                                         {h.ghostElement ?
-                                            <div className={`${cx(classes.ghost)} ${styles.ghost}`}
+                                            <div className={styles.ghost}
                                                  style={{
                                                      height: h.ghostElement.height,
                                                      top: h.ghostElement.offsetTop
@@ -105,7 +103,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                                               h.addTask()
                                                           }
                                                       }}
-                                                      className={`${cx(classes.add)} ${styles.add}`}
+                                                      className={styles.add}
                                                       placeholder="Task name..."/>
                                         </>
 

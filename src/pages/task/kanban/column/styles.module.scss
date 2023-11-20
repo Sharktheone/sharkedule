@@ -1,3 +1,6 @@
+@use "src/styles/colors" as colors;
+@use "src/styles/shadows" as shadows;
+
 
 .dragging {
   opacity: 0.8;
@@ -13,7 +16,12 @@
 }
 
 .column {
+  background-color: colors.$dark-600;
   min-width: 24rem;
+  padding: 1rem;
+  border-radius: .5rem;
+  border: 1px solid colors.$dark-500;
+  box-shadow: shadows.$shadow-md;
 
   & > h3 > div {
     height: 2.5rem;
@@ -98,12 +106,22 @@
   & > div > textarea {
     min-height: 6rem;
     border-radius: .5rem;
+    background-color: colors.$dark-700;
+    border: 1px solid colors.$dark-500;
+    box-shadow: shadows.$shadow-md;
   }
+  box-shadow: shadows.$shadow-md;
+}
+
+.title {
+  margin-bottom: 1.5rem;
 }
 
 .ghost {
   position: absolute;
   width: 100%;
   border-radius: .5rem;
+  border: 1px solid colors.$dark-500;
   background-color: rgba(0, 0, 0, .2);
+
 }
