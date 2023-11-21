@@ -1,5 +1,7 @@
+@use "src/styles/colors" as colors;
+
 .wrapper {
-  margin-top: 2rem;
+  margin-top: 2rem;;
 }
 
 .description {
@@ -8,8 +10,11 @@
   border-radius: .5rem;
   resize: vertical;
 
+  background-color: colors.$dark-600;
+  border: 1px solid colors.$dark-500;
+
   &:focus {
-    outline: 2px solid var(--outline-color);
+    outline: 2px solid colors.$blue-500;
   }
 }
 

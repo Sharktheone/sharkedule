@@ -1,3 +1,5 @@
+@use "src/styles/colors" as colors;
+
 //TODO: This whole thing looks terrible, but it works for now. I'll come back to it later.
 .contextmenu {
   position: absolute;
@@ -5,6 +7,8 @@
   width: fit-content;
   border-radius: .5rem;
   overflow: hidden;
+  background-color: colors.$dark-400;
+  border: 1px solid colors.$dark-300; //TODO: is this the real color?
 
 
   transform-origin: top;

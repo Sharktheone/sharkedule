@@ -42,7 +42,7 @@ export default function ContextMenu({x, y, open, close}: Props) {
 
     return (
         <div ref={contextMenuRef}
-             className={`${styles.contextmenu} ${cx(classes.contextMenu)} ${slide ? styles.open : ""} ${!open && visible ? styles.close : ""}`}
+             className={`${styles.contextmenu} ${slide ? styles.open : ""} ${!open && visible ? styles.close : ""}`}
              style={position()}>
             <div>
                 <button onClick={close} style={{height: "2rem", width: "3rem"}}/>

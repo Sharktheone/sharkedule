@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss"
 import React, {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
-import {useColors} from "./colors"
 import {SegmentedControl} from "@mantine/core"
 import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
@@ -26,7 +25,6 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
     const [tab, setTab] = useState("simple")
     const singleRef = useRef<HTMLButtonElement>(null)
     const rootRef = useRef<HTMLDivElement>(null)
-    const {classes, cx} = useColors()
 
     const [picker, setPicker] = useState<picker>({} as picker)
 
@@ -113,7 +111,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
 
 
     return (
-        <div ref={rootRef} className={`${styles.selector} ${cx(classes.selector)}`}>
+        <div ref={rootRef} className={styles.selector}>
             <SegmentedControl data={[
                 {label: "Simple", value: "simple"},
                 {label: "Custom", value: "custom"},
@@ -137,7 +135,7 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
                                 />
                             ))}
                         </div>
-                        <button ref={singleRef} className={`${styles.single} ${cx(classes.single)}`}
+                        <button ref={singleRef} className={styles.single}
                                 onClick={() => pickColor(singleRef.current, -1)}>
                             <IconColorPicker/>
                         </button>

@@ -1,3 +1,5 @@
+@use "src/styles/colors" as colors;
+
 .wrapper {
   overflow: hidden;
 }
@@ -7,8 +9,8 @@
   height: 100px;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 5px solid clamp(2px, var(--loader-color-primary), 2rem);
-  border-top-color: var(--loader-color-secondary);
+  border: 5px solid colors.$blue-700 + "E0";
+  border-top-color: colors.$blue-400 + "E0";
   color: transparent;
   text-align: center;
   user-select: none;

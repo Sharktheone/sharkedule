@@ -6,12 +6,11 @@ type Props = {
 }
 
 export default function Loader({size}: Props) {
-    const {cx, classes} = useColors()
     return (
         <div className={styles.wrapper} style={{
             height: size, width: size
         }}>
-            <div className={`${styles.loader} ${cx(classes.loader)}`} style={{
+            <div className={styles.loader} style={{
                 height: size, width: size, borderWidth: `calc(${size} / 6)`
             }}>
                 Loading...

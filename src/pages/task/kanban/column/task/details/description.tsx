@@ -19,8 +19,6 @@ export default function Description({uuid}: Props) {
     const [loading, setLoading] = useState(false)
     const [description, setDescription] = useDebouncedState<string>(task?.description ?? "", 1000)
 
-    const {cx, classes} = useColors()
-
     const navigate = useNavigate()
 
     if (!task) return null
@@ -60,7 +58,7 @@ export default function Description({uuid}: Props) {
     return (
         <div className={styles.wrapper}>
             <LoaderOverlay loading={loading}>
-                <textarea className={`${cx(classes.description)} ${styles.description}`}
+                <textarea className={styles.description}
                           onChange={e => setDescription(e.target.value)}>
                     {task.description}
                 </textarea>

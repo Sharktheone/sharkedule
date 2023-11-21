@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
-import {useColors} from "@/components/kanban/tags/selector/colors"
 import {useClickOutside} from "@mantine/hooks"
 import {IconCirclePlus} from "@tabler/icons-react"
 
@@ -21,8 +20,6 @@ export default function TagSelector({onChange, selected}: Props) {
 
     const [popoverRef, setPopoverRef] = useState<HTMLDivElement | null>(null)
     useClickOutside(() => setOpened(false), null, [selectedRef, popoverRef])
-
-    const {classes, cx} = useColors()
 
     useEffect(() => {
         setNewSelected(selected ?? [])
@@ -89,7 +86,7 @@ export default function TagSelector({onChange, selected}: Props) {
                     <IconCirclePlus/>
                 </button>
             </div>
-            {opened ? <div className={`${styles.availableTags} ${cx(classes.availableTags)}`}
+            {opened ? <div className={styles.availableTags}
                            ref={setPopoverRef}
                 >
                     {tags?.map((tag) => (

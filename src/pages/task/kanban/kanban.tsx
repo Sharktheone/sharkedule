@@ -107,7 +107,7 @@ export default function Kanban() {
                                     {!isAdding ?
                                         <>
                                             <button onClick={() => h.handleNewColumn()}
-                                                    className={`${cx(classes.addColumn)} ${styles.footer}`}>
+                                                    className={styles.footer}>
                                                 <IconPlus size={24}/>
                                                 <Text align="center">Add a Column</Text>
                                             </button>

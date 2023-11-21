@@ -17,7 +17,6 @@ type Props = {
 export function Menu({children, width, open, setOpen, defaultView}: Props) {
     let refs: viewRef[] = [] // We can't use state here because it would cause an infinite loop... I definitely did not spend 1.5 hours on this
     const [attachedRefs, setAttachedRefs] = useState<boolean>(false)
-    const {classes, cx} = useColors()
 
     useEffect(() => {
         if (Array.isArray(children)) {
@@ -86,7 +85,7 @@ export function Menu({children, width, open, setOpen, defaultView}: Props) {
 
     return (
         <MenuContext.Provider value={defaultView}>
-            <div className={`${cx(classes.menu)} ${styles.menu}`}>
+            <div className={styles.menu}>
                 <Children/>
             </div>
             <button onClick={change}/>
