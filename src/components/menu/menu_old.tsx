@@ -1,7 +1,6 @@
 import {MenuView} from "@/components/menu/types"
 import {useMemo, useState} from "react"
 import styles from "./styles.module.scss"
-import {useColors} from "@/components/menu/colors"
 import RenderView from "@/components/menu/RenderView"
 
 
@@ -14,8 +13,6 @@ type Props = {
 export default function Menu_old({views, defaultView}: Props) {
     const [currentView, setCurrentView] = useState<string>(defaultView)
     const [secondsToReturn, setSecondsToReturn] = useState<number>(5)
-
-    const {classes, cx} = useColors()
 
     function returnToDefault() {
         setCurrentView(defaultView)

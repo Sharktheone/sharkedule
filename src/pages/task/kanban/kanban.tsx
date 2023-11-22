@@ -5,7 +5,6 @@ import {useEffect, useMemo, useRef, useState} from "react"
 import {useLoaderData, useNavigate, useParams} from "react-router-dom"
 import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
-import {useColors} from "./colors"
 import {dragHandlers} from "@/pages/task/kanban/dragHandlers"
 import {handlers} from '@/pages/task/kanban/handlers'
 import {environment} from "@kanban/types"
@@ -22,7 +21,6 @@ export default function Kanban() {
     const newColRef = useRef<HTMLInputElement>(null)
     const boardRef = useRef<HTMLDivElement>(null)
     const [contextMenu, setContextMenu] = useState({open: false, x: 0, y: 0})
-    const {classes, cx} = useColors()
 
     const navigate = useNavigate()
 

@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
-import {useColors} from "./colors"
+
 import styles from "./styles.module.scss"
 import LoaderOverlay from "@/components/loaderOverlay/loaderOverlay"
 import {useDebouncedState} from "@mantine/hooks"

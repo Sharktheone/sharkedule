@@ -1,7 +1,6 @@
 import {createContext, Dispatch, JSX, ReactNode, SetStateAction, useContext, useEffect, useState} from "react"
 import styles from "./styles.module.scss"
 import useViewTransition, {viewRef} from "@/hooks/useViewTransition/useViewTransition"
-import {useColors} from "./colors"
 
 
 const MenuContext = createContext<string>("")

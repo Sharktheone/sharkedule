@@ -1,6 +1,5 @@
 import styles from "./styles.module.scss"
 import {CSSProperties, useEffect, useRef, useState} from "react"
-import {useColors} from "./colors"
 import {Entries} from "@kanban/contextmenu/entries"
 
 type Props = {
@@ -13,7 +12,6 @@ type Props = {
 
 
 export default function ContextMenu({x, y, open, close}: Props) {
-    const {classes, cx} = useColors()
     const contextMenuRef = useRef<HTMLDivElement>(null)
     const [visible, setVisible] = useState(open)
     const [slide, setSlide] = useState(open)

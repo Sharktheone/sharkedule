@@ -1,5 +1,4 @@
 import styles from "./styles.module.scss"
-import {useColors} from "./colors"
 
 type Props = {
     size?: string
