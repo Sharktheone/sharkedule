@@ -8,11 +8,15 @@
   user-select: none;
   width: 100%;
   background-color: colors.$dark-800;
+  transition: all 0.2s timing.$overshoot-timing;
 
   &:hover {
     scale: 1.1;
-    transition: all 0.2s timing.$overshoot-timing;
   }
+}
+
+.clicked {
+  transform: translateY(0.2rem);
 }
 
 .primary {
@@ -26,7 +30,7 @@
 }
 
 .success {
-    --_gradient: linear-gradient(45deg, colors.$green-500, colors.$green-900);
+  --_gradient: linear-gradient(45deg, colors.$green-500, colors.$green-900);
   background-color: colors.$green-800;
 }
 
@@ -36,7 +40,7 @@
 }
 
 .info {
-    --_gradient: linear-gradient(45deg, colors.$blue-500, colors.$blue-900);
+  --_gradient: linear-gradient(45deg, colors.$blue-500, colors.$blue-900);
   background-color: colors.$blue-800;
 }
 

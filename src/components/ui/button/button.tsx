@@ -1,13 +1,65 @@
 import styles from "./button.module.scss"
+import {HTMLAttributes} from "react"
 
 type props = {
     variant?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark"
+    noClickEffect?: boolean
+    noHoverEffect?: boolean
     gradient?: boolean
 
-} & React.HTMLAttributes<HTMLButtonElement>
+} & HTMLAttributes<HTMLButtonElement>
 
-export function Button({ variant, gradient, ...props }: props) {
+export function Button({variant, gradient, onClick, noClickEffect, noHoverEffect, ...props}: props) {
+
+    let vari: string
+
+    switch (variant) {
+        case "primary":
+            vari = styles.primary
+            break
+        case "secondary":
+            vari = styles.secondary
+            break
+        case "danger":
+            vari = styles.danger
+            break
+        case "success":
+            vari = styles.success
+            break
+        case "warning":
+            vari = styles.warning
+            break
+        case "info":
+            vari = styles.info
+            break
+        case "light":
+            vari = styles.light
+            break
+        case "dark":
+            vari = styles.dark
+            break
+        default:
+            vari = styles.primary
+            break
+
+    }
+
+    function onClickHandler(event: any) {
+        if (!noClickEffect) {
+            event.target.classList.add(styles.clicked)
+            setTimeout(() => {
+                event.target.classList.remove(styles.clicked)
+            }, 100)
+
+        }
+
+        if (onClick) {
+            onClick(event)
+        }
+    }
+
     return (
-        <button className={`${styles.button} ${variant} ${gradient ? "gradient" : ""}`} {...props}/>
+        <button onClick={onClickHandler}
+                className={`${styles.button} ${vari} ${gradient ? styles.gradient : ""} ${noHoverEffect ? styles.noHover : ""}`} {...props}/>
     )
 }
