@@ -2,7 +2,7 @@ import {useState} from "react"
 
 
 export default function useDoubleClick(click: () => void, doubleClick: () => void, delay = 300) {
-    const [time, setTime] = useState<NodeJS.Timeout | null>(null)
+    const [time, setTime] = useState<number | null>(null)
 
     function handleClick() {
         if (!time) {
