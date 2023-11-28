@@ -1,5 +1,27 @@
 @use "src/styles/colors" as colors;
 
+.text {
+    color: colors.$grape-000;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.5rem;
+    word-spacing: 0;
+    white-space: normal;
+    word-break: normal;
+    word-wrap: normal;
+    text-indent: 0;
+    text-shadow: none;
+    text-rendering: auto;
+    text-size-adjust: 100%;
+
+    text-overflow: "…";
+}
+
 .primary {
     --_gradient: linear-gradient(45deg, colors.$yellow-800, colors.$red-800);
     background-color: colors.$primary-800;

@@ -14,6 +14,7 @@ type props = {
 export function Text({a, s, w, c, children, italic, underline, className, ...props}: props) {
 
     let classes = className ?? ""
+    classes += " " + styles.text
 
     switch (c) {
         case "primary":
