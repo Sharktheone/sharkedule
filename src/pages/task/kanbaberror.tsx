@@ -1,6 +1,7 @@
 import {IconArrowBigLeft, IconError404, IconReload} from "@tabler/icons-react"
 import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-router-dom"
-import {Button, Stack, Text, Title, useMantineTheme} from "@mantine/core"
+import {Button, Stack, useMantineTheme} from "@mantine/core"
+import {Text} from "@/components/ui/ui"
 
 import styles from "./styles.module.scss"
 import {useEffect, useState} from "react"
@@ -72,7 +73,7 @@ export default function BoardsError() {
             case 404:
                 return (
                     <div>
-                        <Title color={theme.colors.red[4]}>Board Not Found</Title>
+                        <Text s={1} c="error">Board not found</Text> {/* TODO: Replace with Title when finished for accessibility*/}
                         <IconError404 size={"xl"}/>
                         <Navigation/>
                     </div>
@@ -80,19 +81,20 @@ export default function BoardsError() {
             case 500:
                 return (
                     <div>
-                        <Title color={theme.colors.red[4]}>Server Error</Title>
-                        <Text color={theme.colors.red[4]} size={"lg"}>Please try again later</Text>
-                        <Text color={theme.colors.red[4]}> {error.data.sorry} </Text>
+                        <Text s={1} c="error">Server Error</Text>
+                        <Text s="medium" c="error">Please try again later</Text>
+                        <Text s="medium" c="error"> {error.data.text} </Text>
                         <Navigation/>
                     </div>
                 )
             case 503:
                 return (
                     <div>
-                        <Title color={theme.colors.red[4]}>Server Error</Title>
-                        <Text color={theme.colors.red[4]} size={"lg"}>Looks like our API is down, please try again
-                            later</Text>
-                        <Text color={theme.colors.red[4]}> {error.data.sorry} </Text>
+                        <Text s={1}>Server Error</Text>
+                        <Text s="medium" c="error">
+                            Looks like our API is down, please try again later
+                        </Text>
+                        <Text s="medium" c="error"> {error.data.text} </Text>
                         <Navigation/>
                     </div>
                 )
@@ -100,16 +102,16 @@ export default function BoardsError() {
 
         return (
             <div>
-                <Title color={theme.colors.red[4]}>Error Loading Task Boards</Title>
-                <Text color={theme.colors.red[4]} size={"lg"}>{error.data.sorry}</Text>
+                <Text s={1}>Error Loading Task Boards</Text>
+                <Text s="medium" c="error">{error.data.text}</Text>
                 <Navigation/>
             </div>
         )
     }
     return (
         <div>
-            <Title color={theme.colors.red[4]}> Error Loading Task Boards</Title>
-            <Text color={theme.colors.red[4]} pb="lg" size={"lg"}>Unknown error</Text>
+            <Text c="error"> Error Loading Task Boards</Text>
+            <Text c="error" s="medium">Unknown error</Text>
             <Navigation/>
         </div>
     )

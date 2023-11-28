@@ -1,9 +1,10 @@
-export { Button } from "@/components/ui/button/button";
-export { Input } from "@/components/ui/input/input";
-export { Textarea } from "@/components/ui/textarea/textarea";
-export { Drawer } from "@/components/ui/drawer/drawer";
-export { Modal } from "@/components/ui/modal/modal";
-export { SegmentedControl } from "@/components/ui/segmentedcontrol/segmentedcontrol";
+export {Button} from "@/components/ui/button/button"
+export {Input} from "@/components/ui/input/input"
+export {Textarea} from "@/components/ui/textarea/textarea"
+export {Drawer} from "@/components/ui/drawer/drawer"
+export {Modal} from "@/components/ui/modal/modal"
+export {SegmentedControl} from "@/components/ui/segmentedcontrol/segmentedcontrol"
+export {Text} from "@/components/ui/text/text"
 
 
 // export { Select } from "@/components/ui/select/select"; TODO
