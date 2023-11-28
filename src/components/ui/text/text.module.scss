@@ -32,6 +32,10 @@
     background-color: colors.$red-800;
 }
 
+.error {
+    background-color: colors.$red-400;
+}
+
 .success {
     --_gradient: linear-gradient(45deg, colors.$green-500, colors.$green-900);
     background-color: colors.$green-800;
@@ -55,6 +59,16 @@
 .dark {
     --_gradient: linear-gradient(45deg, colors.$dark-500, colors.$dark-900);
     background-color: colors.$dark-800;
+}
+
+.gradient {
+    background-image: var(--_gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dimmed {
+    opacity: 0.5;
 }
 
 .left {

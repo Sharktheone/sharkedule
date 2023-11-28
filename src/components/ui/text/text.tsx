@@ -5,13 +5,15 @@ type props = {
     a?: "left" | "center" | "right"
     s?: "small" | "medium" | "large" | 1 | 2 | 3 | 4 | 5 | 6
     w?: "light" | "regular" | "bold"
-    c?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark"
+    c?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark" | "error"
+    dimmed?: boolean
+    gradient?: boolean
     italic?: boolean
     underline?: boolean
 } & HTMLAttributes<HTMLDivElement>
 
 
-export function Text({a, s, w, c, children, italic, underline, className, ...props}: props) {
+export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ...props}: props) {
 
     let classes = className ?? ""
     classes += " " + styles.text
@@ -105,6 +107,14 @@ export function Text({a, s, w, c, children, italic, underline, className, ...pro
 
     if (underline) {
         classes += " " + styles.underline
+    }
+
+    if (dimmed) {
+        classes += " " + styles.dimmed
+    }
+
+    if (gradient) {
+        classes += " " + styles.gradient
     }
 
     return (
