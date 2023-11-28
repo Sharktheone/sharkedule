@@ -6,6 +6,7 @@ export default function useDoubleClick(click: () => void, doubleClick: () => voi
 
     function handleClick() {
         if (!time) {
+            //@ts-ignore
             setTime(setTimeout(() => {
                 click()
                 setTime(null)

@@ -27,6 +27,7 @@ export default function BoardsError() {
 
     useEffect(() => {
         if (document.visibilityState === "visible") {
+            //@ts-ignore
             intervalID = setInterval(() => {
                 tryAgain()
             }, 10000) || intervalID

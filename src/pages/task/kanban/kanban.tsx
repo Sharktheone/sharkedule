@@ -6,7 +6,7 @@ import {useLoaderData, useNavigate, useParams} from "react-router-dom"
 import {IconPlus} from "@tabler/icons-react"
 import styles from "./styles.module.scss"
 import {dragHandlers} from "@/pages/task/kanban/dragHandlers"
-import {handlers} from '@/pages/task/kanban/handlers'
+import {handlers} from '@kanban/handlers'
 import {environment} from "@kanban/types"
 import {EnvironmentProvider} from "@kanban/environment"
 import Tstyles from "@kanban/column/task/styles.module.scss"
