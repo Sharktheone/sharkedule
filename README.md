@@ -17,7 +17,7 @@ for very little commits.
 
 ## Features and Roadmap
 
-- [ ] Workspaces
+- [ ] Workspaces (already implemented in the API I only need to fix the frontend and implement it there)
 - [ ] Kanban boards
     - [x] Create kanban boards
     - [x] Create columns
