@@ -5,6 +5,7 @@ import {Text} from "@/components/ui/ui"
 
 import styles from "./styles.module.scss"
 import {useEffect, useState} from "react"
+import {Title} from "@/components/ui/title/title"
 
 export default function BoardsError() {
     const error = useRouteError()
@@ -73,7 +74,7 @@ export default function BoardsError() {
             case 404:
                 return (
                     <div>
-                        <Text s={1} c="error">Board not found</Text> {/* TODO: Replace with Title when finished for accessibility*/}
+                        <Title c="error">Board not found</Title>
                         <IconError404 size={"xl"}/>
                         <Navigation/>
                     </div>
@@ -81,7 +82,7 @@ export default function BoardsError() {
             case 500:
                 return (
                     <div>
-                        <Text s={1} c="error">Server Error</Text>
+                        <Title c="error">Server Error</Title>
                         <Text s="medium" c="error">Please try again later</Text>
                         <Text s="medium" c="error"> {error.data.text} </Text>
                         <Navigation/>
@@ -90,7 +91,7 @@ export default function BoardsError() {
             case 503:
                 return (
                     <div>
-                        <Text s={1}>Server Error</Text>
+                        <Title>Server Error</Title>
                         <Text s="medium" c="error">
                             Looks like our API is down, please try again later
                         </Text>
@@ -102,7 +103,7 @@ export default function BoardsError() {
 
         return (
             <div>
-                <Text s={1}>Error Loading Task Boards</Text>
+                <Title s={1}>Error Loading Task Boards</Title>
                 <Text s="medium" c="error">{error.data.text}</Text>
                 <Navigation/>
             </div>
@@ -110,7 +111,7 @@ export default function BoardsError() {
     }
     return (
         <div>
-            <Text c="error"> Error Loading Task Boards</Text>
+            <Title c="error"> Error Loading Task Boards</Title>
             <Text c="error" s="medium">Unknown error</Text>
             <Navigation/>
         </div>
