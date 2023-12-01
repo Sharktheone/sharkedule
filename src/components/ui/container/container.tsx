@@ -1,4 +1,3 @@
-
 type props = {
     noBorder?: boolean
     noBackground?: boolean

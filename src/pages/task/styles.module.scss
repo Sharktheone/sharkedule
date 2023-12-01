@@ -1,7 +1,7 @@
 @use "src/styles/colors" as colors;
 
 .dimmed {
-color: rgb(193, 194, 197)
+  color: rgb(193, 194, 197)
 }
 
 
@@ -33,6 +33,7 @@ color: rgb(193, 194, 197)
     & > li:not(.no-boards) {
       background-color: colors.$dark-700;
       border: 1px solid colors.$dark-500;
+
       & > a {
         color: colors.$dark-000;
       }

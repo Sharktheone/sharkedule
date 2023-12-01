@@ -1,4 +1,3 @@
-
 type Props = {
     show?: boolean
     text: string

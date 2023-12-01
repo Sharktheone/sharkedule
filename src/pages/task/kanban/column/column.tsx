@@ -1,4 +1,4 @@
-import {Button, CloseButton, Text, Textarea, Title} from "@mantine/core"
+import {Button, CloseButton, Text, Textarea} from "@mantine/core"
 import Task from "@/pages/task/kanban/column/task/task"
 import {Draggable, Droppable} from "@hello-pangea/dnd"
 import {useContext, useMemo} from "react"
