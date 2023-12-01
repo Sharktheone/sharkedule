@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from "axios"
 
 const MODE = "dev"
-const DEV_URL = "http://localhost:8080/api"
+const DEV_URL = "http://localhost:5639/api"
 
 const PROD_URL = window.location.host + "/api"
 
