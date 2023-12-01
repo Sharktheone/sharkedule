@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react"
 import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import styles from "./styles.module.scss"
-import CreateNewModal from "@/pages/task/createNewModal"
 import {useDisclosure} from "@mantine/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"

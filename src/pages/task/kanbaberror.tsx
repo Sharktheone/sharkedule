@@ -1,6 +1,6 @@
 import {IconArrowBigLeft, IconError404, IconReload} from "@tabler/icons-react"
 import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-router-dom"
-import {Button, Stack, useMantineTheme} from "@mantine/core"
+import {Button, Stack} from "@mantine/core"
 import {Text} from "@/components/ui/ui"
 
 import styles from "./styles.module.scss"
@@ -10,7 +10,6 @@ import {Title} from "@/components/ui/title/title"
 export default function BoardsError() {
     const error = useRouteError()
     const navigate = useNavigate()
-    const theme = useMantineTheme()
     const [retry, setRetry] = useState(false)
 
     let intervalID: number
