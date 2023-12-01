@@ -1,11 +1,11 @@
 
 type Props = {
     show?: boolean
-    text?: string
+    text: string
     position?: "top" | "bottom" | "left" | "right"
 }
 
-export default function Tooltip() {
+export default function Tooltip({show, text, position}: Props) {
     return (
         <div>
             <h1>Tooltip</h1>

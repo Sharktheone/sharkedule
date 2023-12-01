@@ -1,7 +1,8 @@
 import {HTMLAttributes} from "react"
+import Tooltip from "@/components/tooltip/tooltip"
 
 type Props = {
-    radius?: true | "sm" | "md" | "lg" | "xl"
+    radius?: true | "sm" | "md" | "lg" | "xl" | "full"
     tooltip?: string
     error?: string
     required?: boolean
@@ -46,14 +47,17 @@ export function Input({radius, tooltip, error, required, className, ...props}: P
 
     return (
         <>
-        <input {...props}/>
+            <input className={classes} {...props}/>
             {
                 tooltip &&
-                <span className="tooltip-text">{tooltip} - TODO</span>
+                <Tooltip text={tooltip}/>
             }
             {
                 error &&
-                <span className="error-text">{error} - TODO</span>
+                <span className="error-text">{error} - TODO
+                    {/* This text needs to be probably over the input field. */}
+                </span>
+
             }
         </>
     )
