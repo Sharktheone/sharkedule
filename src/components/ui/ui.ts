@@ -5,6 +5,8 @@ export {Drawer} from "@/components/ui/drawer/drawer"
 export {Modal} from "@/components/ui/modal/modal"
 export {SegmentedControl} from "@/components/ui/segmentedcontrol/segmentedcontrol"
 export {Text} from "@/components/ui/text/text"
+export {Title} from "@/components/ui/title/title"
+export {Tooltip} from "@/components/ui/tooltip/tooltip"
 
 
 // export { Select } from "@/components/ui/select/select"; TODO
