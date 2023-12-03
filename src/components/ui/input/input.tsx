@@ -1,5 +1,5 @@
 import {HTMLAttributes} from "react"
-import Tooltip from "@/components/tooltip/tooltip"
+import {Tooltip} from "@/components/ui/tooltip/tooltip"
 
 type Props = {
     radius?: true | "sm" | "md" | "lg" | "xl" | "full"
@@ -30,10 +30,6 @@ export function Input({radius, tooltip, error, required, className, ...props}: P
         default:
             classes += ""
             break
-    }
-
-    if (tooltip) {
-        classes += " tooltip"
     }
 
     if (error) {
