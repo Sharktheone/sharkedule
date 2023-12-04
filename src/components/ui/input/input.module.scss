@@ -1,3 +1,15 @@
+@use "../../../styles/colors.scss" as colors;
+
+
+.input {
+  border: 1px solid colors.$dark-500;
+  background-color: colors.$dark-400;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.2s ease-in-out;
+}
+
 .rounded-sm {
   border-radius: 0.25rem;
 }
@@ -12,4 +24,17 @@
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded-none {
+  border-radius: 0;
+}
+
+.error {
+  border-color: colors.$red-500;
+  color: colors.$red-500;
+}
+
+.required {
+  border-color: colors.$yellow-500; // Is yellow really the right color for this?
 }

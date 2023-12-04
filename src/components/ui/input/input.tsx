@@ -1,8 +1,9 @@
 import {HTMLAttributes} from "react"
 import {Tooltip} from "@/components/ui/tooltip/tooltip"
+import styles from "./input.module.scss"
 
 type Props = {
-    radius?: true | "sm" | "md" | "lg" | "xl" | "full"
+    radius?: false | "sm" | "md" | "lg" | "xl" | "full" | "none"
     tooltip?: string
     error?: string
     required?: boolean
@@ -13,19 +14,25 @@ export function Input({radius, tooltip, error, required, className, ...props}: P
     let classes = className ?? ""
     switch (radius) {
         case "sm":
-            classes += " rounded-sm"
+            classes += " " + styles.roundedSm
             break
         case "md":
-            classes += " rounded-md"
+            classes += " " + styles.roundedMd
             break
         case "lg":
-            classes += " rounded-lg"
+            classes += " " + styles.roundedLg
             break
         case "xl":
-            classes += " rounded-xl"
+            classes += " " + styles.roundedXl
             break
-        case true:
-            classes += " rounded"
+        case false:
+            classes += " " + styles.roundedNone
+            break
+        case "full":
+            classes += " " + styles.roundedFull
+            break
+        case "none":
+            classes += " " + styles.roundedNone
             break
         default:
             classes += ""
@@ -33,16 +40,17 @@ export function Input({radius, tooltip, error, required, className, ...props}: P
     }
 
     if (error) {
-        classes += " error"
+        classes += " " + styles.error
     }
 
     if (required) {
-        classes += " required"
+        classes += " " + styles.required
     }
 
 
     return (
         <>
+
             <input className={classes} {...props}/>
             {
                 tooltip &&
