@@ -1,4 +1,4 @@
-import {Text} from "@mantine/core"
+import {Text} from "@/components/ui/ui"
 import React, {RefObject, useContext, useRef, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
@@ -82,7 +82,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
-                        <Text align="start" onBlur={handleBlur} contentEditable={editable}
+                        <Text a="left" onBlur={handleBlur} contentEditable={editable}
                               ref={nameRef as RefObject<HTMLDivElement>}> {/*TODO: dont use contentEditable*/}
                             {t?.name as string}
                         </Text>

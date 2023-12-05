@@ -1,4 +1,4 @@
-import {HTMLAttributes} from "react"
+import {HTMLAttributes, LegacyRef} from "react"
 import styles from "./text.module.scss"
 
 type props = {
@@ -10,10 +10,11 @@ type props = {
     gradient?: boolean
     italic?: boolean
     underline?: boolean
-} & HTMLAttributes<HTMLDivElement>
+    ref?: LegacyRef<HTMLParagraphElement>
+} & HTMLAttributes<HTMLParagraphElement>
 
 
-export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ...props}: props) {
+export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ref, ...props}: props) {
 
     let classes = className ?? ""
     classes += " " + styles.text
@@ -118,6 +119,6 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
     }
 
     return (
-        <p className={classes} {...props}> {children} </p>
+        <p className={classes} {...props} ref={ref}> {children} </p>
     )
 }

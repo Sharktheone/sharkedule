@@ -1,4 +1,4 @@
-import {Button, Modal, Textarea, TextInput} from "@mantine/core"
+import {Button, Modal, Textarea, TextInput} from "@/components/ui/ui"
 import {FormEvent, useRef} from "react"
 import {notifications} from "@mantine/notifications"
 
