@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react"
 import {EnvironmentContext} from "@kanban/environment"
 import styles from "./styles.module.scss"
-import {useClickOutside} from "@mantine/hooks"
+import useClickOutside from "@/hooks/useClickOutside/useClickOutside"
 import {IconCirclePlus} from "@tabler/icons-react"
 
 type Props = {

@@ -3,7 +3,7 @@ import {EnvironmentContext} from "@kanban/environment"
 
 import styles from "./styles.module.scss"
 import LoaderOverlay from "@/components/loaderOverlay/loaderOverlay"
-import {useDebouncedState} from "@mantine/hooks"
+import useDebouncedState from "@/hooks/useDebouncedState/useDebouncedState"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
 import {notifications} from "@mantine/notifications"
