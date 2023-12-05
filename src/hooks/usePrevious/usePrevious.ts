@@ -1,7 +1,7 @@
 
 
 
-export default function usePrevious<T>(value: T): T {
+export function usePrevious<T>(value: T): T {
     //TODO
 
     return value

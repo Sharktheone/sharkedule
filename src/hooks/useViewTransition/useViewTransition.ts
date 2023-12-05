@@ -8,7 +8,7 @@ export type viewRef = {
 }
 
 
-export default function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 200, transition?: string, timingFunction?: string) {
+export function useViewTransition(currentView: string, lastView: string, viewList: viewRef[], duration: number = 200, transition?: string, timingFunction?: string) {
     useEffect(() => {
         viewList.forEach(({id, element}) => {
             if (id === currentView) {

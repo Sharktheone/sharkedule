@@ -1,6 +1,6 @@
 
 
-export default function useDebouncedState<S = undefined>(initial: S, delay: number, options?: {leading?: false}) {
+export function useDebouncedState<S = undefined>(initial: S, delay: number, options?: {leading?: false}) {
 
     //TODO
 

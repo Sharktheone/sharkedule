@@ -1,7 +1,7 @@
 import {useState} from "react"
 
 
-export default function useDoubleClick(click: () => void, doubleClick: () => void, delay = 300) {
+export function useDoubleClick(click: () => void, doubleClick: () => void, delay = 300) {
     const [time, setTime] = useState<number | null>(null)
 
     function handleClick() {

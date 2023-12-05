@@ -1,7 +1,7 @@
 import {useState} from "react"
 
 
-export default function usePreviousState<S = undefined>(initial: S) {
+export function usePreviousState<S = undefined>(initial: S) {
     const [state, setState] = useState<S>(initial)
     const [previousState, setPreviousState] = useState<S | undefined>(undefined)
 

@@ -10,7 +10,7 @@ import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
 import TaskDetails from "@kanban/column/task/details/details"
-import useDoubleClick from "@/hooks/useDoubleClick/useDoubleClick"
+import {useDoubleClick} from "@/hooks/hooks"
 
 type TaskProps = {
     board: string

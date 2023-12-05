@@ -1,7 +1,7 @@
 import {Simulate} from "react-dom/test-utils"
 
 
-export default function useDisclosure(initial: boolean = false) {
+export function useDisclosure(initial: boolean = false) {
     return [initial,
         {
             open: () => {

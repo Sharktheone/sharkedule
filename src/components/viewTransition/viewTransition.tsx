@@ -1,6 +1,6 @@
 import React, {ReactElement, useRef} from "react"
-import useViewTransition, {viewRef} from "@/hooks/useViewTransition/useViewTransition"
-import usePrevious from "@/hooks/usePrevious/usePrevious"
+import {useViewTransition, viewRef} from "@/hooks/hooks"
+import {usePrevious} from "@/hooks/hooks"
 
 
 type props = {
