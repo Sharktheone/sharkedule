@@ -1,4 +1,4 @@
-import {Text} from "@/components/ui/ui"
+import {Text} from "@/components/ui"
 import React, {RefObject, useContext, useRef, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
@@ -10,7 +10,7 @@ import UpperSlot from "@kanban/column/task/slots/upper/upperSlot"
 import LowerSlot from "@kanban/column/task/slots/lower/lowerSlot"
 import {EnvironmentContext} from "@kanban/environment"
 import TaskDetails from "@kanban/column/task/details/details"
-import {useDoubleClick} from "@/hooks/hooks"
+import {useDoubleClick} from "@/hooks"
 
 type TaskProps = {
     board: string

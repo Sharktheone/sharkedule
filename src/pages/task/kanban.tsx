@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import styles from "./styles.module.scss"
-import {useDisclosure} from "@/hooks/hooks"
+import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"

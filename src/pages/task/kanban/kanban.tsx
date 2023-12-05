@@ -1,4 +1,4 @@
-import {Button, CloseButton, Input, Stack, Text, Title} from "@/components/ui/ui"
+import {Button, CloseButton, Input, Stack, Text, Title} from "@/components/ui"
 import {DragDropContext, Droppable} from "@hello-pangea/dnd"
 import Column from "@/pages/task/kanban/column/column"
 import {useEffect, useMemo, useRef, useState} from "react"

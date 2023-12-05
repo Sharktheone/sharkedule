@@ -1,5 +1,5 @@
 import React, {useRef} from "react"
-import {useDoubleClick} from "@/hooks/hooks"
+import {useDoubleClick} from "@/hooks"
 import styles from "@/components/colorselector/styles.module.scss"
 import Color from "@/types/color/color"
 import {picker} from "@/components/colorselector/picker"

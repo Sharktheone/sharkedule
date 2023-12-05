@@ -1,6 +1,6 @@
 import {ReactNode} from "react"
 import {details} from "@/components/details/types"
-import {Drawer, Modal} from "@/components/ui/ui"
+import {Drawer, Modal} from "@/components/ui"
 
 
 type Props = {

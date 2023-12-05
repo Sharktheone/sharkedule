@@ -1,5 +1,5 @@
 import styles from "@/components/colorselector/styles.module.scss"
-import {Button, ColorPicker} from "@/components/ui/ui"
+import {Button, ColorPicker} from "@/components/ui"
 import Color from "@/types/color/color"
 import React, {CSSProperties, useEffect, useRef, useState} from "react"
 

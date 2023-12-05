@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss"
 import React, {useEffect, useRef, useState} from "react"
 import Color from "@/types/color/color"
-import {SegmentedControl} from "@/components/ui/ui"
+import {SegmentedControl} from "@/components/ui"
 import {IconColorPicker} from "@tabler/icons-react"
 import control from "./control.module.scss"
 import ViewTransition from "@/components/viewTransition/viewTransition"

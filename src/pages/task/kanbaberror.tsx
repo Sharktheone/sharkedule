@@ -1,6 +1,6 @@
 import {IconArrowBigLeft, IconError404, IconReload} from "@tabler/icons-react"
 import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-router-dom"
-import {Text, Title, Button, Stack} from "@/components/ui/ui"
+import {Text, Title, Button, Stack} from "@/components/ui"
 import styles from "./styles.module.scss"
 import {useEffect, useState} from "react"
 
