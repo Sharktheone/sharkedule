@@ -1,8 +1,21 @@
+import {useRef, useState} from "react"
 
 
-export function useDebouncedState<S = undefined>(initial: S, delay: number, options?: {leading?: false}) {
+export function useDebouncedState<S = undefined>(initial: S, delay: 1000) {
 
-    //TODO
+    const [state, setState] = useState<S>(initial)
+    const timeout = useRef<number | null>(null)
 
-    return [initial, (e: any) => {}] as const
+    function debounce(val: S) {
+
+        if (timeout.current) clearTimeout(timeout.current)
+
+        //@ts-ignore
+        timeout.current = setTimeout(() => {
+            setState(val)
+            timeout.current = null
+        }, delay)
+    }
+
+    return [state, debounce] as const
 }
