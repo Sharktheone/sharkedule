@@ -12,7 +12,6 @@ export function Tooltip({show, text, position, rect, element}: Props) {
     if (!show) return null
 
 
-
     return (
         <div>
             <h1>Tooltip</h1>
