@@ -1,7 +1,7 @@
 import {useEffect, useRef} from "react"
 
 
-export function useClickOutside<T extends HTMLElement = any>(handler: () => void, events: string[] = ["mousedown", "touchstart"], nodes?: (HTMLElement | null)[]) {
+export function useClickOutside<T extends HTMLElement = any>(handler: () => void, nodes?: (HTMLElement | null)[], events: string[] = ["mousedown", "touchstart"]) {
 
     const ref = useRef<T>()
 

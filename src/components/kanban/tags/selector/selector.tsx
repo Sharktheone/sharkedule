@@ -19,7 +19,7 @@ export default function TagSelector({onChange, selected}: Props) {
     const [selectedRef, setSelectedRef] = useState<HTMLDivElement | null>(null)
 
     const [popoverRef, setPopoverRef] = useState<HTMLDivElement | null>(null)
-    useClickOutside(() => setOpened(false), null, [selectedRef, popoverRef])
+    useClickOutside(() => setOpened(false), [selectedRef, popoverRef])
 
     useEffect(() => {
         setNewSelected(selected ?? [])
