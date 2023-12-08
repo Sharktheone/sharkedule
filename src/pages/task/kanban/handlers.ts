@@ -29,6 +29,7 @@ export class handlers {
 
     cancelAddColumn() {
         this.setRemoveTimeout(
+            //@ts-ignore
             setTimeout(() => {
                 this.setIsAdding(false)
             }, 500)

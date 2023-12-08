@@ -82,8 +82,8 @@ export default function Kanban() {
         <EnvironmentProvider environment={environment} setEnvironment={setEnvironment}>
             <ColorSelector/>
             <div className={styles.board} ref={boardRef}>
-                <Title order={1} mt="1rem" align="left">{getBoard()?.name}</Title>
-                <Text mb="2rem" align="left" color="dimmed">Drag and drop tasks to reorder them</Text>
+                <Title className={styles.title} s={1} a="left">{getBoard()?.name}</Title>
+                <Text a="left" color="dimmed">Drag and drop tasks to reorder them</Text>
                 <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
                                  onDragUpdate={event => drag.Update(event)}>
                     <Droppable droppableId={uuid} type="column" direction="horizontal">
@@ -107,7 +107,7 @@ export default function Kanban() {
                                             <button onClick={() => h.handleNewColumn()}
                                                     className={styles.footer}>
                                                 <IconPlus size={24}/>
-                                                <Text align="center">Add a Column</Text>
+                                                <Text a="center">Add a Column</Text>
                                             </button>
                                         </> :
                                         <div>
@@ -122,8 +122,8 @@ export default function Kanban() {
                                                        placeholder="Column name"/>
                                                 <div className={styles.menu}>
                                                     <Button onClick={() => h.addColumn()}
-                                                            gradient={{from: "#6dd6ed", to: "#586bed"}}
-                                                            variant="gradient">Create
+                                                            gradient
+                                                            variant="primary">Create
                                                     </Button>
                                                     <CloseButton onClick={() => setIsAdding(false)}/>
                                                 </div>

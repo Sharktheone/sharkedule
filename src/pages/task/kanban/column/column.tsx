@@ -113,11 +113,11 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                         {!h.isAdding ?
                                             <button onClick={() => h.handleNewTask()}>
                                                 <IconPlus/>
-                                                <Text size="sm"> Add a Task </Text>
+                                                <Text s="medium"> Add a Task </Text>
                                             </button> :
 
                                             <div>
-                                                <Button variant="gradient" gradient={{from: "#6dd6ed", to: "#586bed"}}
+                                                <Button variant="primary" gradient
                                                         onClick={() => h.addTask()}> Create </Button>
                                                 <CloseButton onClick={() => h.closeIsAdding()}/>
                                             </div>

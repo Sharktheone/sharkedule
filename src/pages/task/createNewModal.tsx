@@ -1,6 +1,7 @@
 import {Button, Modal, Textarea, TextInput} from "@/components/ui"
 import {FormEvent, useRef} from "react"
 import {notifications} from "@mantine/notifications"
+import styles from "./styles.module.scss"
 
 type props = {
     close: () => void,
@@ -28,10 +29,10 @@ export default function CreateNewModal({opened, close, handleCreate}: props) {
 
     return (
         <Modal opened={opened} onClose={close} title="Create new Kanban Board">
-            <form onSubmit={handleSubmit}>
-                <TextInput mb="lg" ref={nameRef} withAsterisk label="Name" placeholder="Kanban Board Name" required/>
-                <Textarea mb="lg" label="Description" placeholder="Kanban Board Description"/>
-                <Button variant="gradient" gradient={{from: "green", to: "lime"}} type="submit">Create</Button>
+            <form onSubmit={handleSubmit} className={styles.createForm}>
+                <TextInput ref={nameRef} label="Name" placeholder="Kanban Board Name" required/>
+                <Textarea label="Description" placeholder="Kanban Board Description"/>
+                <Button variant="success" gradient type="submit">Create</Button>
             </form>
         </Modal>
     )

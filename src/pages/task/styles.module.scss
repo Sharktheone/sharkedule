@@ -129,3 +129,11 @@
     }
   }
 }
+
+
+.form {
+  & > textarea input {
+    margin-bottom: 1rem;
+  }
+
+}
