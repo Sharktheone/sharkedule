@@ -1,4 +1,4 @@
-import {HTMLAttributes} from "react"
+import {HTMLAttributes, LegacyRef} from "react"
 import {Tooltip} from "@/components/ui/tooltip/tooltip"
 import styles from "./input.module.scss"
 
@@ -7,9 +7,10 @@ type Props = {
     tooltip?: string
     error?: string
     required?: boolean
+    ref?: LegacyRef<HTMLInputElement>
 } & HTMLAttributes<HTMLInputElement>
 
-export function Input({radius, tooltip, error, required, className, ...props}: Props) {
+export function Input({radius, tooltip, error, required, className, ref, ...props}: Props) {
 
     let classes = className ?? ""
     switch (radius) {
@@ -51,7 +52,7 @@ export function Input({radius, tooltip, error, required, className, ...props}: P
     return (
         <>
 
-            <input className={classes} {...props}/>
+            <input ref={ref} className={classes} {...props}/>
             {
                 tooltip &&
                 <Tooltip text={tooltip}/>

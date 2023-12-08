@@ -6,10 +6,11 @@ type props = {
     noClickEffect?: boolean
     noHoverEffect?: boolean
     gradient?: boolean
+    type?: "button" | "submit" | "reset"
 
 } & HTMLAttributes<HTMLButtonElement>
 
-export function Button({variant, gradient, onClick, noClickEffect, noHoverEffect, ...props}: props) {
+export function Button({variant, gradient, onClick, noClickEffect, noHoverEffect, type, ...props}: props) {
 
     let vari: string
 
@@ -59,7 +60,7 @@ export function Button({variant, gradient, onClick, noClickEffect, noHoverEffect
     }
 
     return (
-        <button onClick={onClickHandler}
+        <button onClick={onClickHandler} type={type}
                 className={`${styles.button} ${vari} ${gradient ? styles.gradient : ""} ${noHoverEffect ? styles.noHover : ""}`} {...props}/>
     )
 }
