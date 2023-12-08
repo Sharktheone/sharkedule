@@ -7,6 +7,7 @@ export {SegmentedControl} from "@/components/ui/segmentedcontrol/segmentedcontro
 export {Text} from "@/components/ui/text/text"
 export {Title} from "@/components/ui/title/title"
 export {Tooltip} from "@/components/ui/tooltip/tooltip"
+export {TextInput} from "@/components/ui/textinput/textinput"
 
 
 // export { Select } from "@/components/ui/select/select"; TODO
