@@ -7,6 +7,7 @@ type props = {
     noHoverEffect?: boolean
     gradient?: boolean
     type?: "button" | "submit" | "reset"
+    //color?: "green" | "red" | "blue" | "yellow" | "purple" | "pink" | "orange" | "gray" | "black" | "white" //TODO
 
 } & HTMLAttributes<HTMLButtonElement>
 
