@@ -1,5 +1,5 @@
 import {logo} from "@/utils/logo"
-import {Input} from "@/components/input/input"
+import {Input} from "@/components/ui"
 import styles from "./styles.module.scss"
 import {useState} from "react"
 import {IconArrowBigRight} from "@tabler/icons-react"

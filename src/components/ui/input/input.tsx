@@ -8,6 +8,9 @@ type Props = {
     error?: string
     required?: boolean
     ref?: LegacyRef<HTMLInputElement>
+    name?: string
+    type?: "text" | "password" | "email" | "number" | "tel" | "url" | "search" | "date" | "time"
+    value?: string
 } & HTMLAttributes<HTMLInputElement>
 
 export function Input({radius, tooltip, error, required, className, ref, ...props}: Props) {
@@ -49,6 +52,7 @@ export function Input({radius, tooltip, error, required, className, ref, ...prop
     }
 
 
+    //TODO: add some fields etc
     return (
         <>
 

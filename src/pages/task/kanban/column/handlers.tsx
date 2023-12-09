@@ -187,6 +187,7 @@ export class handlers {
 
     removeIsAdding() {
         if (this.removeTimeout) clearTimeout(this.removeTimeout)
+        // @ts-ignore
         this.setRemoveTimeout(setTimeout(() => {
             this.setIsAdding(false)
         }, 500))
