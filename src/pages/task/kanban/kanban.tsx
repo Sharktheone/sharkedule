@@ -1,4 +1,4 @@
-import {Button, CloseButton, Input, Stack, Text, Title} from "@/components/ui"
+import {Button, CloseButton, Input, Text, Title} from "@/components/ui"
 import {DragDropContext, Droppable} from "@hello-pangea/dnd"
 import Column from "@/pages/task/kanban/column/column"
 import {useEffect, useMemo, useRef, useState} from "react"
@@ -111,7 +111,7 @@ export default function Kanban() {
                                             </button>
                                         </> :
                                         <div>
-                                            <Stack className={styles.add}>
+                                            <div className={styles.add}>
                                                 <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
                                                        onKeyDown={(e) => {
                                                            if (e.key === "Enter") {
@@ -127,7 +127,7 @@ export default function Kanban() {
                                                     </Button>
                                                     <CloseButton onClick={() => setIsAdding(false)}/>
                                                 </div>
-                                            </Stack>
+                                            </div>
                                         </div>
                                     }
                                 </div>

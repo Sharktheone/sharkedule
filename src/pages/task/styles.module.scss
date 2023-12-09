@@ -98,6 +98,9 @@
 .errornav {
   width: 10rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   & > button {
     width: 100%;

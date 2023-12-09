@@ -1,6 +1,6 @@
 import {IconArrowBigLeft, IconError404, IconReload} from "@tabler/icons-react"
 import {isRouteErrorResponse, Navigate, useNavigate, useRouteError} from "react-router-dom"
-import {Button, Stack, Text, Title} from "@/components/ui"
+import {Button, Text, Title} from "@/components/ui"
 import styles from "./styles.module.scss"
 import {useEffect, useState} from "react"
 
@@ -45,20 +45,20 @@ export default function BoardsError() {
 
     function Navigation() {
         return (
-            <Stack className={styles.errornav} align="center">
-                <Button gradient={{from: 'teal', to: 'blue', deg: 60}} variant="gradient" onClick={() => navigate(-1)}>
+            <div className={styles.errornav}>
+                <Button gradient variant="success" onClick={() => navigate(-1)}>
                     <IconArrowBigLeft/>
                     <div>
                         Go Back
                     </div>
                 </Button>
-                <Button gradient={{from: "teal", to: "lime", deg: 105}} variant="gradient" onClick={tryAgain}>
+                <Button gradient variant="success" onClick={tryAgain}>
                     <IconReload className={retry ? styles.rotate : undefined}/>
                     <div>
                         {retry ? "Retrying" : "Try Again"}
                     </div>
                 </Button>
-            </Stack>
+            </div>
         )
     }
 
