@@ -5,6 +5,10 @@ type Props = {
     onClose?: () => void
     title?: string
     opened?: boolean
+    overlayProps?: {
+        opacity: number
+        blur: number
+    }
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
 
