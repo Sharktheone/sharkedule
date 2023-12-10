@@ -1,12 +1,15 @@
-import {Dispatch, HTMLAttributes, SetStateAction} from "react"
+import {HTMLAttributes} from "react"
 
 type Props = {
     data: { label: string, value: string }[]
-    onChange: (value: string) => void | Dispatch<SetStateAction<string>>
+    onChange?:  (value: string) => void
     value: string
-} & HTMLAttributes<HTMLDivElement>
+    classNames?: CSSModuleClasses
+} & Omit<HTMLAttributes<HTMLDivElement>, "onChange">
 
 export function SegmentedControl({data}: Props) {
+    //TODO
+
     return (
         <div/>
     )
