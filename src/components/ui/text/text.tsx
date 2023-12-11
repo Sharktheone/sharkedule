@@ -19,47 +19,10 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
     let classes = className ?? ""
     classes += " " + styles.text
 
-    switch (c) {
-        case "primary":
-            classes += " " + styles.primary
-            break
-        case "secondary":
-            classes += " " + styles.secondary
-            break
-        case "danger":
-            classes += " " + styles.danger
-            break
-        case "success":
-            classes += " " + styles.success
-            break
-        case "warning":
-            classes += " " + styles.warning
-            break
-        case "info":
-            classes += " " + styles.info
-            break
-        case "light":
-            classes += " " + styles.light
-            break
-        case "dark":
-            classes += " " + styles.dark
-            break
-        default:
-            classes += ""
-            break
-    }
+    if (c) classes += " " + styles[c]
 
-    switch (a) {
-        case "left":
-            classes += " " + styles.left
-            break
-        case "right":
-            classes += " " + styles.right
-            break
-        default:
-            classes += " " + styles.center
-            break
-    }
+    classes += " " + styles[a ?? "center"]
+
     switch (s) {
         case "small":
             classes += " " + styles.small
@@ -90,33 +53,15 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
             break
     }
 
-    switch (w) {
-        case "bold":
-            classes += " " + styles.bold
-            break
-        case "light":
-            classes += " " + styles.light
-            break
-        default:
-            classes += " " + styles.regular
-            break
-    }
+    classes += " " + styles[w ?? "regular"]
 
-    if (italic) {
-        classes += " " + styles.italic
-    }
+    if (italic) classes += " " + styles.italic
 
-    if (underline) {
-        classes += " " + styles.underline
-    }
+    if (underline) classes += " " + styles.underline
 
-    if (dimmed) {
-        classes += " " + styles.dimmed
-    }
+    if (dimmed) classes += " " + styles.dimmed
 
-    if (gradient) {
-        classes += " " + styles.gradient
-    }
+    if (gradient) classes += " " + styles.gradient
 
     return (
         <p className={classes} {...props} ref={ref}> {children} </p>
