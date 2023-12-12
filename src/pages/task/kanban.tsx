@@ -6,6 +6,7 @@ import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"
 import {NameList} from "@kanban/types"
+import {Button} from "@/components/ui"
 
 
 export default function Kanban() {
@@ -69,9 +70,9 @@ export default function Kanban() {
         <div className={styles.boards}>
             <div>
                 <h1>Your Boards</h1>
-                <button onClick={openNewBoard}>
+                <Button gradient onClick={openNewBoard}>
                     New Board
-                </button>
+                </Button>
             </div>
             {/*<CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>*/}
 

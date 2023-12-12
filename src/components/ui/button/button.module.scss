@@ -6,9 +6,11 @@
   cursor: pointer;
   appearance: none;
   user-select: none;
-  width: 100%;
+  width: auto;
   background-color: colors.$dark-800;
   transition: all 0.2s timing.$overshoot-timing;
+  padding: 0.5rem 1rem;
+  border: none;
 
   &:hover {
     scale: 1.1;
@@ -16,41 +18,41 @@
 }
 
 .clicked {
-  transform: translateY(0.2rem);
+  transform: translateY(2px);
 }
 
 .primary {
-  --_gradient: linear-gradient(45deg, colors.$yellow-800, colors.$red-800);
+  --_gradient: linear-gradient(45deg, #{colors.$yellow-800}, #{colors.$red-800});
   background-color: colors.$primary-800;
 }
 
 .danger {
-  --_gradient: linear-gradient(45deg, colors.$red-500, colors.$red-900);
+  --_gradient: linear-gradient(45deg, #{colors.$red-500}, #{colors.$red-900});
   background-color: colors.$red-800;
 }
 
 .success {
-  --_gradient: linear-gradient(45deg, colors.$green-500, colors.$green-900);
+  --_gradient: linear-gradient(45deg, #{colors.$green-500}, #{colors.$green-900});
   background-color: colors.$green-800;
 }
 
 .warning {
-  --_gradient: linear-gradient(45deg, colors.$yellow-500, colors.$yellow-900);
+  --_gradient: linear-gradient(45deg, #{colors.$yellow-500}, #{colors.$yellow-900});
   background-color: colors.$yellow-800;
 }
 
 .info {
-  --_gradient: linear-gradient(45deg, colors.$blue-500, colors.$blue-900);
+  --_gradient: linear-gradient(45deg, #{colors.$blue-500}, #{colors.$blue-900});
   background-color: colors.$blue-800;
 }
 
 .light {
-  --_gradient: linear-gradient(45deg, colors.$gray-500, colors.$gray-900);
+  --_gradient: linear-gradient(45deg, #{colors.$gray-500}, #{colors.$gray-900});
   background-color: colors.$gray-800;
 }
 
 .dark {
-  --_gradient: linear-gradient(45deg, colors.$dark-500, colors.$dark-900);
+  --_gradient: linear-gradient(45deg, #{colors.$dark-500}, #{colors.$dark-900});
   background-color: colors.$dark-800;
 }
 
