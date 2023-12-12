@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 export default function Home() {
     return (
         <div>
-            <Link to="/board">Tasks</Link>
+            <Link to="/dashboard">Tasks</Link>
         </div>
     )
 }

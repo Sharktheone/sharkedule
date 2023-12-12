@@ -14,9 +14,9 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home/>,
     },
-    {
-        path: "/dashboard",
-    },
+    // {
+    //     path: "/dashboard",
+    // },
     {
         path: "/login",
         element: <Login/>,
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         path: "/register",
     },
     {
-        path: "/board",
+        path: "/dashboard",
         element: <Kanban/>,
         loader: boardsLoader,
         errorElement: <KanbanError/>,

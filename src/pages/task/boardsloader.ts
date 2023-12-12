@@ -1,13 +1,13 @@
 import {api} from "@/api/api"
-import {NameList} from "@kanban/types"
+import {NameList, WorkspaceList} from "@kanban/types"
 
 
 export default function boardsLoader() {
-    return api.get("/workspace").then((res) => {
+    return api.get("/workspace/info").then((res) => {
         if (res.data == null) {
-            return [] as NameList[]
+            return [] as WorkspaceList[]
         }
-        return res.data as NameList[]
+        return res.data as WorkspaceList[]
     })
 
 }

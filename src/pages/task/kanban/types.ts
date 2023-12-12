@@ -154,6 +154,13 @@ export type DependentTasks = {
     }
 }
 
+export type WorkspaceList = {
+    name: string
+    uuid: string
+    description: string
+    boards: NameList[]
+}
+
 export type NameList = {
     name: string
     uuid: string

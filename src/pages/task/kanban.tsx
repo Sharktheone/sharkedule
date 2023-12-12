@@ -5,7 +5,7 @@ import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"
-import {NameList} from "@kanban/types"
+import {WorkspaceList} from "@kanban/types"
 import {Button} from "@/components/ui"
 
 
@@ -13,10 +13,13 @@ export default function Kanban() {
     let loaderData = useLoaderData()
     let navigate = useNavigate()
 
-    const [nameList, setNameList] = useState(loaderData as NameList[])
+    const [workspaces, setWorkspaces] = useState(loaderData as WorkspaceList[])
 
     useEffect(() => {
-        setNameList(loaderData as NameList[])
+
+        console.log(loaderData)
+
+        setWorkspaces(loaderData as WorkspaceList[])
     }, [loaderData])
 
     const [newOpened, {open, close},] = useDisclosure(false)
@@ -48,7 +51,7 @@ export default function Kanban() {
     }
 
     function deleteBoard() {
-        api.delete(`/kanban/board/${nameList[0].uuid}/delete`).then(
+        api.delete(`/kanban/board/${workspaces[0].uuid}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({
@@ -78,24 +81,39 @@ export default function Kanban() {
 
             <ul>
                 {
-                    nameList.length > 0 ?
+                    workspaces.length > 0 ?
                         <>
-                            {nameList.map((board) => (
-                                <li>
-                                    <Link to={board.uuid}>
-                                        {board.name}
-                                    </Link>
-                                    <div>
-                                        <div>
-                                            <button onClick={deleteBoard}>
-                                                <IconTrash/>
-                                            </button>
-                                        </div>
-                                    </div>
+                            {workspaces.map((workspace) => (
+                                <li key={workspace.uuid}>
+                                    <h1>{workspace.name}</h1>
+                                    <ul>
+                                        {
+                                            workspace?.boards?.length === 0 ?
+                                                <li className="no-boards">
+                                                    <h1 className={styles.dimmed}>No Boards</h1>
+                                                </li>
+                                                : <>
+                                                    {workspace.boards.map((board) => (
+                                                        <li key={board.uuid}>
+                                                            <Link to={`${workspace.uuid}/${board.uuid}`}>
+                                                                {board.name}
+                                                            </Link>
+                                                            <div>
+                                                                <div>
+                                                                    <button onClick={deleteBoard}>
+                                                                        <IconTrash/>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
 
+                                                        </li>
+                                                    ))}
+                                                </>
+                                        }
+
+                                    </ul>
                                 </li>
-                            ))
-                            }
+                            ))}
                         </>
                         : <li className="no-boards">
                             <h1 className={styles.dimmed}>No Boards</h1>
