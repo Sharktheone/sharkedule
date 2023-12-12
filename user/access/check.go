@@ -879,6 +879,55 @@ func (a *Access) ListWorkspaces() ([]*workspace.List, error) {
 	return list, nil
 }
 
+func (a *Access) WorkspaceInfo() ([]*workspace.Info, error) {
+	var info []*workspace.Info
+
+	for _, w := range a.Workspaces {
+		var ws, err = db.DB.GetWorkspace(w.UUID) // we don't need to check for permissions, because we already have them => saves time
+		if err != nil {
+			return nil, err //TODO: this could be problematic, because when we haven't synced the database and so maybe not removed the workspace from the user but from the database
+		}
+
+		var boards []*namelist.NameList
+		if w.AllBoards {
+			var b, err = db.DB.GetAllBoardNames(w.UUID)
+			if err != nil {
+				return nil, err
+			}
+			boards = b
+		} else {
+			var brds []string
+			for _, b := range w.Boards {
+				brds = append(brds, b.UUID)
+			}
+			var b, err = db.DB.GetBoardNames(w.UUID, brds)
+			if err != nil {
+				return nil, err
+			}
+			boards = b
+
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		info = append(info, &workspace.Info{
+			List: &workspace.List{
+				UUID:        ws.UUID,
+				Name:        ws.Name,
+				Description: ws.Description,
+				Cover:       ws.Cover,
+				Archived:    ws.Archived,
+				Color:       ws.Color,
+			},
+			Boards: boards,
+		})
+	}
+
+	return info, nil
+
+}
+
 //GetUser(uuid string) (*types.Member, error) TODO
 
 func (a *Access) workspace(uuid string) (*workspaceaccess.WorkspaceAccess, error) {
