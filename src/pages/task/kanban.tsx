@@ -7,6 +7,7 @@ import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
 import {Button} from "@/components/ui"
+import CreateNewModal from "@/pages/task/createNewModal"
 
 
 export default function Kanban() {
@@ -69,57 +70,74 @@ export default function Kanban() {
         })
     }
 
+    function Workspaces() {
+
+        if (!workspaces) return null
+        if (workspaces.length === 0) return (
+            <ul className={styles.workspaces}>
+                <li className={styles.noWorkspaces}>
+                    <h1 className={styles.dimmed}>No Boards</h1>
+                </li>
+            </ul>
+        )
+
+        return (
+            <ul className={styles.workspaces}>
+                {workspaces.map((workspace) => (
+                    <li key={workspace.uuid}>
+                        <h1>{workspace.name}</h1>
+                        <Boards workspace={workspace}/>
+                    </li>
+                ))}
+            </ul>
+        )
+    }
+
+    function Boards({workspace}: { workspace: WorkspaceList }) {
+        if (!workspace) return null
+        if (!workspace.boards) return null
+
+        if (workspace.boards.length === 0) return (
+            <ul className={styles.boards}>
+                <li className={styles.noBoards}>
+                    <h1 className={styles.dimmed}>No Boards</h1>
+                </li>
+            </ul>
+        )
+
+        return (
+            <ul className={styles.boards}>
+                {workspace.boards.map((board) => (
+                    <li key={board.uuid} className={styles.board}>
+                        <Link to={`${workspace.uuid}/${board.uuid}`}>
+                            {board.name}
+                        </Link>
+                        <div>
+                            <div>
+                                <button onClick={deleteBoard}>
+                                    <IconTrash/>
+                                </button>
+                            </div>
+                        </div>
+
+                    </li>
+                ))}
+            </ul>
+        )
+    }
+
     return (
-        <div className={styles.boards}>
-            <div>
+        <div className={styles.dashboard}>
+            <div className={styles.boardsHeader}>
                 <h1>Your Boards</h1>
                 <Button gradient onClick={openNewBoard}>
                     New Board
                 </Button>
             </div>
-            {/*<CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>*/}
+            <CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>
 
-            <ul>
-                {
-                    workspaces.length > 0 ?
-                        <>
-                            {workspaces.map((workspace) => (
-                                <li key={workspace.uuid}>
-                                    <h1>{workspace.name}</h1>
-                                    <ul>
-                                        {
-                                            workspace?.boards?.length === 0 ?
-                                                <li className="no-boards">
-                                                    <h1 className={styles.dimmed}>No Boards</h1>
-                                                </li>
-                                                : <>
-                                                    {workspace.boards.map((board) => (
-                                                        <li key={board.uuid}>
-                                                            <Link to={`${workspace.uuid}/${board.uuid}`}>
-                                                                {board.name}
-                                                            </Link>
-                                                            <div>
-                                                                <div>
-                                                                    <button onClick={deleteBoard}>
-                                                                        <IconTrash/>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-
-                                                        </li>
-                                                    ))}
-                                                </>
-                                        }
-
-                                    </ul>
-                                </li>
-                            ))}
-                        </>
-                        : <li className="no-boards">
-                            <h1 className={styles.dimmed}>No Boards</h1>
-                        </li>
-                }
-
+            <ul className={styles.workspaces}>
+                <Workspaces/>
             </ul>
         </div>
     )
