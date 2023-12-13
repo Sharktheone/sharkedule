@@ -16,6 +16,6 @@ export function Modal({show, onClose, title, opened, ...props}: Props) {
 
     //TODO: Render this in a portal
     return (
-        <div {...props}/>
+        <div/>
     )
 }
