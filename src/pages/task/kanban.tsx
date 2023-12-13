@@ -52,6 +52,7 @@ export default function Kanban() {
     }
 
     function deleteBoard() {
+        //TODO: this is not correct. We need a param for the board uuid
         api.delete(`/kanban/board/${workspaces[0].uuid}/delete`).then(
             (res) => {
                 if (res.status > 300) {
@@ -112,17 +113,22 @@ export default function Kanban() {
                         <Link to={`${workspace.uuid}/${board.uuid}`}>
                             {board.name}
                         </Link>
-                        <div>
-                            <div>
-                                <button onClick={deleteBoard}>
-                                    <IconTrash/>
-                                </button>
-                            </div>
-                        </div>
-
+                        <HoverMenu uuid={board.uuid}/>
                     </li>
                 ))}
             </ul>
+        )
+    }
+
+    function HoverMenu({uuid}: { uuid: string}) {
+        return (
+            <div className={styles.hovermenu}>
+                <div>
+                    <button onClick={() => deleteBoard(uuid)}>
+                        <IconTrash/>
+                    </button>
+                </div>
+            </div>
         )
     }
 
