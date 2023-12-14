@@ -5,7 +5,7 @@ type props = {
     a?: "left" | "center" | "right"
     s?: "small" | "medium" | "large" | 1 | 2 | 3 | 4 | 5 | 6
     w?: "light" | "regular" | "bold"
-    c?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark" | "error"
+    c?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "white" | "dark" | "error"
     dimmed?: boolean
     gradient?: boolean
     italic?: boolean

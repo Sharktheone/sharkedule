@@ -29,36 +29,36 @@
 
 .danger {
   --_gradient: linear-gradient(45deg, #{colors.$red-500}, #{colors.$red-900});
-  background-color: colors.$red-800;
+  color: colors.$red-800;
 }
 
 .error {
-  background-color: colors.$red-400;
+  color: colors.$red-400;
 }
 
 .success {
   --_gradient: linear-gradient(45deg, #{colors.$green-500}, #{colors.$green-900});
-  background-color: colors.$green-800;
+  color: colors.$green-800;
 }
 
 .warning {
   --_gradient: linear-gradient(45deg, #{colors.$yellow-500}, #{colors.$yellow-900});
-  background-color: colors.$yellow-800;
+  color: colors.$yellow-800;
 }
 
 .info {
   --_gradient: linear-gradient(45deg, #{colors.$blue-500}, #{colors.$blue-900});
-  background-color: colors.$blue-800;
+  color: colors.$blue-800;
 }
 
-.light {
+.white {
   --_gradient: linear-gradient(45deg, #{colors.$gray-500}, #{colors.$gray-900});
-  background-color: colors.$gray-800;
+  color: colors.$gray-400;
 }
 
 .dark {
   --_gradient: linear-gradient(45deg, #{colors.$dark-500}, #{colors.$dark-900});
-  background-color: colors.$dark-800;
+  color: colors.$dark-800;
 }
 
 .gradient {
