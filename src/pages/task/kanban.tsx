@@ -6,7 +6,7 @@ import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
 import {IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
-import {Button} from "@/components/ui"
+import {Button, Text} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
 
 
@@ -51,9 +51,8 @@ export default function Kanban() {
         })
     }
 
-    function deleteBoard() {
-        //TODO: this is not correct. We need a param for the board uuid
-        api.delete(`/kanban/board/${workspaces[0].uuid}/delete`).then(
+    function deleteBoard(workspace: string, board: string) {
+        api.delete(`/kanban/board/${workspace}/${board}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({
@@ -71,13 +70,31 @@ export default function Kanban() {
         })
     }
 
-    function Workspaces() {
+    function deleteWorkspace(workspace: string) {
+        api.delete(`/kanban/workspace/${workspace}/delete`).then(
+            (res) => {
+                if (res.status > 300) {
+                    notifications.show({
+                        title: "Error",
+                        message: res.data.message ?? "Unknown Error",
+                        color: "red",
+                        icon: <IconX/>
+                    })
+                } else {
+                    notifications.show({title: "Success", message: "Deleted Workspace", color: "green"})
+                    navigate("")
+                }
+            }).catch(e => {
+            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+        })
+    }
 
+    function Workspaces() {
         if (!workspaces) return null
         if (workspaces.length === 0) return (
             <ul className={styles.workspaces}>
                 <li className={styles.noWorkspaces}>
-                    <h1 className={styles.dimmed}>No Boards</h1>
+                    <Text s={2} dimmed>No Boards</Text>
                 </li>
             </ul>
         )
@@ -85,9 +102,19 @@ export default function Kanban() {
         return (
             <ul className={styles.workspaces}>
                 {workspaces.map((workspace) => (
-                    <li key={workspace.uuid}>
-                        <h1>{workspace.name}</h1>
+                    <li className={styles.workspace} key={workspace.uuid}> {/* Make workspaces lists collapsable */}
+                        <div>
+                            <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
+                            <div className={styles.hovermenu}> {/*TODO: don't use a hovermenu but a button which opens a list of options*/}
+                                <div>
+                                    <button onClick={() => deleteWorkspace(workspace.uuid)}>
+                                        <IconTrash/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         <Boards workspace={workspace}/>
+
                     </li>
                 ))}
             </ul>
@@ -113,22 +140,16 @@ export default function Kanban() {
                         <Link to={`${workspace.uuid}/${board.uuid}`}>
                             {board.name}
                         </Link>
-                        <HoverMenu uuid={board.uuid}/>
+                        <div className={styles.hovermenu}>
+                            <div>
+                                <button onClick={() => deleteBoard(workspace.uuid, board.uuid)}>
+                                    <IconTrash/>
+                                </button>
+                            </div>
+                        </div>
                     </li>
                 ))}
             </ul>
-        )
-    }
-
-    function HoverMenu({uuid}: { uuid: string}) {
-        return (
-            <div className={styles.hovermenu}>
-                <div>
-                    <button onClick={() => deleteBoard(uuid)}>
-                        <IconTrash/>
-                    </button>
-                </div>
-            </div>
         )
     }
 
@@ -142,9 +163,7 @@ export default function Kanban() {
             </div>
             <CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>
 
-            <ul className={styles.workspaces}>
-                <Workspaces/>
-            </ul>
+            <Workspaces/>
         </div>
     )
 }

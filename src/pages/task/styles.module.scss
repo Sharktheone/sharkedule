@@ -60,6 +60,29 @@
 }
 
 
+.workspaces {
+  list-style: none;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.workspace {
+  & > div {
+    position: relative;
+
+    & > p {
+      margin: 0 0 0 1rem;
+    }
+
+    &:hover > .hovermenu {
+      display: block;
+    }
+  }
+}
+
 .board {
   background-color: colors.$dark-700;
   border: 1px solid colors.$dark-500;
@@ -70,8 +93,9 @@
 
   &:hover {
     background-color: colors.$dark-800;
+
     & > .hovermenu {
-        display: block;
+      display: block;
     }
   }
 
