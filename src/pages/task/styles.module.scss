@@ -1,4 +1,5 @@
 @use "src/styles/colors" as colors;
+@use "src/styles/shadows" as shadows;
 
 .dimmed {
   color: rgb(193, 194, 197)
@@ -23,7 +24,6 @@
   background-color: colors.$dark-600;
   max-width: 60rem;
   margin: 2rem auto 0;
-
 }
 
 .boards {
@@ -31,7 +31,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 1rem;
+  padding: .5rem 1rem 1rem;
 
   &:hover {
     & > div {
@@ -67,17 +67,33 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
+  gap: 1rem;
+  //background-color: colors.$red-600;
 }
 
 .workspace {
+  border-radius: .5rem;
+  padding: .5rem 0;
+  border-top: 2px solid colors.$dark-500;
+  //border-top-color: colors.$dark-700;
+
+  box-shadow: shadows.$shadow-x;
+
+  &:hover {
+    background-color: colors.$dark-400;
+  }
+
   & > div {
     position: relative;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
 
     & > p {
       margin: 0 0 0 1rem;
     }
 
-    &:hover > .hovermenu {
+    & > .workspaceHovermenu {
       display: block;
     }
   }
@@ -94,7 +110,7 @@
   &:hover {
     background-color: colors.$dark-800;
 
-    & > .hovermenu {
+    & > .boardHovermenu {
       display: block;
     }
   }
@@ -109,14 +125,13 @@
   }
 }
 
-.hovermenu {
+.boardHovermenu, .workspaceHovermenu {
   display: none;
   position: absolute;
   right: 0;
   top: 0;
   height: 2rem;
-  padding-right: .5rem;
-  padding-top: .5rem;
+  align-self: center;
 
   & > div > button {
     height: 2rem;
@@ -136,6 +151,15 @@
       background: rgba(255, 77, 79, 0.4);
     }
   }
+}
+
+.boardHovermenu {
+  padding-right: .5rem;
+  padding-top: .5rem;
+}
+
+.workspaceHovermenu {
+  padding-right: .5rem;
 }
 
 .errornav {
