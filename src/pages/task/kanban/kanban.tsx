@@ -13,9 +13,11 @@ import Tstyles from "@kanban/column/task/styles.module.scss"
 import ContextMenu from "@kanban/contextmenu/contextmenu"
 import {ColorSelector} from "@/components/colorselector/colorselector"
 
+
 export default function Kanban() {
     const loaderData = useLoaderData()
-    const uuid = useParams().uuid
+    const board = useParams().board
+    const workspace = useParams().workspace
     const [environment, setEnvironment] = useState<environment>(loaderData as environment)
     const [isAdding, setIsAdding] = useState(false)
     const newColRef = useRef<HTMLInputElement>(null)
@@ -24,7 +26,12 @@ export default function Kanban() {
 
     const navigate = useNavigate()
 
-    if (uuid === undefined) {
+    if (!workspace) {
+        navigate("../")
+        return null
+    }
+
+    if (!board) {
         navigate("../")
         return null
     }
@@ -55,9 +62,13 @@ export default function Kanban() {
         })
     }, [])
 
+    useEffect(() => {
+        console.log(environment)
+    }, [environment])
 
-    const drag = new dragHandlers(environment, setEnvironment, uuid)
-    const h = new handlers(setIsAdding, newColRef, uuid)
+
+    const drag = new dragHandlers(environment, setEnvironment, board)
+    const h = new handlers(setIsAdding, newColRef, board)
 
     useEffect(() => {
         setEnvironment(loaderData as environment)
@@ -69,7 +80,7 @@ export default function Kanban() {
 
     function getBoard() {
         return useMemo(() => {
-            return environment?.boards?.find(b => b.uuid === uuid)
+            return environment?.boards?.find(b => b.uuid === board)
         }, [environment])
     }
 
@@ -86,7 +97,7 @@ export default function Kanban() {
                 <Text a="left" color="dimmed">Drag and drop tasks to reorder them</Text>
                 <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
                                  onDragUpdate={event => drag.Update(event)}>
-                    <Droppable droppableId={uuid} type="column" direction="horizontal">
+                    <Droppable droppableId={board} type="column" direction="horizontal">
                         {(provided) => (
                             <div
                                 ref={provided.innerRef}
@@ -95,7 +106,7 @@ export default function Kanban() {
                                     {getBoard()?.columns?.map((column) => (
                                         <div key={column}>
                                             <Column column={column}
-                                                    boardUUID={uuid} ghost={drag.ghost}/>
+                                                    boardUUID={board} ghost={drag.ghost}/>
                                         </div>
                                     ))}
 

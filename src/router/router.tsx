@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "/board/:uuid",
+        path: "board/:workspace/:board",
         loader: KanbanBoardLoader,
         element: <Board/>,
     },
