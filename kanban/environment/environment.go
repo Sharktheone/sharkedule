@@ -4,30 +4,33 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
-func GetBoardEnv(uuid *string) *types.Environment {
+func GetBoardEnv(workspace string, uuid *string) *types.Environment {
 	env := Environment{
 		Environment: &types.Environment{},
 		boardUUIDs:  []*string{uuid},
+		workspace:   workspace,
 	}
 	env.Index()
 
 	return env.Environment
 }
 
-func GetColumnEnv(uuid *string) *types.Environment {
+func GetColumnEnv(workspace string, uuid *string) *types.Environment {
 	env := Environment{
 		Environment: &types.Environment{},
 		columnUUIDs: []*string{uuid},
+		workspace:   workspace,
 	}
 	env.Index()
 
 	return env.Environment
 }
 
-func GetTaskEnv(uuid *string) *types.Environment {
+func GetTaskEnv(workspace string, uuid *string) *types.Environment {
 	env := Environment{
 		Environment: &types.Environment{},
 		taskUUIDs:   []*string{uuid},
+		workspace:   workspace,
 	}
 	env.Index()
 

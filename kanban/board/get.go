@@ -51,5 +51,5 @@ func Names(workspace string, uuids []string) ([]*namelist.NameList, error) {
 }
 
 func (b *Board) Env() *types.Environment {
-	return environment.GetBoardEnv(&b.UUID)
+	return environment.GetBoardEnv(b.Workspace, &b.UUID)
 }

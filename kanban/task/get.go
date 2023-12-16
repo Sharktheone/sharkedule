@@ -19,5 +19,5 @@ func Get(workspace, uuid string) (*Task, error) {
 }
 
 func (t *Task) Env() *types.Environment {
-	return environment.GetTaskEnv(&t.UUID)
+	return environment.GetTaskEnv(t.Workspace, &t.UUID)
 }

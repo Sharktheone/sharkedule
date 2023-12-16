@@ -18,5 +18,5 @@ func Get(workspace, column string) (*Column, error) {
 }
 
 func (c *Column) Env() *types.Environment {
-	return environment.GetColumnEnv(&c.UUID)
+	return environment.GetColumnEnv(c.Workspace, &c.UUID)
 }
