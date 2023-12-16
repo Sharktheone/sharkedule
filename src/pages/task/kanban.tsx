@@ -137,7 +137,7 @@ export default function Kanban() {
             <ul className={styles.boards}>
                 {workspace.boards.map((board) => (
                     <li key={board.uuid} className={styles.board}>
-                        <Link to={`${workspace.uuid}/${board.uuid}`}>
+                        <Link to={`../board/${workspace.uuid}/${board.uuid}`}>
                             {board.name}
                         </Link>
                         <div className={styles.boardHovermenu}>

@@ -1,5 +1,6 @@
 import {HTMLAttributes} from "react"
 import styles from "@/components/ui/text/text.module.scss"
+import {getBoard} from "@/pages/task/utils/board"
 
 
 type props = {
@@ -13,16 +14,18 @@ type props = {
     underline?: boolean
 } & HTMLAttributes<HTMLHeadingElement>
 
-export function Title({a, s, w, c, children, italic, underline, className, gradient, dimmed, ...props}: props) {
+export function Title({a, s, w, c, italic, underline, className, gradient, dimmed, ...props}: props) {
 
     let classes = className ?? ""
 
 
     if (c) classes += " " + styles[c]
 
+    classes += " " + styles.title
+
     classes += " " + styles[a ?? "center"]
 
-    classes += " " + styles[w ?? "regular"]
+    classes += " " + styles[w ?? "bold"]
 
     if (italic) classes += " " + styles.italic
 

@@ -1,7 +1,6 @@
 @use "src/styles/colors" as colors;
 
-.text {
-  color: colors.$grape-000;
+.text, .title  {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: normal;
@@ -18,8 +17,13 @@
   text-shadow: none;
   text-rendering: auto;
   text-size-adjust: 100%;
-
+  margin: 0;
   text-overflow: "…";
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .primary {

@@ -49,7 +49,7 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
             classes += " " + styles.h6
             break
         default:
-            classes += " " + styles.medium
+            classes += " " + styles.small
             break
     }
 
