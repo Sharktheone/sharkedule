@@ -1,6 +1,8 @@
 import {HTMLAttributes, LegacyRef} from "react"
 import {Tooltip} from "@/components/ui/tooltip/tooltip"
 import styles from "./input.module.scss"
+import {Simulate} from "react-dom/test-utils"
+import play = Simulate.play
 
 type Props = {
     radius?: false | "sm" | "md" | "lg" | "xl" | "full" | "none"
@@ -11,9 +13,10 @@ type Props = {
     name?: string
     type?: "text" | "password" | "email" | "number" | "tel" | "url" | "search" | "date" | "time"
     value?: string
+    placeholder?: string
 } & HTMLAttributes<HTMLInputElement>
 
-export function Input({radius, tooltip, error, required, className, ref, ...props}: Props) {
+export function Input({radius, tooltip, error, required, className, ...props}: Props) {
 
     let classes = className ?? ""
     switch (radius) {
@@ -56,7 +59,7 @@ export function Input({radius, tooltip, error, required, className, ref, ...prop
     return (
         <>
 
-            <input ref={ref} className={classes} {...props}/>
+            <input className={classes} {...props}/>
             {
                 tooltip &&
                 <Tooltip text={tooltip}/>
