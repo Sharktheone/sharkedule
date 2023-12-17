@@ -4,7 +4,7 @@ import styles from "./styles.module.scss"
 import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
-import {IconTrash, IconX} from "@tabler/icons-react"
+import {IconArrowBadgeDown, IconArrowBadgeLeft, IconArrowBadgeRight, IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
 import {Button, Text} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
@@ -15,6 +15,7 @@ export default function Kanban() {
     let navigate = useNavigate()
 
     const [workspaces, setWorkspaces] = useState(loaderData as WorkspaceList[])
+    const [collapsed, setCollapsed] = useState({} as { [key: string]: boolean })
 
     useEffect(() => {
 
@@ -89,6 +90,15 @@ export default function Kanban() {
         })
     }
 
+
+    function toggleCollapsed(workspace: string) {
+        setCollapsed(prev => {
+            const newState = {...prev}
+            newState[workspace] = !newState[workspace]
+            return newState
+        })
+    }
+
     function Workspaces() {
         if (!workspaces) return null
         if (workspaces.length === 0) return (
@@ -104,7 +114,12 @@ export default function Kanban() {
                 {workspaces.map((workspace) => (
                     <li className={styles.workspace} key={workspace.uuid}> {/* Make workspaces lists collapsable */}
                         <div>
-                            <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
+                            <div className={styles.workspaceName}>
+                                <button onClick={() => toggleCollapsed(workspace.uuid)} className={`${collapsed[workspace.uuid] ? styles.collapsed : ""} ${styles.collapseButton} `}>
+                                    <IconArrowBadgeDown/>
+                                </button>
+                                <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
+                            </div>
                             <div
                                 className={styles.workspaceHovermenu}> {/*TODO: don't use a hovermenu but a button which opens a list of options*/}
                                 <div>

@@ -79,24 +79,49 @@
 
   box-shadow: shadows.$shadow-x;
 
-  &:hover {
-    background-color: colors.$dark-400;
-  }
-
   & > div {
     position: relative;
     min-height: 2rem;
     display: flex;
     align-items: center;
 
-    & > p {
-      margin: 0 0 0 1rem;
-    }
-
     & > .workspaceHovermenu {
       display: block;
     }
   }
+}
+
+
+.collapseButton {
+  transition: transform 0.5s ease-in-out;
+}
+
+.collapsed > svg {
+  transform: rotate(-90deg);
+  transition: transform 0.5s ease-in-out; //Why is this not working?
+}
+
+.workspaceName {
+  display: flex;
+  margin-left: .5rem;
+  gap: .5rem;
+
+  & > button {
+    background: transparent;
+    border: none;
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: .25rem;
+
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(128, 128, 128, 0.5);
+    }
+  }
+
 }
 
 .board {
