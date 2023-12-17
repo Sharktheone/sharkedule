@@ -12,7 +12,8 @@
 - [ ] CSS use more classes and remove deeply nested structures
 - [ ] Remove colors.ts and switch to "inline" mantine colors from colors.scss
 - [ ] Only post one notification when adding multiple items
-- [ ] Think about an `Element` interface. And tasks are only `Elemment`s. But also Boards, Meetings, Subtasks are `Element`s
+- [ ] Think about an `Element` interface. And tasks are only `Elemment`s. But also Boards, Meetings, Subtasks
+  are `Element`s
 - [ ] Ditch Mantine
     - [ ] Notifications System => react-toastify
     - [ ] SegmentedControl

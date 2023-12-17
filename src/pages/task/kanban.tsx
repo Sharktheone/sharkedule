@@ -105,7 +105,8 @@ export default function Kanban() {
                     <li className={styles.workspace} key={workspace.uuid}> {/* Make workspaces lists collapsable */}
                         <div>
                             <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
-                            <div className={styles.workspaceHovermenu}> {/*TODO: don't use a hovermenu but a button which opens a list of options*/}
+                            <div
+                                className={styles.workspaceHovermenu}> {/*TODO: don't use a hovermenu but a button which opens a list of options*/}
                                 <div>
                                     <button onClick={() => deleteWorkspace(workspace.uuid)}>
                                         <IconTrash/>

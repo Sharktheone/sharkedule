@@ -1,6 +1,5 @@
 import {HTMLAttributes} from "react"
 import styles from "@/components/ui/text/text.module.scss"
-import {getBoard} from "@/pages/task/utils/board"
 
 
 type props = {
