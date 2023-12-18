@@ -32,6 +32,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: .5rem 1rem 1rem;
+  max-height: 1000px;
 
   &:hover {
     & > div {
@@ -92,13 +93,19 @@
 }
 
 
-.collapseButton {
+//.collapseButton > svg {
+//  transition: transform 0.5s ease-in-out;
+//  transform: rotate(0deg);
+//
+//}
+
+.collapsed {
   transition: transform 0.5s ease-in-out;
+  transform: rotate(-90deg);
 }
 
-.collapsed > svg {
-  transform: rotate(-90deg);
-  transition: transform 0.5s ease-in-out; //Why is this not working?
+.hide {
+  display: none; //TODO: animate height to 0
 }
 
 .workspaceName {
@@ -114,6 +121,10 @@
     align-items: center;
     justify-items: center;
     padding: .25rem;
+
+    & > svg {
+      transition: transform 0.5s ease-in-out;
+    }
 
 
     &:hover {

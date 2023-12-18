@@ -4,7 +4,7 @@ import styles from "./styles.module.scss"
 import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
 import {notifications} from "@mantine/notifications"
-import {IconArrowBadgeDown, IconArrowBadgeLeft, IconArrowBadgeRight, IconTrash, IconX} from "@tabler/icons-react"
+import {IconArrowBadgeDown, IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
 import {Button, Text} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
@@ -16,6 +16,7 @@ export default function Kanban() {
 
     const [workspaces, setWorkspaces] = useState(loaderData as WorkspaceList[])
     const [collapsed, setCollapsed] = useState({} as { [key: string]: boolean })
+    const [test, setTest] = useState(false)
 
     useEffect(() => {
 
@@ -115,8 +116,8 @@ export default function Kanban() {
                     <li className={styles.workspace} key={workspace.uuid}> {/* Make workspaces lists collapsable */}
                         <div>
                             <div className={styles.workspaceName}>
-                                <button onClick={() => toggleCollapsed(workspace.uuid)} className={`${collapsed[workspace.uuid] ? styles.collapsed : ""} ${styles.collapseButton} `}>
-                                    <IconArrowBadgeDown/>
+                                <button onClick={() => toggleCollapsed(workspace.uuid)}>
+                                    <IconArrowBadgeDown className={collapsed[workspace.uuid] ? styles.collapsed : undefined}/>
                                 </button>
                                 <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
                             </div>
@@ -129,7 +130,7 @@ export default function Kanban() {
                                 </div>
                             </div>
                         </div>
-                        <Boards workspace={workspace}/>
+                        <Boards collapsed={collapsed[workspace.uuid]} workspace={workspace}/>
 
                     </li>
                 ))}
@@ -137,7 +138,7 @@ export default function Kanban() {
         )
     }
 
-    function Boards({workspace}: { workspace: WorkspaceList }) {
+    function Boards({workspace, collapsed}: { workspace: WorkspaceList, collapsed: boolean }) {
         if (!workspace) return null
         if (!workspace.boards) return null
 
@@ -150,7 +151,7 @@ export default function Kanban() {
         )
 
         return (
-            <ul className={styles.boards}>
+            <ul className={`${styles.boards} ${collapsed ? styles.hide : undefined}`}>
                 {workspace.boards.map((board) => (
                     <li key={board.uuid} className={styles.board}>
                         <Link to={`../board/${workspace.uuid}/${board.uuid}`}>
