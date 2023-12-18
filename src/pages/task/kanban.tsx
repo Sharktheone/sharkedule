@@ -117,7 +117,8 @@ export default function Kanban() {
                         <div>
                             <div className={styles.workspaceName}>
                                 <button onClick={() => toggleCollapsed(workspace.uuid)}>
-                                    <IconArrowBadgeDown className={collapsed[workspace.uuid] ? styles.collapsed : undefined}/>
+                                    <IconArrowBadgeDown
+                                        className={collapsed[workspace.uuid] ? styles.collapsed : undefined}/>
                                 </button>
                                 <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
                             </div>
