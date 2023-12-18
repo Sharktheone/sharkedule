@@ -1100,9 +1100,9 @@ packages:
       prosemirror-schema-list: 1.3.0
       prosemirror-state: 1.4.3
       prosemirror-tables: 1.3.5
-      prosemirror-trailing-node: 2.0.7(prosemirror-model@1.19.4)(prosemirror-state@1.4.3)(prosemirror-view@1.32.6)
+      prosemirror-trailing-node: 2.0.7(prosemirror-model@1.19.4)(prosemirror-state@1.4.3)(prosemirror-view@1.32.7)
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
     dev: false
 
   /@tiptap/react@2.1.13(@tiptap/core@2.1.13)(@tiptap/pm@2.1.13)(react-dom@18.2.0)(react@18.2.0):
@@ -1303,7 +1303,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001570
-      electron-to-chromium: 1.4.614
+      electron-to-chromium: 1.4.615
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
     dev: true
@@ -1438,8 +1438,8 @@ packages:
       csstype: 3.1.3
     dev: false
 
-  /electron-to-chromium@1.4.614:
-    resolution: {integrity: sha512-X4ze/9Sc3QWs6h92yerwqv7aB/uU8vCjZcrMjA8N9R1pjMFRe44dLsck5FzLilOYvcXuDn93B+bpGYyufc70gQ==}
+  /electron-to-chromium@1.4.615:
+    resolution: {integrity: sha512-/bKPPcgZVUziECqDc+0HkT87+0zhaWSZHNXqF8FLd2lQcptpmUFwoCSWjCdOng9Gdq+afKArPdEg/0ZW461Eng==}
     dev: true
 
   /entities@4.5.0:
@@ -1937,7 +1937,7 @@ packages:
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
     dev: false
 
   /prosemirror-gapcursor@1.3.2:
@@ -1946,7 +1946,7 @@ packages:
       prosemirror-keymap: 1.2.2
       prosemirror-model: 1.19.4
       prosemirror-state: 1.4.3
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
     dev: false
 
   /prosemirror-history@1.3.2:
@@ -1954,7 +1954,7 @@ packages:
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
       rope-sequence: 1.3.4
     dev: false
 
@@ -2013,7 +2013,7 @@ packages:
     dependencies:
       prosemirror-model: 1.19.4
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
     dev: false
 
   /prosemirror-tables@1.3.5:
@@ -2023,10 +2023,10 @@ packages:
       prosemirror-model: 1.19.4
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
     dev: false
 
-  /prosemirror-trailing-node@2.0.7(prosemirror-model@1.19.4)(prosemirror-state@1.4.3)(prosemirror-view@1.32.6):
+  /prosemirror-trailing-node@2.0.7(prosemirror-model@1.19.4)(prosemirror-state@1.4.3)(prosemirror-view@1.32.7):
     resolution: {integrity: sha512-8zcZORYj/8WEwsGo6yVCRXFMOfBo0Ub3hCUvmoWIZYfMP26WqENU0mpEP27w7mt8buZWuGrydBewr0tOArPb1Q==}
     peerDependencies:
       prosemirror-model: ^1.19.0
@@ -2038,7 +2038,7 @@ packages:
       escape-string-regexp: 4.0.0
       prosemirror-model: 1.19.4
       prosemirror-state: 1.4.3
-      prosemirror-view: 1.32.6
+      prosemirror-view: 1.32.7
     dev: false
 
   /prosemirror-transform@1.8.0:
@@ -2047,8 +2047,8 @@ packages:
       prosemirror-model: 1.19.4
     dev: false
 
-  /prosemirror-view@1.32.6:
-    resolution: {integrity: sha512-26r5LvyDlPgUNVf7ZdNdGrMJnylwjJtUJTfDuYOANIVx9lqWD1WCBlGg283weYQGKUC64DXR25LeAmliB9CrFQ==}
+  /prosemirror-view@1.32.7:
+    resolution: {integrity: sha512-pvxiOoD4shW41X5bYDjRQk3DSG4fMqxh36yPMt7VYgU3dWRmqFzWJM/R6zeo1KtC8nyk717ZbQND3CC9VNeptw==}
     dependencies:
       prosemirror-model: 1.19.4
       prosemirror-state: 1.4.3
