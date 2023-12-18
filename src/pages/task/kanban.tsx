@@ -140,12 +140,11 @@ export default function Kanban() {
 
     function Boards({workspace, collapsed}: { workspace: WorkspaceList, collapsed: boolean }) {
         if (!workspace) return null
-        if (!workspace.boards) return null
 
-        if (workspace.boards.length === 0) return (
-            <ul className={styles.boards}>
+        if (!workspace.boards || workspace.boards.length === 0) return (
+            <ul className={`${styles.boards} ${collapsed ? styles.hide : undefined}`}>
                 <li className={styles.noBoards}>
-                    <h1 className={styles.dimmed}>No Boards</h1>
+                    <Text className={styles.dimmed}>No boards created yet... 😥</Text>
                 </li>
             </ul>
         )

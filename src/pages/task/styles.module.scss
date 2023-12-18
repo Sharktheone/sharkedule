@@ -47,7 +47,10 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  //TODO
+
+  & > p {
+    margin: 0 0 0 2rem;
+  }
 
 }
 
