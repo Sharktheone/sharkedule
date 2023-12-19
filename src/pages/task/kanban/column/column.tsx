@@ -1,4 +1,4 @@
-import {Button, CloseButton, Text, Textarea} from "@/components/ui"
+import {Button, CloseButton, Text, Textarea, Title} from "@/components/ui"
 import Task from "@/pages/task/kanban/column/task/task"
 import {Draggable, Droppable} from "@hello-pangea/dnd"
 import {useContext, useMemo} from "react"
@@ -48,7 +48,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                         {(provided) => (
                             <div className={styles.colDrop} {...provided.droppableProps} ref={provided.innerRef}>
                                 <div className={styles.column}>
-                                    <h3 className={styles.title}> {/*TODO: this initially was a mantine Title, so look if a h3 makes sense here*/}
+                                    <Title s={3}>
                                         <div>
                                             <span onClick={() => h.editText()}
                                                   contentEditable={h.editable} // TODO: dont use contentEditable
@@ -59,7 +59,7 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                                 <IconTrash/>
                                             </button>
                                         </div>
-                                    </h3>
+                                    </Title>
                                     <div ref={h.tasksRef}>
                                         {getColumn().tasks?.map((task, index) => (
                                             <Draggable key={task} draggableId={task} index={index}>
