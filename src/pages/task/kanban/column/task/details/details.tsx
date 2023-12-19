@@ -1,5 +1,5 @@
 import Details from "@/components/details/details"
-import {Dispatch, SetStateAction, useState} from "react"
+import {Dispatch, SetStateAction, useContext, useState} from "react"
 import {Task} from "@kanban/types"
 import {getTask} from "@/pages/task/utils/task"
 import TagSelector from "@/components/kanban/tags/selector/selector"
@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom"
 import {Menu} from "@/components/menu/menu"
 import Description from "@kanban/column/task/details/description"
 import styles from "./styles.module.scss"
+import {EnvironmentContext} from "@kanban/environment"
 
 type Props = {
     open: boolean
@@ -17,6 +18,7 @@ type Props = {
 
 export default function TaskDetails({open, setOpen, uuid}: Props) {
     const [task, setTask] = useState<Task>(getTask(uuid) ?? {} as Task)
+    const {environment} = useContext(EnvironmentContext)
     const navigate = useNavigate()
 
     function onClose() {
@@ -24,7 +26,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
     }
 
     function setTags(tags: string[]) {
-        api.patch(`/kanban/task/${uuid}/tags`, {tags: tags}).then(
+        api.patch(`/${environment.workspace}/kanban/task/${uuid}/tags`, {tags: tags}).then(
             (res) => {
                 if (res.status >= 300) {
                     console.log(res.data)

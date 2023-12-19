@@ -13,6 +13,7 @@ export type environment = {
     board_names: BoardNames
     column_names: ColumnNames
     dependent_tasks: DependentTasks[]
+    workspace: string
 }
 
 export type Board = {

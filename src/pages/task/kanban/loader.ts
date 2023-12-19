@@ -9,7 +9,9 @@ export default async function KanbanBoardLoader({params}: {
     const board = params.board
 
     return api.get(`${workspace}/kanban/board/${board}`).then((res) => {
-        return res.data as environment
+        let env = res.data as environment
+        env.workspace = workspace
+        return env
     })
 
 }

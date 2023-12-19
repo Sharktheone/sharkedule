@@ -1,7 +1,8 @@
-import {Dispatch, RefObject, SetStateAction, useState} from "react"
+import {Dispatch, RefObject, SetStateAction, useContext, useState} from "react"
 import {notifications} from "@mantine/notifications"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
+import {EnvironmentContext} from "@kanban/environment"
 
 
 export class handlers {
@@ -11,8 +12,9 @@ export class handlers {
     private readonly removeTimeout: number | undefined
     private readonly setRemoveTimeout: Dispatch<SetStateAction<number | undefined>>
     private readonly uuid: string
+    private readonly workspace: string
 
-    constructor(setIsAdding: Dispatch<SetStateAction<boolean>>, newColRef: RefObject<HTMLInputElement>, uuid: string) {
+    constructor(setIsAdding: Dispatch<SetStateAction<boolean>>, newColRef: RefObject<HTMLInputElement>, uuid: string, workspace: string) {
         const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
 
         this.navigate = useNavigate()
@@ -21,6 +23,7 @@ export class handlers {
         this.removeTimeout = removeTimeout
         this.setRemoveTimeout = setRemoveTimeout
         this.uuid = uuid
+        this.workspace = workspace
     }
 
     handleNewColumn() {
@@ -45,7 +48,7 @@ export class handlers {
             return
         }
 
-        api.put(`/kanban/board/${this.uuid}/column/new`, {name: name}).then(
+        api.put(`/${this.workspace}/kanban/board/${this.uuid}/column/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: res.data, color: "red"})

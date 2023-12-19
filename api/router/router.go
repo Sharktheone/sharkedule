@@ -69,7 +69,11 @@ func Start() {
 	}
 
 	ws := api.Group(":workspace") // /api/:workspace
+
 	{
+
+		//ws.Get("", workspace.Get)         // GET /api/:workspace TODO
+		//ws.Get("delete", workspace.Delete) // DELETE /api/:workspace/delete") TODO
 		kanban := ws.Group("kanban") // /api/:workspace/kanban
 		{
 			boards := kanban.Group("board") // /api/:workspace/kanban/board

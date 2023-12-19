@@ -50,7 +50,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
     }
 
     function handleDelete() {
-        api.delete(`/kanban/board/${board}/column/${column}/task/${task}/delete`).then(
+        api.delete(`/${environment.workspace}/kanban/board/${board}/column/${column}/task/${task}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})

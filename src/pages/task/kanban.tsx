@@ -31,8 +31,8 @@ export default function Kanban() {
         open()
     }
 
-    function createBoard(name: string, description: string) {
-        api.put("/kanban/board/new", {name: name, description: description}).then(
+    function createBoard(workspace: string, name: string, description: string) {
+        api.put(`/${workspace}/kanban/board/new`, {name: name, description: description}).then(
             (res) => {
                 if (res.status > 300) {
                     console.log(res)
@@ -54,7 +54,7 @@ export default function Kanban() {
     }
 
     function deleteBoard(workspace: string, board: string) {
-        api.delete(`/kanban/board/${workspace}/${board}/delete`).then(
+        api.delete(`/${workspace}/kanban/board/${workspace}/${board}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({
@@ -73,7 +73,7 @@ export default function Kanban() {
     }
 
     function deleteWorkspace(workspace: string) {
-        api.delete(`/kanban/workspace/${workspace}/delete`).then(
+        api.delete(`/${workspace}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({
@@ -178,7 +178,7 @@ export default function Kanban() {
                     New Board
                 </Button>
             </div>
-            <CreateNewModal close={close} opened={newOpened} handleCreate={createBoard}/>
+            <CreateNewModal close={close} opened={newOpened} handleCreate={(name, description) => createBoard("TODO", name, description)}/> {/*TODO: make workspace selectable*/}
 
             <Workspaces/>
         </div>

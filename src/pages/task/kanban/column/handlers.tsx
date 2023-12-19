@@ -25,7 +25,6 @@ export class handlers {
     private readonly setRemoveTimeout: Dispatch<SetStateAction<number | undefined>>
     private readonly ghost: ghostType | undefined
 
-
     constructor(column: string, board: string, setEnvironment: Dispatch<SetStateAction<environment>>, environment: environment, ghost: ghostType | undefined) {
         const [ghostElement, setGhostElement] = useState<ghostElementType | undefined>()
         const [removeTimeout, setRemoveTimeout] = useState<number | undefined>(undefined)
@@ -85,7 +84,7 @@ export class handlers {
                 }
             })
         })
-        api.patch(`/kanban/task/${uuid}/rename`, {
+        api.patch(`/${this.environment.workspace}/kanban/task/${uuid}/rename`, {
             name: name
         }).then(
             (res) => {
@@ -100,7 +99,7 @@ export class handlers {
     }
 
     handleDelete() {
-        api.delete(`/kanban/board/${this.board}/column/${this.column}/delete`).then(
+        api.delete(`/${this.environment.workspace}/kanban/board/${this.board}/column/${this.column}/delete`).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
@@ -167,7 +166,7 @@ export class handlers {
             return
         }
 
-        api.put(`/kanban/board/${this.board}/column/${this.column}/task/new`, {name: name}).then(
+        api.put(`/${this.environment.workspace}/kanban/board/${this.board}/column/${this.column}/task/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
                     notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})

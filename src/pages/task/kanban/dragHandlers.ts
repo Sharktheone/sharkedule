@@ -63,7 +63,7 @@ export class dragHandlers {
         let [column] = newBoard?.columns?.splice(columnIndex, 1) ?? []
         newBoard?.columns?.splice(to, 0, column)
         this?.setEnvironment({...this?.environment, boards: [newBoard] as Board[]})
-        api.patch(`/kanban/board/${this?.uuid}/column/${uuid}/move`, {
+        api.patch(`/${this.environment.workspace}/kanban/board/${this?.uuid}/column/${uuid}/move`, {
             index: to
         }).then((res) => {
             if (res.status > 300) {
@@ -100,7 +100,7 @@ export class dragHandlers {
             }
         )
 
-        api.patch(`/kanban/board/${this?.uuid}/column/${fromColumn}/task/${uuid}/move`, {
+        api.patch(`/${this.environment.workspace}/kanban/board/${this?.uuid}/column/${fromColumn}/task/${uuid}/move`, {
             column: toColumn,
             index: to
         }).then((res) => {
