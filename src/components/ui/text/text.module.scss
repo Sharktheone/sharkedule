@@ -2,7 +2,6 @@
 
 .text, .title {
   font-family: "Roboto", sans-serif;
-  font-size: 1rem;
   font-weight: normal;
   text-align: center;
   text-decoration: none;
@@ -21,8 +20,11 @@
   text-overflow: "…";
 }
 
+.text {
+  font-size: 1rem;
+}
+
 .title {
-  font-size: 2rem;
   font-weight: bold;
 }
 
