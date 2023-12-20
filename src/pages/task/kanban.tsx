@@ -178,7 +178,8 @@ export default function Kanban() {
                     New Board
                 </Button>
             </div>
-            <CreateNewModal close={close} opened={newOpened} handleCreate={(name, description) => createBoard("TODO", name, description)}/> {/*TODO: make workspace selectable*/}
+            <CreateNewModal close={close} opened={newOpened}
+                            handleCreate={(name, description) => createBoard("TODO", name, description)}/> {/*TODO: make workspace selectable*/}
 
             <Workspaces/>
         </div>

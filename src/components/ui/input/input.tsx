@@ -1,7 +1,6 @@
 import {HTMLAttributes, LegacyRef} from "react"
 import {Tooltip} from "@/components/ui/tooltip/tooltip"
 import styles from "./input.module.scss"
-import {Simulate} from "react-dom/test-utils"
 
 
 type Props = {
