@@ -30,15 +30,15 @@ export class dragHandlers {
         this.uuid = uuid
     }
 
-    Start(event: DragStart) {
+    start(event: DragStart) {
         this.addGhost(event)
     }
 
-    Update(event: DragUpdate) {
+    update(event: DragUpdate) {
         this.updateGhost(event)
     }
 
-    End(event: DropResult) {
+    end(event: DropResult) {
         if (event.type === "task") {
             this.removeGhost()
 

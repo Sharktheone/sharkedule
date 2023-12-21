@@ -91,8 +91,8 @@ export default function Kanban() {
             <div className={styles.board} ref={boardRef}>
                 <Title className={styles.title} s={1} a="left">{getBoard()?.name}</Title>
                 <Text a="left" color="dimmed">Drag and drop tasks to reorder them</Text>
-                <DragDropContext onDragStart={event => drag.Start(event)} onDragEnd={event => drag.End(event)}
-                                 onDragUpdate={event => drag.Update(event)}>
+                <DragDropContext onDragStart={event => drag.start(event)} onDragEnd={event => drag.end(event)}
+                                 onDragUpdate={event => drag.update(event)}>
                     <Droppable droppableId={board} type="column" direction="horizontal">
                         {(provided) => (
                             <div

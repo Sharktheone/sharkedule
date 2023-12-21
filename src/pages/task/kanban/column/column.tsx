@@ -1,7 +1,7 @@
 import {Button, CloseButton, Text, Textarea, Title} from "@/components/ui"
 import Task from "@/pages/task/kanban/column/task/task"
 import {Draggable, Droppable} from "@hello-pangea/dnd"
-import {useContext, useMemo} from "react"
+import {useContext, useEffect, useMemo} from "react"
 import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "@/pages/task/kanban/ghost"
@@ -31,7 +31,6 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
         return useMemo(() => {
             return environment?.columns?.find(c => c.uuid === column) ?? {} as Col
         }, [environment, column])
-
     }
 
     return (

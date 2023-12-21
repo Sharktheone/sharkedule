@@ -14,7 +14,7 @@ export type ghostElementType = {
 }
 
 export function getDraggedElement(draggableId: string) {
-    return document.querySelector(`[data-rbd-drag-handle-draggable-id='${draggableId}'] > div > div`)
+    return document.querySelector(`[data-rfd-drag-handle-draggable-id='${draggableId}'] > div > div`)
 }
 
 
