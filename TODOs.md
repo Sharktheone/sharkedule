@@ -14,6 +14,7 @@
 - [ ] Only post one notification when adding multiple items
 - [ ] Think about an `Element` interface. And tasks are only `Elemment`s. But also Boards, Meetings, Subtasks
   are `Element`s
+- [ ] Websocket API?
 - [ ] Ditch Mantine
     - [ ] Notifications System => react-toastify
     - [ ] SegmentedControl
@@ -30,6 +31,6 @@
     - [x] usePrevious
     - [x] useDebouncedState
     - [ ] CloseButton
-    - [ ] Stack
+    - ~~[ ] Stack~~
     - [x] Text
     - [ ] Colors => Monokai?
