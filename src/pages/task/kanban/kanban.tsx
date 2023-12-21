@@ -62,10 +62,6 @@ export default function Kanban() {
         })
     }, [])
 
-    useEffect(() => {
-        console.log(environment)
-    }, [environment])
-
 
     const drag = new dragHandlers(environment, setEnvironment, board)
     const h = new handlers(setIsAdding, newColRef, board, environment.workspace)
