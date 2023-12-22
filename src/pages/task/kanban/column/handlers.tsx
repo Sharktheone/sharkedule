@@ -127,7 +127,7 @@ export class handlers {
             let tasks = [].slice.call(this.tasksRef.current?.children) as HTMLDivElement[]
 
 
-            tasks.filter(task => !task.className.includes(styles.ghost) && task.getAttribute("data-rbd-draggable-id") != this.ghost?.uuid).forEach((task, index) => {
+            tasks.filter(task => !task.className.includes(styles.ghost) && task.getAttribute("data-rfd-draggable-id") != this.ghost?.uuid).forEach((task, index) => {
                 if (index < this.ghost!.index) {
                     offset += task.getBoundingClientRect().height
                 }
