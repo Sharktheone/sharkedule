@@ -1,7 +1,7 @@
 import {Button, CloseButton, Text, Textarea, Title} from "@/components/ui"
 import Task from "@/pages/task/kanban/column/task/task"
 import {Draggable, Droppable} from "@hello-pangea/dnd"
-import {useContext, useEffect, useMemo} from "react"
+import {useContext, useMemo} from "react"
 import styles from "./styles.module.scss"
 import {IconPlus, IconTrash} from "@tabler/icons-react"
 import {ghostType} from "@/pages/task/kanban/ghost"
