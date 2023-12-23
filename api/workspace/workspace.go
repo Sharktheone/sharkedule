@@ -2,6 +2,7 @@ package workspace
 
 import (
 	"github.com/Sharktheone/sharkedule/api/middleware"
+	"github.com/gofiber/fiber/v2"
 )
 
 func List(c *fiber.Ctx) error {

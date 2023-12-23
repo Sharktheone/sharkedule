@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/api"
 	"github.com/Sharktheone/sharkedule/api/middleware"
+	"github.com/gofiber/fiber/v2"
 )
 
 func Create(c *fiber.Ctx) error {
