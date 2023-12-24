@@ -1,4 +1,4 @@
-import {HTMLAttributes, LegacyRef} from "react"
+import {HTMLAttributes} from "react"
 import styles from "./text.module.scss"
 
 type props = {

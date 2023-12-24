@@ -15,6 +15,10 @@
   height: 100%;
 }
 
+.dropArea {
+  min-height: 4rem;
+}
+
 .column {
   background-color: colors.$dark-600;
   min-width: 24rem;

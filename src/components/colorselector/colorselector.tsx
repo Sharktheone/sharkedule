@@ -122,7 +122,8 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
                         {getColors().map((shade, shade_index) => (
                             <div className={styles.shade} key={`colors-selector-color-shade-${shade_index}`}>
                                 {shade.colors.map((color, color_index) => (
-                                    <SimpleColor color={color} select={select} states={states} key={`colors-selector-color-shade-${shade_index}-color-${color_index}`}/>
+                                    <SimpleColor color={color} select={select} states={states}
+                                                 key={`colors-selector-color-shade-${shade_index}-color-${color_index}`}/>
                                 ))}
                             </div>
                         ))}

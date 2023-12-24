@@ -1,5 +1,5 @@
 import {Text} from "@/components/ui"
-import React, {RefObject, useContext, useRef, useState} from "react"
+import React, {useContext, useState} from "react"
 import styles from "./styles.module.scss"
 import {IconCircleCheck, IconTrash, IconX} from "@tabler/icons-react"
 import {api} from "@/api/api"
@@ -78,7 +78,8 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
-                        <Text a="left" onBlur={handleBlur} contentEditable={editable}> {/*TODO: dont use contentEditable*/}
+                        <Text a="left" onBlur={handleBlur}
+                              contentEditable={editable}> {/*TODO: dont use contentEditable*/}
                             {t?.name as string}
                         </Text>
                     </div>
