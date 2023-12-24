@@ -3,11 +3,11 @@ import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import styles from "./styles.module.scss"
 import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
-import {notifications} from "@mantine/notifications"
 import {IconArrowBadgeDown, IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
 import {Button, Text} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
+import {toast} from "react-toastify"
 
 
 export default function Kanban() {
@@ -36,20 +36,16 @@ export default function Kanban() {
             (res) => {
                 if (res.status > 300) {
                     console.log(res)
-                    notifications.show({
-                        title: "Error",
-                        message: res.data.message ?? "Unknown Error",
-                        color: "red",
-                        icon: <IconX/>
-                    })
+
+                    toast(`Error creating board: ${res.data.message}`, {icon: <IconX/>, type: "error"})
                 } else {
-                    notifications.show({title: "Success", message: "Board created", color: "green"})
+                    toast("Board created", {type: "success"})
 
                     navigate(`${res.data.uuid}`)
                 }
 
             }).catch(e => {
-            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+            toast(`Error creating board: ${e}`, {icon: <IconX/>, type: "error"})
         })
     }
 
@@ -57,18 +53,13 @@ export default function Kanban() {
         api.delete(`/${workspace}/kanban/board/${workspace}/${board}/delete`).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({
-                        title: "Error",
-                        message: res.data.message ?? "Unknown Error",
-                        color: "red",
-                        icon: <IconX/>
-                    })
+                    toast(`Error deleting board: ${res.data.message}`, {icon: <IconX/>, type: "error"})
                 } else {
-                    notifications.show({title: "Success", message: "Deleted Board", color: "green"})
+                    toast("Deleted Board", {type: "success"})
                     navigate("")
                 }
             }).catch(e => {
-            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+            toast(`Error deleting board: ${e}`, {icon: <IconX/>, type: "error"})
         })
     }
 
@@ -76,18 +67,13 @@ export default function Kanban() {
         api.delete(`/${workspace}/delete`).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({
-                        title: "Error",
-                        message: res.data.message ?? "Unknown Error",
-                        color: "red",
-                        icon: <IconX/>
-                    })
+                    toast(`Error deleting workspace: ${res.data.message}`, {icon: <IconX/>, type: "error"})
                 } else {
-                    notifications.show({title: "Success", message: "Deleted Workspace", color: "green"})
+                    toast("Deleted Workspace", {type: "success"})
                     navigate("")
                 }
             }).catch(e => {
-            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+            toast(`Error deleting workspace: ${e}`, {icon: <IconX/>, type: "error"})
         })
     }
 

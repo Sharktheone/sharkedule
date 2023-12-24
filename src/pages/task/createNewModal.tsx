@@ -1,7 +1,8 @@
 import {Button, Modal, Textarea, TextInput} from "@/components/ui"
 import {FormEvent, useRef} from "react"
-import {notifications} from "@mantine/notifications"
 import styles from "./styles.module.scss"
+import {toast} from "react-toastify"
+import {IconX} from "@tabler/icons-react"
 
 type props = {
     close: () => void,
@@ -21,7 +22,7 @@ export default function CreateNewModal({opened, close, handleCreate}: props) {
         if (name) {
             handleCreate(name, description ?? "")
         } else {
-            notifications.show({title: "Error", message: "Name is required", color: "red"})
+            toast("Name is required", {icon: <IconX/>, type: "error"})
         }
 
         close()

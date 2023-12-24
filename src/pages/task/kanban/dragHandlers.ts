@@ -2,9 +2,9 @@ import {ghostType, useGhost} from "@/pages/task/kanban/ghost"
 import {DragStart, DragUpdate, DropResult} from "@hello-pangea/dnd"
 import {Dispatch, SetStateAction} from "react"
 import {api} from "@/api/api"
-import {notifications} from "@mantine/notifications"
 import {useNavigate} from "react-router-dom"
 import {Board, environment} from "@kanban/types"
+import {toast} from "react-toastify"
 
 
 export class dragHandlers {
@@ -67,13 +67,13 @@ export class dragHandlers {
             index: to
         }).then((res) => {
             if (res.status > 300) {
-                notifications.show({title: "Error", message: res.data, color: "red"})
+                toast(`Error: ${res.data}`, {type: "error"})
                 console.log(res)
             }
             this?.refresh()
 
         }).catch((err) => {
-            notifications.show({title: "Error", message: err.message, color: "red"})
+            toast(`Error: ${err.message}`, {type: "error"})
             console.log(err)
             this?.refresh()
         })
@@ -105,13 +105,13 @@ export class dragHandlers {
             index: to
         }).then((res) => {
             if (res.status > 300) {
-                notifications.show({title: "Error", message: res.data, color: "red"})
+                toast(`Error: ${res.data}`, {type: "error"})
                 console.log(res)
             }
             this.refresh()
 
         }).catch((err) => {
-            notifications.show({title: "Error", message: err.message, color: "red"})
+            toast(`Error: ${err.message}`, {type: "error"})
             console.log(err)
             this.refresh()
         })

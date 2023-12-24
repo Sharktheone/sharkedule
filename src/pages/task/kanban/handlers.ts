@@ -1,7 +1,7 @@
 import {Dispatch, RefObject, SetStateAction, useState} from "react"
-import {notifications} from "@mantine/notifications"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
+import {toast} from "react-toastify"
 
 
 export class handlers {
@@ -43,24 +43,24 @@ export class handlers {
 
         const name = this.newColRef.current?.value
         if (!name) {
-            notifications.show({title: "Error", message: "Column name cannot be empty", color: "red"})
+            toast("Column name cannot be empty", {type: "error"})
             return
         }
 
         api.put(`/${this.workspace}/kanban/board/${this.uuid}/column/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({title: "Error", message: res.data, color: "red"})
+                    toast(`Error: ${res.data}`, {type: "error"})
                     console.log(res)
                 } else {
-                    notifications.show({title: "Success", message: "Column created", color: "green"})
+                    toast("Column created", {type: "success"})
                     if (this.newColRef.current) this.newColRef.current.value = ""
 
                     this.refresh()
                 }
             }).catch(
             (err) => {
-                notifications.show({title: "Error", message: err.message, color: "red"})
+                toast(`Error: ${err}`, {type: "error"})
                 console.log(err)
             }
         )

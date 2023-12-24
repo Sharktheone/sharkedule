@@ -6,7 +6,8 @@ import LoaderOverlay from "@/components/loaderOverlay/loaderOverlay"
 import {useDebouncedState} from "@/hooks"
 import {api} from "@/api/api"
 import {useNavigate} from "react-router-dom"
-import {notifications} from "@mantine/notifications"
+import {toast} from "react-toastify"
+import {IconX} from "@tabler/icons-react"
 
 type Props = {
     uuid: string
@@ -39,17 +40,10 @@ export default function Description({uuid}: Props) {
             if (res.status < 300) {
                 navigate("")
             } else {
-                notifications.show({
-                    title: "Failed to update description",
-                    message: res.data.message,
-                })
+                toast("Error updating description", {icon: <IconX/>, type: "error"})
             }
         }).catch(err => {
-            notifications.show({
-                title: "Failed to update description",
-                message: err.message,
-                color: "red"
-            })
+            toast(`Error updating description: ${err}`, {icon: <IconX/>, type: "error"})
         }).finally(() => {
             setLoading(false)
         })

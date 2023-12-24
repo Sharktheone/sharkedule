@@ -1,11 +1,11 @@
 import styles from "./styles.module.scss"
 import {api} from "@/api/api"
-import {notifications} from "@mantine/notifications"
 import {IconX} from "@tabler/icons-react"
 import {Dispatch, RefObject, SetStateAction, useEffect, useRef, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {ghostElementType, ghostType} from "@/pages/task/kanban/ghost"
 import {environment, Task} from "@kanban/types"
+import {toast} from "react-toastify"
 
 export class handlers {
     readonly editable: boolean
@@ -89,9 +89,9 @@ export class handlers {
         }).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                    toast("Error renaming task", {icon: <IconX/>, type: "error"})
                 } else {
-                    notifications.show({title: "Success", message: "Renamed Task", color: "green"})
+                    toast("Renamed Task", {type: "success"}) //TODO: undo button?
                     this.refresh()
                 }
             })
@@ -102,9 +102,9 @@ export class handlers {
         api.delete(`/${this.environment.workspace}/kanban/board/${this.board}/column/${this.column}/delete`).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                    toast("Error deleting column", {icon: <IconX/>, type: "error"})
                 } else {
-                    notifications.show({title: "Success", message: "Deleted Column", color: "green"})
+                    toast("Deleted Column", {type: "success"}) //TODO: undo button?
                     this.refresh()
                 }
             }
@@ -162,14 +162,14 @@ export class handlers {
         if (this.nameRef.current?.value) {
             name = this.nameRef.current?.value
         } else {
-            notifications.show({title: "Error", message: "Task name cannot be empty", color: "red", icon: <IconX/>})
+            toast("Task name cannot be empty", {icon: <IconX/>, type: "error"})
             return
         }
 
         api.put(`/${this.environment.workspace}/kanban/board/${this.board}/column/${this.column}/task/new`, {name: name}).then(
             (res) => {
                 if (res.status > 300) {
-                    notifications.show({title: "Error", message: "res.data", color: "red", icon: <IconX/>})
+                    toast("Error creating task", {icon: <IconX/>, type: "error"})
                 } else {
                     this.renameTask(res.data.uuid, name)
                     if (this.nameRef.current) {
@@ -180,7 +180,7 @@ export class handlers {
                 }
 
             }).catch(e => {
-            notifications.show({title: "Error", message: e.message, color: "red", icon: <IconX/>})
+            toast(`Error creating task: ${e.message}"`, {icon: <IconX/>, type: "error"})
         })
     }
 
