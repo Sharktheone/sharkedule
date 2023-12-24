@@ -28,8 +28,6 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
     const clickHandler = useDoubleClick(openDetails, editText)
 
-    const nameRef = useRef<HTMLDivElement>()
-
 
     const [t, setT] = useState(getTask(task))
 
@@ -40,8 +38,6 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
     function editText() {
         setEditable(true)
-        nameRef?.current?.focus()
-
     }
 
     function handleBlur(e: any) {
@@ -82,8 +78,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
-                        <Text a="left" onBlur={handleBlur} contentEditable={editable}
-                              ref={nameRef as RefObject<HTMLDivElement>}> {/*TODO: dont use contentEditable*/}
+                        <Text a="left" onBlur={handleBlur} contentEditable={editable}> {/*TODO: dont use contentEditable*/}
                             {t?.name as string}
                         </Text>
                     </div>

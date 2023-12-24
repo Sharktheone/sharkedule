@@ -119,10 +119,10 @@ export function ColorSelector({value, onSelect, onChange, onCancel, controls, hi
             <div className={styles.content}>
                 <ViewTransition view={tab}>
                     <div data-id="simple" className={`${styles.custom} ${styles.tab}`}>
-                        {getColors().map(shade => (
-                            <div className={styles.shade}>
-                                {shade.colors.map(color => (
-                                    <SimpleColor color={color} select={select} states={states}/>
+                        {getColors().map((shade, shade_index) => (
+                            <div className={styles.shade} key={`colors-selector-color-shade-${shade_index}`}>
+                                {shade.colors.map((color, color_index) => (
+                                    <SimpleColor color={color} select={select} states={states} key={`colors-selector-color-shade-${shade_index}-color-${color_index}`}/>
                                 ))}
                             </div>
                         ))}

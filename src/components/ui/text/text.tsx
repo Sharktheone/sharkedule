@@ -10,11 +10,10 @@ type props = {
     gradient?: boolean
     italic?: boolean
     underline?: boolean
-    ref?: LegacyRef<HTMLParagraphElement>
 } & HTMLAttributes<HTMLParagraphElement>
 
 
-export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ref, ...props}: props) {
+export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ...props}: props) {
 
     let classes = className ?? ""
     classes += " " + styles.text
@@ -64,6 +63,6 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
     if (gradient) classes += " " + styles.gradient
 
     return (
-        <p className={classes} {...props} ref={ref}> {children} </p>
+        <p className={classes} {...props}> {children} </p>
     )
 }
