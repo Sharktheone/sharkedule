@@ -10,7 +10,6 @@ import {Column as Col} from "@kanban/types"
 import {EnvironmentContext} from "@kanban/environment"
 
 
-
 type ColumnProps = {
     column: string
     boardUUID: string
@@ -45,89 +44,90 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
 
                     ref={provided.innerRef}
                 >
-                    <Droppable type="task" droppableId={column} direction="vertical">
-                        {(provided) => (
-                            <div className={styles.colDrop} {...provided.droppableProps} ref={provided.innerRef}>
-                                <div className={styles.column}>
-                                    <Title s={3}>
-                                        <div>
+                    <div className={styles.colDrop}>
+                        <div className={styles.column}>
+                            <Title s={3}>
+                                <div>
                                             <span onClick={() => h.editText()}
                                                   contentEditable={h.editable} // TODO: dont use contentEditable
                                                   onBlur={event => h.handleBlur(event)}>
                                                 {getColumn().name as string}
                                             </span>
-                                            <button onClick={() => h.handleDelete()}>
-                                                <IconTrash/>
-                                            </button>
-                                        </div>
-                                    </Title>
-                                    <div ref={h.tasksRef}>
-                                        {getColumn().tasks?.map((task, index) => (
-                                            <Draggable key={task} draggableId={task} index={index}>
-                                                {(provided, snapshot) => (
-                                                    <div
-                                                        className={`${styles.taskwrapper} ${snapshot.isDragging ? styles.dragging : undefined}`}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-
-                                                        ref={provided.innerRef}
-                                                    >
-
-                                                        <div>
-                                                            <Task key={task} task={task}
-                                                                  renameTask={(uuid, name) => h.renameTask(uuid, name)}
-                                                                  board={boardUUID} column={column}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {h.ghostElement ?
-                                            <div className={styles.ghost}
-                                                 style={{
-                                                     height: h.ghostElement.height,
-                                                     top: h.ghostElement.offsetTop
-                                                 }}/>
-                                            : null
-                                        }
-                                    </div>
-
-                                    {provided.placeholder}
-
-                                    {h.isAdding ?
-                                        <>
-                                            {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
-                                            <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
-                                                      onKeyDown={(e) => {
-                                                          if (e.key === "Enter" && !e.shiftKey) {
-                                                              h.addTask()
-                                                          }
-                                                      }}
-                                                      className={styles.add}
-                                                      placeholder="Task name..."/>
-                                        </>
-
-                                        : null}
-
-                                    <div className={styles.footer}>
-                                        {!h.isAdding ?
-                                            <button onClick={() => h.handleNewTask()}>
-                                                <IconPlus/>
-                                                <Text s="medium"> Add a Task </Text>
-                                            </button> :
-
-                                            <div>
-                                                <Button variant="primary" gradient
-                                                        onClick={() => h.addTask()}> Create </Button>
-                                                <CloseButton onClick={() => h.closeIsAdding()}/>
-                                            </div>
-                                        }
-                                    </div>
+                                    <button onClick={() => h.handleDelete()}>
+                                        <IconTrash/>
+                                    </button>
                                 </div>
+                            </Title>
+                            <Droppable type="task" droppableId={column} direction="vertical">
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                                        <div ref={h.tasksRef}>
+                                            {getColumn().tasks?.map((task, index) => (
+                                                <Draggable key={task} draggableId={task} index={index}>
+                                                    {(provided, snapshot) => (
+                                                        <div
+                                                            className={`${styles.taskwrapper} ${snapshot.isDragging ? styles.dragging : undefined}`}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+
+                                                            ref={provided.innerRef}
+                                                        >
+
+                                                            <div>
+                                                                <Task key={task} task={task}
+                                                                      renameTask={(uuid, name) => h.renameTask(uuid, name)}
+                                                                      board={boardUUID} column={column}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {h.ghostElement ?
+                                                <div className={styles.ghost}
+                                                     style={{
+                                                         height: h.ghostElement.height,
+                                                         top: h.ghostElement.offsetTop
+                                                     }}/>
+                                                : null
+                                            }
+                                            {provided.placeholder}
+                                        </div>
+                                    </div>
+                                )}
+                            </Droppable>
+
+                            {h.isAdding ?
+                                <>
+                                    {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
+                                    <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
+                                              onKeyDown={(e) => {
+                                                  if (e.key === "Enter" && !e.shiftKey) {
+                                                      h.addTask()
+                                                  }
+                                              }}
+                                              className={styles.add}
+                                              placeholder="Task name..."/>
+                                </>
+
+                                : null}
+
+                            <div className={styles.footer}>
+                                {!h.isAdding ?
+                                    <button onClick={() => h.handleNewTask()}>
+                                        <IconPlus/>
+                                        <Text s="medium"> Add a Task </Text>
+                                    </button> :
+
+                                    <div>
+                                        <Button variant="primary" gradient
+                                                onClick={() => h.addTask()}> Create </Button>
+                                        <CloseButton onClick={() => h.closeIsAdding()}/>
+                                    </div>
+                                }
                             </div>
-                        )}
-                    </Droppable>
+                        </div>
+                    </div>
                 </div>
             )}
         </Draggable>
