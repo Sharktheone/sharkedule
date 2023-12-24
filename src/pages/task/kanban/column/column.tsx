@@ -48,11 +48,11 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                         <div className={styles.column}>
                             <Title s={3}>
                                 <div>
-                                            <span onClick={() => h.editText()}
-                                                  contentEditable={h.editable} // TODO: dont use contentEditable
-                                                  onBlur={event => h.handleBlur(event)}>
-                                                {getColumn().name as string}
-                                            </span>
+                                    <span onClick={() => h.editText()}
+                                          contentEditable={h.editable} // TODO: dont use contentEditable
+                                          onBlur={event => h.handleBlur(event)}>
+                                        {getColumn().name as string}
+                                    </span>
                                     <button onClick={() => h.handleDelete()}>
                                         <IconTrash/>
                                     </button>
