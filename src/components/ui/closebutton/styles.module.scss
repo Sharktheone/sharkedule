@@ -1,0 +1,18 @@
+@use 'src/styles/timing.scss' as timing;
+
+.close {
+  transition: rotate 0.2s ease-in-out;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  aspect-ratio: 1;
+
+  &:hover {
+    background: rgba(128, 128, 128, 0.4);
+    rotate: 90deg;
+  }
+}
