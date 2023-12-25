@@ -7,14 +7,15 @@ type Pros = {
     ref?: LegacyRef<HTMLInputElement>
     label?: string
     required?: boolean
+    placeholder?: string
 
 } & HTMLAttributes<HTMLInputElement>
 
-export function TextInput({variant, gradient, ref, ...props}: Pros) {
+export function TextInput({variant, gradient, ref, placeholder, ...props}: Pros) {
 
     //TODO
 
     return (
-        <input ref={ref} {...props}/>
+        <input ref={ref} placeholder={placeholder} {...props}/>
     )
 }
