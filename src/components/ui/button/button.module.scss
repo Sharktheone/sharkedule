@@ -51,7 +51,7 @@
   background-color: colors.$gray-800;
 }
 
-[data-color="dark"]] {
+[data-color="dark"] {
   --_gradient: linear-gradient(45deg, #{colors.$dark-500}, #{colors.$dark-900});
   background-color: colors.$dark-800;
 }
