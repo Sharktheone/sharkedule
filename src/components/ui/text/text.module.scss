@@ -28,46 +28,8 @@
   font-weight: bold;
 }
 
-.primary {
-  --_gradient: linear-gradient(45deg, #{colors.$yellow-800}, #{colors.$red-800});
-  background-color: colors.$primary-800;
-}
 
-.danger {
-  --_gradient: linear-gradient(45deg, #{colors.$red-500}, #{colors.$red-900});
-  color: colors.$red-800;
-}
-
-.error {
-  color: colors.$red-400;
-}
-
-.success {
-  --_gradient: linear-gradient(45deg, #{colors.$green-500}, #{colors.$green-900});
-  color: colors.$green-800;
-}
-
-.warning {
-  --_gradient: linear-gradient(45deg, #{colors.$yellow-500}, #{colors.$yellow-900});
-  color: colors.$yellow-800;
-}
-
-.info {
-  --_gradient: linear-gradient(45deg, #{colors.$blue-500}, #{colors.$blue-900});
-  color: colors.$blue-800;
-}
-
-.white {
-  --_gradient: linear-gradient(45deg, #{colors.$gray-500}, #{colors.$gray-900});
-  color: colors.$gray-400;
-}
-
-.dark {
-  --_gradient: linear-gradient(45deg, #{colors.$dark-500}, #{colors.$dark-900});
-  color: colors.$dark-800;
-}
-
-.gradient {
+[data-gradient] {
   background-image: var(--_gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -1,12 +1,13 @@
 import {HTMLAttributes} from "react"
 import styles from "@/components/ui/text/text.module.scss"
+import {ColorModifier} from "@/types/color/color"
 
 
 type props = {
     a?: "left" | "center" | "right"
     s?: 1 | 2 | 3 | 4 | 5 | 6
     w?: "light" | "regular" | "bold"
-    c?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark" | "error"
+    c?: ColorModifier
     dimmed?: boolean
     gradient?: boolean
     italic?: boolean
@@ -16,9 +17,6 @@ type props = {
 export function Title({a, s, w, c, italic, underline, className, gradient, dimmed, ...props}: props) {
 
     let classes = className ?? ""
-
-
-    if (c) classes += " " + styles[c]
 
     classes += " " + styles.title
 
@@ -57,18 +55,19 @@ export function Title({a, s, w, c, italic, underline, className, gradient, dimme
     }
 
     return (
-        <Heading s={hX(s ?? 1)} className={classes} {...props}/>
+        <Heading s={hX(s ?? 1)} className={classes} {...props} c={c ?? "primary"}/>
     )
 }
 
 
 type headingProps = {
     s: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+    c: ColorModifier
 } & HTMLAttributes<HTMLHeadingElement>
 
-function Heading({s, ...props}: headingProps) {
+function Heading({s, c, ...props}: headingProps) {
     let H = s
     return (
-        <H {...props}/>
+        <H {...props} data-color={c}/>
     )
 }

@@ -1,11 +1,12 @@
 import {HTMLAttributes} from "react"
 import styles from "./text.module.scss"
+import {ColorModifier} from "@/types/color/color"
 
 type props = {
     a?: "left" | "center" | "right"
     s?: "small" | "medium" | "large" | 1 | 2 | 3 | 4 | 5 | 6
     w?: "light" | "regular" | "bold"
-    c?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "white" | "dark" | "error"
+    c?: ColorModifier
     dimmed?: boolean
     gradient?: boolean
     italic?: boolean
@@ -17,8 +18,6 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
 
     let classes = className ?? ""
     classes += " " + styles.text
-
-    if (c) classes += " " + styles[c]
 
     classes += " " + styles[a ?? "center"]
 
@@ -63,6 +62,6 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
     if (gradient) classes += " " + styles.gradient
 
     return (
-        <p className={classes} {...props}> {children} </p>
+        <p className={classes} {...props} data-color={c ?? "primary"}> {children} </p>
     )
 }

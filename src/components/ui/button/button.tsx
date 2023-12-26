@@ -1,8 +1,9 @@
 import styles from "./button.module.scss"
 import {HTMLAttributes} from "react"
+import {ColorModifier} from "@/types/color/color"
 
 type props = {
-    variant?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark" | "green" | "red" | "blue" | "yellow" | "purple" | "pink"  | "indigo" | "cyan" | "teal" | "orange" | "gray" | "black" | "white"
+    variant?: ColorModifier
     noClickEffect?: boolean
     noHoverEffect?: boolean
     gradient?: boolean

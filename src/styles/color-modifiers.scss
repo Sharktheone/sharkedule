@@ -1,0 +1,101 @@
+@use "src/styles/colors" as colors;
+
+
+[data-color="primary"] {
+  --_gradient: linear-gradient(45deg, #{colors.$yellow-800}, #{colors.$red-800});
+  background-color: colors.$primary-800;
+}
+
+[data-color="danger"] {
+  --_gradient: linear-gradient(45deg, #{colors.$red-500}, #{colors.$red-900});
+  background-color: colors.$red-800;
+}
+
+[data-color="success"] {
+  --_gradient: linear-gradient(45deg, #{colors.$green-500}, #{colors.$green-900});
+  background-color: colors.$green-800;
+}
+
+[data-color="warning"] {
+  --_gradient: linear-gradient(45deg, #{colors.$yellow-500}, #{colors.$yellow-900});
+  background-color: colors.$yellow-800;
+}
+
+[data-color="info"] {
+  --_gradient: linear-gradient(45deg, #{colors.$blue-500}, #{colors.$blue-900});
+  background-color: colors.$blue-800;
+}
+
+[data-color="light"] {
+  --_gradient: linear-gradient(45deg, #{colors.$gray-500}, #{colors.$gray-900});
+  background-color: colors.$gray-800;
+}
+
+[data-color="dark"] {
+  --_gradient: linear-gradient(45deg, #{colors.$dark-500}, #{colors.$dark-900});
+  background-color: colors.$dark-800;
+}
+
+[data-color="green"] {
+  --_gradient: linear-gradient(45deg, #{colors.$green-500}, #{colors.$green-900});
+  background-color: colors.$green-800;
+}
+
+[data-color="blue"] {
+  --_gradient: linear-gradient(45deg, #{colors.$blue-500}, #{colors.$blue-900});
+  background-color: colors.$blue-800;
+}
+
+[data-color="gray"] {
+  --_gradient: linear-gradient(45deg, #{colors.$gray-500}, #{colors.$gray-900});
+  background-color: colors.$gray-500;
+}
+
+[data-color="yellow"] {
+  --_gradient: linear-gradient(45deg, #{colors.$yellow-500}, #{colors.$yellow-900});
+  background-color: colors.$yellow-800;
+}
+
+[data-color="red"] {
+  --_gradient: linear-gradient(45deg, #{colors.$red-500}, #{colors.$red-900});
+  background-color: colors.$red-800;
+}
+
+[data-color="purple"] {
+  --_gradient: linear-gradient(45deg, #{colors.$grape-500}, #{colors.$grape-900});
+  background-color: colors.$grape-800;
+}
+
+[data-color="pink"] {
+  --_gradient: linear-gradient(45deg, #{colors.$pink-500}, #{colors.$pink-900});
+  background-color: colors.$pink-800;
+}
+
+[data-color="indigo"] {
+  --_gradient: linear-gradient(45deg, #{colors.$indigo-500}, #{colors.$indigo-900});
+  background-color: colors.$indigo-800;
+}
+
+[data-color="cyan"] {
+  --_gradient: linear-gradient(45deg, #{colors.$cyan-500}, #{colors.$cyan-900});
+  background-color: colors.$cyan-800;
+}
+
+[data-color="teal"] {
+  --_gradient: linear-gradient(45deg, #{colors.$teal-500}, #{colors.$teal-900});
+  background-color: colors.$teal-800;
+}
+
+[data-color="orange"] {
+  --_gradient: linear-gradient(45deg, #{colors.$orange-500}, #{colors.$orange-900});
+  background-color: colors.$orange-800;
+}
+
+[data-color="white"] {
+  --_gradient: linear-gradient(45deg, #{colors.$gray-000}, #{colors.$gray-700});
+  background-color: colors.$gray-000;
+}
+
+[data-gradient] {
+  background-image: var(--_gradient);
+}

@@ -1,8 +1,9 @@
 import {HTMLAttributes, LegacyRef} from "react"
+import {ColorModifier} from "@/types/color/color"
 
 
 type Pros = {
-    variant?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark"
+    variant?: ColorModifier
     gradient?: boolean
     ref?: LegacyRef<HTMLInputElement>
     label?: string
@@ -16,6 +17,6 @@ export function TextInput({variant, gradient, ref, placeholder, ...props}: Pros)
     //TODO
 
     return (
-        <input ref={ref} placeholder={placeholder} {...props}/>
+        <input ref={ref} placeholder={placeholder} {...props} data-color={variant ?? "primary"}/>
     )
 }

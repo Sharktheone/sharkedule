@@ -1,4 +1,5 @@
-import './app.scss'
+import "./app.scss"
+import "styles/color-modifiers.scss"
 import {RouterProvider} from "react-router-dom"
 import {router} from "@/router/router"
 import {ToastContainer} from "react-toastify"

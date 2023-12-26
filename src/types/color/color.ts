@@ -64,6 +64,9 @@ export default class Color {
 }
 
 
+export type ColorModifier = "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark" | "green" | "red" | "blue" | "yellow" | "purple" | "pink"  | "indigo" | "cyan" | "teal" | "orange" | "gray" | "black" | "white"
+
+
 export type hsl = {
     h: number
     s: number

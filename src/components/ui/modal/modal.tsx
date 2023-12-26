@@ -1,4 +1,5 @@
 import {DetailedHTMLProps, HTMLAttributes} from "react"
+import {createPortal} from "react-dom"
 
 type Props = {
     show?: boolean
@@ -15,7 +16,7 @@ type Props = {
 export function Modal({show, onClose, title, opened, ...props}: Props) {
 
     //TODO: Render this in a portal
-    return (
-        <div/>
-    )
+    return createPortal(<>
+
+    </>, document.body)
 }
