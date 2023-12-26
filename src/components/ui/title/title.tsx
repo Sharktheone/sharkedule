@@ -36,7 +36,7 @@ export function Title({a, s, w, c, italic, underline, className, gradient, dimme
     type headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 
     return (
-        <Heading s={s ?? 1} className={classes} {...props} c={"orange"}/>
+        <Heading s={s ?? 1} className={classes} {...props} c={c ?? "white"}/>
     )
 }
 
