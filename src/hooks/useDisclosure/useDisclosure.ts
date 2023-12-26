@@ -5,7 +5,7 @@ export function useDisclosure(initial: boolean = false) { //Is this hook really 
 
     const [isOpen, setIsOpen] = useState(initial)
 
-    return [initial,
+    return [isOpen,
         {
             open: () => {
                 setIsOpen(true)
