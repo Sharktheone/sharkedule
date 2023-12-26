@@ -16,7 +16,6 @@ export default function Kanban() {
 
     const [workspaces, setWorkspaces] = useState(loaderData as WorkspaceList[])
     const [collapsed, setCollapsed] = useState({} as { [key: string]: boolean })
-    const [test, setTest] = useState(false)
 
     useEffect(() => {
 
