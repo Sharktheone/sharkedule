@@ -17,7 +17,7 @@ type Props = {
 
 export function Modal({show, onClose, title, opened, children, ...props}: Props) {
 
-    // if (!show) return null
+    if (!opened) return null
 
     return createPortal(<div className={styles.modalBackdrop}>
         <div className={styles.modal}>
