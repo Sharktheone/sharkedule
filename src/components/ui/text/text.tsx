@@ -62,6 +62,6 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
     if (gradient) classes += " " + styles.gradient
 
     return (
-        <p className={classes} {...props} data-color={c ?? "primary"}> {children} </p>
+        <p className={classes} {...props} data-color={c ?? "white"}> {children} </p>
     )
 }

@@ -17,6 +17,6 @@ export function TextInput({variant, gradient, ref, placeholder, ...props}: Pros)
     //TODO
 
     return (
-        <input ref={ref} placeholder={placeholder} {...props} data-color={variant ?? "primary"}/>
+        <input ref={ref} placeholder={placeholder} {...props} data-bg-color={variant ?? "primary"}/>
     )
 }
