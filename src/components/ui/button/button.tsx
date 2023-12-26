@@ -28,7 +28,7 @@ export function Button({variant, gradient, onClick, noClickEffect, noHoverEffect
     }
 
     return (
-        <button onClick={onClickHandler} type={type} data-color={variant ?? "primary"}
+        <button onClick={onClickHandler} type={type} data-bg-color={variant ?? "primary"}
                 className={`${styles.button} ${gradient ? styles.gradient : ""} ${noHoverEffect ? styles.noHover : ""}`} {...props}/>
     )
 }

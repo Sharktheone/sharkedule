@@ -35,39 +35,32 @@ export function Title({a, s, w, c, italic, underline, className, gradient, dimme
 
     type headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 
-    function hX(size: number): headings {
-        switch (size) {
-            case 1:
-                return "h1"
-            case 2:
-                return "h2"
-            case 3:
-                return "h3"
-            case 4:
-                return "h4"
-            case 5:
-                return "h5"
-            case 6:
-                return "h6"
-            default:
-                return "h1"
-        }
-    }
-
     return (
-        <Heading s={hX(s ?? 1)} className={classes} {...props} c={c ?? "primary"}/>
+        <Heading s={s ?? 1} className={classes} {...props} c={"orange"}/>
     )
 }
 
 
 type headingProps = {
-    s: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+    s: 1 | 2 | 3 | 4 | 5 | 6
     c: ColorModifier
 } & HTMLAttributes<HTMLHeadingElement>
 
 function Heading({s, c, ...props}: headingProps) {
-    let H = s
-    return (
-        <H {...props} data-color={c}/>
-    )
+    switch (s) {
+        case 1:
+            return <h1 {...props} data-color={c}/>
+        case 2:
+            return <h2 {...props} data-color={c}/>
+        case 3:
+            return <h3 {...props} data-color={c}/>
+        case 4:
+            return <h4 {...props} data-color={c}/>
+        case 5:
+            return <h5 {...props} data-color={c}/>
+        case 6:
+            return <h6 {...props} data-color={c}/>
+        default:
+            return <h1 {...props} data-color={c}/>
+    }
 }

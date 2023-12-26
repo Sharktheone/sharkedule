@@ -5,7 +5,7 @@ import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
 import {IconArrowBadgeDown, IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
-import {Button, Text} from "@/components/ui"
+import {Button, Text, Title} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
 import {toast} from "react-toastify"
 
@@ -159,7 +159,7 @@ export default function Kanban() {
     return (
         <div className={styles.dashboard}>
             <div className={styles.boardsHeader}>
-                <h1>Your Boards</h1>
+                <Title>Your Boards</Title>
                 <Button gradient onClick={openNewBoard}>
                     New Board
                 </Button>
