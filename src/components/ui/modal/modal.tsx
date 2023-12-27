@@ -1,4 +1,4 @@
-import {DetailedHTMLProps, HTMLAttributes} from "react"
+import {DetailedHTMLProps, HTMLAttributes, ReactNode} from "react"
 import {createPortal} from "react-dom"
 import styles from "./modal.module.scss"
 import {CloseButton, Title} from "@/components/ui"
@@ -6,7 +6,7 @@ import {CloseButton, Title} from "@/components/ui"
 type Props = {
     show?: boolean
     onClose?: () => void
-    title?: string
+    title?: ReactNode | Element | string
     opened?: boolean
     overlayProps?: {
         opacity: number
@@ -15,12 +15,11 @@ type Props = {
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
 
-export function Modal({show, onClose, title, opened, children, ...props}: Props) {
-
+export function Modal({show, onClose, title, opened, children, className, ...props}: Props) {
     if (!opened) return null
 
     return createPortal(<div className={styles.modalBackdrop}>
-        <div className={styles.modal}>
+        <div className={styles.modal + " " + className} {...props}>
             <div className={styles.modalHeader}>
                 <Title s={3}>{title}</Title>
                 <CloseButton onClick={onClose}/>
