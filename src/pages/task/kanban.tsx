@@ -5,6 +5,7 @@ import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
 import {IconArrowBadgeDown, IconTrash, IconX} from "@tabler/icons-react"
 import {WorkspaceList} from "@kanban/types"
+import {NameList, WorkspaceList} from "@kanban/types"
 import {Button, Text, Title} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
 import {toast} from "react-toastify"
@@ -26,8 +27,13 @@ export default function Kanban() {
 
     const [newOpened, {open, close},] = useDisclosure(false)
 
-    function openNewBoard() {
+    function openNewBoard(ws: NameList) {
+        setNewBoardWorkspace(ws)
         open()
+    }
+
+    function openNewWorkspace() {
+
     }
 
     function createBoard(workspace: string, name: string, description: string) {
@@ -159,12 +165,12 @@ export default function Kanban() {
         <div className={styles.dashboard}>
             <div className={styles.boardsHeader}>
                 <Title>Your Boards</Title>
-                <Button gradient onClick={openNewBoard}>
-                    New Board
+                <Button gradient>
+                    New Workspace
                 </Button>
             </div>
-            <CreateNewModal close={close} opened={newOpened}
-                            handleCreate={(name, description) => createBoard("TODO", name, description)}/> {/*TODO: make workspace selectable*/}
+            <CreateNewModal close={close} opened={newOpened} workspace={newBoardWorkspace}
+                            handleCreate={(workspace, name, description) => createBoard(workspace , name, description)}/> {/*TODO: make workspace selectable*/}
 
             <Workspaces/>
         </div>
