@@ -3,8 +3,7 @@ import {Link, useLoaderData, useNavigate} from "react-router-dom"
 import styles from "./styles.module.scss"
 import {useDisclosure} from "@/hooks"
 import {api} from "@/api/api"
-import {IconArrowBadgeDown, IconTrash, IconX} from "@tabler/icons-react"
-import {WorkspaceList} from "@kanban/types"
+import {IconArrowBadgeDown, IconPlus, IconTrash, IconX} from "@tabler/icons-react"
 import {NameList, WorkspaceList} from "@kanban/types"
 import {Button, Text, Title} from "@/components/ui"
 import CreateNewModal from "@/pages/task/createNewModal"
@@ -17,6 +16,7 @@ export default function Kanban() {
 
     const [workspaces, setWorkspaces] = useState(loaderData as WorkspaceList[])
     const [collapsed, setCollapsed] = useState({} as { [key: string]: boolean })
+    const [newBoardWorkspace, setNewBoardWorkspace] = useState<NameList | undefined>(undefined)
 
     useEffect(() => {
 
@@ -113,9 +113,14 @@ export default function Kanban() {
                                 </button>
                                 <Text c="white" w="bold" a="left" s={4}>{workspace.name}</Text>
                             </div>
-                            <div
-                                className={styles.workspaceHovermenu}> {/*TODO: don't use a hovermenu but a button which opens a list of options*/}
+                            <div className={styles.workspaceHovermenu}>
+                                {/*TODO: don't use a hovermenu but a button which opens a list of options*/}
                                 <div>
+                                    <button onClick={() => openNewBoard(workspace)}>
+                                        <IconPlus/>
+                                    </button>
+                                </div>
+                                <div className={styles.delete}>
                                     <button onClick={() => deleteWorkspace(workspace.uuid)}>
                                         <IconTrash/>
                                     </button>
@@ -149,7 +154,7 @@ export default function Kanban() {
                             {board.name}
                         </Link>
                         <div className={styles.boardHovermenu}>
-                            <div>
+                            <div className={styles.delete}>
                                 <button onClick={() => deleteBoard(workspace.uuid, board.uuid)}>
                                     <IconTrash/>
                                 </button>

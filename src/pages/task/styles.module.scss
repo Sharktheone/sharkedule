@@ -36,7 +36,7 @@
 
   &:hover {
     & > div {
-      display: block;
+      display: flex;
     }
   }
 }
@@ -83,14 +83,14 @@
 
   box-shadow: shadows.$shadow-x;
 
-  & > div {
+  & > div:hover {
     position: relative;
     min-height: 2rem;
     display: flex;
     align-items: center;
 
     & > .workspaceHovermenu {
-      display: block;
+      display: flex;
     }
   }
 }
@@ -150,7 +150,7 @@
     background-color: colors.$dark-800;
 
     & > .boardHovermenu {
-      display: block;
+      display: flex;
     }
   }
 
@@ -178,7 +178,7 @@
     background: inherit;
     border: none;
     padding: .25rem;
-    border-radius: 25%;
+    border-radius: .5rem;
     cursor: pointer;
 
     & > svg {
@@ -187,8 +187,12 @@
     }
 
     &:hover {
-      background: rgba(255, 77, 79, 0.4);
+      background: rgba(128, 128, 128, 0.5);
     }
+  }
+
+  & > .delete > button:hover {
+    background: #{colors.$red-800}80;
   }
 }
 
