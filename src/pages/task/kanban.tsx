@@ -25,7 +25,7 @@ export default function Kanban() {
         setWorkspaces(loaderData as WorkspaceList[])
     }, [loaderData])
 
-    const [newOpened, {open, close},] = useDisclosure(false)
+    const [newOpened, {open, close}] = useDisclosure(false)
 
     function openNewBoard(ws: NameList) {
         setNewBoardWorkspace(ws)
@@ -175,7 +175,7 @@ export default function Kanban() {
                 </Button>
             </div>
             <CreateNewModal close={close} opened={newOpened} workspace={newBoardWorkspace}
-                            handleCreate={(workspace, name, description) => createBoard(workspace , name, description)}/> {/*TODO: make workspace selectable*/}
+                            handleCreate={(workspace, name, description) => createBoard(workspace, name, description)}/> {/*TODO: make workspace selectable*/}
 
             <Workspaces/>
         </div>
