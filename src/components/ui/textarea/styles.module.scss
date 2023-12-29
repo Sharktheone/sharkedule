@@ -1,0 +1,22 @@
+@use "src/styles/colors" as colors;
+@use "src/styles/shadows" as shadows;
+
+
+.textarea {
+  background: colors.$dark-700;
+  border-radius: .5rem;
+  border: none;
+  border-top: 2px solid colors.$dark-500;
+  min-height: 3rem;
+  box-shadow: shadows.$shadow-x;
+  overflow: hidden;
+  padding: .5rem;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$cyan-500;
+  }
+}

@@ -1,18 +1,36 @@
-import {DetailedHTMLProps, TextareaHTMLAttributes} from "react"
+import TextareaAutosize from "react-textarea-autosize"
+import {HTMLAttributes} from "react"
+import styles from "./styles.module.scss"
 
 
 type Props = {
     autosize?: boolean
     label?: string
-    error?: string
-    required?: boolean
+    error?: string | boolean
+    autosizeMinRows?: number
+    autosizeMaxRows?: number
+    placeholder?: string
+} & Omit<HTMLAttributes<HTMLTextAreaElement>, "style">
 
-} & DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 
-
-export function Textarea({autosize, ...props}: Props) {
-    //TODO: Textarea with autosize
+export function Textarea({label, error, className, ...props}: Props) {
+    let classes = styles.textarea + " " + className
     return (
-        <textarea {...props}/>
+        <TA {...props} className={classes}/>
     )
+}
+
+
+type TAProps = {
+    autosize?: boolean
+    autosizeMinRows?: number
+    autosizeMaxRows?: number
+} & Omit<HTMLAttributes<HTMLTextAreaElement>, "style">
+
+function TA({autosize, autosizeMaxRows, autosizeMinRows, ...props}: TAProps) {
+    if (autosize) {
+        return <TextareaAutosize minRows={autosizeMaxRows} maxRows={autosizeMaxRows} {...props}/>
+    }
+    return <textarea {...props}/>
+
 }
