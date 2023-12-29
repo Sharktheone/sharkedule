@@ -10,11 +10,31 @@ type Props = {
     autosizeMinRows?: number
     autosizeMaxRows?: number
     placeholder?: string
+    resize?: "none" | "both" | "horizontal" | "vertical"
 } & Omit<HTMLAttributes<HTMLTextAreaElement>, "style">
 
 
-export function Textarea({label, error, className, ...props}: Props) {
-    let classes = styles.textarea + " " + className
+export function Textarea({label, error, className, resize = "both", ...props}: Props) {
+    let classes = styles.textarea
+    if (className) {
+        classes += " " + className
+    }
+
+    switch (resize) {
+        case "none":
+            classes += " " + styles.noResize
+            break
+        case "both":
+            classes += " " + styles.bothResize
+            break
+        case "horizontal":
+            classes += " " + styles.horizontalResize
+            break
+        case "vertical":
+            classes += " " + styles.verticalResize
+            break
+    }
+
     return (
         <TA {...props} className={classes}/>
     )

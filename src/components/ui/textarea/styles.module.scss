@@ -20,3 +20,19 @@
     outline: 2px solid colors.$cyan-500;
   }
 }
+
+.noResize {
+  resize: none;
+}
+
+.bothResize {
+  resize: both;
+}
+
+.horizontalResize {
+  resize: horizontal;
+}
+
+.verticalResize {
+  resize: vertical;
+}
