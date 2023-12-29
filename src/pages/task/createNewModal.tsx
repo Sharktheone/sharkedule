@@ -42,9 +42,9 @@ export default function CreateNewModal({opened, close, handleCreate, workspace}:
                 Create new Kanban Board in <i> {workspace.name} </i>
             </>
         }>
-            <form onSubmit={handleSubmit} className={styles.createForm}>
+            <form onSubmit={handleSubmit} className={styles.form}>
                 <TextInput ref={nameRef} label="Name" placeholder="Kanban Board Name" required/>
-                <Textarea label="Description" autosize placeholder="Kanban Board Description"/>
+                <Textarea resize="vertical" label="Description" autosize placeholder="Kanban Board Description"/>
                 <Button variant="success" gradient type="submit">Create</Button>
             </form>
         </Modal>
