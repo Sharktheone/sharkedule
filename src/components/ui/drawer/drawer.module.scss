@@ -1,0 +1,81 @@
+@use "src/styles/colors" as colors;
+@use "src/styles/shadows" as shadows;
+
+.drawerBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.drawer {
+  position: absolute;
+  z-index: 101;
+  min-width: 30rem;
+  background-color: colors.$dark-600;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: shadows.$shadow-xl;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.drawerHeader {
+  width: 100%;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.drawerBody {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+
+[data-position="top"] {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+[data-position="right"] {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+[data-position="bottom"] {
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+[data-position="left"] {
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
