@@ -9,15 +9,19 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  overflow: scroll;
 }
 
 .modal {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   position: relative;
   z-index: 101;
-  min-width: 40rem;
+  min-width: 30rem;
   background-color: colors.$dark-600;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -30,6 +34,7 @@
 
 .modalHeader {
   width: 100%;
+  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,6 +43,7 @@
 
 .modalBody {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

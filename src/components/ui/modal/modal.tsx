@@ -12,14 +12,23 @@ type Props = {
         opacity: number
         blur: number
     }
+    size: string
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
 
-export function Modal({show, onClose, title, opened, children, className, ...props}: Props) {
+export function Modal({show, onClose, title, opened, children, className, size = "30rem", style, ...props}: Props) {
     if (!opened) return null
 
+    let classes = styles.modal
+    if (className) {
+        classes += " " + className
+    }
+
+    style = style ?? {}
+    if (size) style.minWidth = size
+
     return createPortal(<div className={styles.modalBackdrop}>
-        <div className={styles.modal + " " + className} {...props}>
+        <div className={classes} {...props} style={style}>
             <div className={styles.modalHeader}>
                 <Title s={3}>{title}</Title>
                 <CloseButton onClick={onClose}/>
