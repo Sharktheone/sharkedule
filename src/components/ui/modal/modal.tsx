@@ -4,7 +4,6 @@ import styles from "./modal.module.scss"
 import {CloseButton, Title} from "@/components/ui"
 
 type Props = {
-    show?: boolean
     onClose?: () => void
     title?: ReactNode | Element | string
     opened?: boolean
@@ -12,11 +11,11 @@ type Props = {
         opacity: number
         blur: number
     }
-    size: string
+    size?: string
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
 
-export function Modal({show, onClose, title, opened, children, className, size = "30rem", style, ...props}: Props) {
+export function Modal({onClose, title, opened, children, className, size = "30rem", style, ...props}: Props) {
     if (!opened) return null
 
     let classes = styles.modal
