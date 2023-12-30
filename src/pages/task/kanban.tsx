@@ -104,7 +104,7 @@ export default function Kanban() {
         return (
             <ul className={styles.workspaces}>
                 {workspaces.map((workspace) => (
-                    <li className={styles.workspace} key={workspace.uuid}> {/* Make workspaces lists collapsable */}
+                    <li className={styles.workspace} key={workspace.uuid}>
                         <div>
                             <div className={styles.workspaceName}>
                                 <button onClick={() => toggleCollapsed(workspace.uuid)}>
