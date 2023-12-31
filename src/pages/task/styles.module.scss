@@ -225,24 +225,22 @@
     align-items: center;
     justify-content: center;
 
-    & > div > span {
-      & > svg {
-        margin-right: .5rem;
-      }
+    & > svg {
+      margin-right: .5rem;
+    }
 
-      & > .rotate {
-        animation: rotate 1s ease-in-out infinite;
+    & > .rotate {
+      animation: rotate 1s ease-in-out infinite;
 
 
-        @keyframes rotate {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        };
-      }
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      };
     }
   }
 }
