@@ -82,7 +82,7 @@
   color: colors.$primary-800;
 }
 
-[data-color="red"], [data-color="danger"] {
+[data-color="red"], [data-color="danger"], [data-color="error"] {
   --_gradient: linear-gradient(45deg, #{colors.$red-600}, #{colors.$red-900});
   color: colors.$red-800;
 }
