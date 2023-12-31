@@ -46,17 +46,17 @@ export default function BoardsError() {
     function Navigation() {
         return (
             <div className={styles.errornav}>
-                <Button gradient variant="success" onClick={() => navigate(-1)}>
+                <Button gradient variant="primary" onClick={() => navigate(-1)}>
                     <IconArrowBigLeft/>
-                    <div>
+                    <Text s="medium">
                         Go Back
-                    </div>
+                    </Text>
                 </Button>
-                <Button gradient variant="success" onClick={tryAgain}>
+                <Button gradient variant="green" onClick={tryAgain}>
                     <IconReload className={retry ? styles.rotate : undefined}/>
-                    <div>
+                    <Text s="medium">
                         {retry ? "Retrying" : "Try Again"}
-                    </div>
+                    </Text>
                 </Button>
             </div>
         )
