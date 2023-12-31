@@ -70,7 +70,7 @@ export default function BoardsError() {
                 )
             case 404:
                 return (
-                    <div>
+                    <div className={styles.error}>
                         <Title c="error">Board not found</Title>
                         <IconError404 size={"xl"}/>
                         <Navigation/>
@@ -78,7 +78,7 @@ export default function BoardsError() {
                 )
             case 500:
                 return (
-                    <div>
+                    <div className={styles.error}>
                         <Title c="error">Server Error</Title>
                         <Text s="medium" c="error">Please try again later</Text>
                         <Text s="medium" c="error"> {error.data.text} </Text>
@@ -87,7 +87,7 @@ export default function BoardsError() {
                 )
             case 503:
                 return (
-                    <div>
+                    <div className={styles.error}>
                         <Title>Server Error</Title>
                         <Text s="medium" c="error">
                             Looks like our API is down, please try again later
@@ -99,7 +99,7 @@ export default function BoardsError() {
         }
 
         return (
-            <div>
+            <div className={styles.error}>
                 <Title s={1}>Error Loading Task Boards</Title>
                 <Text s="medium" c="error">{error.data.text}</Text>
                 <Navigation/>
@@ -107,7 +107,7 @@ export default function BoardsError() {
         )
     }
     return (
-        <div>
+        <div className={styles.error}>
             <Title c="error"> Error Loading Task Boards</Title>
             <Text c="error" s="medium">Unknown error</Text>
             <Navigation/>
