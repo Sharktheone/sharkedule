@@ -2,6 +2,7 @@ import {HTMLAttributes, ReactNode} from "react"
 import styles from "./drawer.module.scss"
 import {createPortal} from "react-dom"
 import {CloseButton, Title} from "@/components/ui"
+import {useClickOutside} from "@/hooks"
 
 type Props = {
     opened: boolean
@@ -45,8 +46,13 @@ export function Drawer({
             break
     }
 
+
+    let ref = useClickOutside(() => {
+        if (onClose) onClose()
+    })
+
     return createPortal(<div className={styles.drawerBackdrop}>
-        <div className={classes} {...props} style={style} data-position={position}>
+        <div className={classes} {...props} style={style} data-position={position} ref={ref}>
             <div className={styles.drawerHeader}>
                 <Title s={3}>{title}</Title>
                 <CloseButton onClick={onClose}/>
