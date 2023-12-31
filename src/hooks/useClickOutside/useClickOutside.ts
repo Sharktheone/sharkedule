@@ -9,8 +9,12 @@ export function useClickOutside<T extends HTMLElement = any>(handler: () => void
         const listener = (event: Event) => {
             const el = ref?.current
             const target = event.target as HTMLElement
-            if (!el || el.contains(target)) return
-            handler()
+
+            console.log("ref", ref)
+
+            if (ref.current && !ref.current.contains(target)) {
+                handler()
+            }
         }
 
         events.forEach(event => {
@@ -25,5 +29,5 @@ export function useClickOutside<T extends HTMLElement = any>(handler: () => void
     }, [handler, events, ref, nodes])
 
 
-    return useRef<T>()
+    return ref
 }
