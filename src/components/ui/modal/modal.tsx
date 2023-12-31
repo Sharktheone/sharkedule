@@ -2,6 +2,7 @@ import {DetailedHTMLProps, HTMLAttributes, ReactNode} from "react"
 import {createPortal} from "react-dom"
 import styles from "./modal.module.scss"
 import {CloseButton, Title} from "@/components/ui"
+import {useClickOutside} from "@/hooks"
 
 type Props = {
     onClose?: () => void
@@ -23,11 +24,15 @@ export function Modal({onClose, title, opened, children, className, size = "30re
         classes += " " + className
     }
 
+    let ref = useClickOutside(() => {
+        if (onClose) onClose()
+    })
+
     style = style ?? {}
     if (size) style.minWidth = size
 
     return createPortal(<div className={styles.modalBackdrop}>
-        <div className={classes} {...props} style={style}>
+        <div className={classes} {...props} style={style} ref={ref}>
             <div className={styles.modalHeader}>
                 <Title s={3}>{title}</Title>
                 <CloseButton onClick={onClose}/>
