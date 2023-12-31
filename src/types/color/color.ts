@@ -68,6 +68,7 @@ export type ColorModifier =
     "primary"
     | "secondary"
     | "danger"
+    | "error"
     | "success"
     | "warning"
     | "info"
