@@ -24,11 +24,12 @@ export function Drawer({
                            position = "right", overlayProps, ...props
                        }: Props) {
     if (!opened) return null
-
     let classes = styles.drawer
     if (className) {
         classes += " " + className
     }
+
+    // if (opened) classes += " " + styles.opened
 
     style = style ?? {}
     switch (position) {

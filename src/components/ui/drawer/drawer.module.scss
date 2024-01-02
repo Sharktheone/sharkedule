@@ -1,6 +1,9 @@
 @use "src/styles/colors" as colors;
 @use "src/styles/shadows" as shadows;
 
+
+$duration: 500ms;
+
 .drawerBackdrop {
   position: fixed;
   top: 0;
@@ -9,10 +12,22 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
+  animation: backdrop $duration ease;
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: start;
+}
+
+@keyframes backdrop {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
 }
 
 .drawer {
@@ -54,6 +69,17 @@
   right: 0;
   bottom: auto;
   border-radius: 0 0 0.5rem 0.5rem;
+
+  animation: drawer-top $duration ease;
+
+  @keyframes drawer-top {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 }
 
 [data-position="right"] {
@@ -62,6 +88,17 @@
   bottom: 0;
   left: auto;
   border-radius: 0.5rem 0 0 0.5rem;
+
+  animation: drawer-right $duration ease;
+
+  @keyframes drawer-right {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 }
 
 [data-position="bottom"] {
@@ -70,6 +107,17 @@
   bottom: 0;
   left: 0;
   border-radius: 0.5rem 0.5rem 0 0;
+
+  animation: drawer-bottom $duration ease;
+
+  @keyframes drawer-bottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 }
 
 [data-position="left"] {
@@ -78,4 +126,16 @@
   bottom: 0;
   left: 0;
   border-radius: 0 0.5rem 0.5rem 0;
+  --_drawer_right: auto;
+
+  animation: drawer-left $duration ease;
+
+  @keyframes drawer-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 }
