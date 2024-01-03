@@ -1,4 +1,4 @@
-import {HTMLAttributes} from "react"
+import {HTMLAttributes, LegacyRef} from "react"
 import styles from "./text.module.scss"
 import {ColorModifier} from "@/types/color/color"
 
@@ -11,10 +11,11 @@ type props = {
     gradient?: boolean
     italic?: boolean
     underline?: boolean
+    ref?: LegacyRef<HTMLParagraphElement>
 } & HTMLAttributes<HTMLParagraphElement>
 
 
-export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ...props}: props) {
+export function Text({a, s, w, c, children, italic, underline, className, gradient, dimmed, ref, ...props}: props) {
 
     let classes = className ?? ""
     classes += " " + styles.text
@@ -62,6 +63,6 @@ export function Text({a, s, w, c, children, italic, underline, className, gradie
     if (gradient) classes += " " + styles.gradient
 
     return (
-        <p className={classes} {...props} data-color={c ?? "white"}> {children} </p>
+        <p className={classes} {...props} data-color={c ?? "white"} ref={ref}> {children} </p>
     )
 }
