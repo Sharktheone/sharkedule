@@ -31,12 +31,15 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
     const [t, setT] = useState(getTask(task))
 
+    const ref = React.useRef<HTMLDivElement>(null)
+
 
     function getTask(uuid: string) {
         return environment?.tasks?.find((task) => task.uuid === uuid)
     }
 
     function editText() {
+        ref?.current?.focus()
         setEditable(true)
     }
 
@@ -78,8 +81,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                 <div className={styles.taskname}>
                     <div className={styles.name}>
                         <IconCircleCheck/>
-                        <Text a="left" onBlur={handleBlur}
-                              contentEditable={editable}> {/*TODO: dont use contentEditable*/}
+                        <Text a="left" onBlur={handleBlur} ref={ref}> {/*TODO: dont use contentEditable*/}
                             {t?.name as string}
                         </Text>
                     </div>
