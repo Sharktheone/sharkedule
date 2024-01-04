@@ -1,6 +1,9 @@
 @use "src/styles/colors" as colors;
 @use "src/styles/shadows" as shadows;
 
+$duration-backdrop: 250ms;
+$duration-modal: 500ms;
+
 .modalBackdrop {
   position: fixed;
   top: 0;
@@ -14,6 +17,20 @@
   justify-content: center;
   align-items: start;
   overflow: scroll;
+
+
+  animation: backdrop $duration-backdrop ease-in-out;
+
+  @keyframes backdrop {
+    from {
+      opacity: 0;
+      backdrop-filter: blur(0);
+    }
+    to {
+      opacity: 1;
+      backdrop-filter: blur(4px);
+    }
+  }
 }
 
 .modal {
@@ -30,6 +47,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  animation: modal $duration-modal ease-in-out;
+
+  @keyframes modal {
+    from {
+      //transform: scale(0.5);
+      translate: 0 -4rem;
+    }
+    to {
+      //transform: scale(1);
+      translate: 0 0;
+    }
+  }
 }
 
 .modalHeader {
