@@ -1,5 +1,5 @@
 import TextareaAutosize from "react-textarea-autosize"
-import {HTMLAttributes} from "react"
+import {HTMLAttributes, LegacyRef} from "react"
 import styles from "./styles.module.scss"
 
 
@@ -11,6 +11,7 @@ type Props = {
     autosizeMaxRows?: number
     placeholder?: string
     resize?: "none" | "both" | "horizontal" | "vertical"
+    ref?: LegacyRef<HTMLTextAreaElement>
 } & Omit<HTMLAttributes<HTMLTextAreaElement>, "style">
 
 

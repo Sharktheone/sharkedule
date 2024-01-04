@@ -40,7 +40,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
 
     function editText() {
         ref?.current?.focus()
-        setEditable(true)
+        // setEditable(true)
     }
 
     function handleBlur(e: any) {
