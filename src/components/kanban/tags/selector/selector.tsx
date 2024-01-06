@@ -16,10 +16,7 @@ export default function TagSelector({onChange, selected}: Props) {
     const [newSelected, setNewSelected] = useState<string[]>(selected ?? [])
     const [firstRender, setFirstRender] = useState<boolean>(true)
     const [opened, setOpened] = useState<boolean>(false)
-    const [selectedRef, setSelectedRef] = useState<HTMLDivElement | null>(null)
-
-    const [popoverRef, setPopoverRef] = useState<HTMLDivElement | null>(null)
-    useClickOutside(() => setOpened(false), [selectedRef, popoverRef])
+    let popoverRef = useClickOutside(() => setOpened(false))
 
     useEffect(() => {
         setNewSelected(selected ?? [])
@@ -65,7 +62,7 @@ export default function TagSelector({onChange, selected}: Props) {
 
     return (
         <div className={styles.selector}>
-            <div ref={setSelectedRef} className={styles.selected}>
+            <div className={styles.selected}>
                 {newSelected?.map((uuid) => {
                     let tag = tags?.find((tag) => tag.uuid === uuid)
                     if (!tags) {
@@ -87,7 +84,7 @@ export default function TagSelector({onChange, selected}: Props) {
                 </button>
             </div>
             {opened ? <div className={styles.availableTags}
-                           ref={setPopoverRef}
+                           ref={popoverRef}
                 >
                     {tags?.map((tag) => (
                         <>
