@@ -9,6 +9,15 @@ export function useClickOutside<T extends HTMLElement = any>(handler: () => void
         const listener = (event: Event) => {
             const target = event.target as HTMLElement
 
+            if (nodes && nodes.length) {
+                console.log(nodes)
+                if (nodes.some(node => {
+                    return node && !node.contains(target)
+                })) {
+                    handler()
+                }
+            }
+
             if (ref.current && !ref.current.contains(target)) {
                 handler()
             }
