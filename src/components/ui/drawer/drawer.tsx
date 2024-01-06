@@ -7,6 +7,7 @@ import {useClickOutside} from "@/hooks"
 type Props = {
     opened: boolean
     onClose: () => void
+    onClosing?: () => void
     position: "top" | "bottom" | "left" | "right"
     about?: string
     title?: ReactNode | Element | string
@@ -21,14 +22,13 @@ type Props = {
 
 export function Drawer({
                            onClose, title, opened, children, className, size = "20rem", style,
-                           position = "right", overlayProps, ...props
+                           onClosing, position = "right", overlayProps, ...props
                        }: Props) {
     if (!opened) return null
 
     let classes = styles.drawer
     if (className) {
         classes += " " + className
-
     }
 
 
@@ -50,14 +50,25 @@ export function Drawer({
 
 
     let ref = useClickOutside(() => {
-        if (onClose) onClose()
+        close()
     })
+
+    function close() {
+        setTimeout(() => {
+            console.log("closing")
+            if (onClose) onClose()
+        }, 500)
+
+        ref.current?.parentElement?.classList.add(styles.closing)
+
+        ref.current?.classList.add(styles.closing)
+    }
 
     return createPortal(<div className={styles.drawerBackdrop}>
         <div className={classes} {...props} style={style} data-position={position} ref={ref}>
             <div className={styles.drawerHeader}>
                 <Title s={3}>{title}</Title>
-                <CloseButton onClick={onClose}/>
+                <CloseButton onClick={close}/>
             </div>
             <div className={styles.drawerBody}>
                 {children}
