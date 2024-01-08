@@ -202,6 +202,6 @@ export class handlers {
     }
 
     private refresh() {
-        this.navigate("")
+        this.navigate(".", {replace: true})
     }
 }

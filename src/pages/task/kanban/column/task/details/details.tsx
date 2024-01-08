@@ -31,7 +31,7 @@ export default function TaskDetails({open, setOpen, uuid}: Props) {
                 if (res.status >= 300) {
                     console.log(res.data)
                 } else {
-                    navigate("")
+                    navigate(".", {replace: true})
                 }
             }).catch(
             (err) => {

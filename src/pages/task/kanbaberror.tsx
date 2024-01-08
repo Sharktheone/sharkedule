@@ -17,7 +17,7 @@ export default function BoardsError() {
             setRetry(true)
             setTimeout(
                 () => {
-                    navigate("")
+                    navigate(".", {replace: true})
                     setRetry(false)
                 }, 1000)
         }

@@ -38,7 +38,7 @@ export default function Description({uuid}: Props) {
             description: description
         }).then(res => {
             if (res.status < 300) {
-                navigate("")
+                navigate(".", {replace: true})
             } else {
                 toast("Error updating description", {icon: <IconX/>, type: "error"})
             }

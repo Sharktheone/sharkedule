@@ -61,7 +61,7 @@ export default function Kanban() {
                     toast(`Error deleting board: ${res.data.message}`, {icon: <IconX/>, type: "error"})
                 } else {
                     toast("Deleted Board", {type: "success"})
-                    navigate("")
+                    navigate(".", {replace: true})
                 }
             }).catch(e => {
             toast(`Error deleting board: ${e}`, {icon: <IconX/>, type: "error"})
@@ -75,7 +75,7 @@ export default function Kanban() {
                     toast(`Error deleting workspace: ${res.data.message}`, {icon: <IconX/>, type: "error"})
                 } else {
                     toast("Deleted Workspace", {type: "success"})
-                    navigate("")
+                    navigate(".", {replace: true})
                 }
             }).catch(e => {
             toast(`Error deleting workspace: ${e}`, {icon: <IconX/>, type: "error"})

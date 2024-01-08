@@ -55,7 +55,7 @@ export default function Task({task, renameTask, board, column}: TaskProps) {
                     toast("Error deleting task", {icon: <IconX/>, type: "error"})
                 } else {
                     toast("Deleted Task", {type: "success"}) //TODO: undo button?
-                    navigate("#")
+                    navigate(".", {replace: true})
                 }
             }
         ).catch(
