@@ -96,22 +96,20 @@ export default function Column({column, ghost, boardUUID}: ColumnProps) {
                                     </div>
                                 )}
                             </Droppable>
-
                             {h.isAdding ?
                                 <>
                                     {/*TODO: close the create shit, when user clicks out (onBlur not optimal)*/}
-                                    <Textarea onBlur={() => h.removeIsAdding()} ref={h.nameRef} autosize
+                                    <Textarea onBlur={() => h.removeIsAdding()} autosize className={styles.add}
+                                              textareaRef={h.nameRef}
                                               onKeyDown={(e) => {
                                                   if (e.key === "Enter" && !e.shiftKey) {
                                                       h.addTask()
                                                   }
                                               }}
-                                              className={styles.add}
                                               placeholder="Task name..."/>
                                 </>
 
                                 : null}
-
                             <div className={styles.footer}>
                                 {!h.isAdding ?
                                     <button onClick={() => h.handleNewTask()}>

@@ -107,15 +107,13 @@
 }
 
 .add {
-  & > div > textarea {
-    min-height: 6rem;
-    border-radius: .5rem;
-    background-color: colors.$dark-700;
-    border: 1px solid colors.$dark-500;
-    box-shadow: shadows.$shadow-md;
-  }
-
+  width: 100%;
+  min-height: 6rem;
+  border-radius: .5rem;
+  background-color: colors.$dark-700;
+  border: 1px solid colors.$dark-500;
   box-shadow: shadows.$shadow-md;
+  resize: vertical;
 }
 
 .ghost {

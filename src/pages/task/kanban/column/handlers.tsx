@@ -140,7 +140,6 @@ export class handlers {
 
             this.setGhostElement(ghostElement)
         }, [this.ghost])
-
     }
 
     handleNewTask() {
@@ -152,15 +151,15 @@ export class handlers {
             if (this.isAdding) {
                 this.nameRef.current?.focus()
             }
-        }, [this.isAdding])
+        }, [this.isAdding, this.nameRef])
     }
 
     addTask() {
         if (this.removeTimeout) clearTimeout(this.removeTimeout)
 
         let name: string
-        if (this.nameRef.current?.value) {
-            name = this.nameRef.current?.value
+        if (this.nameRef?.current?.value) {
+            name = this.nameRef.current.value
         } else {
             toast("Task name cannot be empty", {icon: <IconX/>, type: "error"})
             return

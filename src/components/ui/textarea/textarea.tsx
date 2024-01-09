@@ -1,5 +1,5 @@
 import TextareaAutosize from "react-textarea-autosize"
-import {HTMLAttributes, LegacyRef} from "react"
+import {HTMLAttributes, LegacyRef, MutableRefObject, Ref, RefObject} from "react"
 import styles from "./styles.module.scss"
 
 
@@ -11,7 +11,7 @@ type Props = {
     autosizeMaxRows?: number
     placeholder?: string
     resize?: "none" | "both" | "horizontal" | "vertical"
-    ref?: LegacyRef<HTMLTextAreaElement>
+    textareaRef?: RefObject<HTMLTextAreaElement>
 } & Omit<HTMLAttributes<HTMLTextAreaElement>, "style">
 
 
@@ -46,11 +46,12 @@ type TAProps = {
     autosize?: boolean
     autosizeMinRows?: number
     autosizeMaxRows?: number
+    textareaRef?: RefObject<HTMLTextAreaElement>
 } & Omit<HTMLAttributes<HTMLTextAreaElement>, "style">
 
-function TA({autosize, autosizeMaxRows, autosizeMinRows, ...props}: TAProps) {
+function TA({autosize, autosizeMaxRows, autosizeMinRows, textareaRef, ...props}: TAProps) {
     if (autosize) {
-        return <TextareaAutosize minRows={autosizeMaxRows} maxRows={autosizeMaxRows} {...props}/>
+        return <TextareaAutosize minRows={autosizeMaxRows} maxRows={autosizeMaxRows} {...props} ref={textareaRef}/>
     }
     return <textarea {...props}/>
 
