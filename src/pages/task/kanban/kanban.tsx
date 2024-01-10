@@ -117,7 +117,7 @@ export default function Kanban() {
                                         </> :
                                         <div>
                                             <div className={styles.add}>
-                                                <Input ref={newColRef} onBlur={() => h.cancelAddColumn()}
+                                                <Input inputRef={newColRef} onBlur={() => h.cancelAddColumn()}
                                                        onKeyDown={(e) => {
                                                            if (e.key === "Enter") {
                                                                h.addColumn()

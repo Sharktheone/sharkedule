@@ -65,24 +65,21 @@
 }
 
 .add > div.menu {
+  padding-top: 1rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-
-  & > button {
-    transition: transform cubic-bezier(.68, -0.55, .27, 1.55) 200ms;
-
-    &:hover,
-    :focus {
-      transform: scale(1.1);
-    }
-  }
+  gap: .5rem;
 }
 
-.add > div > input {
+.add > input {
   width: 24rem;
   min-height: 3rem;
-  border-width: 2px;
   border-radius: .5rem;
+  padding: .5rem 1rem;
+  border: 2px solid colors.$dark-300;
+
+  &:focus-visible {
+    border: 2px solid colors.$cyan-500;
+    outline: none;
+  }
 }
