@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.11.10
     version: 1.11.10
   npm:
-    specifier: ^10.2.5
-    version: 10.2.5
+    specifier: ^10.3.0
+    version: 10.3.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -1093,7 +1093,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001576
-      electron-to-chromium: 1.4.625
+      electron-to-chromium: 1.4.627
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
     dev: true
@@ -1217,8 +1217,8 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
-  /electron-to-chromium@1.4.625:
-    resolution: {integrity: sha512-DENMhh3MFgaPDoXWrVIqSPInQoLImywfCwrSmVl3cf9QHzoZSiutHwGaB/Ql3VkqcQV30rzgdM+BjKqBAJxo5Q==}
+  /electron-to-chromium@1.4.627:
+    resolution: {integrity: sha512-BPFdHKPzyGxYQpgiCoIGnkzlMlps3bRdnjeh3qd/Q2pSacL0YW81i4llqsTY/wNbN/Ztw++7HNfp8v4Rm8VDuA==}
     dev: true
 
   /entities@4.5.0:
@@ -1522,8 +1522,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /npm@10.2.5:
-    resolution: {integrity: sha512-lXdZ7titEN8CH5YJk9C/aYRU9JeDxQ4d8rwIIDsvH3SMjLjHTukB2CFstMiB30zXs4vCrPN2WH6cDq1yHBeJAw==}
+  /npm@10.3.0:
+    resolution: {integrity: sha512-9u5GFc1UqI2DLlGI7QdjkpIaBs3UhTtY8KoCqYJK24gV/j/tByaI4BA4R7RkOc+ASqZMzFPKt4Pj2Z8JcGo//A==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
