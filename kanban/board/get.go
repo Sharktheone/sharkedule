@@ -3,7 +3,6 @@ package board
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/environment"
-	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
@@ -42,11 +41,11 @@ func GetBoards(workspace string, uuids []string) ([]*Board, error) {
 	return bds, nil
 }
 
-func AllNames(workspace string) ([]*namelist.NameList, error) {
+func AllNames(workspace string) ([]*types.NameList, error) {
 	return db.DB.GetAllBoardNames(workspace)
 }
 
-func Names(workspace string, uuids []string) ([]*namelist.NameList, error) {
+func Names(workspace string, uuids []string) ([]*types.NameList, error) {
 	return db.DB.GetBoardNames(workspace, uuids)
 }
 

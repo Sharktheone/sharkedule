@@ -3,7 +3,6 @@ package workspace
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/board"
-	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
@@ -44,11 +43,11 @@ func (w *Workspace) GetBoards(uuids []string) ([]*board.Board, error) {
 	return board.GetBoards(w.UUID, uuids)
 }
 
-func (w *Workspace) GetAllBoardNames() ([]*namelist.NameList, error) {
+func (w *Workspace) GetAllBoardNames() ([]*types.NameList, error) {
 	return board.AllNames(w.UUID)
 }
 
-func (w *Workspace) GetBoardNames(uuids []string) (names []*namelist.NameList, err error) {
+func (w *Workspace) GetBoardNames(uuids []string) (names []*types.NameList, err error) {
 	return board.Names(w.UUID, uuids)
 }
 

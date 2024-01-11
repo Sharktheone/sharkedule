@@ -3,7 +3,6 @@ package kanbandb
 import (
 	"errors"
 	"fmt"
-	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
@@ -42,10 +41,10 @@ func GetBoards(boards []*types.Board, uuids []string) (brds []*types.Board, err 
 	return brds, nil
 }
 
-func GetAllBoardNames(boards []*types.Board) []*namelist.NameList {
-	var names []*namelist.NameList
+func GetAllBoardNames(boards []*types.Board) []*types.NameList {
+	var names []*types.NameList
 	for _, b := range boards {
-		names = append(names, &namelist.NameList{
+		names = append(names, &types.NameList{
 			Name: b.Name,
 			UUID: b.UUID,
 		})
@@ -53,10 +52,10 @@ func GetAllBoardNames(boards []*types.Board) []*namelist.NameList {
 	return names
 }
 
-func GetBoardNames(boards []*types.Board, uuids []string) (names []*namelist.NameList, err error) {
+func GetBoardNames(boards []*types.Board, uuids []string) (names []*types.NameList, err error) {
 	for _, uuid := range uuids {
 		board, _ := GetBoard(boards, uuid)
-		names = append(names, &namelist.NameList{
+		names = append(names, &types.NameList{
 			Name: board.Name,
 			UUID: board.UUID,
 		})

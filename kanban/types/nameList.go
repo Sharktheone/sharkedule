@@ -1,4 +1,4 @@
-package namelist
+package types
 
 import "sync"
 

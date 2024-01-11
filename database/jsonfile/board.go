@@ -3,7 +3,6 @@ package jsonfile
 import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/database"
-	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
@@ -44,7 +43,7 @@ func (J *JSONFile) GetBoards(workspace string, uuids []string) ([]*types.Board, 
 	return kanbandb.GetBoards(ws.Boards, uuids)
 }
 
-func (J *JSONFile) GetAllBoardNames(workspace string) ([]*namelist.NameList, error) {
+func (J *JSONFile) GetAllBoardNames(workspace string) ([]*types.NameList, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err
@@ -53,7 +52,7 @@ func (J *JSONFile) GetAllBoardNames(workspace string) ([]*namelist.NameList, err
 	return kanbandb.GetAllBoardNames(ws.Boards), nil
 }
 
-func (J *JSONFile) GetBoardNames(workspace string, uuids []string) ([]*namelist.NameList, error) {
+func (J *JSONFile) GetBoardNames(workspace string, uuids []string) ([]*types.NameList, error) {
 	ws, err := J.GetWorkspace(workspace)
 	if err != nil {
 		return nil, err

@@ -6,7 +6,6 @@ import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/Sharktheone/sharkedule/kanban/column"
-	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/tag"
 	"github.com/Sharktheone/sharkedule/kanban/task"
 	"github.com/Sharktheone/sharkedule/kanban/types"
@@ -180,7 +179,7 @@ func (a *Access) GetBoards(workspace string, uuids []string) ([]*board.Board, er
 
 }
 
-func (a *Access) GetAllBoardNames(workspace string) ([]*namelist.NameList, error) {
+func (a *Access) GetAllBoardNames(workspace string) ([]*types.NameList, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
@@ -198,7 +197,7 @@ func (a *Access) GetAllBoardNames(workspace string) ([]*namelist.NameList, error
 
 }
 
-func (a *Access) GetBoardNames(workspace string, uuids []string) (names []*namelist.NameList, err error) {
+func (a *Access) GetBoardNames(workspace string, uuids []string) (names []*types.NameList, err error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
@@ -888,7 +887,7 @@ func (a *Access) WorkspaceInfo() ([]*workspace.Info, error) {
 			return nil, err //TODO: this could be problematic, because when we haven't synced the database and so maybe not removed the workspace from the user but from the database
 		}
 
-		var boards []*namelist.NameList
+		var boards []*types.NameList
 		if w.AllBoards {
 			var b, err = db.DB.GetAllBoardNames(w.UUID)
 			if err != nil {

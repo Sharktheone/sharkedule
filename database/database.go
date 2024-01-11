@@ -1,7 +1,6 @@
 package database
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/namelist"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/user/settings"
 	"sync"
@@ -43,8 +42,8 @@ type IDatabase interface {
 	GetBoard(workspace, uuid string) (*types.Board, error)
 	GetAllBoards(workspace string) ([]*types.Board, error)
 	GetBoards(workspace string, uuids []string) ([]*types.Board, error)
-	GetAllBoardNames(workspace string) ([]*namelist.NameList, error)
-	GetBoardNames(workspace string, uuids []string) (names []*namelist.NameList, err error)
+	GetAllBoardNames(workspace string) ([]*types.NameList, error)
+	GetBoardNames(workspace string, uuids []string) (names []*types.NameList, err error)
 	DeleteBoard(workspace, uuid string) error
 
 	//Column functions
