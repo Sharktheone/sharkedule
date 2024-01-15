@@ -6,8 +6,8 @@ import (
 )
 
 type Element interface {
-	UUID() string
-	Name() string
-	Type() elements.Type
-	Fields() []field.Field
+	GetUUID() string
+	GetName() string
+	GetType() elements.Type
+	GetFields() []field.Field
 }
