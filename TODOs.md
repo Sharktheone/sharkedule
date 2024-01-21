@@ -1,4 +1,5 @@
 # Personal TODOs for this project
+a bit ironic in a todo app, but hey, it's work in progress
 
 - [ ] Add Some kind of dashboard "root" page
 - [ ] Add a nav bar / project shell
@@ -14,6 +15,7 @@
 - [ ] Only post one notification when adding multiple items
 - [ ] Think about an `Element` interface. And tasks are only `Elemment`s. But also Boards, Meetings, Subtasks
   are `Element`s
+- [ ] Everything is an Element, that contains fields (name, tags, etc. = field)
 - [ ] Websocket API?
 - [ ] Ditch Mantine
     - [ ] Notifications System => react-toastify
