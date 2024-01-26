@@ -25,6 +25,8 @@ type WorkspacePerms struct {
 	UpdateTaskDescription bool `json:"update_task_description" yaml:"update_task_description" bson:"update_task_description"`
 
 	UpdateTagsOnTask bool `json:"update_tags_on_task" yaml:"update_tags_on_task" bson:"update_tags_on_task"`
+
+	DeleteWorkspace bool `json:"delete_workspaces" yaml:"delete_workspaces" bson:"delete_workspaces"`
 }
 
 type OrgPerms struct {

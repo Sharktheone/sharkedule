@@ -32,3 +32,19 @@ func Info(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(workspace)
 }
+
+func Delete(c *fiber.Ctx) error {
+	user, err := middleware.ExtractUser(c)
+	if err != nil {
+		return err
+	}
+
+	uuid := c.Params("uuid")
+
+	err = user.Access.DeleteWorkspace(uuid)
+	if err != nil {
+		return err
+	}
+
+	return c.SendStatus(fiber.StatusOK)
+}

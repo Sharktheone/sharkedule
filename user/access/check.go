@@ -946,3 +946,16 @@ func (a *Access) workspace(uuid string) (*workspaceaccess.WorkspaceAccess, error
 //
 //	return ws.board(uuid)
 //}
+
+func (a *Access) DeleteWorkspace(uuid string) error {
+	ws, err := a.workspace(uuid)
+	if err != nil {
+		return err
+	}
+
+	if !ws.Permissions.DeleteWorkspace {
+		return fmt.Errorf("no permissions to delete workspace %s", uuid)
+	}
+
+	return db.DB.DeleteWorkspace(uuid)
+}

@@ -34,6 +34,7 @@ type IDatabase interface {
 
 	//Workspace functions
 	GetWorkspace(uuid string) (*types.Workspace, error)
+	DeleteWorkspace(uuid string) error
 
 	//Board functions
 	CreateBoard(workspace, name string) (*types.Board, error)

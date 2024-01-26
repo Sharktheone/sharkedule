@@ -67,3 +67,13 @@ func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace,
 	}
 	return nil, fmt.Errorf("workspace with uuid %s does not exist", uuid)
 }
+
+func DeleteWorkspace(workspaces []*types.Workspace, uuid string) error {
+	for i, w := range workspaces {
+		if w.UUID == uuid {
+			workspaces = append(workspaces[:i], workspaces[i+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("workspace with uuid %s does not exist", uuid)
+}
