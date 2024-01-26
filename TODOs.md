@@ -17,22 +17,23 @@ a bit ironic in a todo app, but hey, it's work in progress
   are `Element`s
 - [ ] Everything is an Element, that contains fields (name, tags, etc. = field)
 - [ ] Websocket API?
+- [ ] Don't delete things directly, mark them as deleted for users to restore (30 days maybe)
 - [ ] Ditch Mantine
-    - [ ] Notifications System => react-toastify
+    - [x] Notifications System => react-toastify
     - [ ] SegmentedControl
     - [x] Button
     - [ ] ColorPicker
-    - [ ] Drawer
-    - [ ] Modal
+    - [x] Drawer
+    - [x] Modal
     - [x] useClickOutside
-    - [ ] Input
-    - [ ] Textarea
-    - [ ] Container
+    - [x] Input
+    - [x] Textarea
+    - [x] Container
     - [x] Title
     - [x] useDisclosure
     - [x] usePrevious
     - [x] useDebouncedState
-    - [ ] CloseButton
+    - [x] CloseButton
     - ~~[ ] Stack~~
     - [x] Text
     - [ ] Colors => Monokai?
