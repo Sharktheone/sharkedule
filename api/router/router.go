@@ -56,8 +56,6 @@ func Start() {
 
 	api := r.Group("api") // /api
 
-	//TODO: update routes in comments
-
 	workspaces := api.Group("workspace") // /api/workspace
 	{
 		workspaces.Get("", workspace.List)     // GET /api/workspace
@@ -76,17 +74,18 @@ func Start() {
 			elem.Post("", element.Update)   // POST /api/:workspace/:uuid
 			elem.Delete("", element.Delete) // DELETE /api/:workspace/:uuid
 
-			field := elem.Group("fields") // /api/:workspace/:uuid/fields
+			elem.Get("types", element.Type)                 // GET /api/:workspace/:uuid/types
+			elem.Patch("types", element.Type)               // PATCH /api/:workspace/:uuid/types
+			elem.Get("subelements", element.List)           // GET /api/:workspace/:uuid/subelements
+			elem.Get("subelements/:type", element.ListType) // GET /api/:workspace/:uuid/subelements/:type
+
+			fields := elem.Group("fields") // /api/:workspace/:uuid/fields
 			{
-				field.Get("", field.List)           // GET /api/:workspace/:uuid/fields
-				field.Get(":field", field.Info)     // GET /api/:workspace/:uuid/fields/:field
-				field.Patch(":field", field.Update) // PATCH /api/:workspace/:uuid/fields/:field
+				fields.Get("", field.List)           // GET /api/:workspace/:uuid/fields
+				fields.Get(":field", field.Info)     // GET /api/:workspace/:uuid/fields/:field
+				fields.Patch(":field", field.Update) // PATCH /api/:workspace/:uuid/fields/:field
 			}
 
-			elem.Get("types", element.Type)   // GET /api/:workspace/:uuid/types
-			elem.Patch("types", element.Type) // PATCH /api/:workspace/:uuid/types
-
-			elem.Get("subelements", element.List) // GET /api/:workspace/:uuid/subelements
 		}
 	}
 
