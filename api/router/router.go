@@ -2,6 +2,8 @@ package router
 
 import (
 	"encoding/json"
+	"github.com/Sharktheone/sharkedule/api/element"
+	"github.com/Sharktheone/sharkedule/api/field"
 	"github.com/Sharktheone/sharkedule/api/workspace"
 	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2"
@@ -74,8 +76,8 @@ func Start() {
 			elem.Post("", element.Update)   // POST /api/:workspace/:uuid
 			elem.Delete("", element.Delete) // DELETE /api/:workspace/:uuid
 
-			elem.Get("types", element.Type)                 // GET /api/:workspace/:uuid/types
-			elem.Patch("types", element.Type)               // PATCH /api/:workspace/:uuid/types
+			elem.Get("types", element.GetType)              // GET /api/:workspace/:uuid/types
+			elem.Patch("types", element.UpdateType)         // PATCH /api/:workspace/:uuid/types
 			elem.Get("subelements", element.List)           // GET /api/:workspace/:uuid/subelements
 			elem.Get("subelements/:type", element.ListType) // GET /api/:workspace/:uuid/subelements/:type
 
