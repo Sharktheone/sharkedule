@@ -69,23 +69,23 @@ func Start() {
 		ws.Get("", workspace.Info)      // GET /api/:workspace
 		ws.Delete("", workspace.Delete) // DELETE /api/:workspace
 
-		elem := ws.Group(":uuid") // /api/:workspace/:uuid
+		elem := ws.Group(":element") // /api/:workspace/:element
 		{
-			elem.Get("", element.Info)      // GET /api/:workspace/:uuid
-			elem.Put("", element.Create)    // PUT /api/:workspace/:uuid
-			elem.Post("", element.Update)   // POST /api/:workspace/:uuid
-			elem.Delete("", element.Delete) // DELETE /api/:workspace/:uuid
+			elem.Get("", element.Info)      // GET /api/:workspace/:element
+			elem.Put("", element.Create)    // PUT /api/:workspace/:element
+			elem.Post("", element.Update)   // POST /api/:workspace/:element
+			elem.Delete("", element.Delete) // DELETE /api/:workspace/:element
 
-			elem.Get("types", element.GetType)              // GET /api/:workspace/:uuid/types
-			elem.Patch("types", element.UpdateType)         // PATCH /api/:workspace/:uuid/types
-			elem.Get("subelements", element.List)           // GET /api/:workspace/:uuid/subelements
-			elem.Get("subelements/:type", element.ListType) // GET /api/:workspace/:uuid/subelements/:type
+			elem.Get("types", element.GetType)              // GET /api/:workspace/:element/types
+			elem.Patch("types", element.UpdateType)         // PATCH /api/:workspace/:element/types
+			elem.Get("subelements", element.List)           // GET /api/:workspace/:element/subelements
+			elem.Get("subelements/:type", element.ListType) // GET /api/:workspace/:element/subelements/:type
 
 			fields := elem.Group("fields") // /api/:workspace/:uuid/fields
 			{
-				fields.Get("", field.List)           // GET /api/:workspace/:uuid/fields
-				fields.Get(":field", field.Info)     // GET /api/:workspace/:uuid/fields/:field
-				fields.Patch(":field", field.Update) // PATCH /api/:workspace/:uuid/fields/:field
+				fields.Get("", field.List)           // GET /api/:workspace/:element/fields
+				fields.Get(":field", field.Info)     // GET /api/:workspace/:element/fields/:field
+				fields.Patch(":field", field.Update) // PATCH /api/:workspace/:element/fields/:field
 			}
 
 		}
