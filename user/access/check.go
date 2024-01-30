@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database/db"
+	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/Sharktheone/sharkedule/kanban/column"
 	"github.com/Sharktheone/sharkedule/kanban/tag"
@@ -958,4 +959,20 @@ func (a *Access) DeleteWorkspace(uuid string) error {
 	}
 
 	return db.DB.DeleteWorkspace(uuid)
+}
+
+func (a *Access) GetElement(workspace string, uuid string) (*element.Element, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllElements {
+		_, err := ws.Element(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db.DB.GetElement(workspace, uuid) //TODO
 }

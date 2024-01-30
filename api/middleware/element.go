@@ -2,16 +2,23 @@ package middleware
 
 import (
 	"github.com/Sharktheone/sharkedule/element"
+	"github.com/Sharktheone/sharkedule/user"
 	"github.com/gofiber/fiber/v2"
 )
 
-func ExtractElement(c *fiber.Ctx) (error, *element.Element) {
+func ExtractElement(c *fiber.Ctx) (*user.User, *element.Element, error) {
+	workspace := c.Params("workspace")
 	elementUUID := c.Params("element")
 
-	elem, err := element.GetElement(elementUUID) //TODO
+	u, err := ExtractUser(c)
 	if err != nil {
-		return err, nil
+		return u, nil, err
 	}
 
-	return nil, elem
+	elem, err := u.Access.GetElement(workspace, elementUUID)
+	if err != nil {
+		return u, nil, err
+	}
+
+	return u, elem, nil
 }

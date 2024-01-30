@@ -40,6 +40,9 @@ type WorkspaceAccess struct {
 
 	AllDates bool         `json:"all_dates"`
 	Dates    []DateAccess `json:"dates"`
+
+	AllElements bool
+	Elements    []ElementAccess
 }
 
 type BoardAccess struct {
@@ -99,6 +102,11 @@ type AttachmentAccess struct {
 type DateAccess struct {
 	UUID        string
 	Permissions permissions.DatePerms
+}
+
+type ElementAccess struct {
+	UUID string
+	//Permissions permissions.ElementPerms TODO
 }
 
 func (wa *WorkspaceAccess) Board(uuid string) (*BoardAccess, error) {
@@ -181,4 +189,14 @@ func (wa *WorkspaceAccess) Date(uuid string) (*DateAccess, error) {
 		}
 	}
 	return nil, errors.New("date not found")
+}
+
+func (wa *WorkspaceAccess) Element(uuid string) (*ElementAccess, error) {
+	for _, e := range wa.Elements {
+		if e.UUID == uuid {
+			return &e, nil
+		}
+	}
+	return nil, errors.New("element not found")
+
 }
