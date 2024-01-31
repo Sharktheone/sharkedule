@@ -1,6 +1,7 @@
 package database
 
 import (
+	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/user/settings"
 	"sync"
@@ -82,4 +83,7 @@ type IDatabase interface {
 	GetChecklist(workspace, uuid string) (*types.Checklist, error)
 	GetAttachment(workspace, uuid string) (*types.Attachment, error)
 	GetDate(workspace, uuid string) (*types.Date, error)
+
+	//Element functions
+	GetElement(workspace, uuid string) (*element.Element, error)
 }

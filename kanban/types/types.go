@@ -1,6 +1,7 @@
 package types
 
 import (
+	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/kanban/activity"
 	"github.com/Sharktheone/sharkedule/kanban/comment"
 	"github.com/Sharktheone/sharkedule/project"
@@ -163,6 +164,8 @@ type Workspace struct {
 	Dates       []*Date            `json:"dates,omitempty"`
 	Stages      []*Stage           `json:"stages,omitempty"`
 	Projects    []*project.Project `json:"projects,omitempty"`
+
+	Elements []*element.Element `json:"elements,omitempty"`
 
 	//All uuids here as list?
 }

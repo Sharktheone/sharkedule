@@ -2,6 +2,7 @@ package kanbandb
 
 import (
 	"fmt"
+	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/kanban/types"
 )
 
@@ -76,4 +77,13 @@ func DeleteWorkspace(workspaces []*types.Workspace, uuid string) error {
 		}
 	}
 	return fmt.Errorf("workspace with uuid %s does not exist", uuid)
+}
+
+func GetElement(elements []*element.Element, uuid string) (*element.Element, error) {
+	for _, e := range elements {
+		if e.UUID == uuid {
+			return e, nil
+		}
+	}
+	return nil, fmt.Errorf("element with uuid %s does not exist", uuid)
 }
