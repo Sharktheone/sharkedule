@@ -43,6 +43,9 @@ type WorkspaceAccess struct {
 
 	AllElements bool
 	Elements    []ElementAccess
+
+	AllFields bool
+	Fields    []FieldAccess
 }
 
 type BoardAccess struct {
@@ -107,6 +110,11 @@ type DateAccess struct {
 type ElementAccess struct {
 	UUID string
 	//Permissions permissions.ElementPerms TODO
+}
+
+type FieldAccess struct {
+	UUID string
+	//Permissions permissions.FieldPerms TODO
 }
 
 func (wa *WorkspaceAccess) Board(uuid string) (*BoardAccess, error) {
@@ -199,4 +207,13 @@ func (wa *WorkspaceAccess) Element(uuid string) (*ElementAccess, error) {
 	}
 	return nil, errors.New("element not found")
 
+}
+
+func (wa *WorkspaceAccess) Field(uuid string) (*FieldAccess, error) {
+	for _, f := range wa.Fields {
+		if f.UUID == uuid {
+			return &f, nil
+		}
+	}
+	return nil, errors.New("field not found")
 }

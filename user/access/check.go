@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/element"
+	"github.com/Sharktheone/sharkedule/field"
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/Sharktheone/sharkedule/kanban/column"
 	"github.com/Sharktheone/sharkedule/kanban/tag"
@@ -975,4 +976,21 @@ func (a *Access) GetElement(workspace string, uuid string) (*element.Element, er
 	}
 
 	return db.DB.GetElement(workspace, uuid) //TODO
+}
+
+func (a *Access) GetField(workspace string, uuid string) (*field.Field, error) {
+	ws, err := a.workspace(workspace)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ws.AllFields {
+		_, err := ws.Field(uuid) //when it is in the slice, the person has access to it
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	//return db.DB.GetField(workspace, uuid) //TODO
+	return nil, nil
 }
