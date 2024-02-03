@@ -73,9 +73,14 @@ func Start() {
 		{
 			elem.Get("", element.Info)      // GET /api/:workspace/:element
 			elem.Put("", element.Create)    // PUT /api/:workspace/:element
-			elem.Post("", element.Update)   // POST /api/:workspace/:element
+			elem.Patch("", element.Update)  // POST /api/:workspace/:element
 			elem.Delete("", element.Delete) // DELETE /api/:workspace/:element
 
+			elem.Get("attachments", element.Attachments)    // GET /api/:workspace/:element/attachments
+			elem.Put("attach", element.Attach)              // POST /api/:workspace/:element/attach
+			elem.Delete("detach", element.Detach)           // DELETE /api/:workspace/:element/detach
+			elem.Patch("move", element.Move)                // POST /api/:workspace/:element/move
+			elem.Post("copy", element.Copy)                 // POST /api/:workspace/:element/copy
 			elem.Get("types", element.GetType)              // GET /api/:workspace/:element/types
 			elem.Patch("types", element.UpdateType)         // PATCH /api/:workspace/:element/types
 			elem.Get("subelements", element.List)           // GET /api/:workspace/:element/subelements
