@@ -1,4 +1,4 @@
-import {HTMLAttributes, LegacyRef, RefObject} from "react"
+import {HTMLAttributes, RefObject} from "react"
 import {Tooltip} from "@/components/ui/tooltip/tooltip"
 import styles from "./input.module.scss"
 

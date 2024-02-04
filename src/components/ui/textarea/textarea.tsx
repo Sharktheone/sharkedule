@@ -1,5 +1,5 @@
 import TextareaAutosize from "react-textarea-autosize"
-import {HTMLAttributes, LegacyRef, MutableRefObject, Ref, RefObject} from "react"
+import {HTMLAttributes, RefObject} from "react"
 import styles from "./styles.module.scss"
 
 
