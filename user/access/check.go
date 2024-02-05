@@ -994,3 +994,25 @@ func (a *Access) GetField(workspace string, uuid string) (*field.Field, error) {
 	//return db.DB.GetField(workspace, uuid) //TODO
 	return nil, nil
 }
+
+func (a *Access) DeleteElement(workspace, uuid string) error {
+	_, err := a.workspace(workspace)
+	if err != nil {
+		return err
+	}
+
+	//TODO
+
+	//if !ws.Permissions.DeleteElements {
+	//	return fmt.Errorf("no permissions to delete element in workspace %s", workspace)
+	//}
+	//
+	//elem, err := ws.Element(uuid)
+	//if err == nil {
+	//	if !elem.Permissions.Delete {
+	//		return fmt.Errorf("no permissions to delete element %s", uuid)
+	//	}
+	//}
+	//
+	//return db.DB.DeleteElement(workspace, uuid)
+}
