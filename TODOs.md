@@ -19,6 +19,14 @@ a bit ironic in a todo app, but hey, it's work in progress
 - [ ] Everything is an Element, that contains fields (name, tags, etc. = field)
 - [ ] Websocket API?
 - [ ] Don't delete things directly, mark them as deleted for users to restore (30 days maybe)
+- [ ] new permission system:
+    - option to make element "groups" basically, all elements referenced by this/these element
+   maybe also referenced ONLY by this/these elements or elements referenced by ALL of these elements
+    - User Roles
+    - Role overrides: if the user has this role he is not allowed to ..., even he has permission from role X (higher order)
+    - User fields?
+    - Custom logic stuff?
+
 - [ ] Ditch Mantine
     - [x] Notifications System => react-toastify
     - [ ] SegmentedControl

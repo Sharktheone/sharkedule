@@ -5,6 +5,11 @@ import (
 	"github.com/Sharktheone/sharkedule/user/permissions"
 )
 
+//TODO
+//Maybe i need to update the permission system:
+// - option to make element "groups" basically, all elements referenced by this/these element
+//   maybe also referenced ONLY by this/these elements or elements referenced by ALL of these elements
+
 type WorkspaceAccess struct {
 	UUID        string                     `json:"uuid"`
 	Permissions permissions.WorkspacePerms `json:"permissions"`

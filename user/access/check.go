@@ -1015,4 +1015,5 @@ func (a *Access) DeleteElement(workspace, uuid string) error {
 	//}
 	//
 	//return db.DB.DeleteElement(workspace, uuid)
+	return nil
 }
