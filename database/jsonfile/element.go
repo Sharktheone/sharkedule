@@ -13,5 +13,10 @@ func (J *JSONFile) GetElement(workspace string, elementUUID string) (*element.El
 		return nil, err
 	}
 
-	return kanbandb.GetElement(ws.Elements, elementUUID)
+	e, err := kanbandb.GetElement(ws.Elements, elementUUID)
+	if err != nil {
+		return nil, err
+	}
+	e.SetWorkspace(nil) //TODO: set Workspace, for that replace types.Workspace with workspace.Workspace (currently import cycle)
+	return e, nil
 }

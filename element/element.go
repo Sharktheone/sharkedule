@@ -16,8 +16,8 @@ type Element struct {
 	Activity     activity.Activity    `json:"activity" bson:"activity" yaml:"activity"`
 	ReferencedBy ReferenceGroup       `json:"attachments" bson:"attachments" yaml:"attachments"` //UUIDs of elements that reference this element
 	References   ReferenceGroup       `json:"references" bson:"references" yaml:"references"`    //UUIDs of elements that this element reference
-	user         *user.User           //used for access control, not serialized + may be nil
-	workspace    *workspace.Workspace //might be empty
+	user         *user.User           //used for access control, not serialized + may be nil - inserted by user.Access
+	workspace    *workspace.Workspace //may be nil - inserted from DB
 }
 
 // GetUser gets the user from which actions are performed (access control)
@@ -31,6 +31,17 @@ func (e *Element) GetUser() (*user.User, error) {
 // SetUser sets the user from which actions are performed (access control)
 func (e *Element) SetUser(u *user.User) {
 	e.user = u
+}
+
+func (e *Element) GetWorkspace() (*workspace.Workspace, error) {
+	if e.workspace == nil {
+		return nil, fmt.Errorf("workspace not set")
+	}
+	return e.workspace, nil
+}
+
+func (e *Element) SetWorkspace(ws *workspace.Workspace) {
+	e.workspace = ws
 }
 
 func (e *Element) GetUUID() string {

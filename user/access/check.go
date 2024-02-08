@@ -1003,17 +1003,16 @@ func (a *Access) DeleteElement(workspace, uuid string) error {
 
 	//TODO
 
-	//if !ws.Permissions.DeleteElements {
-	//	return fmt.Errorf("no permissions to delete element in workspace %s", workspace)
-	//}
-	//
-	//elem, err := ws.Element(uuid)
-	//if err == nil {
-	//	if !elem.Permissions.Delete {
-	//		return fmt.Errorf("no permissions to delete element %s", uuid)
-	//	}
-	//}
-	//
-	//return db.DB.DeleteElement(workspace, uuid)
-	return nil
+	if !ws.Permissions.DeleteElements {
+		return fmt.Errorf("no permissions to delete element in workspace %s", workspace)
+	}
+
+	elem, err := ws.Element(uuid)
+	if err == nil {
+		if !elem.Permissions.Delete {
+			return fmt.Errorf("no permissions to delete element %s", uuid)
+		}
+	}
+
+	return db.DB.DeleteElement(workspace, uuid)
 }
