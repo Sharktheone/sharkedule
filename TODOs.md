@@ -26,6 +26,7 @@ a bit ironic in a todo app, but hey, it's work in progress
     - Role overrides: if the user has this role he is not allowed to ..., even he has permission from role X (higher order)
     - User fields?
     - Custom logic stuff?
+- [ ] completely rework packages, to fix the "circular dependency" problem for a last time...
 
 - [ ] Ditch Mantine
     - [x] Notifications System => react-toastify
