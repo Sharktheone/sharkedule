@@ -18,12 +18,13 @@ func Info(c *fiber.Ctx) error {
 
 // Delete Deletes an element completely
 func Delete(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	_, _, err := middleware.ExtractElement(c)
 	if err != nil {
 		return err
 	}
 
-	return e.Delete()
+	//return e.Delete() //TODO not possible
+	return nil
 }
 
 // Detach Detaches an attachment from an element (delete from another element)

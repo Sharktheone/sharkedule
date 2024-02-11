@@ -17,6 +17,6 @@ func (J *JSONFile) GetElement(workspace string, elementUUID string) (*element.El
 	if err != nil {
 		return nil, err
 	}
-	e.SetWorkspace(nil) //TODO: set Workspace, for that replace types.Workspace with workspace.Workspace (currently import cycle)
+	e.SetWorkspace("nil") //TODO: set Workspace, for that replace types.Workspace with workspace.Workspace (currently import cycle)
 	return e, nil
 }

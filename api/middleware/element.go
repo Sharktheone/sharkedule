@@ -20,7 +20,7 @@ func ExtractElement(c *fiber.Ctx) (*user.User, *element.Element, error) {
 		return u, nil, err
 	}
 
-	elem.SetUser(u)
+	elem.SetUser(u.User.UUID)
 
 	return u, elem, nil
 }
