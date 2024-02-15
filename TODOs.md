@@ -6,15 +6,15 @@ a bit ironic in a todo app, but hey, it's work in progress
 - [ ] Add a nav bar / project shell
 - [ ] Settings site for things like details (Drawer/Popup) etc.
 - [ ] Activity Log and type
-- [ ] Think about Progress field => percentage or something else?
+- [x] Think about Progress field => percentage or something else?
 - [ ] Dont use contenteditable for the description field etc.
 - [ ] Better "closing" of create shit when clicking out
 - [ ] Replace Slots?
-- [ ] Think about custom fields
+- [x] Think about custom fields
 - [ ] CSS use more classes and remove deeply nested structures
 - [ ] Remove colors.ts and switch to "inline" mantine colors from colors.scss
 - [ ] Only post one notification when adding multiple items
-- [ ] Think about an `Element` interface. And tasks are only `Elemment`s. But also Boards, Meetings, Subtasks
+- [x] Think about an `Element` interface. And tasks are only `Elemment`s. But also Boards, Meetings, Subtasks
   are `Element`s
 - [ ] Everything is an Element, that contains fields (name, tags, etc. = field)
 - [ ] Websocket API?
