@@ -12,10 +12,6 @@ Currently, I have not much time, as you may, could see from the previous commits
 for very little commits.
 
 
-> **Note**
-> Currently nothing works, because of the update from Mantine and the API changes (users, workspaces, etc.). I'm working
-> on it.
-
 ## Features and Roadmap
 
 - [ ] Workspaces (already implemented in the API I only need to fix the frontend and implement it there)
