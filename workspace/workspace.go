@@ -31,3 +31,11 @@ func NewWorkspace(name string) *Workspace {
 		},
 	}
 }
+
+func (w *Workspace) GetName() string {
+	return w.Name
+}
+
+func (w *Workspace) GetUUID() string {
+	return w.UUID
+}
