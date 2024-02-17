@@ -2,11 +2,11 @@ package kanbandb
 
 import (
 	"fmt"
-	"github.com/Sharktheone/sharkedule/element"
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/types"
 )
 
-func GetStatus(status []*types.Status, uuid string) (*types.Status, error) {
+func GetStatus(status []*ktypes.Status, uuid string) (*ktypes.Status, error) {
 	for _, s := range status {
 		if s.UUID == uuid {
 			return s, nil
@@ -15,7 +15,7 @@ func GetStatus(status []*types.Status, uuid string) (*types.Status, error) {
 	return nil, fmt.Errorf("status with uuid %s does not exist", uuid)
 }
 
-func GetPriority(priorities []*types.Priority, uuid string) (*types.Priority, error) {
+func GetPriority(priorities []*ktypes.Priority, uuid string) (*ktypes.Priority, error) {
 	for _, p := range priorities {
 		if p.UUID == uuid {
 			return p, nil
@@ -33,7 +33,7 @@ func GetPriority(priorities []*types.Priority, uuid string) (*types.Priority, er
 //	return nil, fmt.Errorf("member with uuid %s does not exist", uuid)
 //}
 
-func GetChecklist(checklists []*types.Checklist, uuid string) (*types.Checklist, error) {
+func GetChecklist(checklists []*ktypes.Checklist, uuid string) (*ktypes.Checklist, error) {
 	for _, c := range checklists {
 		if c.UUID == uuid {
 			return c, nil
@@ -42,7 +42,7 @@ func GetChecklist(checklists []*types.Checklist, uuid string) (*types.Checklist,
 	return nil, fmt.Errorf("checklist with uuid %s does not exist", uuid)
 }
 
-func GetAttachment(attachments []*types.Attachment, uuid string) (*types.Attachment, error) {
+func GetAttachment(attachments []*ktypes.Attachment, uuid string) (*ktypes.Attachment, error) {
 	for _, a := range attachments {
 		if a.UUID == uuid {
 			return a, nil
@@ -51,7 +51,7 @@ func GetAttachment(attachments []*types.Attachment, uuid string) (*types.Attachm
 	return nil, fmt.Errorf("attachment with uuid %s does not exist", uuid)
 }
 
-func GetDate(dates []*types.Date, uuid string) (*types.Date, error) {
+func GetDate(dates []*ktypes.Date, uuid string) (*ktypes.Date, error) {
 	for _, date := range dates {
 		if date.UUID == uuid {
 			return date, nil
@@ -60,7 +60,7 @@ func GetDate(dates []*types.Date, uuid string) (*types.Date, error) {
 	return nil, fmt.Errorf("date with uuid %s does not exist", uuid)
 }
 
-func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace, error) {
+func GetWorkspace(workspaces []*ktypes.Workspace, uuid string) (*ktypes.Workspace, error) {
 	for _, w := range workspaces {
 		if w.UUID == uuid {
 			return w, nil
@@ -69,7 +69,7 @@ func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace,
 	return nil, fmt.Errorf("workspace with uuid %s does not exist", uuid)
 }
 
-func DeleteWorkspace(workspaces []*types.Workspace, uuid string) error {
+func DeleteWorkspace(workspaces []*ktypes.Workspace, uuid string) error {
 	for i, w := range workspaces {
 		if w.UUID == uuid {
 			workspaces = append(workspaces[:i], workspaces[i+1:]...)
@@ -79,11 +79,29 @@ func DeleteWorkspace(workspaces []*types.Workspace, uuid string) error {
 	return fmt.Errorf("workspace with uuid %s does not exist", uuid)
 }
 
-func GetElement(elements []*element.Element, uuid string) (*element.Element, error) {
+func GetElement(elements []*types.Element, uuid string) (*types.Element, error) {
 	for _, e := range elements {
-		if e.UUID == uuid {
+		if e.GetUUID() == uuid {
 			return e, nil
 		}
 	}
 	return nil, fmt.Errorf("element with uuid %s does not exist", uuid)
+}
+
+func CreateElement(elements []*types.Element, elementType *types.ElementType, name string) (*types.Element, error) {
+	var e *types.Element //TODO
+	elements = append(elements, e)
+	return e, nil
+}
+
+func GetElements(elements []*types.Element, uuids []string) ([]*types.Element, error) {
+	var es []*types.Element
+	for _, uuid := range uuids {
+		e, err := GetElement(elements, uuid)
+		if err != nil {
+			return nil, err
+		}
+		es = append(es, e)
+	}
+	return es, nil
 }

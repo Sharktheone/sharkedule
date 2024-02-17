@@ -31,9 +31,9 @@ type Element interface {
 type Workspace interface {
 	GetUUID() string
 	GetName() string
-	GetElement(u string) Element
-	CreateElement(t ElementType, name string) (*Element, error)
-	GetElements(u []string) []Element
+	GetElement(u string) (*Element, error)
+	CreateElement(t *ElementType, name string) (*Element, error)
+	GetElements(u []string) ([]*Element, error)
 }
 
 type Reference interface {
