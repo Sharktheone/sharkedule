@@ -1,12 +1,15 @@
 package workspace
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/types"
 	"github.com/google/uuid"
 )
 
 type Workspace struct {
-	*types.Workspace
+	UUID   string        `json:"uuid"`
+	Fields []types.Field `json:"fields"`
+	Users  []string      `json:"users"`
 }
 
 type List struct {
@@ -20,20 +23,13 @@ type List struct {
 
 type Info struct {
 	*List
-	Boards []*types.NameList `json:"boards" yaml:"boards" bson:"boards"`
+	Boards []*ktypes.NameList `json:"boards" yaml:"boards" bson:"boards"`
 }
 
-func NewWorkspace(name string) *Workspace {
+func NewWorkspace() *Workspace {
 	return &Workspace{
-		Workspace: &types.Workspace{
-			Name: name,
-			UUID: uuid.New().String(),
-		},
+		UUID: uuid.New().String(),
 	}
-}
-
-func (w *Workspace) GetName() string {
-	return w.Name
 }
 
 func (w *Workspace) GetUUID() string {
