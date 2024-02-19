@@ -60,18 +60,18 @@ func GetDate(dates []*ktypes.Date, uuid string) (*ktypes.Date, error) {
 	return nil, fmt.Errorf("date with uuid %s does not exist", uuid)
 }
 
-func GetWorkspace(workspaces []*ktypes.Workspace, uuid string) (*ktypes.Workspace, error) {
+func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace, error) {
 	for _, w := range workspaces {
-		if w.UUID == uuid {
+		if w.GetUUID() == uuid {
 			return w, nil
 		}
 	}
 	return nil, fmt.Errorf("workspace with uuid %s does not exist", uuid)
 }
 
-func DeleteWorkspace(workspaces []*ktypes.Workspace, uuid string) error {
+func DeleteWorkspace(workspaces []*types.Workspace, uuid string) error {
 	for i, w := range workspaces {
-		if w.UUID == uuid {
+		if w.GetUUID() == uuid {
 			workspaces = append(workspaces[:i], workspaces[i+1:]...)
 			return nil
 		}

@@ -12,9 +12,9 @@ const (
 )
 
 type DBStructure struct {
-	Mu         *sync.Mutex         `json:"-" yaml:"-" bson:"-"`
-	Workspaces []*ktypes.Workspace `json:"workspaces" yaml:"workspaces" bson:"workspaces"`
-	Users      []*ktypes.User      `json:"users" yaml:"users" bson:"users"`
+	Mu         *sync.Mutex        `json:"-" yaml:"-" bson:"-"`
+	Workspaces []*types.Workspace `json:"workspaces" yaml:"workspaces" bson:"workspaces"`
+	Users      []*ktypes.User     `json:"users" yaml:"users" bson:"users"`
 }
 
 type IDatabase interface {
@@ -34,7 +34,7 @@ type IDatabase interface {
 	DeleteUser(uuid string) error
 
 	//Workspace functions
-	GetWorkspace(uuid string) (*ktypes.Workspace, error)
+	GetWorkspace(uuid string) (*types.Workspace, error)
 	DeleteWorkspace(uuid string) error
 
 	//Board functions

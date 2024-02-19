@@ -2,7 +2,7 @@ package jsonfile
 
 import (
 	"github.com/Sharktheone/sharkedule/kanban/database"
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/types"
 )
 
 func (J *JSONFile) GetWorkspace(uuid string) (*types.Workspace, error) {
