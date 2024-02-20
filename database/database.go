@@ -44,8 +44,8 @@ type IDatabase interface {
 	GetBoard(workspace, uuid string) (*ktypes.Board, error)
 	GetAllBoards(workspace string) ([]*ktypes.Board, error)
 	GetBoards(workspace string, uuids []string) ([]*ktypes.Board, error)
-	GetAllBoardNames(workspace string) ([]*ktypes.NameList, error)
-	GetBoardNames(workspace string, uuids []string) (names []*ktypes.NameList, err error)
+	GetAllBoardNames(workspace string) ([]*types.NameList, error)
+	GetBoardNames(workspace string, uuids []string) (names []*types.NameList, err error)
 	DeleteBoard(workspace, uuid string) error
 
 	//Column functions

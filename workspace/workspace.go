@@ -1,7 +1,6 @@
 package workspace
 
 import (
-	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/types"
 	"github.com/google/uuid"
 )
@@ -23,7 +22,7 @@ type List struct {
 
 type Info struct {
 	*List
-	Boards []*ktypes.NameList `json:"boards" yaml:"boards" bson:"boards"`
+	Boards []*types.NameList `json:"boards" yaml:"boards" bson:"boards"`
 }
 
 func NewWorkspace() *Workspace {

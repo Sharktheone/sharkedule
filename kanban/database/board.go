@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/kanban/types"
+	types2 "github.com/Sharktheone/sharkedule/types"
 )
 
 func CreateBoard(boards *[]*types.Board, name string) *types.Board {
@@ -41,10 +42,10 @@ func GetBoards(boards []*types.Board, uuids []string) (brds []*types.Board, err 
 	return brds, nil
 }
 
-func GetAllBoardNames(boards []*types.Board) []*types.NameList {
-	var names []*types.NameList
+func GetAllBoardNames(boards []*types.Board) []*types2.NameList {
+	var names []*types2.NameList
 	for _, b := range boards {
-		names = append(names, &types.NameList{
+		names = append(names, &types2.NameList{
 			Name: b.Name,
 			UUID: b.UUID,
 		})
@@ -52,10 +53,10 @@ func GetAllBoardNames(boards []*types.Board) []*types.NameList {
 	return names
 }
 
-func GetBoardNames(boards []*types.Board, uuids []string) (names []*types.NameList, err error) {
+func GetBoardNames(boards []*types.Board, uuids []string) (names []*types2.NameList, err error) {
 	for _, uuid := range uuids {
 		board, _ := GetBoard(boards, uuid)
-		names = append(names, &types.NameList{
+		names = append(names, &types2.NameList{
 			Name: board.Name,
 			UUID: board.UUID,
 		})

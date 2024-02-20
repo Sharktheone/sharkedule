@@ -4,6 +4,7 @@ import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/board"
 	"github.com/Sharktheone/sharkedule/kanban/types"
+	types2 "github.com/Sharktheone/sharkedule/types"
 )
 
 func (w *Workspace) CreateBoard(name string) (*board.Board, error) {
@@ -43,11 +44,11 @@ func (w *Workspace) GetBoards(uuids []string) ([]*board.Board, error) {
 	return board.GetBoards(w.UUID, uuids)
 }
 
-func (w *Workspace) GetAllBoardNames() ([]*types.NameList, error) {
+func (w *Workspace) GetAllBoardNames() ([]*types2.NameList, error) {
 	return board.AllNames(w.UUID)
 }
 
-func (w *Workspace) GetBoardNames(uuids []string) (names []*types.NameList, err error) {
+func (w *Workspace) GetBoardNames(uuids []string) (names []*types2.NameList, err error) {
 	return board.Names(w.UUID, uuids)
 }
 
