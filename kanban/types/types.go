@@ -12,7 +12,7 @@ import (
 	"github.com/Sharktheone/sharkedule/user/settings"
 )
 
-type Board struct {
+type Board struct { //Replaced by Element
 	Name        string              `json:"name"`
 	UUID        string              `json:"uuid"`
 	Columns     []string            `json:"columns,omitempty"`
@@ -31,7 +31,7 @@ type Board struct {
 	Actions     []string            `json:"actions,omitempty"`
 }
 
-type Column struct {
+type Column struct { //Replace by Element
 	Name        string   `json:"name"`
 	UUID        string   `json:"uuid"`
 	Boards      []string `json:"boards,omitempty"`
@@ -40,7 +40,7 @@ type Column struct {
 	Description string   `json:"description,omitempty"`
 }
 
-type Task struct {
+type Task struct { //Replace by Element
 	Name         string            `json:"name"`
 	UUID         string            `json:"uuid"`
 	Boards       []string          `json:"boards,omitempty"`
@@ -61,7 +61,7 @@ type Task struct {
 	Activity     []string          `json:"activity,omitempty"`
 }
 
-type Tag struct {
+type Tag struct { //Replaced by Field
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
 	Color       string `json:"color,omitempty"`
@@ -70,40 +70,40 @@ type Tag struct {
 	Description string `json:"description,omitempty"`
 }
 
-type Member struct {
+type Member struct { //Replaced by Field
 	Username       string `json:"username"`
 	UUID           string `json:"uuid"`
 	ProfilePicture string `json:"profile_picture,omitempty"`
 }
 
-type Checklist struct {
+type Checklist struct { //replaced by Field
 	Name        string          `json:"name"`
 	UUID        string          `json:"uuid"`
 	Items       []ChecklistItem `json:"items"`
 	Description string          `json:"description,omitempty"`
 }
 
-type ChecklistItem struct {
+type ChecklistItem struct { //replaced by Field
 	Name    string `json:"name"`
 	UUID    string `json:"uuid"`
 	Checked bool   `json:"checked"`
 }
 
-type Priority struct {
+type Priority struct { //replaced by Field
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
 	Color       string `json:"color,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
-type Status struct {
+type Status struct { //replaced by Field
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
 	Color       string `json:"color,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
-type Attachment struct {
+type Attachment struct { //replaced by Field
 	UUID        string `json:"uuid"`
 	User        string `json:"from"`
 	Size        int64  `json:"size"`
@@ -113,14 +113,14 @@ type Attachment struct {
 	Name        string `json:"name"`
 }
 
-type Date struct {
+type Date struct { //replaced by Field
 	UUID        string `json:"uuid"`
 	Name        string `json:"name"`
 	Date        int64  `json:"date"`
 	Description string `json:"description,omitempty"`
 }
 
-type Stage struct {
+type Stage struct { //replaced by Field
 	Name        string `json:"name"`
 	UUID        string `json:"uuid"`
 	Color       string `json:"color,omitempty"`
@@ -143,7 +143,7 @@ type Environment struct {
 	DependentTasks map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
 }
 
-type Workspace struct {
+type Workspace struct { //replaced by Workspace
 	UUID        string `json:"uuid"`
 	Name        string `json:"name"`
 	Description string `json:"description,omitempty"`
@@ -170,7 +170,7 @@ type Workspace struct {
 	//All uuids here as list?
 }
 
-type User struct {
+type User struct { //replaced by User
 	UUID     string            `json:"uuid"`
 	Username string            `json:"username"`
 	Name     string            `json:"name,omitempty"`
@@ -182,7 +182,7 @@ type User struct {
 	Settings settings.Settings `json:"settings"`
 }
 
-type Access struct {
+type Access struct { //replaced by Access
 	Workspaces  []workspaceaccess.WorkspaceAccess `json:"workspaces"`
 	Permissions permissions.UserPerms             `json:"permissions"`
 	//...

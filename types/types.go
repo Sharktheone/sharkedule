@@ -6,7 +6,8 @@ type FieldType string
 type Field interface {
 	GetName() string
 	GetUUID() string
-	GetValue() string
+	GetValue() string            //Value = text in textfield, name in select, etc
+	GetProperty(p string) string //Property = color in status, Items of checklist, etc
 	GetParentType() ElementType
 	GetFieldType() FieldType
 }
