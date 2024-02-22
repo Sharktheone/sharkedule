@@ -76,14 +76,6 @@ type IDatabase interface {
 	GetTag(workspace, uuid string) (*ktypes.Tag, error)
 	AddTagToTask(workspace, task, tag string) error
 
-	//Other functions
-	GetStatus(workspace, uuid string) (*ktypes.Status, error)
-	GetPriority(workspace, uuid string) (*ktypes.Priority, error)
-	//GetUser(uuid string) (*types.Member, error) TODO
-	GetChecklist(workspace, uuid string) (*ktypes.Checklist, error)
-	GetAttachment(workspace, uuid string) (*ktypes.Attachment, error)
-	GetDate(workspace, uuid string) (*ktypes.Date, error)
-
 	//Element functions
 	GetElement(workspace, uuid string) (*types.Element, error)
 	CreateElement(workspace string, e *types.ElementType, name string) (*types.Element, error)

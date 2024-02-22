@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database"
-	"github.com/Sharktheone/sharkedule/kanban/database"
-	"github.com/Sharktheone/sharkedule/kanban/types"
 	"os"
 	"path"
 	"sync"
@@ -64,53 +62,4 @@ func (J *JSONFile) Save() error {
 	}
 
 	return nil
-}
-
-func (J *JSONFile) GetStatus(workspace, uuid string) (*types.Status, error) {
-	ws, err := J.GetWorkspace(workspace)
-	if err != nil {
-		return nil, err
-	}
-
-	return kanbandb.GetStatus(ws.Statuses, uuid)
-}
-
-func (J *JSONFile) GetPriority(workspace, uuid string) (*types.Priority, error) {
-	ws, err := J.GetWorkspace(workspace)
-	if err != nil {
-		return nil, err
-	}
-
-	return kanbandb.GetPriority(ws.Priorities, uuid)
-}
-
-//func (J *JSONFile) GetUser(uuid string) (*types.Member, error) {
-//	return kanbandb.GetUser(J.db.Users, uuid) //TODO
-//}
-
-func (J *JSONFile) GetChecklist(workspace, uuid string) (*types.Checklist, error) {
-	ws, err := J.GetWorkspace(workspace)
-	if err != nil {
-		return nil, err
-	}
-
-	return kanbandb.GetChecklist(ws.Checklists, uuid)
-}
-
-func (J *JSONFile) GetAttachment(workspace, uuid string) (*types.Attachment, error) {
-	ws, err := J.GetWorkspace(workspace)
-	if err != nil {
-		return nil, err
-	}
-
-	return kanbandb.GetAttachment(ws.Attachments, uuid)
-}
-
-func (J *JSONFile) GetDate(workspace, uuid string) (*types.Date, error) {
-	ws, err := J.GetWorkspace(workspace)
-	if err != nil {
-		return nil, err
-	}
-
-	return kanbandb.GetDate(ws.Dates, uuid)
 }

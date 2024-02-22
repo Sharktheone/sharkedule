@@ -33,33 +33,6 @@ func GetPriority(priorities []*ktypes.Priority, uuid string) (*ktypes.Priority, 
 //	return nil, fmt.Errorf("member with uuid %s does not exist", uuid)
 //}
 
-func GetChecklist(checklists []*ktypes.Checklist, uuid string) (*ktypes.Checklist, error) {
-	for _, c := range checklists {
-		if c.UUID == uuid {
-			return c, nil
-		}
-	}
-	return nil, fmt.Errorf("checklist with uuid %s does not exist", uuid)
-}
-
-func GetAttachment(attachments []*ktypes.Attachment, uuid string) (*ktypes.Attachment, error) {
-	for _, a := range attachments {
-		if a.UUID == uuid {
-			return a, nil
-		}
-	}
-	return nil, fmt.Errorf("attachment with uuid %s does not exist", uuid)
-}
-
-func GetDate(dates []*ktypes.Date, uuid string) (*ktypes.Date, error) {
-	for _, date := range dates {
-		if date.UUID == uuid {
-			return date, nil
-		}
-	}
-	return nil, fmt.Errorf("date with uuid %s does not exist", uuid)
-}
-
 func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace, error) {
 	for _, w := range workspaces {
 		if w.GetUUID() == uuid {
