@@ -4,6 +4,7 @@ import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/task/locations"
 	"github.com/Sharktheone/sharkedule/kanban/types"
+	"github.com/Sharktheone/sharkedule/utils"
 	"log"
 )
 
@@ -49,23 +50,6 @@ func (e *Environment) GetIndexed() {
 		e.Tags = append(e.Tags, t)
 	}
 
-	for _, status := range e.statusUUIDs {
-		s, err := db.DB.GetStatus(e.workspace, *status)
-		if err != nil {
-			log.Printf("error getting status: %v", err)
-			continue
-		}
-		e.Status = append(e.Status, s)
-	}
-
-	for _, priority := range e.priorityUUIDs {
-		p, err := db.DB.GetPriority(e.workspace, *priority)
-		if err != nil {
-			log.Printf("error getting priority: %v", err)
-			continue
-		}
-		e.Priority = append(e.Priority, p)
-	}
 	for _, col := range e.columnUUIDs {
 		c, err := db.DB.GetColumn(e.workspace, *col)
 		if err != nil {
@@ -84,51 +68,6 @@ func (e *Environment) GetIndexed() {
 		e.Tasks = append(e.Tasks, t)
 
 	}
-	//for _, member := range e.memberUUIDs {
-	//	m, err := db.DB.GetMember(*member)
-	//	if err != nil {
-	//		log.Printf("error getting member: %v", err)
-	//		continue
-	//	}
-	//	e.Members = append(e.Members, m)
-	//
-	//}
-	for _, checklist := range e.checklistUUIDs {
-		c, err := db.DB.GetChecklist(e.workspace, *checklist)
-		if err != nil {
-			log.Printf("error getting checklist: %v", err)
-			continue
-		}
-		e.Checklists = append(e.Checklists, c)
-	}
-
-	for _, attachment := range e.attachmentUUIDs {
-		a, err := db.DB.GetAttachment(e.workspace, *attachment)
-		if err != nil {
-			log.Printf("error getting attachment: %v", err)
-			continue
-		}
-		e.Attachments = append(e.Attachments, a)
-
-	}
-	for _, date := range e.dateUUIDs {
-		d, err := db.DB.GetDate(e.workspace, *date)
-		if err != nil {
-			log.Printf("error getting date: %v", err)
-			continue
-		}
-		e.Dates = append(e.Dates, d)
-
-	}
-	//for _, action := range e.actionUUIDs { // TODO: Think this through, do we need actions in the Environment? - YES
-	//	a, err := db.DBV2.GetAction(*action) // TODO: add db function
-	//	if err != nil {
-	//		log.Printf("error getting action: %v", err)
-	//		continue
-	//	}
-	//	e.Actions = append(e.Actions, a)
-	//
-	//}
 }
 
 func (e *Environment) IndexBoards() {
@@ -157,22 +96,22 @@ func (e *Environment) IndexBoards() {
 }
 
 func (e *Environment) IndexBoard(b *types.Board) {
-	e.columnUUIDs = AppendSliceIfMissing(e.columnUUIDs, b.Columns...)
-	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, b.Tags...)
-	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, b.Members...)
-	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, b.Dates...)
-	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, b.Attachments...)
-	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, b.Checklists...)
-	e.actionUUIDs = AppendSliceIfMissing(e.actionUUIDs, b.Actions...)
+	e.columnUUIDs = utils.AppendSliceIfMissing(e.columnUUIDs, b.Columns...)
+	e.tagUUIDs = utils.AppendSliceIfMissing(e.tagUUIDs, b.Tags...)
+	e.memberUUIDs = utils.AppendSliceIfMissing(e.memberUUIDs, b.Members...)
+	e.dateUUIDs = utils.AppendSliceIfMissing(e.dateUUIDs, b.Dates...)
+	e.attachmentUUIDs = utils.AppendSliceIfMissing(e.attachmentUUIDs, b.Attachments...)
+	e.checklistUUIDs = utils.AppendSliceIfMissing(e.checklistUUIDs, b.Checklists...)
+	e.actionUUIDs = utils.AppendSliceIfMissing(e.actionUUIDs, b.Actions...)
 
 	if b.Status != "" {
-		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &b.Status)
+		e.statusUUIDs = utils.AppendIfMissing(e.statusUUIDs, &b.Status)
 	}
 	if b.Priority != "" {
-		e.priorityUUIDs = AppendIfMissing(e.priorityUUIDs, &b.Priority)
+		e.priorityUUIDs = utils.AppendIfMissing(e.priorityUUIDs, &b.Priority)
 	}
 	if b.DueDate != "" {
-		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &b.DueDate)
+		e.dateUUIDs = utils.AppendIfMissing(e.dateUUIDs, &b.DueDate)
 	}
 }
 
@@ -202,8 +141,8 @@ func (e *Environment) IndexColumns() {
 }
 
 func (e *Environment) IndexColumn(column *types.Column) {
-	e.taskUUIDs = AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
-	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
+	e.taskUUIDs = utils.AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
+	e.tagUUIDs = utils.AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
 	for _, b := range column.Boards {
 		bor, err := db.DB.GetBoard(e.workspace, b)
@@ -241,11 +180,11 @@ func (e *Environment) IndexTasks() {
 }
 
 func (e *Environment) IndexTask(workspace string, t *types.Task) {
-	e.tagUUIDs = AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
-	e.memberUUIDs = AppendSliceIfMissing(e.memberUUIDs, t.Members...)
-	e.dateUUIDs = AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
-	e.attachmentUUIDs = AppendSliceIfMissing(e.attachmentUUIDs, t.Attachments...)
-	e.checklistUUIDs = AppendSliceIfMissing(e.checklistUUIDs, t.Checklists...)
+	e.tagUUIDs = utils.AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
+	e.memberUUIDs = utils.AppendSliceIfMissing(e.memberUUIDs, t.Members...)
+	e.dateUUIDs = utils.AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
+	e.attachmentUUIDs = utils.AppendSliceIfMissing(e.attachmentUUIDs, t.Attachments...)
+	e.checklistUUIDs = utils.AppendSliceIfMissing(e.checklistUUIDs, t.Checklists...)
 	e.workspace = workspace
 
 	for _, dep := range t.Dependencies {
@@ -267,44 +206,12 @@ func (e *Environment) IndexTask(workspace string, t *types.Task) {
 	}
 
 	if t.Status != "" {
-		e.statusUUIDs = AppendIfMissing(e.statusUUIDs, &t.Status)
+		e.statusUUIDs = utils.AppendIfMissing(e.statusUUIDs, &t.Status)
 	}
 	if t.Priority != "" {
-		e.priorityUUIDs = AppendIfMissing(e.priorityUUIDs, &t.Priority)
+		e.priorityUUIDs = utils.AppendIfMissing(e.priorityUUIDs, &t.Priority)
 	}
 	if t.DueDate != "" {
-		e.dateUUIDs = AppendIfMissing(e.dateUUIDs, &t.DueDate)
+		e.dateUUIDs = utils.AppendIfMissing(e.dateUUIDs, &t.DueDate)
 	}
-}
-
-func AppendIfMissing[T comparable](slice []*T, s *T) []*T {
-	for _, ele := range slice {
-		if *ele == *s {
-			return slice
-		}
-	}
-	return append(slice, s)
-}
-
-//func AppendMultipleIfMissing(slice []*string, s []*string) []*string {
-//	for _, ele := range s {
-//		slice = AppendIfMissing(slice, ele)
-//	}
-//	return slice
-//}
-
-func AppendSliceIfMissing[T comparable](slice []*T, s ...T) []*T {
-	for _, ele := range s {
-		slice = AppendIfMissingPtr(slice, ele)
-	}
-	return slice
-}
-
-func AppendIfMissingPtr[T comparable](slice []*T, s T) []*T {
-	for _, ele := range slice {
-		if *ele == s {
-			return slice
-		}
-	}
-	return append(slice, &s)
 }
