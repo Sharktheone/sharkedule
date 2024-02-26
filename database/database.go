@@ -37,45 +37,6 @@ type IDatabase interface {
 	GetWorkspace(uuid string) (*types.Workspace, error)
 	DeleteWorkspace(uuid string) error
 
-	//Board functions
-	CreateBoard(workspace, name string) (*ktypes.Board, error)
-	SaveBoard(workspace string, board *ktypes.Board) error
-	SaveBoards(workspace string, boards []*ktypes.Board) error
-	GetBoard(workspace, uuid string) (*ktypes.Board, error)
-	GetAllBoards(workspace string) ([]*ktypes.Board, error)
-	GetBoards(workspace string, uuids []string) ([]*ktypes.Board, error)
-	GetAllBoardNames(workspace string) ([]*types.NameList, error)
-	GetBoardNames(workspace string, uuids []string) (names []*types.NameList, err error)
-	DeleteBoard(workspace, uuid string) error
-
-	//Column functions
-	SaveColumn(workspace string, column *ktypes.Column) error
-	SaveColumns(workspace string, columns []*ktypes.Column) error
-	GetColumn(workspace, uuid string) (*ktypes.Column, error)
-	DeleteColumnOnBoard(workspace, board, column string) error
-	RenameColumn(workspace, column, name string) error
-	DeleteColumn(workspace, uuid string) error
-	MoveColumn(workspace, board, uuid string, toIndex int) error
-	NewColumn(workspace, board, name string) (*ktypes.Column, error)
-
-	//Task functions
-	SaveTask(workspace string, task *ktypes.Task) error
-	SaveTasks(workspace string, tasks []*ktypes.Task) error
-	GetTask(workspace, uuid string) (*ktypes.Task, error)
-	DeleteTaskOnColumn(workspace, column, uuid string) error
-	DeleteTask(workspace, uuid string) error
-	MoveTask(workspace, column, uuid, toColumn string, toIndex int) error
-	NewTask(workspace, column, name string) (*ktypes.Task, error)
-	RenameTask(workspace, task, name string) error
-	RemoveTagOnTask(workspace, column, uuid string) error
-	SetTagsOnTask(workspace, task string, tags []string) error
-	SetTaskDescription(workspace, task, description string) error
-
-	//Tag functions
-	GetAllTags(workspace string) ([]*ktypes.Tag, error)
-	GetTag(workspace, uuid string) (*ktypes.Tag, error)
-	AddTagToTask(workspace, task, tag string) error
-
 	//Element functions
 	GetElement(workspace, uuid string) (*types.Element, error)
 	CreateElement(workspace string, e *types.ElementType, name string) (*types.Element, error)
