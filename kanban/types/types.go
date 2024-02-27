@@ -1,10 +1,8 @@
 package types
 
 import (
-	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/kanban/activity"
 	"github.com/Sharktheone/sharkedule/kanban/comment"
-	"github.com/Sharktheone/sharkedule/project"
 	"github.com/Sharktheone/sharkedule/user/access/workspaceaccess"
 	"github.com/Sharktheone/sharkedule/user/mfa"
 	"github.com/Sharktheone/sharkedule/user/oauth"
@@ -61,44 +59,12 @@ type Task struct { //Replace by Element
 	Activity     []string          `json:"activity,omitempty"`
 }
 
-type Tag struct { //Replaced by Field
-	Name        string `json:"name"`
-	UUID        string `json:"uuid"`
-	Color       string `json:"color,omitempty"`
-	Icon        string `json:"icon,omitempty"`
-	Type        string `json:"type,omitempty"`
-	Description string `json:"description,omitempty"`
-}
-
 type Environment struct {
-	Tags           []*Tag                         `json:"tags,omitempty"`
 	Columns        []*Column                      `json:"columns,omitempty"`
 	Boards         []*Board                       `json:"boards,omitempty"`
-	Tasks          []*Task                        `json:"tasks,omitempty"`
 	BoardNames     map[string]string              `json:"board_names,omitempty"`     // boardUUID -> name
 	ColumnNames    map[string]map[string]string   `json:"column_names,omitempty"`    // columnUUID -> boardUUID -> name
 	DependentTasks map[string]map[string][]string `json:"dependent_tasks,omitempty"` // taskUUID -> boardUUID -> columnUUID
-}
-
-type Workspace struct { //replaced by Workspace
-	UUID        string `json:"uuid"`
-	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
-	Cover       string `json:"cover,omitempty"`
-	Archived    bool   `json:"archived,omitempty"`
-	Color       string `json:"color,omitempty"`
-
-	Members []string `json:"members,omitempty"`
-
-	Tags     []*Tag             `json:"tags,omitempty"`
-	Tasks    []*Task            `json:"tasks,omitempty"`
-	Columns  []*Column          `json:"columns,omitempty"`
-	Boards   []*Board           `json:"boards,omitempty"`
-	Projects []*project.Project `json:"projects,omitempty"`
-
-	Elements []*element.Element `json:"elements,omitempty"`
-
-	//All uuids here as list?
 }
 
 type User struct { //replaced by User

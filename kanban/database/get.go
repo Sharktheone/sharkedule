@@ -2,36 +2,8 @@ package kanbandb
 
 import (
 	"fmt"
-	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/types"
 )
-
-func GetStatus(status []*ktypes.Status, uuid string) (*ktypes.Status, error) {
-	for _, s := range status {
-		if s.UUID == uuid {
-			return s, nil
-		}
-	}
-	return nil, fmt.Errorf("status with uuid %s does not exist", uuid)
-}
-
-func GetPriority(priorities []*ktypes.Priority, uuid string) (*ktypes.Priority, error) {
-	for _, p := range priorities {
-		if p.UUID == uuid {
-			return p, nil
-		}
-	}
-	return nil, fmt.Errorf("priority with uuid %s does not exist", uuid)
-}
-
-//func GetUser(members []*types.Member, uuid string) (*types.Member, error) {
-//	for _, m := range members {
-//		if m.UUID == uuid {
-//			return m, nil
-//		}
-//	}
-//	return nil, fmt.Errorf("member with uuid %s does not exist", uuid)
-//}
 
 func GetWorkspace(workspaces []*types.Workspace, uuid string) (*types.Workspace, error) {
 	for _, w := range workspaces {
