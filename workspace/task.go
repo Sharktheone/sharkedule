@@ -3,7 +3,7 @@ package workspace
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/task"
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 )
 
 // Task functions
@@ -13,7 +13,7 @@ func (w *Workspace) SaveTask(task *task.Task) error {
 }
 
 func (w *Workspace) SaveTasks(tasks []*task.Task) error {
-	var t []*types.Task
+	var t []*ktypes.Task
 	for _, tsk := range tasks {
 		t = append(t, tsk.Task)
 	}

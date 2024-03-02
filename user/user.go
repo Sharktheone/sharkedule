@@ -1,16 +1,16 @@
 package user
 
 import (
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/user/access"
 )
 
 type User struct {
-	User   *types.User
+	User   *ktypes.User
 	Access *access.Access
 }
 
-func From(user *types.User) *User {
+func From(user *ktypes.User) *User {
 	return &User{
 		User:   user,
 		Access: &access.Access{Access: user.Access},

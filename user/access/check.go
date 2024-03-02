@@ -10,7 +10,7 @@ import (
 	"github.com/Sharktheone/sharkedule/kanban/column"
 	"github.com/Sharktheone/sharkedule/kanban/tag"
 	"github.com/Sharktheone/sharkedule/kanban/task"
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 	types2 "github.com/Sharktheone/sharkedule/types"
 	"github.com/Sharktheone/sharkedule/user/access/workspaceaccess"
 	"github.com/Sharktheone/sharkedule/workspace"
@@ -88,7 +88,7 @@ func (a *Access) SaveBoards(workspace string, boards []*board.Board) error {
 
 	}
 
-	var b []*types.Board
+	var b []*ktypes.Board
 	for _, brd := range boards {
 		b = append(b, brd.Board)
 	}
@@ -279,7 +279,7 @@ func (a *Access) SaveColumns(workspace string, columns []*column.Column) error {
 		}
 	}
 
-	var c []*types.Column
+	var c []*ktypes.Column
 	for _, col := range columns {
 		c = append(c, col.Column)
 	}
@@ -472,7 +472,7 @@ func (a *Access) SaveTasks(workspace string, tasks []*task.Task) error {
 		}
 	}
 
-	var t []*types.Task
+	var t []*ktypes.Task
 	for _, tsk := range tasks {
 		t = append(t, tsk.Task)
 	}
@@ -777,7 +777,7 @@ func (a *Access) AddTagToTask(workspace, task, tag string) error {
 
 //Other functions
 
-func (a *Access) GetStatus(workspace, uuid string) (*types.Status, error) {
+func (a *Access) GetStatus(workspace, uuid string) (*ktypes.Status, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
@@ -793,7 +793,7 @@ func (a *Access) GetStatus(workspace, uuid string) (*types.Status, error) {
 	return db.DB.GetStatus(workspace, uuid)
 }
 
-func (a *Access) GetPriority(workspace, uuid string) (*types.Priority, error) {
+func (a *Access) GetPriority(workspace, uuid string) (*ktypes.Priority, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
@@ -810,7 +810,7 @@ func (a *Access) GetPriority(workspace, uuid string) (*types.Priority, error) {
 
 }
 
-func (a *Access) GetChecklist(workspace, uuid string) (*types.Checklist, error) {
+func (a *Access) GetChecklist(workspace, uuid string) (*ktypes.Checklist, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
@@ -827,7 +827,7 @@ func (a *Access) GetChecklist(workspace, uuid string) (*types.Checklist, error) 
 
 }
 
-func (a *Access) GetAttachment(workspace, uuid string) (*types.Attachment, error) {
+func (a *Access) GetAttachment(workspace, uuid string) (*ktypes.Attachment, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
@@ -843,7 +843,7 @@ func (a *Access) GetAttachment(workspace, uuid string) (*types.Attachment, error
 	return db.DB.GetAttachment(workspace, uuid)
 }
 
-func (a *Access) GetDate(workspace, uuid string) (*types.Date, error) {
+func (a *Access) GetDate(workspace, uuid string) (*ktypes.Date, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err

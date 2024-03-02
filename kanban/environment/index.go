@@ -3,13 +3,13 @@ package environment
 import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/kanban/task/locations"
-	"github.com/Sharktheone/sharkedule/kanban/types"
+	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/utils"
 	"log"
 )
 
 type Environment struct {
-	*types.Environment
+	*ktypes.Environment
 	boardUUIDs      []*string
 	tagUUIDs        []*string
 	statusUUIDs     []*string
@@ -95,7 +95,7 @@ func (e *Environment) IndexBoards() {
 	}
 }
 
-func (e *Environment) IndexBoard(b *types.Board) {
+func (e *Environment) IndexBoard(b *ktypes.Board) {
 	e.columnUUIDs = utils.AppendSliceIfMissing(e.columnUUIDs, b.Columns...)
 	e.tagUUIDs = utils.AppendSliceIfMissing(e.tagUUIDs, b.Tags...)
 	e.memberUUIDs = utils.AppendSliceIfMissing(e.memberUUIDs, b.Members...)
@@ -140,7 +140,7 @@ func (e *Environment) IndexColumns() {
 	}
 }
 
-func (e *Environment) IndexColumn(column *types.Column) {
+func (e *Environment) IndexColumn(column *ktypes.Column) {
 	e.taskUUIDs = utils.AppendSliceIfMissing(e.taskUUIDs, column.Tasks...)
 	e.tagUUIDs = utils.AppendSliceIfMissing(e.tagUUIDs, column.Tags...)
 
@@ -179,7 +179,7 @@ func (e *Environment) IndexTasks() {
 	}
 }
 
-func (e *Environment) IndexTask(workspace string, t *types.Task) {
+func (e *Environment) IndexTask(workspace string, t *ktypes.Task) {
 	e.tagUUIDs = utils.AppendSliceIfMissing(e.tagUUIDs, t.Tags...)
 	e.memberUUIDs = utils.AppendSliceIfMissing(e.memberUUIDs, t.Members...)
 	e.dateUUIDs = utils.AppendSliceIfMissing(e.dateUUIDs, t.Dates...)
