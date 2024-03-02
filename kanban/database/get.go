@@ -33,7 +33,7 @@ func GetElement(elements []types.Element, uuid string) (types.Element, error) {
 	return nil, fmt.Errorf("element with uuid %s does not exist", uuid)
 }
 
-func CreateElement(elements []types.Element, elementType types.ElementType, name string) (types.Element, error) {
+func CreateElement(elements []types.Element, elementType *types.ElementType, name string) (types.Element, error) {
 	var e types.Element //TODO
 	elements = append(elements, e)
 	return e, nil

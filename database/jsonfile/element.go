@@ -5,7 +5,7 @@ import (
 	"github.com/Sharktheone/sharkedule/types"
 )
 
-func (J *JSONFile) GetElement(workspace string, elementUUID string) (*types.Element, error) {
+func (J *JSONFile) GetElement(workspace string, elementUUID string) (types.Element, error) {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	ws, err := J.GetWorkspace(workspace)
@@ -21,7 +21,7 @@ func (J *JSONFile) GetElement(workspace string, elementUUID string) (*types.Elem
 	return e, nil
 }
 
-func (J *JSONFile) CreateElement(workspace string, elementType *types.ElementType, name string) (*types.Element, error) {
+func (J *JSONFile) CreateElement(workspace string, elementType *types.ElementType, name string) (types.Element, error) {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	ws, err := J.GetWorkspace(workspace)
@@ -37,7 +37,7 @@ func (J *JSONFile) CreateElement(workspace string, elementType *types.ElementTyp
 	return e, nil
 }
 
-func (J *JSONFile) GetElements(workspace string, elementUUIDs []string) ([]*types.Element, error) {
+func (J *JSONFile) GetElements(workspace string, elementUUIDs []string) ([]types.Element, error) {
 	J.db.Mu.Lock()
 	defer J.db.Mu.Unlock()
 	ws, err := J.GetWorkspace(workspace)

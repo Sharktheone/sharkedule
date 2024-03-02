@@ -34,11 +34,11 @@ type IDatabase interface {
 	DeleteUser(uuid string) error
 
 	//Workspace functions
-	GetWorkspace(uuid string) (*types.Workspace, error)
+	GetWorkspace(uuid string) (types.Workspace, error)
 	DeleteWorkspace(uuid string) error
 
 	//Element functions
-	GetElement(workspace, uuid string) (*types.Element, error)
-	CreateElement(workspace string, e *types.ElementType, name string) (*types.Element, error)
-	GetElements(workspace string, uuids []string) ([]*types.Element, error)
+	GetElement(workspace, uuid string) (types.Element, error)
+	CreateElement(workspace string, e *types.ElementType, name string) (types.Element, error)
+	GetElements(workspace string, uuids []string) ([]types.Element, error)
 }

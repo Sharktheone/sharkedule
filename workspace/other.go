@@ -27,4 +27,4 @@ func (w *Workspace) GetDate(uuid string) (*ktypes.Date, error) {
 	return db.DB.GetDate(w.UUID, uuid)
 }
 
-//GetUser(uuid string) (*types.Member, error) TODO
+//GetUser(uuid string) (types.Member, error) TODO

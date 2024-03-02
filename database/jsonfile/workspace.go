@@ -5,7 +5,7 @@ import (
 	"github.com/Sharktheone/sharkedule/types"
 )
 
-func (J *JSONFile) GetWorkspace(uuid string) (*types.Workspace, error) {
+func (J *JSONFile) GetWorkspace(uuid string) (types.Workspace, error) {
 	return kanbandb.GetWorkspace(J.db.Workspaces, uuid)
 }
 
