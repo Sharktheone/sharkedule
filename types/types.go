@@ -46,3 +46,20 @@ type Reference interface {
 type ReferenceGroup interface {
 	AddReference(r Reference)
 }
+
+type User interface {
+	GetUUID() string
+	GetUsername() string
+	GetEmail() string
+	GetWorkspaces() []string
+	GetSettings() Settings
+	GetPassword() string
+	TokenIsValid(token string) bool
+}
+
+type Settings interface {
+	GetUUID() string
+	GetUser() string
+	GetSetting(s string) string
+	SetSetting(s string, v string)
+}

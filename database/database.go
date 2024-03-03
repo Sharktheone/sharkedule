@@ -3,7 +3,6 @@ package database
 import (
 	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
 	"github.com/Sharktheone/sharkedule/types"
-	"github.com/Sharktheone/sharkedule/user/settings"
 	"sync"
 )
 
@@ -23,14 +22,14 @@ type IDatabase interface {
 	Save() error
 
 	//User functions
-	GetUser(uuid string) (*ktypes.User, error)
-	GetUserByMail(mail string) (*ktypes.User, error)
+	GetUser(uuid string) (types.User, error)
+	GetUserByMail(mail string) (types.User, error)
 	UpdateUserUsername(uuid string, username string) error
 	UpdateUserEmail(uuid string, email string) error
 	UpdateUserPassword(uuid string, password string) error
 	AddUserWorkspaceAccess(uuid, workspace string) error
 	RemoveUserWorkspaceAccess(uuid, workspace string) error
-	UpdateUserSettings(uuid string, settings settings.Settings) error
+	UpdateUserSettings(uuid string, settings types.Settings) error
 	DeleteUser(uuid string) error
 
 	//Workspace functions

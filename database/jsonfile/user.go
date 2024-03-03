@@ -2,15 +2,14 @@ package jsonfile
 
 import (
 	kanbandb "github.com/Sharktheone/sharkedule/kanban/database"
-	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
-	"github.com/Sharktheone/sharkedule/user/settings"
+	"github.com/Sharktheone/sharkedule/types"
 )
 
-func (J *JSONFile) GetUser(uuid string) (*ktypes.User, error) {
+func (J *JSONFile) GetUser(uuid string) (types.User, error) {
 	return kanbandb.GetUser(J.db.Users, uuid)
 }
 
-func (J *JSONFile) GetUserByMail(mail string) (*ktypes.User, error) {
+func (J *JSONFile) GetUserByMail(mail string) (types.User, error) {
 	return kanbandb.GetUserByMail(J.db.Users, mail)
 }
 
@@ -34,7 +33,7 @@ func (J *JSONFile) RemoveUserWorkspaceAccess(uuid, workspace string) error {
 	return kanbandb.RemoveUserWorkspaceAccess(J.db.Users, uuid, workspace)
 }
 
-func (J *JSONFile) UpdateUserSettings(uuid string, settings settings.Settings) error {
+func (J *JSONFile) UpdateUserSettings(uuid string, settings types.Settings) error {
 	return kanbandb.UpdateUserSettings(J.db.Users, uuid, settings)
 }
 
