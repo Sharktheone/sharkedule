@@ -1,5 +1,7 @@
 package types
 
+import "github.com/Sharktheone/sharkedule/workspace"
+
 type ElementType string
 type FieldType string
 
@@ -50,11 +52,17 @@ type ReferenceGroup interface {
 type User interface {
 	GetUUID() string
 	GetUsername() string
+	SetUsername(u string)
 	GetEmail() string
+	SetEmail(e string)
 	GetWorkspaces() []string
 	GetSettings() Settings
 	GetPassword() string
 	TokenIsValid(token string) bool
+	GetAccess() Access
+	SetSettings(s Settings)
+	SetSetting(s string, v string)
+	SetPassword(p string)
 }
 
 type Settings interface {
@@ -62,4 +70,10 @@ type Settings interface {
 	GetUser() string
 	GetSetting(s string) string
 	SetSetting(s string, v string)
+}
+
+type Access interface {
+	RemoveWorkspaceAccess(uuid string) error
+	AddWorkspaceAccess(uuid string) error
+	GetWorkspaces() []*workspace.Workspace
 }

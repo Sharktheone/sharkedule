@@ -2,14 +2,12 @@ package kanbandb
 
 import (
 	"fmt"
-	ktypes "github.com/Sharktheone/sharkedule/kanban/types"
-	"github.com/Sharktheone/sharkedule/user/access/workspaceaccess"
-	"github.com/Sharktheone/sharkedule/user/settings"
+	"github.com/Sharktheone/sharkedule/types"
 )
 
-func GetUser(users []*ktypes.User, uuid string) (*ktypes.User, error) {
+func GetUser(users []types.User, uuid string) (types.User, error) {
 	for _, u := range users {
-		if u.UUID == uuid {
+		if u.GetUUID() == uuid {
 			return u, nil
 		}
 	}
@@ -17,9 +15,9 @@ func GetUser(users []*ktypes.User, uuid string) (*ktypes.User, error) {
 	return nil, fmt.Errorf("user with uuid %s does not exist", uuid)
 }
 
-func GetUserByMail(users []*ktypes.User, mail string) (*ktypes.User, error) {
+func GetUserByMail(users []types.User, mail string) (types.User, error) {
 	for _, u := range users {
-		if u.Email == mail {
+		if u.GetEmail() == mail {
 			return u, nil
 		}
 	}
@@ -27,10 +25,10 @@ func GetUserByMail(users []*ktypes.User, mail string) (*ktypes.User, error) {
 	return nil, fmt.Errorf("user with mail %s does not exist", mail)
 }
 
-func UpdateUserUsername(users []*ktypes.User, uuid string, username string) error {
+func UpdateUserUsername(users []types.User, uuid string, username string) error {
 	for _, u := range users {
-		if u.UUID == uuid {
-			u.Username = username
+		if u.GetUUID() == uuid {
+			u.SetUsername(username)
 			return nil
 		}
 	}
@@ -38,10 +36,10 @@ func UpdateUserUsername(users []*ktypes.User, uuid string, username string) erro
 	return fmt.Errorf("user with uuid %s does not exist", uuid)
 }
 
-func UpdateUserEmail(users []*ktypes.User, uuid string, email string) error {
+func UpdateUserEmail(users []types.User, uuid string, email string) error {
 	for _, u := range users {
-		if u.UUID == uuid {
-			u.Email = email
+		if u.GetUUID() == uuid {
+			u.SetEmail(email)
 			return nil
 		}
 	}
@@ -49,10 +47,10 @@ func UpdateUserEmail(users []*ktypes.User, uuid string, email string) error {
 	return fmt.Errorf("user with uuid %s does not exist", uuid)
 }
 
-func UpdateUserPassword(users []*ktypes.User, uuid string, password string) error {
+func UpdateUserPassword(users []types.User, uuid string, password string) error {
 	for _, u := range users {
-		if u.UUID == uuid {
-			u.Password = password
+		if u.GetUUID() == uuid {
+			u.SetPassword(password)
 			return nil
 		}
 	}
@@ -60,38 +58,30 @@ func UpdateUserPassword(users []*ktypes.User, uuid string, password string) erro
 	return fmt.Errorf("user with uuid %s does not exist", uuid)
 }
 
-func AddUserWorkspaceAccess(users []*ktypes.User, uuid string, workspace string) error {
+func AddUserWorkspaceAccess(users []types.User, uuid string, workspace string) error {
 	for _, u := range users {
-		if u.UUID == uuid {
-			u.Access.Workspaces = append(u.Access.Workspaces, workspaceaccess.WorkspaceAccess{
-				UUID: workspace,
-			})
-			return nil
+		if u.GetUUID() == uuid {
+			return u.GetAccess().AddWorkspaceAccess(workspace)
 		}
 	}
 
 	return fmt.Errorf("user with uuid %s does not exist", uuid)
 }
 
-func RemoveUserWorkspaceAccess(users []*ktypes.User, uuid string, access string) error {
+func RemoveUserWorkspaceAccess(users []types.User, user string, workspace string) error {
 	for _, u := range users {
-		if u.UUID == uuid {
-			for i, a := range u.Access.Workspaces {
-				if a.UUID == access {
-					u.Access.Workspaces = append(u.Access.Workspaces[:i], u.Access.Workspaces[i+1:]...)
-					return nil
-				}
-			}
+		if u.GetUUID() == user {
+			return u.GetAccess().RemoveWorkspaceAccess(workspace)
 		}
 	}
 
-	return fmt.Errorf("user with uuid %s does not exist", uuid)
+	return fmt.Errorf("user with uuid %s does not exist", workspace)
 }
 
-func UpdateUserSettings(users []*ktypes.User, uuid string, settings settings.Settings) error {
+func UpdateUserSettings(users []types.User, uuid string, settings types.Settings) error {
 	for _, u := range users {
-		if u.UUID == uuid {
-			u.Settings = settings
+		if u.GetUUID() == uuid {
+			u.SetSettings(settings)
 			return nil
 		}
 	}
@@ -101,7 +91,7 @@ func UpdateUserSettings(users []*ktypes.User, uuid string, settings settings.Set
 
 //func EnableUser2FA(users []*types.User, uuid string) error { //TODO: this needs some more parameters and return types (e.g. 2FA Token, recovery codes, ...)
 //	for _, u := range users {
-//		if u.UUID == uuid {
+//		if u.GetUUID() == uuid {
 //			u.MFA.TFA = true
 //			return nil
 //		}
@@ -112,9 +102,9 @@ func UpdateUserSettings(users []*ktypes.User, uuid string, settings settings.Set
 
 //TODO: other methods for 2FA and MFA, OAUTH...
 
-func DeleteUser(users []*ktypes.User, uuid string) error {
+func DeleteUser(users []types.User, uuid string) error {
 	for i, u := range users {
-		if u.UUID == uuid {
+		if u.GetUUID() == uuid {
 			users = append(users[:i], users[i+1:]...)
 			return nil
 		}

@@ -29,8 +29,8 @@ func (J *JSONFile) AddUserWorkspaceAccess(uuid, workspace string) error {
 	return kanbandb.AddUserWorkspaceAccess(J.db.Users, uuid, workspace)
 }
 
-func (J *JSONFile) RemoveUserWorkspaceAccess(uuid, workspace string) error {
-	return kanbandb.RemoveUserWorkspaceAccess(J.db.Users, uuid, workspace)
+func (J *JSONFile) RemoveUserWorkspaceAccess(user, workspace string) error {
+	return kanbandb.RemoveUserWorkspaceAccess(J.db.Users, user, workspace)
 }
 
 func (J *JSONFile) UpdateUserSettings(uuid string, settings types.Settings) error {
