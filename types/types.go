@@ -14,7 +14,7 @@ type Field interface {
 
 type Element interface {
 	GetUUID() string
-	GetType() ElementType
+	GetType() *ElementType
 	GetFields() []Field
 	GetField(f string) Field
 	UpdateField(f string, v string) error
@@ -32,9 +32,10 @@ type Element interface {
 type Workspace interface {
 	GetUUID() string
 	GetName() string
-	GetElement(u string) (*Element, error)
-	CreateElement(t *ElementType, name string) (*Element, error)
-	GetElements(u []string) ([]*Element, error)
+	GetElement(u string) (Element, error)
+	GetAllElements() ([]Element, error)
+	CreateElement(t *ElementType, name string) (Element, error)
+	GetElements(u []string) ([]Element, error)
 }
 
 type Reference interface {

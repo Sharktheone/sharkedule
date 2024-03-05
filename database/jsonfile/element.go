@@ -13,7 +13,12 @@ func (J *JSONFile) GetElement(workspace string, elementUUID string) (types.Eleme
 		return nil, err
 	}
 
-	e, err := kanbandb.GetElement(ws.Elements, elementUUID)
+	elements, err := ws.GetAllElements()
+	if err != nil {
+		return nil, err
+	}
+
+	e, err := kanbandb.GetElement(elements, elementUUID)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +34,11 @@ func (J *JSONFile) CreateElement(workspace string, elementType *types.ElementTyp
 		return nil, err
 	}
 
-	e, err := kanbandb.CreateElement(ws.Elements, elementType, name)
+	elements, err := ws.GetAllElements()
+	if err != nil {
+		return nil, err
+	}
+	e, err := kanbandb.CreateElement(elements, elementType, name)
 	if err != nil {
 		return nil, err
 	}
@@ -45,10 +54,15 @@ func (J *JSONFile) GetElements(workspace string, elementUUIDs []string) ([]types
 		return nil, err
 	}
 
-	elements, err := kanbandb.GetElements(ws.Elements, elementUUIDs)
+	elements, err := ws.GetAllElements()
 	if err != nil {
 		return nil, err
 	}
 
-	return elements, nil
+	e, err := kanbandb.GetElements(elements, elementUUIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	return e, nil
 }
