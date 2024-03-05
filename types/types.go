@@ -1,7 +1,5 @@
 package types
 
-import "github.com/Sharktheone/sharkedule/workspace"
-
 type ElementType string
 type FieldType string
 
@@ -75,5 +73,5 @@ type Settings interface {
 type Access interface {
 	RemoveWorkspaceAccess(uuid string) error
 	AddWorkspaceAccess(uuid string) error
-	GetWorkspaces() []*workspace.Workspace
+	GetWorkspaces() []Workspace
 }
