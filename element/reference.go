@@ -10,6 +10,18 @@ type Reference struct {
 	Linked bool     `json:"linked" bson:"linked" yaml:"linked"`
 }
 
+func (r Reference) GetUUID() string {
+	return r.UUID
+}
+
+func (r Reference) GetField() []string {
+	return r.Field
+}
+
+func (r Reference) GetLinked() bool {
+	return r.Linked
+}
+
 type ReferenceGroup struct {
 	refs []Reference
 	ws   string //Workspace Handle
@@ -22,7 +34,7 @@ func (rg *ReferenceGroup) AddReference(r Reference) {
 		return
 	}
 
-	elem.ReferencedBy.AddReference(Reference{
+	elem.GetReferencedBy().AddReference(Reference{
 		UUID:   rg.e,
 		Field:  r.Field,
 		Linked: r.Linked,
