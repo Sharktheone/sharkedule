@@ -60,8 +60,9 @@ func Start() {
 
 	workspaces := api.Group("workspace") // /api/workspace
 	{
-		workspaces.Get("", workspace.List)     // GET /api/workspace
-		workspaces.Get("info", workspace.Info) // GET /api/workspace/info
+		workspaces.Get("", workspace.List)            // GET /api/workspace
+		workspaces.Post("", workspace.ListWithFields) // POST /api/workspace
+		workspaces.Get("info", workspace.Info)        // GET /api/workspace/info
 	}
 
 	ws := api.Group(":workspace") // /api/:workspace

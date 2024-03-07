@@ -6,48 +6,20 @@ import (
 	"github.com/Sharktheone/sharkedule/database/db"
 	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/field"
-	types2 "github.com/Sharktheone/sharkedule/types"
+	"github.com/Sharktheone/sharkedule/types"
 	"github.com/Sharktheone/sharkedule/user/access/workspaceaccess"
-	"github.com/Sharktheone/sharkedule/workspace"
 )
 
-func (a *Access) GetWorkspace(uuid string) (*workspace.Workspace, error) {
+func (a *Access) GetWorkspace(uuid string) (types.Workspace, error) {
 	for _, w := range a.Workspaces {
 		if w.UUID == uuid {
-			ws, error := db.DB.GetWorkspace(uuid)
-			if error != nil {
-				return nil, error
-			}
-			return &workspace.Workspace{Workspace: ws}, nil
+			return db.DB.GetWorkspace(uuid)
 		}
 	}
 	return nil, errors.New("workspace not found")
 }
-
-func (a *Access) ListWorkspaces() ([]*workspace.List, error) {
-	var list []*workspace.List
-
-	for _, w := range a.Workspaces {
-		var ws, err = db.DB.GetWorkspace(w.UUID) // we don't need to check for permissions, because we already have them => saves time
-		if err != nil {
-			return nil, err //TODO: this could be problematic, because when we haven't synced the database and so maybe not removed the workspace from the user but from the database
-		}
-
-		list = append(list, &workspace.List{
-			UUID:        ws.UUID,
-			Name:        ws.Name,
-			Description: ws.Description,
-			Cover:       ws.Cover,
-			Archived:    ws.Archived,
-			Color:       ws.Color,
-		})
-	}
-
-	return list, nil
-}
-
-func (a *Access) WorkspaceInfo() ([]*workspace.Info, error) {
-	var info []*workspace.Info
+func (a *Access) WorkspaceInfo() ([]*types.NameList, error) {
+	var info []*types.NameList
 
 	for _, w := range a.Workspaces {
 		var ws, err = db.DB.GetWorkspace(w.UUID) // we don't need to check for permissions, because we already have them => saves time
@@ -55,7 +27,7 @@ func (a *Access) WorkspaceInfo() ([]*workspace.Info, error) {
 			return nil, err //TODO: this could be problematic, because when we haven't synced the database and so maybe not removed the workspace from the user but from the database
 		}
 
-		var boards []*types2.NameList
+		var boards []*types.NameList
 		if w.AllBoards {
 			var b, err = db.DB.GetAllBoardNames(w.UUID)
 			if err != nil {

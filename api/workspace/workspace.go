@@ -19,6 +19,10 @@ func List(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(workspaces)
 }
 
+func ListWithFields(c *fiber.Ctx) error {
+	return nil
+}
+
 func Info(c *fiber.Ctx) error {
 	user, err := middleware.ExtractUser(c)
 	if err != nil {
