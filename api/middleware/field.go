@@ -2,11 +2,11 @@ package middleware
 
 import (
 	"github.com/Sharktheone/sharkedule/field"
-	"github.com/Sharktheone/sharkedule/user"
+	"github.com/Sharktheone/sharkedule/types"
 	"github.com/gofiber/fiber/v2"
 )
 
-func ExtractField(c *fiber.Ctx) (*user.User, *field.Field, error) {
+func ExtractField(c *fiber.Ctx) (*types.User, *field.Field, error) {
 	workspace := c.Params("workspace")
 	fieldUUID := c.Params("field")
 	u, err := ExtractUser(c)
@@ -14,7 +14,7 @@ func ExtractField(c *fiber.Ctx) (*user.User, *field.Field, error) {
 		return nil, nil, err
 	}
 
-	f, err := u.Access.GetField(workspace, fieldUUID)
+	f, err := u.GetAccess().GetField(workspace, fieldUUID)
 	if err != nil {
 		return nil, nil, err
 	}

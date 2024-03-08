@@ -11,7 +11,7 @@ func List(c *fiber.Ctx) error {
 		return err
 	}
 
-	workspaces, err := user.Access.ListWorkspaces()
+	workspaces, err := user.GetAccess().ListWorkspaces()
 	if err != nil {
 		return err
 	}
@@ -29,7 +29,7 @@ func Info(c *fiber.Ctx) error {
 		return err
 	}
 
-	workspace, err := user.Access.WorkspaceInfo()
+	workspace, err := user.GetAccess().WorkspaceInfo()
 	if err != nil {
 		return err
 	}
@@ -45,7 +45,7 @@ func Delete(c *fiber.Ctx) error {
 
 	uuid := c.Params("uuid")
 
-	err = user.Access.DeleteWorkspace(uuid)
+	err = user.GetAccess().DeleteWorkspace(uuid)
 	if err != nil {
 		return err
 	}
