@@ -75,4 +75,6 @@ type Access interface {
 	RemoveWorkspaceAccess(uuid string) error
 	AddWorkspaceAccess(uuid string) error
 	GetWorkspaces() []Workspace
+	GetField(workspace string, uuid string) (Field, error)
+	GetElement(workspace string, uuid string) (Element, error)
 }

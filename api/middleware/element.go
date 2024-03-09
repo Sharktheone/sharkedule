@@ -1,12 +1,11 @@
 package middleware
 
 import (
-	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/types"
 	"github.com/gofiber/fiber/v2"
 )
 
-func ExtractElement(c *fiber.Ctx) (types.User, *element.Element, error) {
+func ExtractElement(c *fiber.Ctx) (types.User, types.Element, error) {
 	workspace := c.Params("workspace")
 	elementUUID := c.Params("element")
 
