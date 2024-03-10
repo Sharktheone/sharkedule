@@ -71,10 +71,29 @@ type Settings interface {
 	SetSetting(s string, v string)
 }
 
+type WorkspaceInfoFields struct {
+	UUID   string
+	Name   string
+	Fields []Field
+}
+
+type WorkspaceInfo struct {
+	UUID     string
+	Name     string
+	BGColor  string
+	BColor   string
+	Elements []Element
+	Cover    string
+}
+
 type Access interface {
 	RemoveWorkspaceAccess(uuid string) error
 	AddWorkspaceAccess(uuid string) error
 	GetWorkspaces() []Workspace
 	GetField(workspace string, uuid string) (Field, error)
 	GetElement(workspace string, uuid string) (Element, error)
+	ListWorkspaces() ([]Workspace, error)
+	WorkspaceInfo() ([]*WorkspaceInfo, error) //TODO
+	ListWithFields(uuid string, fields []string) (*WorkspaceInfoFields, error)
+	DeleteWorkspace(uuid string) error
 }
