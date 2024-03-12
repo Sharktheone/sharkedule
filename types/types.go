@@ -27,6 +27,10 @@ type Element interface {
 	SetUser(u string)
 	GetWorkspace() string
 	SetWorkspace(ws string) //only for db
+	Attach(u string) error
+	Detach(u string) error
+	GetAttachments() []string
+	Delete() error
 }
 
 type Workspace interface {

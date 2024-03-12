@@ -18,31 +18,52 @@ func Info(c *fiber.Ctx) error {
 
 // Delete Deletes an element completely
 func Delete(c *fiber.Ctx) error {
-	_, _, err := middleware.ExtractElement(c)
+	_, e, err := middleware.ExtractElement(c)
 	if err != nil {
 		return err
 	}
 
-	//return e.Delete() //TODO not possible
-	return nil
+	return e.Delete()
 }
 
 // Detach Detaches an attachment from an element (delete from another element)
 func Detach(c *fiber.Ctx) error {
+	_, _, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+
+	}
 	return nil
 }
 
 // Attach Attaches an element to another element (copy from another element)
 func Attach(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Attach string `json:"attach"`
+	})
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	return e.Attach(payload.Attach)
 }
 
 // Attachments Gets all attachments of an element
 func Attachments(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(e.GetAttachments())
 }
 
-// List Lists all elements of a workspace / element (sub-elements)
+// List Lists all elements of a workspace / element (sub-elements) //TODO: Decide if this is not basically a duplicate of Attachments
 func List(c *fiber.Ctx) error {
 	return nil
 }
