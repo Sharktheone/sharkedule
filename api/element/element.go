@@ -70,6 +70,24 @@ func List(c *fiber.Ctx) error {
 
 // Create Creates a new element
 func Create(c *fiber.Ctx) error {
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Type   string            `json:"type"`
+		Name   string            `json:"name"`
+		Fields map[string]string `json:"fields,omitempty"`
+	})
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	_ = e.GetWorkspace()
+
+	//TODO: parse Type and Fields
+
 	return nil
 }
 

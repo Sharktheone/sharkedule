@@ -25,7 +25,8 @@ type Element interface {
 	AddReferencedBy(r Reference)
 	GetUser() string
 	SetUser(u string)
-	GetWorkspace() string
+	GetWorkspace() Workspace
+	GetWorkspaceUUID() string
 	SetWorkspace(ws string) //only for db
 	Attach(u string) error
 	Detach(u string) error
@@ -39,6 +40,9 @@ type Workspace interface {
 	GetElement(u string) (Element, error)
 	GetAllElements() ([]Element, error)
 	CreateElement(t *ElementType, name string) (Element, error)
+	CreateWithFields(t *ElementType, name string, fields []Field) (Element, error)
+	CreateElementOn(u string, t *ElementType, name string) (Element, error)
+	CreateWithFieldsOn(u string, t *ElementType, name string, fields []Field) (Element, error)
 	GetElements(u []string) ([]Element, error)
 }
 
