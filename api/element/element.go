@@ -98,12 +98,80 @@ func Update(c *fiber.Ctx) error {
 
 // Move Moves an element to another element (higher level API => could be done with attach/detach)
 func Move(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Reference string `json:"reference"`
+		To        string `json:"to"`
+		Index     int    `json:"index,omitempty"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	return e.Move(payload.Reference, payload.To, payload.Index)
 }
 
 // Copy Copies an element
 func Copy(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		To    string `json:"to"`
+		Index int    `json:"index,omitempty"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	return e.Copy(payload.To, payload.Index)
+}
+
+func MoveElement(c *fiber.Ctx) error {
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Element string `json:"element"`
+		To      string `json:"to"`
+		Index   int    `json:"index,omitempty"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	return e.MoveElement(payload.Element, payload.To, payload.Index)
+}
+
+func CopyElement(c *fiber.Ctx) error {
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Element string `json:"element"`
+		To      string `json:"to"`
+		Index   int    `json:"index,omitempty"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	return e.CopyElement(payload.Element, payload.To, payload.Index)
+
 }
 
 // GetType Gets the type of an element

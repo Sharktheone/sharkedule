@@ -32,6 +32,12 @@ type Element interface {
 	Detach(u string) error
 	GetAttachments() []string
 	Delete() error
+	Move(ref, to string, index int) error
+	Copy(to string, index int) error
+	MoveIndex(index int) error
+	GetIndex() int
+	MoveElement(e, to string, index int) error
+	CopyElement(e, to string, index int) error
 }
 
 type Workspace interface {
