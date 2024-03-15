@@ -81,7 +81,9 @@ func Start() {
 			elem.Put("attach", element.Attach)              // POST /api/:workspace/:element/attach
 			elem.Delete("detach", element.Detach)           // DELETE /api/:workspace/:element/detach
 			elem.Patch("move", element.Move)                // POST /api/:workspace/:element/move
-			elem.Post("copy", element.Copy)                 // POST /api/:workspace/:element/copy
+			elem.Patch("move_element", element.MoveElement) // POST /api/:workspace/:element/move_element
+			elem.Patch("copy", element.Copy)                // POST /api/:workspace/:element/copy
+			elem.Patch("copy_element", element.CopyElement) // POST /api/:workspace/:element/copy_element
 			elem.Get("types", element.GetType)              // GET /api/:workspace/:element/types
 			elem.Patch("types", element.UpdateType)         // PATCH /api/:workspace/:element/types
 			elem.Get("subelements", element.List)           // GET /api/:workspace/:element/subelements

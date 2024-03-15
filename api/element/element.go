@@ -171,7 +171,6 @@ func CopyElement(c *fiber.Ctx) error {
 	}
 
 	return e.CopyElement(payload.Element, payload.To, payload.Index)
-
 }
 
 // GetType Gets the type of an element
