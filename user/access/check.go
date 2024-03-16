@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/Sharktheone/sharkedule/database/db"
-	"github.com/Sharktheone/sharkedule/element"
 	"github.com/Sharktheone/sharkedule/field"
 	"github.com/Sharktheone/sharkedule/types"
 	"github.com/Sharktheone/sharkedule/user/access/workspaceaccess"
@@ -18,8 +17,8 @@ func (a *Access) GetWorkspace(uuid string) (types.Workspace, error) {
 	}
 	return nil, errors.New("workspace not found")
 }
-func (a *Access) WorkspaceInfo() ([]*types.NameList, error) {
-	var info []*types.NameList
+func (a *Access) WorkspaceInfo() ([]*types.WorkspaceInfo, error) {
+	var info []*types.WorkspaceInfo
 
 	for _, w := range a.Workspaces {
 		var ws, err = db.DB.GetWorkspace(w.UUID) // we don't need to check for permissions, because we already have them => saves time
@@ -27,39 +26,17 @@ func (a *Access) WorkspaceInfo() ([]*types.NameList, error) {
 			return nil, err //TODO: this could be problematic, because when we haven't synced the database and so maybe not removed the workspace from the user but from the database
 		}
 
-		var boards []*types.NameList
-		if w.AllBoards {
-			var b, err = db.DB.GetAllBoardNames(w.UUID)
-			if err != nil {
-				return nil, err
-			}
-			boards = b
-		} else {
-			var brds []string
-			for _, b := range w.Boards {
-				brds = append(brds, b.UUID)
-			}
-			var b, err = db.DB.GetBoardNames(w.UUID, brds)
-			if err != nil {
-				return nil, err
-			}
-			boards = b
-
-		}
+		elements, err := ws.GetAllElements()
 		if err != nil {
 			return nil, err
 		}
-
-		info = append(info, &workspace.Info{
-			List: &workspace.List{
-				UUID:        ws.UUID,
-				Name:        ws.Name,
-				Description: ws.Description,
-				Cover:       ws.Cover,
-				Archived:    ws.Archived,
-				Color:       ws.Color,
-			},
-			Boards: boards,
+		info = append(info, &types.WorkspaceInfo{
+			UUID:     ws.GetUUID(),
+			Name:     ws.GetName(),
+			BGColor:  "",
+			BColor:   "",
+			Elements: elements,
+			Cover:    "",
 		})
 	}
 
@@ -100,7 +77,7 @@ func (a *Access) DeleteWorkspace(uuid string) error {
 	return db.DB.DeleteWorkspace(uuid)
 }
 
-func (a *Access) GetElement(workspace string, uuid string) (*element.Element, error) {
+func (a *Access) GetElement(workspace string, uuid string) (types.Element, error) {
 	ws, err := a.workspace(workspace)
 	if err != nil {
 		return nil, err
