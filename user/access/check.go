@@ -55,15 +55,6 @@ func (a *Access) workspace(uuid string) (*workspaceaccess.WorkspaceAccess, error
 	return nil, errors.New("workspace not found")
 }
 
-//func (a *Access) board(workspace, uuid string) (*BoardAccess, error) {
-//	ws, err := a.workspace(workspace)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	return ws.board(uuid)
-//}
-
 func (a *Access) DeleteWorkspace(uuid string) error {
 	ws, err := a.workspace(uuid)
 	if err != nil {
