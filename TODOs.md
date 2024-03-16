@@ -33,7 +33,7 @@ a bit ironic in a todo app, but hey, it's work in progress
        - Or the idea from above and shove in the element, and it will automatically perform actions on it? - What about when we need to perform actions on multiple elements?
   
 - [ ] completely rework packages, to fix the "circular dependency" problem for a last time...
-
+- [ ] namespacing for Elements?
 - [ ] Ditch Mantine
     - [x] Notifications System => react-toastify
     - [ ] SegmentedControl
