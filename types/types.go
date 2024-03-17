@@ -107,6 +107,7 @@ type Access interface {
 	GetField(workspace string, uuid string) (Field, error)
 	GetElement(workspace string, uuid string) (Element, error)
 	ListWorkspaces() ([]Workspace, error)
+	ListWorkspacesWithFields(fields []string) ([]WorkspaceInfoFields, error)
 	WorkspaceInfo() ([]*WorkspaceInfo, error) //TODO
 	ListWithFields(uuid string, fields []string) (*WorkspaceInfoFields, error)
 	DeleteWorkspace(uuid string) error

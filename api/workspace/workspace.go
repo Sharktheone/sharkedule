@@ -20,7 +20,25 @@ func List(c *fiber.Ctx) error {
 }
 
 func ListWithFields(c *fiber.Ctx) error {
-	return nil
+	user, err := middleware.ExtractUser(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Fields []string `json:"fields"`
+	})
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	workspaces, err := user.GetAccess().ListWorkspacesWithFields(payload.Fields)
+	if err != nil {
+		return err
+	}
+
+	return c.Status(fiber.StatusOK).JSON(workspaces)
+
 }
 
 func Info(c *fiber.Ctx) error {
