@@ -3,6 +3,11 @@ package types
 type ElementType string
 type FieldType string
 
+func ElementTypeFromString(s string) (ElementType, error) {
+	//TODO: Check if the string is a valid ElementType
+	return ElementType(s), nil
+}
+
 type Field interface {
 	GetName() string
 	GetUUID() string
@@ -15,6 +20,7 @@ type Field interface {
 type Element interface {
 	GetUUID() string
 	GetType() *ElementType
+	UpdateType(t *ElementType) error
 	GetFields() []Field
 	GetField(f string) Field
 	UpdateField(f string, v string) error
@@ -38,6 +44,7 @@ type Element interface {
 	GetIndex() int
 	MoveElement(e, to string, index int) error
 	CopyElement(e, to string, index int) error
+	GetSubElements() []Element
 }
 
 type Workspace interface {

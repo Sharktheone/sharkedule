@@ -1,7 +1,9 @@
 package element
 
 import (
+	"github.com/Sharktheone/sharkedule/api"
 	"github.com/Sharktheone/sharkedule/api/middleware"
+	"github.com/Sharktheone/sharkedule/types"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -175,15 +177,55 @@ func CopyElement(c *fiber.Ctx) error {
 
 // GetType Gets the type of an element
 func GetType(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(api.JSON{"type": e.GetType()})
 }
 
 // UpdateType Updates the type of an element
 func UpdateType(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Type string `json:"type"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	ty, err := types.ElementTypeFromString(payload.Type)
+	if err != nil {
+		return err
+	}
+	return e.UpdateType(&ty)
 }
 
 // ListType -> Lists all elements of a workspace / element (sub-elements) of a specific type
 func ListType(c *fiber.Ctx) error {
-	return nil
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	sub := e.GetSubElements()
+
+	type subType struct {
+		UUID string `json:"uuid"`
+		Type string `json:"type"`
+	}
+
+	subTypes := make([]subType, len(sub))
+
+	for i, e := range sub {
+		subTypes[i] = subType{UUID: e.GetUUID(), Type: string(*e.GetType())}
+	}
+
+	return c.JSON(subTypes)
 }
