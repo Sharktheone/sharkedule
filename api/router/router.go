@@ -3,7 +3,6 @@ package router
 import (
 	"encoding/json"
 	"github.com/Sharktheone/sharkedule/api/element"
-	"github.com/Sharktheone/sharkedule/api/field"
 	"github.com/Sharktheone/sharkedule/api/workspace"
 	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2"
@@ -91,9 +90,9 @@ func Start() {
 
 			fields := elem.Group("fields") // /api/:workspace/:uuid/fields
 			{
-				fields.Get("", field.List)           // GET /api/:workspace/:element/fields
-				fields.Get(":field", field.Info)     // GET /api/:workspace/:element/fields/:field
-				fields.Patch(":field", field.Update) // PATCH /api/:workspace/:element/fields/:field
+				fields.Get("", element.FieldList)           // GET /api/:workspace/:element/fields
+				fields.Get(":field", element.FieldInfo)     // GET /api/:workspace/:element/fields/:field
+				fields.Patch(":field", element.FieldUpdate) // PATCH /api/:workspace/:element/fields/:field
 			}
 
 		}
