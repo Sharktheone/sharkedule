@@ -76,17 +76,19 @@ func Start() {
 			elem.Patch("", element.Update)  // POST /api/:workspace/:element
 			elem.Delete("", element.Delete) // DELETE /api/:workspace/:element
 
-			elem.Get("attachments", element.Attachments)    // GET /api/:workspace/:element/attachments
-			elem.Put("attach", element.Attach)              // POST /api/:workspace/:element/attach
-			elem.Delete("detach", element.Detach)           // DELETE /api/:workspace/:element/detach
-			elem.Patch("move", element.Move)                // POST /api/:workspace/:element/move
-			elem.Patch("move_element", element.MoveElement) // POST /api/:workspace/:element/move_element
-			elem.Patch("copy", element.Copy)                // POST /api/:workspace/:element/copy
-			elem.Patch("copy_element", element.CopyElement) // POST /api/:workspace/:element/copy_element
-			elem.Get("types", element.GetType)              // GET /api/:workspace/:element/types
-			elem.Patch("types", element.UpdateType)         // PATCH /api/:workspace/:element/types
-			elem.Get("subelements", element.List)           // GET /api/:workspace/:element/subelements
-			elem.Get("subelements/:type", element.ListType) // GET /api/:workspace/:element/subelements/:type
+			elem.Get("attachments", element.Attachments)           // GET /api/:workspace/:element/attachments
+			elem.Put("attach", element.Attach)                     // POST /api/:workspace/:element/attach
+			elem.Delete("detach", element.Detach)                  // DELETE /api/:workspace/:element/detach
+			elem.Patch("move", element.Move)                       // POST /api/:workspace/:element/move
+			elem.Patch("move_element", element.MoveElement)        // POST /api/:workspace/:element/move_element
+			elem.Patch("copy", element.Copy)                       // POST /api/:workspace/:element/copy
+			elem.Patch("copy_element", element.CopyElement)        // POST /api/:workspace/:element/copy_element
+			elem.Get("types", element.GetType)                     // GET /api/:workspace/:element/types
+			elem.Patch("types", element.UpdateType)                // PATCH /api/:workspace/:element/types
+			elem.Get("subelements", element.List)                  // GET /api/:workspace/:element/subelements
+			elem.Get("subelements/:type", element.ListType)        // GET /api/:workspace/:element/subelements/:type
+			elem.Get("rec_subelements", element.RecList)           // GET /api/:workspace/:element/rec_subelements
+			elem.Get("rec_subelements/:type", element.RecListType) // GET /api/:workspace/:element/rec_subelements/:type
 
 			fields := elem.Group("fields") // /api/:workspace/:uuid/fields
 			{

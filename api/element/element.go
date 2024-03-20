@@ -65,11 +65,6 @@ func Attachments(c *fiber.Ctx) error {
 	return c.JSON(e.GetAttachments())
 }
 
-// List Lists all elements of a workspace / element (sub-elements) //TODO: Decide if this is not basically a duplicate of Attachments
-func List(c *fiber.Ctx) error {
-	return nil
-}
-
 // Create Creates a new element
 func Create(c *fiber.Ctx) error {
 	_, e, err := middleware.ExtractElement(c)
@@ -207,6 +202,16 @@ func UpdateType(c *fiber.Ctx) error {
 	return e.UpdateType(&ty)
 }
 
+// List Lists all elements of a workspace / element (sub-elements)
+func List(c *fiber.Ctx) error {
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(e.GetSubElementsUUID())
+}
+
 // ListType -> Lists all elements of a workspace / element (sub-elements) of a specific type
 func ListType(c *fiber.Ctx) error {
 	_, e, err := middleware.ExtractElement(c)
@@ -214,18 +219,51 @@ func ListType(c *fiber.Ctx) error {
 		return err
 	}
 
-	sub := e.GetSubElements()
-
-	type subType struct {
-		UUID string `json:"uuid"`
+	payload := new(struct {
 		Type string `json:"type"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
 	}
 
-	subTypes := make([]subType, len(sub))
-
-	for i, e := range sub {
-		subTypes[i] = subType{UUID: e.GetUUID(), Type: string(*e.GetType())}
+	ty, err := types.ElementTypeFromString(payload.Type)
+	if err != nil {
+		return err
 	}
 
-	return c.JSON(subTypes)
+	return c.JSON(e.GetSubElementsTypeUUID(ty))
+}
+
+// RecList -> Lists all elements of a workspace / element (sub-elements) recursively
+func RecList(c *fiber.Ctx) error {
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(e.GetRecSubElementsUUID())
+}
+
+// RecListType -> Lists all elements of a workspace / element (sub-elements) of a specific type recursively
+func RecListType(c *fiber.Ctx) error {
+	_, e, err := middleware.ExtractElement(c)
+	if err != nil {
+		return err
+	}
+
+	payload := new(struct {
+		Type string `json:"type"`
+	})
+
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	ty, err := types.ElementTypeFromString(payload.Type)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(e.GetRecSubElementsTypeUUID(ty))
 }

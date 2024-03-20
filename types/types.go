@@ -45,6 +45,13 @@ type Element interface {
 	MoveElement(e, to string, index int) error
 	CopyElement(e, to string, index int) error
 	GetSubElements() []Element
+	GetSubElementsUUID() []NameList
+	GetSubElementsType(t ElementType) []Element
+	GetSubElementsTypeUUID(t ElementType) []NameList
+	GetRecSubElements() []Element
+	GetRecSubElementsUUID() []NameList
+	GetRecSubElementsType(t ElementType) []Element
+	GetRecSubElementsTypeUUID(t ElementType) []NameList
 }
 
 type Workspace interface {
@@ -118,4 +125,9 @@ type Access interface {
 	WorkspaceInfo() ([]*WorkspaceInfo, error) //TODO
 	ListWithFields(uuid string, fields []string) (*WorkspaceInfoFields, error)
 	DeleteWorkspace(uuid string) error
+}
+
+type SubType struct {
+	UUID string `json:"uuid"`
+	Type string `json:"type"`
 }
