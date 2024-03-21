@@ -92,9 +92,11 @@ func Start() {
 
 			fields := elem.Group("fields") // /api/:workspace/:uuid/fields
 			{
-				fields.Get("", element.FieldList)           // GET /api/:workspace/:element/fields
-				fields.Get(":field", element.FieldInfo)     // GET /api/:workspace/:element/fields/:field
-				fields.Patch(":field", element.FieldUpdate) // PATCH /api/:workspace/:element/fields/:field
+				fields.Get("", element.FieldList)                  // GET /api/:workspace/:element/fields
+				fields.Get(":field", element.FieldInfo)            // GET /api/:workspace/:element/fields/:field
+				fields.Patch(":field", element.FieldUpdate)        // PATCH /api/:workspace/:element/fields/:field
+				fields.Put("", element.FieldCreateScoped)          // PUT /api/:workspace/:element/fields
+				fields.Delete(":field", element.FieldDeleteScoped) // DELETE /api/:workspace/:element/fields/:field
 			}
 
 		}

@@ -22,7 +22,10 @@ type Element interface {
 	GetType() *ElementType
 	UpdateType(t *ElementType) error
 	GetFields() []Field
+	ListFields() []NameList
 	GetField(f string) Field
+	DeleteScopedField(f string) error
+	CreateScopedField(name string) error
 	UpdateField(f string, v string) error
 	GetActivity() int //TODO
 	GetReferencedBy() ReferenceGroup
