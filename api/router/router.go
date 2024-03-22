@@ -3,6 +3,7 @@ package router
 import (
 	"encoding/json"
 	"github.com/Sharktheone/sharkedule/api/element"
+	"github.com/Sharktheone/sharkedule/api/field"
 	"github.com/Sharktheone/sharkedule/api/workspace"
 	"github.com/Sharktheone/sharkedule/web"
 	"github.com/gofiber/fiber/v2"
@@ -98,6 +99,17 @@ func Start() {
 				fields.Put("", element.FieldCreateScoped)          // PUT /api/:workspace/:element/fields
 				fields.Delete(":field", element.FieldDeleteScoped) // DELETE /api/:workspace/:element/fields/:field
 			}
+		}
+
+		fields := ws.Group("fields") // /api/:workspace/fields
+		{
+			fields.Get("", field.List)             // GET /api/:workspace/fields
+			fields.Put("", field.Create)           // PUT /api/:workspace/fields
+			fields.Delete(":field", field.Delete)  // DELETE /api/:workspace/fields/:field
+			fields.Get(":field", field.Info)       // GET /api/:workspace/fields/:field
+			fields.Get("linked", field.ListLinked) // GET /api/:workspace/fields/linked
+			fields.Patch("link", field.Link)       // PATCH /api/:workspace/fields/link
+			fields.Patch("unlink", field.Unlink)   // PATCH /api/:workspace/fields/unlink
 
 		}
 	}
