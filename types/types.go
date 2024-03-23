@@ -67,6 +67,13 @@ type Workspace interface {
 	CreateElementOn(u string, t *ElementType, name string) (Element, error)
 	CreateWithFieldsOn(u string, t *ElementType, name string, fields []Field) (Element, error)
 	GetElements(u []string) ([]Element, error)
+	ListFields() []NameList
+	InfoField(uuid string) (FieldInfo, error)
+	CreateField(f string) (string, error)
+	DeleteField(f string) (string, error)
+	ListLinkedFields() []NameList
+	LinkField(f, from, to string) (string, error)
+	UnlinkField(f, from, to string) (string, error)
 }
 
 type Reference interface {
@@ -128,9 +135,16 @@ type Access interface {
 	WorkspaceInfo() ([]*WorkspaceInfo, error) //TODO
 	ListWithFields(uuid string, fields []string) (*WorkspaceInfoFields, error)
 	DeleteWorkspace(uuid string) error
+	GetWorkspace(uuid string) (Workspace, error)
 }
 
 type SubType struct {
 	UUID string `json:"uuid"`
 	Type string `json:"type"`
+}
+
+type FieldInfo struct {
+	Name string
+	Type FieldType
+	//...
 }
