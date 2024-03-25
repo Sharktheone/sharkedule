@@ -136,6 +136,72 @@ type Access interface {
 	ListWithFields(uuid string, fields []string) (*WorkspaceInfoFields, error)
 	DeleteWorkspace(uuid string) error
 	GetWorkspace(uuid string) (Workspace, error)
+	SetUser(u string)
+	SetWorkspace(ws string)
+	SetField(f string)
+	SetElement(e string)
+
+	WorkspaceGetUUID() string
+	WorkspaceGetName() string
+	WorkspaceGetElement(u string) (Element, error)
+	WorkspaceGetAllElements() ([]Element, error)
+	WorkspaceCreateElement(t *ElementType, name string) (Element, error)
+	WorkspaceCreateWithFields(t *ElementType, name string, fields []Field) (Element, error)
+	WorkspaceCreateElementOn(u string, t *ElementType, name string) (Element, error)
+	WorkspaceCreateWithFieldsOn(u string, t *ElementType, name string, fields []Field) (Element, error)
+	WorkspaceGetElements(u []string) ([]Element, error)
+	WorkspaceListFields() []NameList
+	WorkspaceInfoField(uuid string) (FieldInfo, error)
+	WorkspaceCreateField(f string) (string, error)
+	WorkspaceDeleteField(f string) (string, error)
+	WorkspaceListLinkedFields() []NameList
+	WorkspaceLinkField(f, from, to string) (string, error)
+	WorkspaceUnlinkField(f, from, to string) (string, error)
+
+	ElementGetUUID() string
+	ElementGetType() *ElementType
+	ElementUpdateType(t *ElementType) error
+	ElementGetFields() []Field
+	ElementListFields() []NameList
+	ElementGetField(f string) Field
+	ElementDeleteScopedField(f string) error
+	ElementCreateScopedField(name string) error
+	ElementUpdateField(f string, v string) error
+	ElementGetActivity() int //TODO
+	ElementGetReferencedBy() ReferenceGroup
+	ElementGetReferences() ReferenceGroup
+	ElementAddReference(r Reference)
+	ElementAddReferencedBy(r Reference)
+	ElementGetUser() string
+	ElementSetUser(u string)
+	ElementGetWorkspace() Workspace
+	ElementGetWorkspaceUUID() string
+	ElementSetWorkspace(ws string) //only for db
+	ElementAttach(u string) error
+	ElementDetach(u string) error
+	ElementGetAttachments() []string
+	ElementDelete() error
+	ElementMove(ref, to string, index int) error
+	ElementCopy(to string, index int) error
+	ElementMoveIndex(index int) error
+	ElementGetIndex() int
+	ElementMoveElement(e, to string, index int) error
+	ElementCopyElement(e, to string, index int) error
+	ElementGetSubElements() []Element
+	ElementGetSubElementsUUID() []NameList
+	ElementGetSubElementsType(t ElementType) []Element
+	ElementGetSubElementsTypeUUID(t ElementType) []NameList
+	ElementGetRecSubElements() []Element
+	ElementGetRecSubElementsUUID() []NameList
+	ElementGetRecSubElementsType(t ElementType) []Element
+	ElementGetRecSubElementsTypeUUID(t ElementType) []NameList
+
+	FieldGetName() string
+	FieldGetUUID() string
+	FieldGetValue() string
+	FieldGetProperty(p string) string
+	FieldGetParentType() ElementType
+	FieldGetFieldType() FieldType
 }
 
 type SubType struct {
