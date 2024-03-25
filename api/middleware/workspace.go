@@ -20,3 +20,18 @@ func ExtractWorkspace(c *fiber.Ctx) (types.User, types.Workspace, error) {
 
 	return u, w, nil
 }
+
+func ExtractWorkspaceAccess(c *fiber.Ctx) (types.Access, error) {
+	workspace := c.Params("workspace")
+
+	u, err := ExtractUser(c)
+	if err != nil {
+		return nil, err
+	}
+
+	access := u.GetAccess()
+
+	access.SetWorkspace(workspace)
+
+	return access, nil
+}

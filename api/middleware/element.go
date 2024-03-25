@@ -23,3 +23,20 @@ func ExtractElement(c *fiber.Ctx) (types.User, types.Element, error) {
 
 	return u, elem, nil
 }
+
+func ExtractElementAccess(c *fiber.Ctx) (types.Access, error) {
+	workspace := c.Params("workspace")
+	elementUUID := c.Params("element")
+
+	u, err := ExtractUser(c)
+	if err != nil {
+		return nil, err
+	}
+
+	access := u.GetAccess()
+
+	access.SetWorkspace(workspace)
+	access.SetElement(elementUUID)
+
+	return access, nil
+}
