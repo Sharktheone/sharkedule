@@ -141,6 +141,7 @@ type Access interface {
 	SetField(f string)
 	SetElement(e string)
 
+	WorkspaceGet() (Workspace, error)
 	WorkspaceGetUUID() string
 	WorkspaceGetName() string
 	WorkspaceGetElement(u string) (Element, error)
@@ -158,6 +159,7 @@ type Access interface {
 	WorkspaceLinkField(f, from, to string) (string, error)
 	WorkspaceUnlinkField(f, from, to string) (string, error)
 
+	ElementGet() (Element, error)
 	ElementGetUUID() string
 	ElementGetType() *ElementType
 	ElementUpdateType(t *ElementType) error
@@ -196,6 +198,7 @@ type Access interface {
 	ElementGetRecSubElementsType(t ElementType) []Element
 	ElementGetRecSubElementsTypeUUID(t ElementType) []NameList
 
+	FieldGet() (Field, error)
 	FieldGetName() string
 	FieldGetUUID() string
 	FieldGetValue() string

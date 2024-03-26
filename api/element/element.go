@@ -9,7 +9,12 @@ import (
 
 // Info Gets all properties (fields, attachments, etc) of an element
 func Info(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
+	if err != nil {
+		return err
+	}
+
+	e, err := ea.ElementGet()
 	if err != nil {
 		return err
 	}
@@ -20,27 +25,34 @@ func Info(c *fiber.Ctx) error {
 
 // Delete Deletes an element completely
 func Delete(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
 
-	return e.Delete()
+	return ea.ElementDelete()
 }
 
 // Detach Detaches an attachment from an element (delete from another element)
 func Detach(c *fiber.Ctx) error {
-	_, _, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
-
 	}
-	return nil
+
+	payload := new(struct {
+		Detach string `json:"detach"`
+	})
+	if err := c.BodyParser(payload); err != nil {
+		return err
+	}
+
+	return ea.ElementDetach(payload.Detach)
 }
 
 // Attach Attaches an element to another element (copy from another element)
 func Attach(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -52,22 +64,22 @@ func Attach(c *fiber.Ctx) error {
 		return err
 	}
 
-	return e.Attach(payload.Attach)
+	return ea.ElementAttach(payload.Attach)
 }
 
 // Attachments Gets all attachments of an element
 func Attachments(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(e.GetAttachments())
+	return c.JSON(ea.ElementGetAttachments())
 }
 
 // Create Creates a new element
 func Create(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -81,7 +93,7 @@ func Create(c *fiber.Ctx) error {
 		return err
 	}
 
-	_ = e.GetWorkspace()
+	_ = ea.ElementGetWorkspace()
 
 	//TODO: parse Type and Fields
 
@@ -95,7 +107,7 @@ func Update(c *fiber.Ctx) error {
 
 // Move Moves an element to another element (higher level API => could be done with attach/detach)
 func Move(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -110,12 +122,12 @@ func Move(c *fiber.Ctx) error {
 		return err
 	}
 
-	return e.Move(payload.Reference, payload.To, payload.Index)
+	return ea.ElementMove(payload.Reference, payload.To, payload.Index)
 }
 
 // Copy Copies an element
 func Copy(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -129,11 +141,11 @@ func Copy(c *fiber.Ctx) error {
 		return err
 	}
 
-	return e.Copy(payload.To, payload.Index)
+	return ea.ElementCopy(payload.To, payload.Index)
 }
 
 func MoveElement(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -148,11 +160,11 @@ func MoveElement(c *fiber.Ctx) error {
 		return err
 	}
 
-	return e.MoveElement(payload.Element, payload.To, payload.Index)
+	return ea.ElementMoveElement(payload.Element, payload.To, payload.Index)
 }
 
 func CopyElement(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -167,22 +179,22 @@ func CopyElement(c *fiber.Ctx) error {
 		return err
 	}
 
-	return e.CopyElement(payload.Element, payload.To, payload.Index)
+	return ea.ElementCopyElement(payload.Element, payload.To, payload.Index)
 }
 
 // GetType Gets the type of an element
 func GetType(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(api.JSON{"type": e.GetType()})
+	return c.JSON(api.JSON{"type": ea.ElementGetType()})
 }
 
 // UpdateType Updates the type of an element
 func UpdateType(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -199,22 +211,22 @@ func UpdateType(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
-	return e.UpdateType(&ty)
+	return ea.ElementUpdateType(&ty)
 }
 
 // List Lists all elements of a workspace / element (sub-elements)
 func List(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(e.GetSubElementsUUID())
+	return c.JSON(ea.ElementGetSubElementsUUID())
 }
 
 // ListType -> Lists all elements of a workspace / element (sub-elements) of a specific type
 func ListType(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -232,22 +244,22 @@ func ListType(c *fiber.Ctx) error {
 		return err
 	}
 
-	return c.JSON(e.GetSubElementsTypeUUID(ty))
+	return c.JSON(ea.ElementGetSubElementsTypeUUID(ty))
 }
 
 // RecList -> Lists all elements of a workspace / element (sub-elements) recursively
 func RecList(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(e.GetRecSubElementsUUID())
+	return c.JSON(ea.ElementGetRecSubElementsUUID())
 }
 
 // RecListType -> Lists all elements of a workspace / element (sub-elements) of a specific type recursively
 func RecListType(c *fiber.Ctx) error {
-	_, e, err := middleware.ExtractElement(c)
+	ea, err := middleware.ExtractElementAccess(c)
 	if err != nil {
 		return err
 	}
@@ -265,5 +277,5 @@ func RecListType(c *fiber.Ctx) error {
 		return err
 	}
 
-	return c.JSON(e.GetRecSubElementsTypeUUID(ty))
+	return c.JSON(ea.ElementGetRecSubElementsTypeUUID(ty))
 }
